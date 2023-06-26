@@ -1,0 +1,3362 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &19644400290305043
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 592011958455167420}
+  m_Layer: 0
+  m_Name: MonkeyRArmDigit22
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &592011958455167420
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 19644400290305043}
+  m_LocalRotation: {x: -0.009156625, y: -0.0071755154, z: 0.6166031, w: 0.7871883}
+  m_LocalPosition: {x: -0.22151424, y: -0.00000015258789, z: 0.000000076293944}
+  m_LocalScale: {x: 0.999983, y: 1.000019, z: 0.999997}
+  m_Children:
+  - {fileID: 262046781692467028}
+  m_Father: {fileID: 4756289702589116593}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &140254565333731531
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6426168248559846847}
+  m_Layer: 0
+  m_Name: MonkeyLArmDigit22
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6426168248559846847
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 140254565333731531}
+  m_LocalRotation: {x: 0.009156654, y: 0.007175323, z: 0.6166021, w: 0.787189}
+  m_LocalPosition: {x: -0.2215143, y: -0.000000076293944, z: 0.00000015258789}
+  m_LocalScale: {x: 0.999976, y: 1.000025, z: 1}
+  m_Children:
+  - {fileID: 5786901645836459458}
+  m_Father: {fileID: 2721547062976849615}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &383197000649796288
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5872675674566838926}
+  m_Layer: 0
+  m_Name: MonkeyRArmCollarbone
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5872675674566838926
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 383197000649796288}
+  m_LocalRotation: {x: -0.17804858, y: -0.6977262, z: 0.18969665, w: 0.6674519}
+  m_LocalPosition: {x: -0.1646141, y: 0.36701652, z: -0.08430268}
+  m_LocalScale: {x: 1, y: 1.000001, z: 1}
+  m_Children:
+  - {fileID: 7716063879367571018}
+  m_Father: {fileID: 1933713738676033263}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &486509795570449996
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3724880861828514772}
+  m_Layer: 0
+  m_Name: MonkeyHub003
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3724880861828514772
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 486509795570449996}
+  m_LocalRotation: {x: 0.0000000127647, y: 0.00000004975516, z: 0.13902114, w: 0.99028945}
+  m_LocalPosition: {x: -0.39841932, y: -0.000000076293944, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1639488673348146387}
+  - {fileID: 1796143000935571332}
+  - {fileID: 379488525987215306}
+  - {fileID: 2557705992814153096}
+  - {fileID: 3952946019068990664}
+  - {fileID: 1325594322835580836}
+  - {fileID: 1666289445942391375}
+  - {fileID: 665005179405181245}
+  - {fileID: 3500185427697261392}
+  - {fileID: 8636910006404204960}
+  - {fileID: 9052056232914926863}
+  - {fileID: 3408085796521598724}
+  m_Father: {fileID: 253100931778210650}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &496900898958420081
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8110440619940489811}
+  m_Layer: 0
+  m_Name: MonkeyLLegDigit53
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8110440619940489811
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 496900898958420081}
+  m_LocalRotation: {x: 0.000002153418, y: 0.00017548089, z: 0.039436065, w: 0.9992221}
+  m_LocalPosition: {x: -0.102222234, y: 0.000000009536743, z: 0}
+  m_LocalScale: {x: 1, y: 0.999999, z: 0.999999}
+  m_Children: []
+  m_Father: {fileID: 5212297411822553264}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &506832109970780803
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2721547062976849615}
+  m_Layer: 0
+  m_Name: MonkeyLArmDigit21
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2721547062976849615
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 506832109970780803}
+  m_LocalRotation: {x: -0.007973521, y: 0.04978511, z: 0.10538664, w: 0.9931523}
+  m_LocalPosition: {x: -0.37610605, y: 0.108015284, z: 0.16688217}
+  m_LocalScale: {x: 0.999989, y: 1.000012, z: 1}
+  m_Children:
+  - {fileID: 6426168248559846847}
+  m_Father: {fileID: 2423406844673887022}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &588869427162809875
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 426635706510772512}
+  m_Layer: 0
+  m_Name: MonkeyHub003Bone004
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &426635706510772512
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 588869427162809875}
+  m_LocalRotation: {x: 0.22593008, y: 0.14047505, z: -0.2489763, w: 0.93125355}
+  m_LocalPosition: {x: -0.18952698, y: -0.0525856, z: 0.08025421}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1796143000935571332}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &829013443781906011
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7999753853460170419}
+  m_Layer: 0
+  m_Name: MonkeyRArm2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7999753853460170419
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 829013443781906011}
+  m_LocalRotation: {x: -0.024476647, y: 0.30065963, z: -0.25989416, w: 0.9173112}
+  m_LocalPosition: {x: -0.83272004, y: 0.000000038146972, z: 0}
+  m_LocalScale: {x: 0.999999, y: 0.999998, z: 1.000002}
+  m_Children:
+  - {fileID: 6870088164140578370}
+  m_Father: {fileID: 7716063879367571018}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &966920682706097612
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8091154023951228206}
+  m_Layer: 0
+  m_Name: MonkeyLLegDigit13
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8091154023951228206
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 966920682706097612}
+  m_LocalRotation: {x: 0.008226031, y: 0.0013232133, z: -0.115420826, w: 0.9932818}
+  m_LocalPosition: {x: -0.14548226, y: -0.000000014305114, z: 0.000000038146972}
+  m_LocalScale: {x: 1, y: 1.000001, z: 0.999998}
+  m_Children: []
+  m_Father: {fileID: 4094272535329251783}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1185291612556188593
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3408085796521598724}
+  m_Layer: 0
+  m_Name: MonkeyHub003Bone010
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3408085796521598724
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1185291612556188593}
+  m_LocalRotation: {x: 0.00000005800437, y: -0.00000011272848, z: -0.7313537, w: 0.68199843}
+  m_LocalPosition: {x: 0.005925903, y: 0.5423633, z: -0.000000057220458}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 3724880861828514772}
+  m_RootOrder: 11
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1205362224139633187
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2841347402773940550}
+  m_Layer: 0
+  m_Name: MonkeyRArmDigit31
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2841347402773940550
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1205362224139633187}
+  m_LocalRotation: {x: -0.0368128, y: 0.04870054, z: -0.05372484, w: 0.9966879}
+  m_LocalPosition: {x: -0.37706187, y: 0.15056907, z: -0.05707756}
+  m_LocalScale: {x: 0.999991, y: 1.000011, z: 0.999998}
+  m_Children:
+  - {fileID: 1281901899746373312}
+  m_Father: {fileID: 6870088164140578370}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1382076301443296378
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1206191955938333275}
+  m_Layer: 0
+  m_Name: MonkeyLLegDigit21
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1206191955938333275
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1382076301443296378}
+  m_LocalRotation: {x: -0.030396907, y: 0.12827498, z: -0.23940681, w: 0.96192825}
+  m_LocalPosition: {x: -0.28354675, y: 0.08540968, z: 0.11579597}
+  m_LocalScale: {x: 0.999996, y: 1.000004, z: 1.000001}
+  m_Children:
+  - {fileID: 1064125435450834229}
+  m_Father: {fileID: 6843501832775558795}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1469952860734353120
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4347689420699353427}
+  m_Layer: 0
+  m_Name: MonkeyRArmIKTarget
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4347689420699353427
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1469952860734353120}
+  m_LocalRotation: {x: -0.009826198, y: -0.20880753, z: -0.7356481, w: 0.6443018}
+  m_LocalPosition: {x: 0.84027344, y: 0.30707133, z: 0.8837607}
+  m_LocalScale: {x: 0.999982, y: 1.000023, z: 0.999995}
+  m_Children: []
+  m_Father: {fileID: 137807009721150778}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1560741533258715268
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 712229835647856444}
+  m_Layer: 0
+  m_Name: MonkeyLArm1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &712229835647856444
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1560741533258715268}
+  m_LocalRotation: {x: -0.026274337, y: 0.6859616, z: -0.35562828, w: 0.6342672}
+  m_LocalPosition: {x: -0.64896506, y: 0, z: 0}
+  m_LocalScale: {x: 1.000001, y: 1.000001, z: 0.999999}
+  m_Children:
+  - {fileID: 8848721235347828367}
+  m_Father: {fileID: 2147469265000991507}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1598121606919040238
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1650320930981239437}
+  m_Layer: 0
+  m_Name: MonkeyLLeg2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1650320930981239437
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1598121606919040238}
+  m_LocalRotation: {x: -0.0033576284, y: 0.09081036, z: 0.50450337, w: 0.8586143}
+  m_LocalPosition: {x: -0.74113333, y: -0.000017547607, z: -0.0000045013426}
+  m_LocalScale: {x: 0.99999, y: 1.000007, z: 1.000001}
+  m_Children:
+  - {fileID: 6843501832775558795}
+  m_Father: {fileID: 7778479330560396503}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1685722681603131814
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 708429152315198211}
+  m_Layer: 0
+  m_Name: MonkeyRArmDigit12
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &708429152315198211
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1685722681603131814}
+  m_LocalRotation: {x: -0.000056092194, y: 0.021815054, z: 0.039745502, w: 0.9989717}
+  m_LocalPosition: {x: -0.17111488, y: 0.00000015258789, z: 0.000000019073486}
+  m_LocalScale: {x: 0.999998, y: 0.999994, z: 1.000008}
+  m_Children:
+  - {fileID: 2767693021266625699}
+  m_Father: {fileID: 3374569249781766849}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1751977781771633950
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3634039759361413503}
+  m_Layer: 0
+  m_Name: MonkeyRLegAnkle
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3634039759361413503
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1751977781771633950}
+  m_LocalRotation: {x: 0.16325365, y: 0.00737355, z: -0.60361433, w: 0.7803484}
+  m_LocalPosition: {x: -0.41770613, y: 0, z: 0}
+  m_LocalScale: {x: 1.000006, y: 0.999994, z: 1}
+  m_Children:
+  - {fileID: 4362345480138676678}
+  - {fileID: 8956217539735349139}
+  - {fileID: 857573971343390869}
+  - {fileID: 389560761948775556}
+  - {fileID: 1102737693697314033}
+  m_Father: {fileID: 3163838243087780779}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1794623051902351435
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5786901645836459458}
+  m_Layer: 0
+  m_Name: MonkeyLArmDigit23
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5786901645836459458
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1794623051902351435}
+  m_LocalRotation: {x: 0.011604444, y: 0.000774656, z: 0.066353396, w: 0.9977284}
+  m_LocalPosition: {x: -0.13124187, y: -0.000000038146972, z: 0}
+  m_LocalScale: {x: 1.000011, y: 0.99999, z: 1}
+  m_Children: []
+  m_Father: {fileID: 6426168248559846847}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1882387849537739870
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3742485736081202294}
+  m_Layer: 0
+  m_Name: MonkeyLLegDigit41
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3742485736081202294
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1882387849537739870}
+  m_LocalRotation: {x: -0.05791962, y: -0.04562999, z: -0.21906523, w: 0.9729202}
+  m_LocalPosition: {x: -0.27650157, y: 0.0807896, z: -0.057533376}
+  m_LocalScale: {x: 0.999996, y: 1.000004, z: 1}
+  m_Children:
+  - {fileID: 8971760717121652340}
+  m_Father: {fileID: 6843501832775558795}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1886950389389291846
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4094272535329251783}
+  m_Layer: 0
+  m_Name: MonkeyLLegDigit12
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4094272535329251783
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1886950389389291846}
+  m_LocalRotation: {x: 0.07150641, y: -0.06246886, z: -0.091737635, w: 0.99124604}
+  m_LocalPosition: {x: -0.18863578, y: -0.000000038146972, z: 0.000000038146972}
+  m_LocalScale: {x: 1, y: 1.000001, z: 0.999998}
+  m_Children:
+  - {fileID: 8091154023951228206}
+  m_Father: {fileID: 5085587595633052473}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2232378448467806196
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3163838243087780779}
+  m_Layer: 0
+  m_Name: MonkeyRLeg2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3163838243087780779
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2232378448467806196}
+  m_LocalRotation: {x: 0.0028691965, y: -0.116950296, z: 0.657974, w: 0.7438983}
+  m_LocalPosition: {x: -0.7411333, y: -0.000017623901, z: 0.000004653931}
+  m_LocalScale: {x: 1.000004, y: 0.999997, z: 1}
+  m_Children:
+  - {fileID: 3634039759361413503}
+  m_Father: {fileID: 2930929468317604928}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2362829514460351400
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8636910006404204960}
+  m_Layer: 0
+  m_Name: MonkeyHub003Bone008
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8636910006404204960
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2362829514460351400}
+  m_LocalRotation: {x: 0.0000000024148519, y: 0.000000013978434, z: -0.5446392, w: 0.83867043}
+  m_LocalPosition: {x: 0.03821472, y: 0.427267, z: 0.000000009536743}
+  m_LocalScale: {x: 0.999999, y: 0.999999, z: 1}
+  m_Children:
+  - {fileID: 4340674455220022476}
+  m_Father: {fileID: 3724880861828514772}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2901985326628406632
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1281901899746373312}
+  m_Layer: 0
+  m_Name: MonkeyRArmDigit32
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1281901899746373312
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2901985326628406632}
+  m_LocalRotation: {x: -0.00000016741627, y: 0.0000009402668, z: 0.71817786, w: 0.6958596}
+  m_LocalPosition: {x: -0.25619724, y: -0.00000015258789, z: 0}
+  m_LocalScale: {x: 0.999978, y: 1.000023, z: 0.999999}
+  m_Children:
+  - {fileID: 6796072470920338881}
+  m_Father: {fileID: 2841347402773940550}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &3051907423272096866
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 379488525987215306}
+  m_Layer: 0
+  m_Name: MonkeyHub003Bone005
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &379488525987215306
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3051907423272096866}
+  m_LocalRotation: {x: -0.000000009175857, y: 0.000000017145661, z: -0.708911, w: 0.70529795}
+  m_LocalPosition: {x: 0.11221817, y: 0.12859245, z: -0.000000019073486}
+  m_LocalScale: {x: 1, y: 0.999999, z: 1}
+  m_Children: []
+  m_Father: {fileID: 3724880861828514772}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &3248994676266304073
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5212297411822553264}
+  m_Layer: 0
+  m_Name: MonkeyLLegDigit52
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5212297411822553264
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3248994676266304073}
+  m_LocalRotation: {x: -0.0000028945044, y: -0.000029049128, z: 0.03796858, w: 0.99927896}
+  m_LocalPosition: {x: -0.12797849, y: 0.000000009536743, z: 0.000000076293944}
+  m_LocalScale: {x: 0.999999, y: 1.000001, z: 1}
+  m_Children:
+  - {fileID: 8110440619940489811}
+  m_Father: {fileID: 8502244560624676661}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &3355477325441092118
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3500185427697261392}
+  m_Layer: 0
+  m_Name: MonkeyHub003Bone007
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3500185427697261392
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3355477325441092118}
+  m_LocalRotation: {x: 1.5352936e-10, y: 0.0000000067141124, z: -0.5735765, w: 0.819152}
+  m_LocalPosition: {x: -0.18072554, y: 0.31938782, z: 0.0886178}
+  m_LocalScale: {x: 0.999999, y: 0.999999, z: 1}
+  m_Children: []
+  m_Father: {fileID: 3724880861828514772}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &3366826983699887867
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1764774716926089015}
+  m_Layer: 0
+  m_Name: MonkeyRLegDigit53
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1764774716926089015
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3366826983699887867}
+  m_LocalRotation: {x: -0.0000020968148, y: -0.00017553987, z: 0.039437287, w: 0.99922204}
+  m_LocalPosition: {x: -0.10222225, y: 0.000000019073486, z: -0.000000038146972}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 3486356147018443162}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &3515539793095418006
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3374569249781766849}
+  m_Layer: 0
+  m_Name: MonkeyRArmDigit11
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3374569249781766849
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3515539793095418006}
+  m_LocalRotation: {x: -0.3671625, y: -0.26740775, z: 0.004734947, w: 0.89087737}
+  m_LocalPosition: {x: 0.011612053, y: -0.02789421, z: -0.18141289}
+  m_LocalScale: {x: 0.999996, y: 0.999997, z: 1.000007}
+  m_Children:
+  - {fileID: 708429152315198211}
+  m_Father: {fileID: 6870088164140578370}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &3543566263405965465
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4352192806046881224}
+  m_Layer: 0
+  m_Name: MonkeyRArmDigit51
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4352192806046881224
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3543566263405965465}
+  m_LocalRotation: {x: 0.02141525, y: 0.2119939, z: 0.22737768, w: 0.9502102}
+  m_LocalPosition: {x: -0.28348118, y: 0.1113668, z: 0.13148636}
+  m_LocalScale: {x: 0.999989, y: 1.00001, z: 0.999999}
+  m_Children:
+  - {fileID: 1686434877933194738}
+  m_Father: {fileID: 6870088164140578370}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &3547460901582927540
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 19113978195233203}
+  m_Layer: 0
+  m_Name: MonkeyRLegDigit42
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &19113978195233203
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3547460901582927540}
+  m_LocalRotation: {x: 9.967416e-10, y: -0.029085035, z: -0.000000029785935, w: 0.9995769}
+  m_LocalPosition: {x: -0.1321773, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 812137557134627121}
+  m_Father: {fileID: 389560761948775556}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &3553778232201082033
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8466724713471732411}
+  m_Layer: 0
+  m_Name: MonkeyLArmDigit12
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8466724713471732411
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3553778232201082033}
+  m_LocalRotation: {x: 0.0000315719, y: -0.02181526, z: 0.040869206, w: 0.99892634}
+  m_LocalPosition: {x: -0.1711148, y: 0.00000015258789, z: 0}
+  m_LocalScale: {x: 0.999999, y: 0.999993, z: 1.000009}
+  m_Children:
+  - {fileID: 4599601232786126138}
+  m_Father: {fileID: 6956167400884149979}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &3639981255204360061
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1933713738676033263}
+  m_Layer: 0
+  m_Name: MonkeyHub002
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1933713738676033263
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3639981255204360061}
+  m_LocalRotation: {x: -0.019599868, y: -0.087854095, z: -0.059649773, w: 0.9941526}
+  m_LocalPosition: {x: -0.60516685, y: -0.000000076293944, z: -0.000000009536743}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 2147469265000991507}
+  - {fileID: 5872675674566838926}
+  - {fileID: 253100931778210650}
+  m_Father: {fileID: 1777112839681099136}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &3726877922576233912
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3596218006624305790}
+  m_Layer: 0
+  m_Name: MonkeyRArmDigit42
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3596218006624305790
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3726877922576233912}
+  m_LocalRotation: {x: 0.0000001715153, y: -0.0000004990949, z: 0.6552018, w: 0.7554539}
+  m_LocalPosition: {x: -0.26243332, y: 0, z: 0}
+  m_LocalScale: {x: 0.999979, y: 1.000022, z: 0.999998}
+  m_Children:
+  - {fileID: 6940592443885138836}
+  m_Father: {fileID: 7200437203619962680}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &3729953311181773454
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1102737693697314033}
+  m_Layer: 0
+  m_Name: MonkeyRLegDigit51
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1102737693697314033
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3729953311181773454}
+  m_LocalRotation: {x: 0.13373734, y: 0.08663404, z: -0.43197283, w: 0.88769835}
+  m_LocalPosition: {x: -0.25196904, y: 0.014344787, z: 0.14550777}
+  m_LocalScale: {x: 1.000003, y: 0.999996, z: 1}
+  m_Children:
+  - {fileID: 3486356147018443162}
+  m_Father: {fileID: 3634039759361413503}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &3801999670558520898
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 9052056232914926863}
+  m_Layer: 0
+  m_Name: MonkeyHub003Bone009
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &9052056232914926863
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3801999670558520898}
+  m_LocalRotation: {x: 0.000000053157354, y: -0.000000077216654, z: -0.56640613, w: 0.82412624}
+  m_LocalPosition: {x: -0.080020905, y: 0.55113554, z: -0.000000028610229}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 3724880861828514772}
+  m_RootOrder: 10
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &3830653927335490112
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 262046781692467028}
+  m_Layer: 0
+  m_Name: MonkeyRArmDigit23
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &262046781692467028
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3830653927335490112}
+  m_LocalRotation: {x: -0.011604358, y: -0.0007744415, z: 0.066353746, w: 0.9977284}
+  m_LocalPosition: {x: -0.1312419, y: 0, z: 0.000000076293944}
+  m_LocalScale: {x: 1.000007, y: 0.999995, z: 0.999997}
+  m_Children: []
+  m_Father: {fileID: 592011958455167420}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &3840666256750427878
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7716063879367571018}
+  m_Layer: 0
+  m_Name: MonkeyRArm1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7716063879367571018
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3840666256750427878}
+  m_LocalRotation: {x: -0.08191495, y: -0.5583702, z: -0.515386, w: 0.6448953}
+  m_LocalPosition: {x: -0.648965, y: 0, z: 0}
+  m_LocalScale: {x: 1.000001, y: 1, z: 0.999999}
+  m_Children:
+  - {fileID: 7999753853460170419}
+  m_Father: {fileID: 5872675674566838926}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &3888652409389985440
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4581212484444581944}
+  - component: {fileID: 3467543878626664289}
+  m_Layer: 0
+  m_Name: Creature Monkey
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4581212484444581944
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3888652409389985440}
+  m_LocalRotation: {x: -0.7070799, y: 0.006170593, z: -0.006170593, w: 0.7070799}
+  m_LocalPosition: {x: -0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 137807009721150778}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!137 &3467543878626664289
+SkinnedMeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3888652409389985440}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 6982f18e72e9e074495ec2c9386afda4, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  serializedVersion: 2
+  m_Quality: 0
+  m_UpdateWhenOffscreen: 0
+  m_SkinnedMotionVectors: 1
+  m_Mesh: {fileID: 2423832071370500400, guid: dcfe34484734d094d8d0f8b2ab770ebe, type: 3}
+  m_Bones:
+  - {fileID: 1933713738676033263}
+  - {fileID: 7716063879367571018}
+  - {fileID: 5872675674566838926}
+  - {fileID: 253100931778210650}
+  - {fileID: 6948399788885253835}
+  - {fileID: 933015329967853870}
+  - {fileID: 1777112839681099136}
+  - {fileID: 7999753853460170419}
+  - {fileID: 3724880861828514772}
+  - {fileID: 6870088164140578370}
+  - {fileID: 3374569249781766849}
+  - {fileID: 4352192806046881224}
+  - {fileID: 1934506003790133042}
+  - {fileID: 1686434877933194738}
+  - {fileID: 7200437203619962680}
+  - {fileID: 3596218006624305790}
+  - {fileID: 6796072470920338881}
+  - {fileID: 6940592443885138836}
+  - {fileID: 2841347402773940550}
+  - {fileID: 4756289702589116593}
+  - {fileID: 1281901899746373312}
+  - {fileID: 592011958455167420}
+  - {fileID: 262046781692467028}
+  - {fileID: 708429152315198211}
+  - {fileID: 2767693021266625699}
+  - {fileID: 712229835647856444}
+  - {fileID: 379488525987215306}
+  - {fileID: 2930929468317604928}
+  - {fileID: 3163838243087780779}
+  - {fileID: 7778479330560396503}
+  - {fileID: 3634039759361413503}
+  - {fileID: 4362345480138676678}
+  - {fileID: 8916887104870428947}
+  - {fileID: 8141616024697548653}
+  - {fileID: 389560761948775556}
+  - {fileID: 8956217539735349139}
+  - {fileID: 8189464082218175824}
+  - {fileID: 2040271374431310824}
+  - {fileID: 2248887031541408427}
+  - {fileID: 857573971343390869}
+  - {fileID: 1257092243330809016}
+  - {fileID: 19113978195233203}
+  - {fileID: 812137557134627121}
+  - {fileID: 1102737693697314033}
+  - {fileID: 3486356147018443162}
+  - {fileID: 1764774716926089015}
+  - {fileID: 3408085796521598724}
+  - {fileID: 8938976388067209180}
+  - {fileID: 9052056232914926863}
+  - {fileID: 4340674455220022476}
+  - {fileID: 8636910006404204960}
+  - {fileID: 1325594322835580836}
+  - {fileID: 1666289445942391375}
+  - {fileID: 2557705992814153096}
+  - {fileID: 1639488673348146387}
+  - {fileID: 1932978274635179499}
+  - {fileID: 2147469265000991507}
+  - {fileID: 8848721235347828367}
+  - {fileID: 2423406844673887022}
+  - {fileID: 6956167400884149979}
+  - {fileID: 8021124596414105571}
+  - {fileID: 7167261284687716559}
+  - {fileID: 5451790684956605289}
+  - {fileID: 7080561183634535166}
+  - {fileID: 958739097679959432}
+  - {fileID: 1298641767560512732}
+  - {fileID: 7432766759472260394}
+  - {fileID: 938624135724288282}
+  - {fileID: 2721547062976849615}
+  - {fileID: 5717649596051894489}
+  - {fileID: 6426168248559846847}
+  - {fileID: 5786901645836459458}
+  - {fileID: 8466724713471732411}
+  - {fileID: 4599601232786126138}
+  - {fileID: 1650320930981239437}
+  - {fileID: 6843501832775558795}
+  - {fileID: 5085587595633052473}
+  - {fileID: 4094272535329251783}
+  - {fileID: 8091154023951228206}
+  - {fileID: 3742485736081202294}
+  - {fileID: 1206191955938333275}
+  - {fileID: 1064125435450834229}
+  - {fileID: 4557558613781289240}
+  - {fileID: 5703746385768758771}
+  - {fileID: 5835073685486294128}
+  - {fileID: 2749434107282488625}
+  - {fileID: 8971760717121652340}
+  - {fileID: 6791333963161271574}
+  - {fileID: 8502244560624676661}
+  - {fileID: 5212297411822553264}
+  - {fileID: 8110440619940489811}
+  - {fileID: 3952946019068990664}
+  - {fileID: 665005179405181245}
+  - {fileID: 3500185427697261392}
+  - {fileID: 1796143000935571332}
+  - {fileID: 426635706510772512}
+  m_BlendShapeWeights: []
+  m_RootBone: {fileID: 933015329967853870}
+  m_AABB:
+    m_Center: {x: -0.6957998, y: 0.3791592, z: 0.12643528}
+    m_Extent: {x: 1.8737073, y: 1.3245647, z: 1.5906396}
+  m_DirtyAABB: 0
+--- !u!1 &3924629569530516120
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8971760717121652340}
+  m_Layer: 0
+  m_Name: MonkeyLLegDigit42
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8971760717121652340
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3924629569530516120}
+  m_LocalRotation: {x: 0.00000005178622, y: 0.029084584, z: 0.000000013400653, w: 0.999577}
+  m_LocalPosition: {x: -0.13217726, y: 0.000000009536743, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 6791333963161271574}
+  m_Father: {fileID: 3742485736081202294}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &3939730250057407009
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1298641767560512732}
+  m_Layer: 0
+  m_Name: MonkeyLArmDigit33
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1298641767560512732
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3939730250057407009}
+  m_LocalRotation: {x: -0.00000006391857, y: 0.0000007049099, z: 0.09030574, w: 0.9959141}
+  m_LocalPosition: {x: -0.15283196, y: -0.000000019073486, z: 0.00000015258789}
+  m_LocalScale: {x: 1.000005, y: 0.999997, z: 0.999999}
+  m_Children: []
+  m_Father: {fileID: 5717649596051894489}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &3942883239821571177
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5703746385768758771}
+  m_Layer: 0
+  m_Name: MonkeyLLegDigit23
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5703746385768758771
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3942883239821571177}
+  m_LocalRotation: {x: -0.000025955012, y: 0.02908427, z: 0.00089459104, w: 0.99957657}
+  m_LocalPosition: {x: -0.096739255, y: 0, z: -0.000000038146972}
+  m_LocalScale: {x: 1.000002, y: 0.999999, z: 1.000001}
+  m_Children: []
+  m_Father: {fileID: 1064125435450834229}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &3955496204012242369
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7200437203619962680}
+  m_Layer: 0
+  m_Name: MonkeyRArmDigit41
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7200437203619962680
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3955496204012242369}
+  m_LocalRotation: {x: -0.03908078, y: 0.112201445, z: 0.011014327, w: 0.9928556}
+  m_LocalPosition: {x: -0.35774535, y: 0.14600441, z: 0.059841573}
+  m_LocalScale: {x: 0.999993, y: 1.000008, z: 0.999999}
+  m_Children:
+  - {fileID: 3596218006624305790}
+  m_Father: {fileID: 6870088164140578370}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &4002145995561134244
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1064125435450834229}
+  m_Layer: 0
+  m_Name: MonkeyLLegDigit22
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1064125435450834229
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4002145995561134244}
+  m_LocalRotation: {x: -0.0007290364, y: 0.029947212, z: 0.025082346, w: 0.99923646}
+  m_LocalPosition: {x: -0.09329273, y: 0, z: 0}
+  m_LocalScale: {x: 1.000001, y: 0.999999, z: 1.000001}
+  m_Children:
+  - {fileID: 5703746385768758771}
+  m_Father: {fileID: 1206191955938333275}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &4013498255645744937
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 137807009721150778}
+  - component: {fileID: 8026423335408123968}
+  m_Layer: 0
+  m_Name: Creature Monkey
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &137807009721150778
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4013498255645744937}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 4581212484444581944}
+  - {fileID: 3392480041476120500}
+  - {fileID: 933015329967853870}
+  - {fileID: 2716098717248756113}
+  - {fileID: 5176002873339752310}
+  - {fileID: 4347689420699353427}
+  - {fileID: 1264074028282469024}
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &8026423335408123968
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4013498255645744937}
+  m_Enabled: 1
+  m_Avatar: {fileID: 9000000, guid: dcfe34484734d094d8d0f8b2ab770ebe, type: 3}
+  m_Controller: {fileID: 9100000, guid: 5aab21a4d0ebcbe4dbd3465a1f69fa64, type: 2}
+  m_CullingMode: 1
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 1
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!1 &4191168146915032118
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1639488673348146387}
+  m_Layer: 0
+  m_Name: MonkeyHub003Bone001
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1639488673348146387
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4191168146915032118}
+  m_LocalRotation: {x: 0.42756453, y: 0.0330925, z: 0.11176218, w: 0.8964389}
+  m_LocalPosition: {x: -0.08954696, y: 0.09177017, z: -0.22279944}
+  m_LocalScale: {x: 1, y: 1, z: 0.999999}
+  m_Children:
+  - {fileID: 1932978274635179499}
+  m_Father: {fileID: 3724880861828514772}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &4278327148784728870
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2767693021266625699}
+  m_Layer: 0
+  m_Name: MonkeyRArmDigit13
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2767693021266625699
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4278327148784728870}
+  m_LocalRotation: {x: -0.004678561, y: 0.021278989, z: 0.24816665, w: 0.96847236}
+  m_LocalPosition: {x: -0.17353189, y: 0.00000015258789, z: 0}
+  m_LocalScale: {x: 0.999992, y: 0.999999, z: 1.000009}
+  m_Children: []
+  m_Father: {fileID: 708429152315198211}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &4355284266192332246
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1934506003790133042}
+  m_Layer: 0
+  m_Name: MonkeyRArmDigit53
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1934506003790133042
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4355284266192332246}
+  m_LocalRotation: {x: -0.00000029295452, y: 0.0000001646675, z: 0.115636505, w: 0.9932916}
+  m_LocalPosition: {x: -0.08820114, y: 0, z: -0.000000038146972}
+  m_LocalScale: {x: 1.000007, y: 0.999994, z: 0.999998}
+  m_Children: []
+  m_Father: {fileID: 1686434877933194738}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &4389474572416733733
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7778479330560396503}
+  m_Layer: 0
+  m_Name: MonkeyLLeg1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7778479330560396503
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4389474572416733733}
+  m_LocalRotation: {x: -0.48394546, y: 0.8667062, z: -0.018562615, w: 0.11946791}
+  m_LocalPosition: {x: 0.029101066, y: -0.00000015258789, z: 0.24389587}
+  m_LocalScale: {x: 1.000001, y: 1, z: 0.999999}
+  m_Children:
+  - {fileID: 1650320930981239437}
+  m_Father: {fileID: 933015329967853870}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &4472599379968596290
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8021124596414105571}
+  m_Layer: 0
+  m_Name: MonkeyLArmDigit51
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8021124596414105571
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4472599379968596290}
+  m_LocalRotation: {x: -0.021415424, y: -0.21199514, z: 0.22737734, w: 0.95021003}
+  m_LocalPosition: {x: -0.28348112, y: 0.11136665, z: -0.13148636}
+  m_LocalScale: {x: 0.999988, y: 1.000012, z: 1}
+  m_Children:
+  - {fileID: 5451790684956605289}
+  m_Father: {fileID: 2423406844673887022}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &4635178136173283367
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5717649596051894489}
+  m_Layer: 0
+  m_Name: MonkeyLArmDigit32
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5717649596051894489
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4635178136173283367}
+  m_LocalRotation: {x: 0.00000026633424, y: -0.000000911622, z: 0.71817774, w: 0.69585973}
+  m_LocalPosition: {x: -0.25619724, y: 0.000000076293944, z: 0}
+  m_LocalScale: {x: 0.999977, y: 1.000024, z: 0.999999}
+  m_Children:
+  - {fileID: 1298641767560512732}
+  m_Father: {fileID: 938624135724288282}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &4646378864451975385
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1325594322835580836}
+  m_Layer: 0
+  m_Name: MonkeyHub003Bone006Bone001 1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1325594322835580836
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4646378864451975385}
+  m_LocalRotation: {x: -0.092082314, y: -0.06094808, z: -0.23201989, w: 0.9664228}
+  m_LocalPosition: {x: -0.17825423, y: 0.32567772, z: -0.0897302}
+  m_LocalScale: {x: 1, y: 1, z: 1.000001}
+  m_Children: []
+  m_Father: {fileID: 3724880861828514772}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &4685088449200743614
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 933015329967853870}
+  m_Layer: 0
+  m_Name: MonkeyHub001
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &933015329967853870
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4685088449200743614}
+  m_LocalRotation: {x: -0.684367, y: 0.15388896, z: 0.69015807, w: -0.17788148}
+  m_LocalPosition: {x: -0.000019999328, y: 1.184065, z: -0.17044717}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 7778479330560396503}
+  - {fileID: 2930929468317604928}
+  - {fileID: 6948399788885253835}
+  m_Father: {fileID: 137807009721150778}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &4769686869449688539
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3952946019068990664}
+  m_Layer: 0
+  m_Name: MonkeyHub003Bone006Bone001
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3952946019068990664
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4769686869449688539}
+  m_LocalRotation: {x: 0.09208217, y: 0.06094784, z: -0.23201986, w: 0.9664228}
+  m_LocalPosition: {x: -0.17825516, y: 0.32567772, z: 0.08973013}
+  m_LocalScale: {x: 1, y: 1, z: 0.999999}
+  m_Children: []
+  m_Father: {fileID: 3724880861828514772}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &4888657287214095800
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6940592443885138836}
+  m_Layer: 0
+  m_Name: MonkeyRArmDigit43
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6940592443885138836
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4888657287214095800}
+  m_LocalRotation: {x: 0.00000021691048, y: 0.0000007397364, z: 0.08038681, w: 0.99676377}
+  m_LocalPosition: {x: -0.14127846, y: -0.000000009536743, z: -0.000000038146972}
+  m_LocalScale: {x: 1.000009, y: 0.999993, z: 0.999998}
+  m_Children: []
+  m_Father: {fileID: 3596218006624305790}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &4939649940162623023
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 857573971343390869}
+  m_Layer: 0
+  m_Name: MonkeyRLegDigit31
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &857573971343390869
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4939649940162623023}
+  m_LocalRotation: {x: 0.028019454, y: -0.05828782, z: -0.43139106, w: 0.899844}
+  m_LocalPosition: {x: -0.3034891, y: 0.08591171, z: -0.025940055}
+  m_LocalScale: {x: 1.000004, y: 0.999996, z: 1}
+  m_Children:
+  - {fileID: 2040271374431310824}
+  m_Father: {fileID: 3634039759361413503}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &4965108943595571122
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3486356147018443162}
+  m_Layer: 0
+  m_Name: MonkeyRLegDigit52
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3486356147018443162
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4965108943595571122}
+  m_LocalRotation: {x: 0.00000293656, y: 0.000029265995, z: 0.037969753, w: 0.9992789}
+  m_LocalPosition: {x: -0.12797852, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1764774716926089015}
+  m_Father: {fileID: 1102737693697314033}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &4993812887473215422
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8502244560624676661}
+  m_Layer: 0
+  m_Name: MonkeyLLegDigit51
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8502244560624676661
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4993812887473215422}
+  m_LocalRotation: {x: -0.11797749, y: -0.11803749, z: -0.26214325, w: 0.95048904}
+  m_LocalPosition: {x: -0.251969, y: 0.014344758, z: -0.14550754}
+  m_LocalScale: {x: 0.999995, y: 1.000006, z: 1}
+  m_Children:
+  - {fileID: 5212297411822553264}
+  m_Father: {fileID: 6843501832775558795}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &5037011255690747151
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 812137557134627121}
+  m_Layer: 0
+  m_Name: MonkeyRLegDigit43
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &812137557134627121
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5037011255690747151}
+  m_LocalRotation: {x: -0.00000002946153, y: -0.0116351005, z: 0.00000002946154, w: 0.99993235}
+  m_LocalPosition: {x: -0.13217723, y: 0, z: -0.000000038146972}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 19113978195233203}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &5038153802395294271
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7432766759472260394}
+  m_Layer: 0
+  m_Name: MonkeyLArmDigit43
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7432766759472260394
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5038153802395294271}
+  m_LocalRotation: {x: -0.00000019131595, y: -0.00000059366874, z: 0.08038694, w: 0.99676377}
+  m_LocalPosition: {x: -0.14127854, y: 0, z: 0.000000076293944}
+  m_LocalScale: {x: 1.000007, y: 0.999994, z: 0.999999}
+  m_Children: []
+  m_Father: {fileID: 958739097679959432}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &5092319300936877517
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2248887031541408427}
+  m_Layer: 0
+  m_Name: MonkeyRLegDigit23
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2248887031541408427
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5092319300936877517}
+  m_LocalRotation: {x: 0.0000260775, y: -0.029084755, z: 0.000894687, w: 0.99957657}
+  m_LocalPosition: {x: -0.096739255, y: 0.000000019073486, z: 0}
+  m_LocalScale: {x: 0.999998, y: 1.000002, z: 1}
+  m_Children: []
+  m_Father: {fileID: 8189464082218175824}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &5131566764996126286
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2557705992814153096}
+  m_Layer: 0
+  m_Name: MonkeyHub003Bone006
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2557705992814153096
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5131566764996126286}
+  m_LocalRotation: {x: 1.5352936e-10, y: 0.0000000067141124, z: -0.5735765, w: 0.819152}
+  m_LocalPosition: {x: -0.18072525, y: 0.31938764, z: -0.0886178}
+  m_LocalScale: {x: 0.999999, y: 0.999999, z: 1}
+  m_Children: []
+  m_Father: {fileID: 3724880861828514772}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &5188783516226443137
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8916887104870428947}
+  m_Layer: 0
+  m_Name: MonkeyRLegDigit12
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8916887104870428947
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5188783516226443137}
+  m_LocalRotation: {x: -0.057231776, y: 0.06936593, z: 0.07018666, w: 0.9934721}
+  m_LocalPosition: {x: -0.18863575, y: 0.000000009536743, z: -0.0000000047683715}
+  m_LocalScale: {x: 1.000002, y: 1, z: 0.999998}
+  m_Children:
+  - {fileID: 8141616024697548653}
+  m_Father: {fileID: 4362345480138676678}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &5375260439353727981
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 253100931778210650}
+  m_Layer: 0
+  m_Name: MonkeySpine
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &253100931778210650
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5375260439353727981}
+  m_LocalRotation: {x: 0.000000024179723, y: -0.000000052682992, z: 0.016954124, w: 0.9998563}
+  m_LocalPosition: {x: -0.23905182, y: 0.000000076293944, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 3724880861828514772}
+  m_Father: {fileID: 1933713738676033263}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &5656429046433878898
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8141616024697548653}
+  m_Layer: 0
+  m_Name: MonkeyRLegDigit13
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8141616024697548653
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5656429046433878898}
+  m_LocalRotation: {x: -0.0050316895, y: -0.0007494045, z: -0.3550909, w: 0.93481797}
+  m_LocalPosition: {x: -0.1454822, y: 0.000000009536743, z: -0.000000019073486}
+  m_LocalScale: {x: 1.000006, y: 0.999997, z: 0.999999}
+  m_Children: []
+  m_Father: {fileID: 8916887104870428947}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &5674686890730837115
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1796143000935571332}
+  m_Layer: 0
+  m_Name: MonkeyHub003Bone003
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1796143000935571332
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5674686890730837115}
+  m_LocalRotation: {x: -0.45088392, y: -0.03600671, z: 0.11085772, w: 0.88493943}
+  m_LocalPosition: {x: -0.08954727, y: 0.09177063, z: 0.22279939}
+  m_LocalScale: {x: 0.999999, y: 1.000001, z: 0.999999}
+  m_Children:
+  - {fileID: 426635706510772512}
+  m_Father: {fileID: 3724880861828514772}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &5746004157408475387
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6870088164140578370}
+  m_Layer: 0
+  m_Name: MonkeyRArmPalm
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6870088164140578370
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5746004157408475387}
+  m_LocalRotation: {x: 0.76705223, y: -0.26073036, z: 0.18392073, w: 0.5566181}
+  m_LocalPosition: {x: -0.6138991, y: 0, z: 0}
+  m_LocalScale: {x: 0.999992, y: 1.000006, z: 1.000001}
+  m_Children:
+  - {fileID: 3374569249781766849}
+  - {fileID: 4756289702589116593}
+  - {fileID: 2841347402773940550}
+  - {fileID: 7200437203619962680}
+  - {fileID: 4352192806046881224}
+  m_Father: {fileID: 7999753853460170419}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &6178034391381448300
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1264074028282469024}
+  m_Layer: 0
+  m_Name: MonkeyRLegPlatform
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1264074028282469024
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6178034391381448300}
+  m_LocalRotation: {x: 0.44349834, y: -0.44349822, z: -0.5507351, w: 0.5507353}
+  m_LocalPosition: {x: 0.4009537, y: -0.000000034953768, z: -0.1650888}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 137807009721150778}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &6336641282319512422
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1777112839681099136}
+  m_Layer: 0
+  m_Name: MonkeySpine2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1777112839681099136
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6336641282319512422}
+  m_LocalRotation: {x: -0.01627653, y: -0.026861608, z: 0.04848063, w: 0.9983302}
+  m_LocalPosition: {x: -0.3229, y: -0.000000076293944, z: -0.000000009536743}
+  m_LocalScale: {x: 1.000001, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1933713738676033263}
+  m_Father: {fileID: 6948399788885253835}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &6347425968225380835
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 665005179405181245}
+  m_Layer: 0
+  m_Name: MonkeyHub003Bone006Bone002 1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &665005179405181245
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6347425968225380835}
+  m_LocalRotation: {x: 0.052690834, y: 0.09705042, z: -0.6585686, w: 0.74437374}
+  m_LocalPosition: {x: -0.17825545, y: 0.32567847, z: 0.08973018}
+  m_LocalScale: {x: 1, y: 0.999999, z: 1}
+  m_Children: []
+  m_Father: {fileID: 3724880861828514772}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &6404390502470889332
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2147469265000991507}
+  m_Layer: 0
+  m_Name: MonkeyLArmCollarbone
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2147469265000991507
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6404390502470889332}
+  m_LocalRotation: {x: 0.1658444, y: 0.7007272, z: 0.17801926, w: 0.670661}
+  m_LocalPosition: {x: -0.1646141, y: 0.36701652, z: 0.08430278}
+  m_LocalScale: {x: 1, y: 1.000001, z: 1}
+  m_Children:
+  - {fileID: 712229835647856444}
+  m_Father: {fileID: 1933713738676033263}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &6441037959755450331
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 958739097679959432}
+  m_Layer: 0
+  m_Name: MonkeyLArmDigit42
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &958739097679959432
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6441037959755450331}
+  m_LocalRotation: {x: -0.0000002616148, y: 0.00000072237805, z: 0.65520173, w: 0.75545394}
+  m_LocalPosition: {x: -0.26243338, y: 0, z: 0}
+  m_LocalScale: {x: 0.999978, y: 1.000022, z: 0.999999}
+  m_Children:
+  - {fileID: 7432766759472260394}
+  m_Father: {fileID: 7080561183634535166}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &6535276294886303196
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8848721235347828367}
+  m_Layer: 0
+  m_Name: MonkeyLArm2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8848721235347828367
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6535276294886303196}
+  m_LocalRotation: {x: 0.094007984, y: -0.2082146, z: -0.48534265, w: 0.84395003}
+  m_LocalPosition: {x: -0.8327198, y: -0.000000038146972, z: 0}
+  m_LocalScale: {x: 1.000003, y: 1.000001, z: 0.999998}
+  m_Children:
+  - {fileID: 2423406844673887022}
+  m_Father: {fileID: 712229835647856444}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &6628932917112683740
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1686434877933194738}
+  m_Layer: 0
+  m_Name: MonkeyRArmDigit52
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1686434877933194738
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6628932917112683740}
+  m_LocalRotation: {x: 0.000000045637158, y: -0.000000018807023, z: 0.58373487, w: 0.81194437}
+  m_LocalPosition: {x: -0.25975096, y: -0.000000076293944, z: 0}
+  m_LocalScale: {x: 0.999982, y: 1.00002, z: 0.999998}
+  m_Children:
+  - {fileID: 1934506003790133042}
+  m_Father: {fileID: 4352192806046881224}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &6709601700710341962
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2749434107282488625}
+  m_Layer: 0
+  m_Name: MonkeyLLegDigit33
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2749434107282488625
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6709601700710341962}
+  m_LocalRotation: {x: 0.000094011884, y: 0.008725961, z: 0.041582305, w: 0.999097}
+  m_LocalPosition: {x: -0.1297575, y: 0.000000009536743, z: 0.000000076293944}
+  m_LocalScale: {x: 0.999999, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4557558613781289240}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &6842232147931405374
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5176002873339752310}
+  m_Layer: 0
+  m_Name: MonkeyLLegPlatform
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5176002873339752310
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6842232147931405374}
+  m_LocalRotation: {x: 0.55073535, y: -0.5507352, z: -0.44349816, w: 0.44349828}
+  m_LocalPosition: {x: -0.4039157, y: -0.000000034953718, z: -0.6752223}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 137807009721150778}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &6941540104913073199
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3392480041476120500}
+  m_Layer: 0
+  m_Name: Monkey
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3392480041476120500
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6941540104913073199}
+  m_LocalRotation: {x: 0.50000006, y: -0.5, z: -0.4999999, w: 0.5}
+  m_LocalPosition: {x: -0.0014808973, y: 0, z: -0.011836547}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 137807009721150778}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &6981362345156425789
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2040271374431310824}
+  m_Layer: 0
+  m_Name: MonkeyRLegDigit32
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2040271374431310824
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6981362345156425789}
+  m_LocalRotation: {x: 0.0012696064, y: -0.017406294, z: 0.041955527, w: 0.99896705}
+  m_LocalPosition: {x: -0.1305549, y: -0.000000009536743, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1257092243330809016}
+  m_Father: {fileID: 857573971343390869}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &7045826929938797970
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6843501832775558795}
+  m_Layer: 0
+  m_Name: MonkeyLLegAnkle
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6843501832775558795
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7045826929938797970}
+  m_LocalRotation: {x: -0.16230333, y: -0.030281223, z: -0.8380486, w: 0.5200147}
+  m_LocalPosition: {x: -0.41770613, y: 0, z: 0}
+  m_LocalScale: {x: 0.999985, y: 1.000015, z: 1}
+  m_Children:
+  - {fileID: 5085587595633052473}
+  - {fileID: 1206191955938333275}
+  - {fileID: 5835073685486294128}
+  - {fileID: 3742485736081202294}
+  - {fileID: 8502244560624676661}
+  m_Father: {fileID: 1650320930981239437}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &7075715814654205266
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1257092243330809016}
+  m_Layer: 0
+  m_Name: MonkeyRLegDigit33
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1257092243330809016
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7075715814654205266}
+  m_LocalRotation: {x: -0.00009391157, y: -0.008726041, z: 0.041583396, w: 0.99909693}
+  m_LocalPosition: {x: -0.12975746, y: 0, z: 0.000000038146972}
+  m_LocalScale: {x: 1.000001, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2040271374431310824}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &7370187649023643361
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4362345480138676678}
+  m_Layer: 0
+  m_Name: MonkeyRLegDigit11
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4362345480138676678
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7370187649023643361}
+  m_LocalRotation: {x: -0.29265898, y: -0.3560516, z: -0.009322053, w: 0.887407}
+  m_LocalPosition: {x: 0.090743236, y: -0.07975666, z: -0.0995272}
+  m_LocalScale: {x: 1.000003, y: 0.999999, z: 0.999999}
+  m_Children:
+  - {fileID: 8916887104870428947}
+  m_Father: {fileID: 3634039759361413503}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &7402599143878043754
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8938976388067209180}
+  m_Layer: 0
+  m_Name: MonkeyHub003Bone008Bone001Bone001
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8938976388067209180
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7402599143878043754}
+  m_LocalRotation: {x: 0.000000062500305, y: -0.00000007381781, z: -0.19080909, w: 0.98162717}
+  m_LocalPosition: {x: -0.07353454, y: -0.00000015258789, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4340674455220022476}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &7453818872135523284
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5085587595633052473}
+  m_Layer: 0
+  m_Name: MonkeyLLegDigit11
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5085587595633052473
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7453818872135523284}
+  m_LocalRotation: {x: 0.16867948, y: 0.40215957, z: -0.039447084, w: 0.89903224}
+  m_LocalPosition: {x: 0.09074325, y: -0.079756714, z: 0.09952709}
+  m_LocalScale: {x: 0.999994, y: 1.000002, z: 1.000004}
+  m_Children:
+  - {fileID: 4094272535329251783}
+  m_Father: {fileID: 6843501832775558795}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &7468398409665799905
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4756289702589116593}
+  m_Layer: 0
+  m_Name: MonkeyRArmDigit21
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4756289702589116593
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7468398409665799905}
+  m_LocalRotation: {x: 0.007973585, y: -0.04978481, z: 0.10538683, w: 0.9931523}
+  m_LocalPosition: {x: -0.37610614, y: 0.108015284, z: -0.1668821}
+  m_LocalScale: {x: 0.999995, y: 1.000007, z: 0.999997}
+  m_Children:
+  - {fileID: 592011958455167420}
+  m_Father: {fileID: 6870088164140578370}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &7491630120338066211
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2930929468317604928}
+  m_Layer: 0
+  m_Name: MonkeyRLeg1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2930929468317604928
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7491630120338066211}
+  m_LocalRotation: {x: 0.7629806, y: -0.6320103, z: -0.02876634, w: 0.13265054}
+  m_LocalPosition: {x: 0.02910118, y: 0, z: -0.24389584}
+  m_LocalScale: {x: 1.000001, y: 0.999999, z: 1}
+  m_Children:
+  - {fileID: 3163838243087780779}
+  m_Father: {fileID: 933015329967853870}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &7564625423773427107
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5451790684956605289}
+  m_Layer: 0
+  m_Name: MonkeyLArmDigit52
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5451790684956605289
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7564625423773427107}
+  m_LocalRotation: {x: 0.00000011027244, y: -0.000000019367885, z: 0.58373415, w: 0.81194484}
+  m_LocalPosition: {x: -0.25975096, y: 0.000000076293944, z: 0}
+  m_LocalScale: {x: 0.999979, y: 1.000021, z: 0.999999}
+  m_Children:
+  - {fileID: 7167261284687716559}
+  m_Father: {fileID: 8021124596414105571}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &7886879093745529980
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2716098717248756113}
+  m_Layer: 0
+  m_Name: MonkeyLArmIKTarget
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2716098717248756113
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7886879093745529980}
+  m_LocalRotation: {x: 0.7142321, y: -0.6741137, z: 0.17550653, w: 0.06812336}
+  m_LocalPosition: {x: -0.89333224, y: 0.30850336, z: 1.1774851}
+  m_LocalScale: {x: 0.999992, y: 1.000021, z: 0.999987}
+  m_Children: []
+  m_Father: {fileID: 137807009721150778}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &7977555325328860247
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6956167400884149979}
+  m_Layer: 0
+  m_Name: MonkeyLArmDigit11
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6956167400884149979
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7977555325328860247}
+  m_LocalRotation: {x: 0.36720237, y: 0.2673528, z: 0.0048702504, w: 0.89087665}
+  m_LocalPosition: {x: 0.011611977, y: -0.027893752, z: 0.18141311}
+  m_LocalScale: {x: 0.999998, y: 0.999999, z: 1.000004}
+  m_Children:
+  - {fileID: 8466724713471732411}
+  m_Father: {fileID: 2423406844673887022}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &8089089736080668098
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1932978274635179499}
+  m_Layer: 0
+  m_Name: MonkeyHub003Bone002
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1932978274635179499
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8089089736080668098}
+  m_LocalRotation: {x: -0.04752891, y: -0.2116404, z: -0.22002548, w: 0.9510721}
+  m_LocalPosition: {x: -0.1918222, y: -0.011534844, z: -0.042972334}
+  m_LocalScale: {x: 1.000001, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1639488673348146387}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &8455748365215084322
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4557558613781289240}
+  m_Layer: 0
+  m_Name: MonkeyLLegDigit32
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4557558613781289240
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8455748365215084322}
+  m_LocalRotation: {x: -0.0012695857, y: 0.01740576, z: 0.041954663, w: 0.9989671}
+  m_LocalPosition: {x: -0.1305549, y: 0, z: -0.000000038146972}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 2749434107282488625}
+  m_Father: {fileID: 5835073685486294128}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &8482639608641630486
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8956217539735349139}
+  m_Layer: 0
+  m_Name: MonkeyRLegDigit21
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8956217539735349139
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8482639608641630486}
+  m_LocalRotation: {x: 0.010117548, y: -0.123998225, z: -0.41044873, w: 0.9033571}
+  m_LocalPosition: {x: -0.28354666, y: 0.08540964, z: -0.11579613}
+  m_LocalScale: {x: 1.000005, y: 0.999997, z: 1}
+  m_Children:
+  - {fileID: 8189464082218175824}
+  m_Father: {fileID: 3634039759361413503}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &8510487084015965710
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1666289445942391375}
+  m_Layer: 0
+  m_Name: MonkeyHub003Bone006Bone002
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1666289445942391375
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8510487084015965710}
+  m_LocalRotation: {x: -0.05269086, y: -0.09705043, z: -0.6585687, w: 0.7443737}
+  m_LocalPosition: {x: -0.17825454, y: 0.32567757, z: -0.08973014}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 3724880861828514772}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &8547886619472989172
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7080561183634535166}
+  m_Layer: 0
+  m_Name: MonkeyLArmDigit41
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7080561183634535166
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8547886619472989172}
+  m_LocalRotation: {x: 0.043938145, y: -0.11039069, z: -0.032303363, w: 0.992391}
+  m_LocalPosition: {x: -0.3577452, y: 0.14600419, z: -0.059841383}
+  m_LocalScale: {x: 0.999992, y: 1.000008, z: 0.999999}
+  m_Children:
+  - {fileID: 958739097679959432}
+  m_Father: {fileID: 2423406844673887022}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &8574119880577461568
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 389560761948775556}
+  m_Layer: 0
+  m_Name: MonkeyRLegDigit41
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &389560761948775556
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8574119880577461568}
+  m_LocalRotation: {x: 0.065254934, y: 0.03411135, z: -0.39252296, w: 0.91679}
+  m_LocalPosition: {x: -0.27650154, y: 0.08078968, z: 0.057533417}
+  m_LocalScale: {x: 1.000004, y: 0.999998, z: 1}
+  m_Children:
+  - {fileID: 19113978195233203}
+  m_Father: {fileID: 3634039759361413503}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &8655065371417528249
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2423406844673887022}
+  m_Layer: 0
+  m_Name: MonkeyLArmPalm
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2423406844673887022
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8655065371417528249}
+  m_LocalRotation: {x: 0.8620562, y: 0.027906727, z: -0.21688396, w: -0.45721072}
+  m_LocalPosition: {x: -0.6138993, y: 0, z: 0}
+  m_LocalScale: {x: 0.999992, y: 1.000011, z: 0.999996}
+  m_Children:
+  - {fileID: 6956167400884149979}
+  - {fileID: 2721547062976849615}
+  - {fileID: 938624135724288282}
+  - {fileID: 7080561183634535166}
+  - {fileID: 8021124596414105571}
+  m_Father: {fileID: 8848721235347828367}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &8660022288729499118
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6948399788885253835}
+  m_Layer: 0
+  m_Name: MonkeySpine1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6948399788885253835
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8660022288729499118}
+  m_LocalRotation: {x: -0.0023225364, y: 0.079502456, z: 0.07880813, w: 0.9937119}
+  m_LocalPosition: {x: -0.22258358, y: -0.0030955505, z: 0.0000000023841857}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1777112839681099136}
+  m_Father: {fileID: 933015329967853870}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &8666704352536563737
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 938624135724288282}
+  m_Layer: 0
+  m_Name: MonkeyLArmDigit31
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &938624135724288282
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8666704352536563737}
+  m_LocalRotation: {x: 0.03681302, y: -0.04870078, z: -0.053724848, w: 0.9966879}
+  m_LocalPosition: {x: -0.3770619, y: 0.15056892, z: 0.05707733}
+  m_LocalScale: {x: 0.999994, y: 1.000007, z: 1}
+  m_Children:
+  - {fileID: 5717649596051894489}
+  m_Father: {fileID: 2423406844673887022}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &8674766125316788632
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8189464082218175824}
+  m_Layer: 0
+  m_Name: MonkeyRLegDigit22
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8189464082218175824
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8674766125316788632}
+  m_LocalRotation: {x: 0.00072912767, y: -0.02994763, z: 0.025083048, w: 0.99923646}
+  m_LocalPosition: {x: -0.09329271, y: 0, z: 0.000000038146972}
+  m_LocalScale: {x: 0.999999, y: 1.000002, z: 1}
+  m_Children:
+  - {fileID: 2248887031541408427}
+  m_Father: {fileID: 8956217539735349139}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &8689919106862411906
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6791333963161271574}
+  m_Layer: 0
+  m_Name: MonkeyLLegDigit43
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6791333963161271574
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8689919106862411906}
+  m_LocalRotation: {x: 0.000000040986524, y: 0.011635059, z: -4.7691284e-10, w: 0.99993235}
+  m_LocalPosition: {x: -0.13217728, y: 0, z: 0.000000038146972}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 8971760717121652340}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &8774695688645428987
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5835073685486294128}
+  m_Layer: 0
+  m_Name: MonkeyLLegDigit31
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5835073685486294128
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8774695688645428987}
+  m_LocalRotation: {x: -0.038119934, y: 0.052004702, z: -0.26036525, w: 0.96335477}
+  m_LocalPosition: {x: -0.30348915, y: 0.08591172, z: 0.025940055}
+  m_LocalScale: {x: 0.999995, y: 1.000005, z: 1}
+  m_Children:
+  - {fileID: 4557558613781289240}
+  m_Father: {fileID: 6843501832775558795}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &8906416255914645618
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7167261284687716559}
+  m_Layer: 0
+  m_Name: MonkeyLArmDigit53
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7167261284687716559
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8906416255914645618}
+  m_LocalRotation: {x: 0.00000038988696, y: -0.00000009525117, z: 0.115636334, w: 0.9932916}
+  m_LocalPosition: {x: -0.08820129, y: 0.000000038146972, z: -0.000000076293944}
+  m_LocalScale: {x: 1.000008, y: 0.999993, z: 0.999999}
+  m_Children: []
+  m_Father: {fileID: 5451790684956605289}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &8969294413416695171
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4340674455220022476}
+  m_Layer: 0
+  m_Name: MonkeyHub003Bone008Bone001
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4340674455220022476
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8969294413416695171}
+  m_LocalRotation: {x: 0.000000009181449, y: -0.000000037285623, z: -0.15643457, w: 0.98768836}
+  m_LocalPosition: {x: -0.07353454, y: -0.00000015258789, z: -0.000000028610229}
+  m_LocalScale: {x: 0.999999, y: 0.999999, z: 1}
+  m_Children:
+  - {fileID: 8938976388067209180}
+  m_Father: {fileID: 8636910006404204960}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &9040270501842838781
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4599601232786126138}
+  m_Layer: 0
+  m_Name: MonkeyLArmDigit13
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4599601232786126138
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9040270501842838781}
+  m_LocalRotation: {x: 0.0046549654, y: -0.021245908, z: 0.24941674, w: 0.968152}
+  m_LocalPosition: {x: -0.17353183, y: 0, z: -0.000000038146972}
+  m_LocalScale: {x: 0.999992, y: 1, z: 1.000008}
+  m_Children: []
+  m_Father: {fileID: 8466724713471732411}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &9145784455916499555
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6796072470920338881}
+  m_Layer: 0
+  m_Name: MonkeyRArmDigit33
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6796072470920338881
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9145784455916499555}
+  m_LocalRotation: {x: -0.000000012301955, y: -0.0000006893738, z: 0.090306394, w: 0.99591404}
+  m_LocalPosition: {x: -0.15283188, y: 0, z: 0.000000076293944}
+  m_LocalScale: {x: 1.000011, y: 0.99999, z: 0.999999}
+  m_Children: []
+  m_Father: {fileID: 1281901899746373312}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
