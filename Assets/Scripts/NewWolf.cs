@@ -37,6 +37,7 @@ public class NewWolf : MonoBehaviour
     private bool battleStart = true;
     private float startIdleTime;
     public float idleTime = 3;
+    private Quaternion lookRotation;
     public int HP = 5;
     private bool idle = true;
     private bool chase = false;
@@ -138,6 +139,7 @@ public class NewWolf : MonoBehaviour
             playerPosition = tiger.transform.position;
             //attackRange.transform.position = tiger.transform.position;
             distance = Vector3.Distance(tiger.transform.position, transform.position);
+            lookRotation = Quaternion.LookRotation(tiger.transform.position - transform.position);
         }
         else if (playerScript.birdActive == true)
         {
@@ -215,11 +217,12 @@ public class NewWolf : MonoBehaviour
             wolfRb.AddForce(followDirection * speed);
             //attackRange.SetActive(true);
             //attackRangeActive = true;
-            
+
             //Debug.Log(distance);
             //I checked out the debug, wolf will always be at least 2.8 away from iger probably because of Tiger's size
             //Fucking finally
             //I'm going to get rid of chase because it doesn't make sense and this is already in a chase
+            transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, 3); //Turned from 5 to 3 for smooth
             if (distance < 4f)
             {
                 chase = false;
@@ -295,6 +298,7 @@ public class NewWolf : MonoBehaviour
         yield return new WaitForSeconds(idleTime);
         idle = false;
         chase = true;
+        Debug.Log("Idle Over, To See If This Plays Multiple");
     }
 
     //IEnumerator is needed to keep the attack bool active because GroundAttack() will end it right away
@@ -349,6 +353,8 @@ public class NewWolf : MonoBehaviour
         wolfRb.AddForce(followDirection * jumpForce, ForceMode.Impulse);
         attackRecoil = (transform.position - playerPosition).normalized;
         wolfRb.AddForce(attackRecoil, ForceMode.Impulse);
+        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, 5); //In case the the player runs around the Wolf
+        //right before the att
         Debug.Log("Corkscrew");
         //I don't think this is going to make much of a difference, but attack aura keeps spazzing 
         attackAura.SetActive(true);
