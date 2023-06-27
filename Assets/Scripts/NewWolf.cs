@@ -205,11 +205,12 @@ public class NewWolf : MonoBehaviour
             //Debug.Log(distance);
             //I checked out the debug, wolf will always be at least 2.8 away from iger probably because of Tiger's size
             //Fucking finally
-            if (chase == true && distance < 4f)
+            //I'm going to get rid of chase because it doesn't make sense and this is already in a chase
+            if (distance < 4f)
             {
                 chase = false;
                 launchAttack = true;
-                Debug.Log("This should only play");
+                //Debug.Log("This should only play");
                 //I'm thinking of removing recoils because the attacks will be done by triggers, not collisions
                 //I need this to stop the wolf's movement, because otherwise, the momentum of its addforce
                 //will keep pushing the Wolf even if chase is over
@@ -340,7 +341,7 @@ public class NewWolf : MonoBehaviour
     public void SetAttackLanded()
     {
         attackLanded = true;
-        Debug.Log(attackLanded);
+        Debug.Log("Attack Landed" + attackLanded);
     }
 
     //public void AirAttack()

@@ -27,9 +27,9 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1438303638}
   m_LocalRotation: {x: -0, y: -1, z: -0, w: 0}
-  m_LocalPosition: {x: 0.101, y: 0.33, z: 0.06}
-  m_LocalScale: {x: 0.9, y: 1.0526316, z: 1.0526319}
-  m_ConstrainProportionsScale: 0
+  m_LocalPosition: {x: -0.024, y: 0.33, z: 0.06}
+  m_LocalScale: {x: 0.9, y: 1.0526316, z: 1.0526316}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 1385818115537308032}
   m_RootOrder: -1
@@ -99,7 +99,7 @@ SphereCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -164,7 +164,7 @@ Transform:
   m_GameObject: {fileID: 8048470791851266537}
   m_LocalRotation: {x: -0, y: -1, z: -0, w: 0}
   m_LocalPosition: {x: -0.017921329, y: 0.317, z: 0.673}
-  m_LocalScale: {x: 0.75, y: 0.7, z: 1}
+  m_LocalScale: {x: 0.75, y: 0.7, z: 0.75}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1385818115537308032}
@@ -427,6 +427,7 @@ MonoBehaviour:
   damage: 1
   idleTime: 3
   HP: 5
+  attackLanded: 0
   attackCounter: 0
   isOnGround: 0
   attackEffect: {fileID: 7882083515859875761}
