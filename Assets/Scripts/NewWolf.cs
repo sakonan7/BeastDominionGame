@@ -22,7 +22,7 @@ public class NewWolf : MonoBehaviour
     private Rigidbody wolfRb;
     public Vector3 followDirection;
     private Vector3 attackRecoil; //direction
-    private float walkSpeed = 24;
+    private float walkSpeed = 18; //Changed from 24 because it's running to fast to the
     private int walkDirection = 0;
     private bool directionChosen = false;
     private float speed = 50;
@@ -153,6 +153,8 @@ public class NewWolf : MonoBehaviour
         //I will try invoking ChooseDirection in Start() and after each cool
 
         //Got rid of isOnGround == true
+        //I need both idle and directionChosen because basically, there are two idles, one where the Wolf stands still, and one
+        //where the Wolf runs to the
         if (idle == true && directionChosen == true && chase == false && stunned == false && testingStun == false)
         {
             StartCoroutine(IdleWalk());
