@@ -77,7 +77,7 @@ public class NewWolf : MonoBehaviour
 
     //Miscellaneous
     private GameManager gameManager;
-    private bool testingStun = true;
+    private bool testingStun = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -209,6 +209,7 @@ public class NewWolf : MonoBehaviour
             {
                 chase = false;
                 launchAttack = true;
+                Debug.Log("This should only play");
                 //I'm thinking of removing recoils because the attacks will be done by triggers, not collisions
                 //I need this to stop the wolf's movement, because otherwise, the momentum of its addforce
                 //will keep pushing the Wolf even if chase is over
@@ -244,7 +245,7 @@ public class NewWolf : MonoBehaviour
             launchAttack = false;
             StartCoroutine(PreAttackPause()); //PreAttackPause keeps playing, that's why the attack repeats, corkscrew is in there
             //PreAttackPause is not supposed to repeat. It's repeating because attack continues to equal
-            
+            //The weird thing is that this keeps repeating even though I turn off this boolean right a
         }
         //if (cooldown == true)
         //{
@@ -339,6 +340,7 @@ public class NewWolf : MonoBehaviour
     public void SetAttackLanded()
     {
         attackLanded = true;
+        Debug.Log(attackLanded);
     }
 
     //public void AirAttack()

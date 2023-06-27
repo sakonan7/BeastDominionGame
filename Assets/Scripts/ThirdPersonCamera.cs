@@ -10,6 +10,8 @@ public class ThirdPersonCamera : MonoBehaviour
     private GameObject bird;
     private float speed = 5;
     private GameManager gameManager;
+    private Vector3 originalPosition;
+    private Quaternion originalRotation;
     // Start is called before the first frame update
     void Start()
     {
@@ -18,6 +20,8 @@ public class ThirdPersonCamera : MonoBehaviour
         gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+        originalPosition = transform.position;
+        originalRotation = transform.rotation;
     }
 
     // Update is called once per frame
@@ -39,7 +43,10 @@ public class ThirdPersonCamera : MonoBehaviour
         {
             //horizontalInput = 0;
             //verticalInput = 0;
-            viewDir = new Vector3(0,0,0);
+            //viewDir = new Vector3(0,0,0);
+            Debug.Log("Recentered");
+            transform.position = originalPosition;
+            transform.rotation = originalRotation;
         }
     }
 }
