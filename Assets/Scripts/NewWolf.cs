@@ -22,8 +22,9 @@ public class NewWolf : MonoBehaviour
     private Rigidbody wolfRb;
     public Vector3 followDirection;
     private Vector3 attackRecoil; //direction
-    private float walkSpeed = 18; //Changed from 24 because it's running to fast to the
+    private float walkSpeed = 20; //Changed from 24 because it's running to fast to the
     private int walkDirection = 0;
+    private int walkUpDownDirection = 0;
     private bool directionChosen = false;
     private float speed = 50;
     private float jumpForce = 1; //Originally 8
@@ -111,6 +112,7 @@ public class NewWolf : MonoBehaviour
         }
         //dyingEffect.Play();
         ChooseDirection();
+        ChooseUpDownDirection();
         wolfAudio = GetComponent<AudioSource>();
         startIdleTime = Random.Range(2, 7);
     }
@@ -179,6 +181,18 @@ public class NewWolf : MonoBehaviour
             {
                 //Debug.Log("Right Walk");
                 wolfRb.AddForce(Vector3.right * walkSpeed);
+            }
+            //Walk Up Down Direction is for making the Wolf walk up or down to simulate walking in a diagonal
+            //I did this because I don't want to do circl
+            if (walkUpDownDirection == 0)
+            {
+                //Debug.Log("Left Walk");
+                wolfRb.AddForce(Vector3.fwd * walkSpeed);
+            }
+            else if (walkUpDownDirection == 1)
+            {
+                //Debug.Log("Right Walk");
+                wolfRb.AddForce(Vector3.back * walkSpeed);
             }
             //More important for the wolf to be able to strafe left and right more
             //followDirection = (playerPosition - transform.position).normalized;
@@ -259,6 +273,14 @@ public class NewWolf : MonoBehaviour
         //0 == left walk, 1 == right walk
         walkDirection = Random.Range(0, 2);
         directionChosen = true;
+        //Debug.Log(walkDirection);
+        //Debug.Log("Direction Chosen");
+    }
+    public void ChooseUpDownDirection()
+    {
+        //0 == left walk, 1 == right walk
+        walkUpDownDirection = Random.Range(0, 2);
+        //directionChosen = true;
         //Debug.Log(walkDirection);
         //Debug.Log("Direction Chosen");
     }
@@ -376,6 +398,7 @@ public class NewWolf : MonoBehaviour
         preAttackRecoil = 0;
         idleTime = 3;
         ChooseDirection();
+        ChooseUpDownDirection();
     }
     public void TakeDamage()
     {
@@ -433,6 +456,7 @@ public class NewWolf : MonoBehaviour
         preAttackRecoil = 0;
         idleTime = 2;
         ChooseDirection();
+        ChooseUpDownDirection();
         //Debug.Log("Let's See If There's A Walk");
         //animation.Play("Wolf New Idle");
     }
