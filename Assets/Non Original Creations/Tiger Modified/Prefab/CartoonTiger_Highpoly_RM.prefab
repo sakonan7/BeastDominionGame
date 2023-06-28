@@ -1155,7 +1155,7 @@ Animator:
   m_GameObject: {fileID: 180696}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 96f1d4c3584f9644bad0a30f31d0da7f, type: 3}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 80f75a47117f70f4a93e44b03c1a5c83, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 1
@@ -1165,6 +1165,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &188568
 GameObject:
   m_ObjectHideFlags: 0

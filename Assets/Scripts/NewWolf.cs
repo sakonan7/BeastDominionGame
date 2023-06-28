@@ -23,12 +23,12 @@ public class NewWolf : MonoBehaviour
     private Rigidbody wolfRb;
     public Vector3 followDirection;
     private Vector3 attackRecoil; //direction
-    private float walkSpeed = 30; //Changed from 24 because it's running to fast to the
+    private float walkSpeed = 60; //Changed from 24 because it's running to fast to the
     private int walkDirection = 0;
     private int walkUpDownDirection = 0;
     private bool directionChosen = false;
-    private float speed = 100;
-    private float jumpForce = 1; //Originally 8
+    private float speed = 150;
+    private float jumpForce = 5; //Originally 8
     private float attackForce = 12; //Originally 10 Changed from 15
     private float jumpAttackForce = 2;
     public int damage = 1;
@@ -118,7 +118,7 @@ public class NewWolf : MonoBehaviour
         ChooseUpDownDirection();
         wolfAudio = GetComponent<AudioSource>();
         startIdleTime = Random.Range(2, 7);
-        animator.speed = 1;
+        //animator.speed = 1;
     }
 
     // Update is called once per frame
@@ -153,7 +153,7 @@ public class NewWolf : MonoBehaviour
         if (cooldown == true)
         {
             //animation.Play("Wolf New Idle");
-            animator.speed = 0;
+            //animator.speed = 0;
         }
 
 
@@ -167,7 +167,7 @@ public class NewWolf : MonoBehaviour
         {
             StartCoroutine(IdleWalk());
             //animation.Play("Wolf Run");
-            animator.speed = 1;
+            //animator.speed = 1;
             //animation.Play("Walk 1");
             //if (playerScript.tigerActive == true)
             //{
@@ -217,7 +217,8 @@ public class NewWolf : MonoBehaviour
             //May want to get rid of this code because it may not be necessary
             //But it may be necessary if I transform during a chase
             //animation.Play("Wolf Dash");
-            animator.speed = 2;
+            //animator.speed = 2;
+            animator.SetBool("Dash", true);
             followDirection = (playerPosition - transform.position).normalized;
 
             wolfRb.AddForce(followDirection * speed);
@@ -232,6 +233,7 @@ public class NewWolf : MonoBehaviour
             if (distance < 4f)
             {
                 chase = false;
+                animator.SetBool("Dash", false);
                 launchAttack = true;
                 //Debug.Log("This should only play");
                 //I'm thinking of removing recoils because the attacks will be done by triggers, not collisions
@@ -356,7 +358,7 @@ public class NewWolf : MonoBehaviour
     public void CorkScrew()
     {
         //animation.Play("Wolf Corkscrew");
-        animator.speed = 3;
+        //animator.speed = 3;
         wolfRb.AddForce(followDirection * jumpForce, ForceMode.Impulse);
         attackRecoil = (transform.position - playerPosition).normalized;
         wolfRb.AddForce(attackRecoil, ForceMode.Impulse);
@@ -393,6 +395,7 @@ public class NewWolf : MonoBehaviour
         cooldown = true;
         //attack = false;
         Debug.Log("Cool down");
+        //animator.speed = 0;
         if (playerScript.tigerActive == true)
         {
             yield return new WaitForSeconds(2);
@@ -412,6 +415,7 @@ public class NewWolf : MonoBehaviour
         idleTime = 3;
         ChooseDirection();
         ChooseUpDownDirection();
+        //animator.speed = 1;
     }
     public void TakeDamage()
     {
@@ -451,7 +455,7 @@ public class NewWolf : MonoBehaviour
     {
         stunned = true;
         //animation.Play("Wolf Damage 2");
-        animator.speed = 10;
+        //animator.speed = 10;
         //Debug.Log("Wolf Damage");
         yield return new WaitForSeconds(1.5f);
 

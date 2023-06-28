@@ -1156,7 +1156,7 @@ public class PlayerController : MonoBehaviour
     }
     IEnumerator GameOverSlowDown()
     {
-        Time.timeScale = 0.4f;
+        Time.timeScale = 0.2f;
         yield return new WaitForSeconds(0.8f);
         Time.timeScale = 0;
     }
