@@ -1110,8 +1110,9 @@ public class PlayerController : MonoBehaviour
         {
             //Destroy(gameObject);
             //gameObject.SetActive(false);
-            Time.timeScale = 0;
+            //Time.timeScale = 0;
             Debug.Log("Game O");
+            StartCoroutine(GameOverSlowDown());
         }
     }
     public void IncreaseHealingItems()
@@ -1152,6 +1153,12 @@ public class PlayerController : MonoBehaviour
     {
         Time.timeScale = 1;
         paused = false;
+    }
+    IEnumerator GameOverSlowDown()
+    {
+        Time.timeScale = 0.4f;
+        yield return new WaitForSeconds(0.8f);
+        Time.timeScale = 0;
     }
 }
 
