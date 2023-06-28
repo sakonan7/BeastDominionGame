@@ -69,6 +69,7 @@ public class PlayerController : MonoBehaviour
     private float attackTimeLength;
     private float normalTigerAttacklength = 0.3f;
     private float distanceCloserTigerAttackLength = 0.1f;
+    private Quaternion attackRotation;
     //private float distance;
 
     private Rigidbody tigerRB;
@@ -439,10 +440,11 @@ public class PlayerController : MonoBehaviour
                     //Vector3 targetDirection = targetedEnemy.transform.position - tiger.transform.position;
                     //Vector3 newDirection = Vector3.RotateTowards(tiger.);
 
-                    Vector3 targetDirection = target.transform.position - tiger.transform.position;
-                    float singleStep = Mathf.PI * Time.deltaTime;
-                    Vector3 newDirection = Vector3.RotateTowards(tiger.transform.forward, targetDirection, singleStep, 0.0f);
-                    tiger.transform.rotation = Quaternion.LookRotation(newDirection);
+                    //Vector3 targetDirection = target.transform.position - tiger.transform.position;
+                    //float singleStep = Mathf.PI * Time.deltaTime;
+                    //Vector3 newDirection = Vector3.RotateTowards(tiger.transform.forward, targetDirection, singleStep, 0.0f);
+                    //tiger.transform.rotation = Quaternion.LookRotation(newDirection);
+                    attackRotation = Quaternion.LookRotation(target.transform.position - tiger.transform.position);
                     Strike();
                 }
                 if (running == true)
@@ -524,6 +526,7 @@ public class PlayerController : MonoBehaviour
                 //I would prefer to use nonImpulse, but it is too slow and using Impulse is unexpectedly cool
                 tigerRB.AddForce(attackDirection * 4, ForceMode.Impulse); //attack force wasn't enough //Also, it isn't enough here //Try impulse
                 //ForceMode Impulse is amazing. Needed to go from speed to 5 becaue of how fast and far it went
+                tiger.transform.rotation = Quaternion.Slerp(tiger.transform.rotation, attackRotation, 5);
             }
             //My plan for this is to have the player close the distance and once they're within 1 distance away from a foe, perform the
             //strike. I'm thinking that I don't want to use the regular AttackDuration. Use a reduced AttackDuration
@@ -775,6 +778,7 @@ public class PlayerController : MonoBehaviour
         //I guestimated from gameplay that the distance needs to be at least 15
         if (distance > 10 && lockedOn)
         {
+            tiger.transform.rotation = Quaternion.Slerp(tiger.transform.rotation, attackRotation, 5) ;
             attackTimeLength = normalTigerAttacklength;
             StartCoroutine(AttackDuration());
             tigerRB.AddForce(attackDirection * (attackForce + 14), ForceMode.Impulse);//Changed from 8 to 12
@@ -1105,7 +1109,9 @@ public class PlayerController : MonoBehaviour
         if (HP <= 0)
         {
             //Destroy(gameObject);
-            gameObject.SetActive(false);
+            //gameObject.SetActive(false);
+            Time.timeScale = 0;
+            Debug.Log("Game O");
         }
     }
     public void IncreaseHealingItems()

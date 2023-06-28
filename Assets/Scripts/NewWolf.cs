@@ -38,7 +38,7 @@ public class NewWolf : MonoBehaviour
     private float startIdleTime;
     public float idleTime = 3;
     private Quaternion lookRotation;
-    public int HP = 5;
+    public int HP = 6;
     private bool idle = true;
     private bool chase = false;
     //private bool attack = false;
@@ -101,7 +101,7 @@ public class NewWolf : MonoBehaviour
         gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
         if (gameManager.difficulty == "Normal")
         {
-            damage = 1; //For now, makeit 0 for testing rea
+            damage = 5; //For now, makeit 0 for testing rea
         }
         else if (gameManager.difficulty == "Hard")
         {
@@ -416,7 +416,7 @@ public class NewWolf : MonoBehaviour
         
         if (playerScript.tigerActive == true && HP > 0)
         {
-            //HP -= 2;
+            HP -= 2;
             //HPBar.transform.localScale = new Vector3(HPBar.transform.localScale.x - 0.008f, 0, 0);
         }
         else if (playerScript.birdActive == true && HP > 0)
