@@ -13,6 +13,7 @@ public class NewWolf : MonoBehaviour
         /// This is challenging because I need so many booleans to decide what the enemy does
         /// </summary>
     private new Animation animation;
+    private Animator animator;
 
     //private new Animator animation;
     //public GameObject focalPoint;
@@ -22,11 +23,11 @@ public class NewWolf : MonoBehaviour
     private Rigidbody wolfRb;
     public Vector3 followDirection;
     private Vector3 attackRecoil; //direction
-    private float walkSpeed = 20; //Changed from 24 because it's running to fast to the
+    private float walkSpeed = 30; //Changed from 24 because it's running to fast to the
     private int walkDirection = 0;
     private int walkUpDownDirection = 0;
     private bool directionChosen = false;
-    private float speed = 50;
+    private float speed = 100;
     private float jumpForce = 1; //Originally 8
     private float attackForce = 12; //Originally 10 Changed from 15
     private float jumpAttackForce = 2;
@@ -85,6 +86,7 @@ public class NewWolf : MonoBehaviour
     {
         //idleAnim = focalPoint.GetComponent<WolfIdleAnim>();
         animation = GetComponent<Animation>();
+        animator = GetComponent<Animator>();
 
         //animation = GetComponent<Animator>();
         wolfRb = GetComponent<Rigidbody>();
@@ -101,7 +103,7 @@ public class NewWolf : MonoBehaviour
         gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
         if (gameManager.difficulty == "Normal")
         {
-            damage = 5; //For now, makeit 0 for testing rea
+            damage = 1; //For now, makeit 0 for testing rea
         }
         else if (gameManager.difficulty == "Hard")
         {
@@ -116,6 +118,7 @@ public class NewWolf : MonoBehaviour
         ChooseUpDownDirection();
         wolfAudio = GetComponent<AudioSource>();
         startIdleTime = Random.Range(2, 7);
+        animator.speed = 1;
     }
 
     // Update is called once per frame
@@ -148,8 +151,9 @@ public class NewWolf : MonoBehaviour
         }
 
         if (cooldown == true)
-        { 
-            animation.Play("Wolf New Idle");
+        {
+            //animation.Play("Wolf New Idle");
+            animator.speed = 0;
         }
 
 
@@ -162,7 +166,8 @@ public class NewWolf : MonoBehaviour
         if (idle == true && directionChosen == true && chase == false && stunned == false && testingStun == false)
         {
             StartCoroutine(IdleWalk());
-            animation.Play("Wolf Run");
+            //animation.Play("Wolf Run");
+            animator.speed = 1;
             //animation.Play("Walk 1");
             //if (playerScript.tigerActive == true)
             //{
@@ -211,7 +216,8 @@ public class NewWolf : MonoBehaviour
             //animation.Play("Run Wolf");
             //May want to get rid of this code because it may not be necessary
             //But it may be necessary if I transform during a chase
-            animation.Play("Wolf Dash");
+            //animation.Play("Wolf Dash");
+            animator.speed = 2;
             followDirection = (playerPosition - transform.position).normalized;
 
             wolfRb.AddForce(followDirection * speed);
@@ -308,7 +314,7 @@ public class NewWolf : MonoBehaviour
 
     IEnumerator PreAttackPause()
     {
-        animation.Play("Wolf New Idle");
+        //animation.Play("Wolf New Idle");
         yield return new WaitForSeconds(0.3f);
         //Debug.Log("Pause done");
         //animation.Stop();
@@ -349,7 +355,8 @@ public class NewWolf : MonoBehaviour
     //That way, I don't need to use AttackCounter
     public void CorkScrew()
     {
-        animation.Play("Wolf Corkscrew");
+        //animation.Play("Wolf Corkscrew");
+        animator.speed = 3;
         wolfRb.AddForce(followDirection * jumpForce, ForceMode.Impulse);
         attackRecoil = (transform.position - playerPosition).normalized;
         wolfRb.AddForce(attackRecoil, ForceMode.Impulse);
@@ -443,7 +450,8 @@ public class NewWolf : MonoBehaviour
     IEnumerator StunnedDuration()
     {
         stunned = true;
-        animation.Play("Wolf Damage 2");
+        //animation.Play("Wolf Damage 2");
+        animator.speed = 10;
         //Debug.Log("Wolf Damage");
         yield return new WaitForSeconds(1.5f);
 
