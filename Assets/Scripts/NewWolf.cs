@@ -412,6 +412,7 @@ public class NewWolf : MonoBehaviour
     IEnumerator StunnedDuration()
     {
         stunned = true;
+        animator.SetBool("Damage", true);
         yield return new WaitForSeconds(1.5f);
         
         ///Basically need to cancel everything and go back to Idle Walk after an attack from the play
@@ -431,6 +432,7 @@ public class NewWolf : MonoBehaviour
         idleTime = 2;
         ChooseDirection();
         ChooseUpDownDirection();
+        animator.SetBool("Damage", false);
         animator.SetBool("Run", true);
         //Debug.Log("Let's See If There's A Walk");
         //animation.Play("Wolf New Idle");
