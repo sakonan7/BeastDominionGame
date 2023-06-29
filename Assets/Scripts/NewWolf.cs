@@ -158,7 +158,7 @@ public class NewWolf : MonoBehaviour
         if (idle == true && directionChosen == true && chase == false && stunned == false && testingStun == false)
         {
             StartCoroutine(IdleWalk());
-            
+            transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, 2);
             if (walkDirection == 0)
             {
                 wolfRb.AddForce(Vector3.left * walkSpeed);
