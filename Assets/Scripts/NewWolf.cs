@@ -127,15 +127,6 @@ public class NewWolf : MonoBehaviour
     //The Wolf having to restart its pace, rather than attacking right af
     void Update()
     {
-        //Originally had this in both the idle walk code and the chase code probably because they were methods instead of all
-        //being in the update
-
-        //Gonna rewrite the code. Now foes will put a sensor on the player
-        //But I may be worried that other foes will react to the sensor
-        //If worst comes, I will just use an interval of 1-2 seconds and just have the wolves do a jumping attack
-        //-It's not a bad alternative because it shows dyanmicness
-        //--I got, I will use a boolean attackActive that must be on for the monster to be able to att
-        //attackActive will be based on attackRange.SetActive
 
         //I'm just going to try measuring distance instead
         if (playerScript.tigerActive == true)
@@ -154,7 +145,6 @@ public class NewWolf : MonoBehaviour
         if (cooldown == true)
         {
             //animation.Play("Wolf New Idle");
-            //animator.speed = 0;
             animator.SetBool("Idle", true);
         }
 
@@ -168,31 +158,16 @@ public class NewWolf : MonoBehaviour
         if (idle == true && directionChosen == true && chase == false && stunned == false && testingStun == false)
         {
             StartCoroutine(IdleWalk());
-            //animation.Play("Wolf Run");
-            //animator.speed = 1;
-            //animation.Play("Walk 1");
-            //if (playerScript.tigerActive == true)
-            //{
-            //playerPosition = tiger.transform.position;
-            //}
-            //else if (playerScript.birdActive == true)
-            //{
-            //playerPosition = bird.transform.position;
-            //}
-
-            //For some reason, these parts are not playing after the first att
+            
             if (walkDirection == 0)
             {
-                //Debug.Log("Left Walk");
                 wolfRb.AddForce(Vector3.left * walkSpeed);
             }
             else if (walkDirection == 1)
             {
-                //Debug.Log("Right Walk");
                 wolfRb.AddForce(Vector3.right * walkSpeed);
             }
-            //Walk Up Down Direction is for making the Wolf walk up or down to simulate walking in a diagonal
-            //I did this because I don't want to do circl
+            //I think walking diagonally is good because I think dogs walk diagonally, not side
             if (walkUpDownDirection == 0)
             {
                 //Debug.Log("Left Walk");
@@ -203,9 +178,6 @@ public class NewWolf : MonoBehaviour
                 //Debug.Log("Right Walk");
                 wolfRb.AddForce(Vector3.back * walkSpeed);
             }
-            //More important for the wolf to be able to strafe left and right more
-            //followDirection = (playerPosition - transform.position).normalized;
-            //wolfRb.AddForce(followDirection * walkSpeed);
         }
         //So actions are only performed on the ground
         //Got rid of //cooldown == false, then  && attack == false && isOnGround == true
@@ -308,7 +280,7 @@ public class NewWolf : MonoBehaviour
         yield return new WaitForSeconds(idleTime);
         idle = false;
         chase = true;
-        Debug.Log("Idle Over, To See If This Plays Multiple");
+        //Debug.Log("Idle Over, To See If This Plays Multiple");
         animator.SetBool("Run", false);
     }
 
@@ -333,21 +305,8 @@ public class NewWolf : MonoBehaviour
 
         attack = true;
 
-        //I should not need the attack and chase boole
-        //I want the wolf to stop dead in its tracks, try applying a small backwards force
-        //-Looks like I already did months ago
-        //Debug.Log("special Invincibility: " + playerScript.specialInvincibility); //Need to check why my invincibility frame isn't work
-        //Invincibility didn't work because I used || instead of &&. I think I need to use && because both invincibilities have to be false
-        //It worked. It makes so much sense, because the only way for the dodge to work with || is if both invincibilities are true
-        //, but that could never happ
-        //Oops, accidentally did playerScript.stunnedI
-        //if (attackCounter == 0)
-        //{
-            
-            
-        //}
         //attackCounter = 1; //Putting it here because regardless, the wolf will not repeat an attack
-        yield return new WaitForSeconds(0.8f);
+        yield return new WaitForSeconds(0.4f);
         animator.SetBool("Ground Attack", false);
         attack = false;
         attackAura.SetActive(false);
@@ -386,20 +345,12 @@ public class NewWolf : MonoBehaviour
         Debug.Log("Attack Landed" + attackLanded);
     }
 
-    //public void AirAttack()
-    //{
-    //attack = true;
-    //animation.Play("Jump_Attack");
-    //wolfRb.AddForce(Vector3.up * 5, ForceMode.Impulse);
-    //wolfRb.AddForce(followDirection * jumpForce, ForceMode.Impulse);
-    //Debug.Log("Jump Attack");
-    //}
 
     IEnumerator StartCoolDown()
     {
         cooldown = true;
         //attack = false;
-        Debug.Log("Cool down");
+        //Debug.Log("Cool down");
         //animator.speed = 0;
         if (playerScript.tigerActive == true)
         {
@@ -461,9 +412,6 @@ public class NewWolf : MonoBehaviour
     IEnumerator StunnedDuration()
     {
         stunned = true;
-        //animation.Play("Wolf Damage 2");
-        //animator.speed = 10;
-        //Debug.Log("Wolf Damage");
         yield return new WaitForSeconds(1.5f);
         
         ///Basically need to cancel everything and go back to Idle Walk after an attack from the play
