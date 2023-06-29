@@ -119,6 +119,7 @@ public class NewWolf : MonoBehaviour
         wolfAudio = GetComponent<AudioSource>();
         startIdleTime = Random.Range(2, 7);
         //animator.speed = 1;
+        animator.SetBool("Run", true);
     }
 
     // Update is called once per frame
@@ -154,6 +155,7 @@ public class NewWolf : MonoBehaviour
         {
             //animation.Play("Wolf New Idle");
             //animator.speed = 0;
+            animator.SetBool("Idle", true);
         }
 
 
@@ -307,6 +309,7 @@ public class NewWolf : MonoBehaviour
         idle = false;
         chase = true;
         Debug.Log("Idle Over, To See If This Plays Multiple");
+        animator.SetBool("Run", false);
     }
 
     //IEnumerator is needed to keep the attack bool active because GroundAttack() will end it right away
@@ -345,6 +348,7 @@ public class NewWolf : MonoBehaviour
         //}
         //attackCounter = 1; //Putting it here because regardless, the wolf will not repeat an attack
         yield return new WaitForSeconds(0.8f);
+        animator.SetBool("Ground Attack", false);
         attack = false;
         attackAura.SetActive(false);
         attackRange.SetActive(false);
@@ -358,6 +362,7 @@ public class NewWolf : MonoBehaviour
     public void CorkScrew()
     {
         //animation.Play("Wolf Corkscrew");
+        animator.SetBool("Ground Attack", true);
         //animator.speed = 3;
         wolfRb.AddForce(followDirection * jumpForce, ForceMode.Impulse);
         attackRecoil = (transform.position - playerPosition).normalized;
@@ -415,6 +420,8 @@ public class NewWolf : MonoBehaviour
         idleTime = 3;
         ChooseDirection();
         ChooseUpDownDirection();
+        animator.SetBool("Idle", false);
+        animator.SetBool("Run", true);
         //animator.speed = 1;
     }
     public void TakeDamage()
@@ -458,7 +465,8 @@ public class NewWolf : MonoBehaviour
         //animator.speed = 10;
         //Debug.Log("Wolf Damage");
         yield return new WaitForSeconds(1.5f);
-
+        
+        ///Basically need to cancel everything and go back to Idle Walk after an attack from the play
         stunned = false;
         //attack = false;
         //launchAttack = false;
@@ -475,6 +483,7 @@ public class NewWolf : MonoBehaviour
         idleTime = 2;
         ChooseDirection();
         ChooseUpDownDirection();
+        animator.SetBool("Run", true);
         //Debug.Log("Let's See If There's A Walk");
         //animation.Play("Wolf New Idle");
     }
