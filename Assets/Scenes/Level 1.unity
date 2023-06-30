@@ -330,7 +330,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 88279915}
-  m_LocalRotation: {x: 0.34145796, y: 0.00000466209, z: 0.00000012977097, w: 0.93989706}
+  m_LocalRotation: {x: 0.34145796, y: 0.000004613442, z: 0.00000012841673, w: 0.93989706}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -2479,6 +2479,10 @@ PrefabInstance:
       propertyPath: orientation
       value: 
       objectReference: {fileID: 23484207}
+    - target: {fileID: 1550653510, guid: cc5d1e7149cb79549b8d52ad54f5c8e3, type: 3}
+      propertyPath: tigerSpecial
+      value: 
+      objectReference: {fileID: 8300000, guid: 04ba6a390c5214747bff88495875583d, type: 3}
     - target: {fileID: 1550653510, guid: cc5d1e7149cb79549b8d52ad54f5c8e3, type: 3}
       propertyPath: damageDisplay
       value: 

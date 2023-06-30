@@ -80,7 +80,7 @@ public class NewWolf : MonoBehaviour
 
     //Miscellaneous
     private GameManager gameManager;
-    private bool testingStun = false;
+    private bool testingStun = true;
     // Start is called before the first frame update
     void Start()
     {
@@ -125,7 +125,7 @@ public class NewWolf : MonoBehaviour
     // Update is called once per frame
     //Want Wolf to go back to chasing the player after getting stunned by an attack, but there are benefits to
     //The Wolf having to restart its pace, rather than attacking right af
-    void Update()
+    void FixedUpdate()
     {
 
         //I'm just going to try measuring distance instead
@@ -231,12 +231,12 @@ public class NewWolf : MonoBehaviour
         //Calculate the distance between Wolf and all objects. and then testing if the object has the tag 
         //Make this a method because this will only be invoked after an attack
         //I don't think I can test this unless I use an att
-        if (testingStun == true)
-        {
-            wolfRb.AddForce(Vector3.left * speed);
-            JumpBack();//I think this part should test if this method works because this loop will continue to play
+        //if (testingStun == true)
+        //{
+            //wolfRb.AddForce(Vector3.left * speed);
+            //JumpBack();//I think this part should test if this method works because this loop will continue to play
             //as long as testingStun == 
-        }
+        //}
 
     }
     public void ChooseDirection()
@@ -429,19 +429,21 @@ public class NewWolf : MonoBehaviour
             //The only option is that array check function from the last part of the
             GameObject[] Walls = GameObject.FindGameObjectsWithTag("Wall"); //I think I can do this after an attack, but 
         //I think outside of attacks, I should put this in Start so I don't have to keep recalculating GameObject[] 
-    bool jumpedBack = false;//Use this bool so that the Wolf jumps back only once //Also so each time this method 
+    //bool jumpedBack = false;//Use this bool so that the Wolf jumps back only once //Also so each time this method 
         //is called, jumpedBack will be false a
-            for (int i = 0; i<Walls.Length; i++)
-            {
-                if (Vector3.Distance(Walls[i].transform.position, transform.position)< 4 && jumpedBack == false)
-                {
-                    jumpedBack = true;
+        //Atm, I will have it play after every attack because I think the code only works if the Wolf is directly in front of the middle
+        //of the 
+            //for (int i = 0; i<Walls.Length; i++)
+            //{
+                //if (Vector3.Distance(Walls[i].transform.position, transform.position)< 4 && jumpedBack == false)
+                //{
+                    //jumpedBack = true;
                 //Code for Jumping back
                 wolfRb.AddForce(Vector3.back * attackForce, ForceMode.Impulse);
                 Debug.Log("Jumped Back");
                 animator.SetBool("Near Wall", true);
-                }
-            }
+                //}
+            //}
         StartCoroutine(StartCoolDown());
     }
     public void OnCollisionEnter(Collision collision)
@@ -471,7 +473,7 @@ public class NewWolf : MonoBehaviour
             //But I don't want the player to whiff attacks, so I think I will make sure the tiger is the right distance from the wolf
             //Unless I can make a force play until a certain distance is reached
             //I can't use forcemode.impulse then
-            wolfRb.AddForce(playerScript.attackDirection * 12, ForceMode.Impulse);
+            wolfRb.AddForce(playerScript.attackDirection * 15, ForceMode.Impulse);
             playerScript.AttackLandedTrue();
         }
     }

@@ -46,6 +46,7 @@ public class PlayerController : MonoBehaviour
     public ParticleSystem regularHitEffect;
     public GameObject tigerAttackEffect;
     public Transform transformEffect;
+    public AudioClip tigerSpecial;
 
     //Either make the Rigidbody bigger or make a sensor
     //*Rigidybody might not be better because the tiger will spin. I can stop the sensor from rotating, but not the
@@ -188,7 +189,7 @@ public class PlayerController : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         //Debug.Log(distance);
         if (Input.GetKeyDown(KeyCode.F) && paused == false)
@@ -732,6 +733,7 @@ public class PlayerController : MonoBehaviour
     {
         attack = true;
         //specialInvincibility = true;
+        playerAudio.PlayOneShot(tigerSpecial, 0.2f);
         bladeOfLight.SetActive(true);
         yield return new WaitForSeconds(2f);
         attack = false;
