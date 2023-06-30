@@ -80,7 +80,7 @@ public class NewWolf : MonoBehaviour
 
     //Miscellaneous
     private GameManager gameManager;
-    private bool testingStun = true;
+    private bool testingStun = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -295,7 +295,8 @@ public class NewWolf : MonoBehaviour
         attackRange.SetActive(false);
         attackLanded = false;
         Debug.Log("Attack over");
-        StartCoroutine(StartCoolDown());
+        JumpBack();
+        
         
     }
     //I think I will have the attack method AND the AttackDuration
@@ -331,6 +332,7 @@ public class NewWolf : MonoBehaviour
     IEnumerator StartCoolDown()
     {
         cooldown = true;
+        animator.SetBool("Near Wall", false);
         if (playerScript.tigerActive == true)
         {
             yield return new WaitForSeconds(2);
@@ -427,7 +429,8 @@ public class NewWolf : MonoBehaviour
             //The only option is that array check function from the last part of the
             GameObject[] Walls = GameObject.FindGameObjectsWithTag("Wall"); //I think I can do this after an attack, but 
         //I think outside of attacks, I should put this in Start so I don't have to keep recalculating GameObject[] 
-    bool jumpedBack = false;//Use this bool so that the Wolf jumps back only once
+    bool jumpedBack = false;//Use this bool so that the Wolf jumps back only once //Also so each time this method 
+        //is called, jumpedBack will be false a
             for (int i = 0; i<Walls.Length; i++)
             {
                 if (Vector3.Distance(Walls[i].transform.position, transform.position)< 4 && jumpedBack == false)
@@ -436,9 +439,11 @@ public class NewWolf : MonoBehaviour
                 //Code for Jumping back
                 wolfRb.AddForce(Vector3.back * attackForce, ForceMode.Impulse);
                 Debug.Log("Jumped Back");
+                animator.SetBool("Near Wall", true);
                 }
             }
-        }
+        StartCoroutine(StartCoolDown());
+    }
     public void OnCollisionEnter(Collision collision)
     {
         //if (collision.gameObject.CompareTag("Player") && attack == true && playerScript.dodge == false)
