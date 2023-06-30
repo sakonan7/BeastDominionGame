@@ -351,9 +351,6 @@ PrefabInstance:
       addedObject: {fileID: 237391345}
     - targetCorrespondingSourceObject: {fileID: 100082, guid: 6d146be2ce439e4408ac3c30fb154fff, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 3465818091039223186}
-    - targetCorrespondingSourceObject: {fileID: 100082, guid: 6d146be2ce439e4408ac3c30fb154fff, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 5531718391197527315}
     - targetCorrespondingSourceObject: {fileID: 100082, guid: 6d146be2ce439e4408ac3c30fb154fff, type: 3}
       insertIndex: -1
@@ -436,27 +433,6 @@ MonoBehaviour:
   attackEffect: {fileID: 7882083515859875761}
   dyingEffect: {fileID: 3882906373868257580}
   wolfAttack: {fileID: 8300000, guid: 5c7fa0f70731933478a06b0da5c37bce, type: 3}
---- !u!111 &3465818091039223186
-Animation:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1385818115536885152}
-  m_Enabled: 0
-  serializedVersion: 3
-  m_Animation: {fileID: 7400000, guid: 6338f25afb4a8be42ac05c64581d50e4, type: 2}
-  m_Animations:
-  - {fileID: 7400000, guid: c2cbb86436cbe8d45a56b5a1f62a4ff9, type: 2}
-  - {fileID: 7400000, guid: 6338f25afb4a8be42ac05c64581d50e4, type: 2}
-  - {fileID: 7400000, guid: 8ca85e40ef4c4ea40adbc91901d3e5d9, type: 2}
-  - {fileID: 7400000, guid: 6bc5f47949992f14c984b21589f5a18d, type: 2}
-  - {fileID: 7400000, guid: 988addcbfb30b3149a90017228e9a81b, type: 2}
-  - {fileID: 7400000, guid: d1a458dde2be72247a03599d55a08718, type: 2}
-  m_WrapMode: 0
-  m_PlayAutomatically: 1
-  m_AnimatePhysics: 0
-  m_CullingType: 0
 --- !u!82 &5531718391197527315
 AudioSource:
   m_ObjectHideFlags: 0

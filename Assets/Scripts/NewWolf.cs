@@ -23,12 +23,12 @@ public class NewWolf : MonoBehaviour
     private Rigidbody wolfRb;
     public Vector3 followDirection;
     private Vector3 attackRecoil; //direction
-    private float walkSpeed = 60; //Changed from 24 because it's running to fast to the
+    private float walkSpeed = 65; //Changed from 24 because it's running to fast to the
     private int walkDirection = 0;
     private int walkUpDownDirection = 0;
     private bool directionChosen = false;
-    private float speed = 150;
-    private float jumpForce = 5; //Originally 8
+    private float speed = 200;
+    private float jumpForce = 48; //Originally 8
     private float attackForce = 12; //Originally 10 Changed from 15
     private float jumpAttackForce = 2;
     public int damage = 1;
@@ -80,7 +80,7 @@ public class NewWolf : MonoBehaviour
 
     //Miscellaneous
     private GameManager gameManager;
-    private bool testingStun = false;
+    private bool testingStun = true;
     // Start is called before the first frame update
     void Start()
     {
@@ -155,7 +155,7 @@ public class NewWolf : MonoBehaviour
         //Got rid of isOnGround == true
         //I need both idle and directionChosen because basically, there are two idles, one where the Wolf stands still, and one
         //where the Wolf runs to the
-        if (idle == true && directionChosen == true && chase == false && stunned == false && testingStun == false)
+        if ((idle == true && directionChosen == true) && chase == false && stunned == false && testingStun == false)
         {
             StartCoroutine(IdleWalk());
             transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, 2);
@@ -184,46 +184,21 @@ public class NewWolf : MonoBehaviour
         //I need to edit this, this is moving to close to the tiger. Also, for some reason I can't use distance in the if paramet
         if (chase == true)
         {
-            //Run();
-            //animation.Play("Jump_Attack");
-            //StartCoroutine(GroundAttack());
-            //animation.Play("Run Wolf");
-            //May want to get rid of this code because it may not be necessary
-            //But it may be necessary if I transform during a chase
-            //animation.Play("Wolf Dash");
-            //animator.speed = 2;
             animator.SetBool("Dash", true);
             followDirection = (playerPosition - transform.position).normalized;
 
             wolfRb.AddForce(followDirection * speed);
-            //attackRange.SetActive(true);
-            //attackRangeActive = true;
 
             //Debug.Log(distance);
             //I checked out the debug, wolf will always be at least 2.8 away from iger probably because of Tiger's size
             //Fucking finally
             //I'm going to get rid of chase because it doesn't make sense and this is already in a chase
             transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, 3); //Turned from 5 to 3 for smooth
-            if (distance < 4f)
+            if (distance < 5f)
             {
                 chase = false;
                 animator.SetBool("Dash", false);
                 launchAttack = true;
-                //Debug.Log("This should only play");
-                //I'm thinking of removing recoils because the attacks will be done by triggers, not collisions
-                //I need this to stop the wolf's movement, because otherwise, the momentum of its addforce
-                //will keep pushing the Wolf even if chase is over
-                //Need to make the backward force not too noticeable, that's all
-                //-Ugh, now it's not really stopping the wolf, corkscrew animation isn't working and wolf keeps moving
-                //After the attack, so now it looks like the recoil doesn't work for the actual attack
-                //The repeated recoils might have been a good thing
-                //Debug.Log("Recoil");
-                //if (preAttackRecoil == 0)
-                //{
-                    //attackRecoil = (transform.position - playerPosition).normalized;
-                    //wolfRb.AddForce(attackRecoil * 12, ForceMode.Impulse); //Originally * 10 Changed from 15
-                    //preAttackRecoil = 1;
-                //}
 
             }
         }
@@ -243,6 +218,7 @@ public class NewWolf : MonoBehaviour
 
 
             launchAttack = false;
+            Debug.Log("Play Once");
             StartCoroutine(PreAttackPause()); //PreAttackPause keeps playing, that's why the attack repeats, corkscrew is in there
             //PreAttackPause is not supposed to repeat. It's repeating because attack continues to equal
             //The weird thing is that this keeps repeating even though I turn off this boolean right a
@@ -252,6 +228,16 @@ public class NewWolf : MonoBehaviour
             //animation.Play("Idle Wolf");
         //}
         //attackAura.transform.position = new Vector3(transform.position.x, transform.position.y + 1, transform.position.z);
+        //Calculate the distance between Wolf and all objects. and then testing if the object has the tag 
+        //Make this a method because this will only be invoked after an attack
+        //I don't think I can test this unless I use an att
+        if (testingStun == true)
+        {
+            wolfRb.AddForce(Vector3.left * speed);
+            JumpBack();//I think this part should test if this method works because this loop will continue to play
+            //as long as testingStun == 
+        }
+
     }
     public void ChooseDirection()
     {
@@ -259,15 +245,11 @@ public class NewWolf : MonoBehaviour
         walkDirection = Random.Range(0, 2);
         directionChosen = true;
         //Debug.Log(walkDirection);
-        //Debug.Log("Direction Chosen");
+        Debug.Log("Direction Chosen");
     }
     public void ChooseUpDownDirection()
     {
-        //0 == left walk, 1 == right walk
         walkUpDownDirection = Random.Range(0, 2);
-        //directionChosen = true;
-        //Debug.Log(walkDirection);
-        //Debug.Log("Direction Chosen");
     }
     IEnumerator IdleWalk()
     {
@@ -328,7 +310,7 @@ public class NewWolf : MonoBehaviour
         wolfRb.AddForce(attackRecoil, ForceMode.Impulse);
         transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, 5); //In case the the player runs around the Wolf
         //right before the att
-        Debug.Log("Corkscrew");
+        //Debug.Log("Corkscrew");
         //I don't think this is going to make much of a difference, but attack aura keeps spazzing 
         attackAura.SetActive(true);
         attackRange.SetActive(true);
@@ -349,9 +331,6 @@ public class NewWolf : MonoBehaviour
     IEnumerator StartCoolDown()
     {
         cooldown = true;
-        //attack = false;
-        //Debug.Log("Cool down");
-        //animator.speed = 0;
         if (playerScript.tigerActive == true)
         {
             yield return new WaitForSeconds(2);
@@ -366,8 +345,6 @@ public class NewWolf : MonoBehaviour
         idle = true;
         //Forgot about this part
         directionChosen = false;
-        attackCounter = 0;
-        preAttackRecoil = 0;
         idleTime = 3;
         ChooseDirection();
         ChooseUpDownDirection();
@@ -414,8 +391,9 @@ public class NewWolf : MonoBehaviour
         stunned = true;
         animator.SetBool("Damage", true);
         yield return new WaitForSeconds(1.5f);
-        
+
         ///Basically need to cancel everything and go back to Idle Walk after an attack from the play
+        attack = false;
         stunned = false;
         //attack = false;
         //launchAttack = false;
@@ -424,11 +402,7 @@ public class NewWolf : MonoBehaviour
         //idleAnim.ResetIdle();
         idle = true;
         //Forgot about this part
-        directionChosen = false; //Have to do this because Wolf isn't getting out of damage 2. Doing this for now because 
-        //I need to reload the Wolf so it can try to attack the Player again after a while. Temporary
-        ///ATM I will make it false, because it's false in CoolDown
-        attackCounter = 0;
-        preAttackRecoil = 0;
+        directionChosen = false;
         idleTime = 2;
         ChooseDirection();
         ChooseUpDownDirection();
@@ -441,6 +415,30 @@ public class NewWolf : MonoBehaviour
     //{
         //return enemyTarget.transform.position;
     //}
+    public void JumpBack()
+        {
+            //What I could do is make an array of all the objects in the scene that have a wall. Then based
+            //On the length of the array. Test the distance between the wWolf and all the walls
+            //I was originally going to somehow test the distance between wolf and any objects around it, but there might not be a method
+            //for that.
+            //I feel it might have been more rewarding if I could find a way though
+            //I think the challenge is how to be able to do a loop to check all the walls for distance
+            //I could do FindObjectWithTagWall and then testing the distance, but I'd need to use a loop
+            //The only option is that array check function from the last part of the
+            GameObject[] Walls = GameObject.FindGameObjectsWithTag("Wall"); //I think I can do this after an attack, but 
+        //I think outside of attacks, I should put this in Start so I don't have to keep recalculating GameObject[] 
+    bool jumpedBack = false;//Use this bool so that the Wolf jumps back only once
+            for (int i = 0; i<Walls.Length; i++)
+            {
+                if (Vector3.Distance(Walls[i].transform.position, transform.position)< 4 && jumpedBack == false)
+                {
+                    jumpedBack = true;
+                //Code for Jumping back
+                wolfRb.AddForce(Vector3.back * attackForce, ForceMode.Impulse);
+                Debug.Log("Jumped Back");
+                }
+            }
+        }
     public void OnCollisionEnter(Collision collision)
     {
         //if (collision.gameObject.CompareTag("Player") && attack == true && playerScript.dodge == false)
