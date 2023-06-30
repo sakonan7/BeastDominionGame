@@ -522,13 +522,10 @@ public class PlayerController : MonoBehaviour
         if (closeTheDistance == true && stunned == false)
         {
             animation.Play("Distance Closer");
-            if (closeTheDistance == true)
-            {
                 //I would prefer to use nonImpulse, but it is too slow and using Impulse is unexpectedly cool
                 tigerRB.AddForce(attackDirection * 4, ForceMode.Impulse); //attack force wasn't enough //Also, it isn't enough here //Try impulse
                 //ForceMode Impulse is amazing. Needed to go from speed to 5 becaue of how fast and far it went
                 tiger.transform.rotation = Quaternion.Slerp(tiger.transform.rotation, attackRotation, 5);
-            }
             //My plan for this is to have the player close the distance and once they're within 1 distance away from a foe, perform the
             //strike. I'm thinking that I don't want to use the regular AttackDuration. Use a reduced AttackDuration
             //Use a set of time limits. For Distance Closer, use 0.2 seconds. The funny thing is, the original attack duration is around
