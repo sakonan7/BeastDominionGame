@@ -47,6 +47,8 @@ public class PlayerController : MonoBehaviour
     public GameObject tigerAttackEffect;
     public Transform transformEffect;
     public AudioClip tigerSpecial;
+    public AudioClip tigerSpecialStrike;
+    public ParticleSystem specialHitEffect;
 
     //Either make the Rigidbody bigger or make a sensor
     //*Rigidybody might not be better because the tiger will spin. I can stop the sensor from rotating, but not the
@@ -730,7 +732,7 @@ public class PlayerController : MonoBehaviour
     {
         attack = true;
         //specialInvincibility = true;
-        playerAudio.PlayOneShot(tigerSpecial, 0.2f);
+        //playerAudio.PlayOneShot(tigerSpecial, 0.2f);
         bladeOfLight.SetActive(true);
         yield return new WaitForSeconds(2f);
         attack = false;
@@ -763,7 +765,7 @@ public class PlayerController : MonoBehaviour
         Debug.Log("Attacking from " + distance);
         
 
-        playerAudio.PlayOneShot(tigerRoar, 0.2f);
+        //playerAudio.PlayOneShot(tigerRoar, 0.2f);
         //Why did I think of lockedOn == false, I think I thought of it in the case you aren't locked
         //I think I will create a case where lockedOn == false and for now, I want to make the distance smaller for
         if (lockedOn == false)
@@ -834,11 +836,21 @@ public class PlayerController : MonoBehaviour
     }
     public void TigerSpecial()
     {
+        playerAudio.PlayOneShot(tigerSwing, 0.05f);
         tigerRB.AddForce(attackDirection * (attackForce + 14), ForceMode.Impulse); //+ 8 normally, but try + 12 for blade of
-        tigerRB.AddRelativeTorque(Vector3.up * 5, ForceMode.Impulse);
+        attackRotation = Quaternion.LookRotation(target.transform.position - tiger.transform.position);
+        tiger.transform.rotation = Quaternion.Slerp(tiger.transform.rotation, attackRotation, 5); //Am using all the attack rotations
+        //here because there is a charge up before Tiger Special Att
+        tigerRB.AddRelativeTorque(Vector3.down * 5, ForceMode.Impulse);
         animation.Play("Attack 1 & 2");
 
         
+    }
+    public void PlayTigerSpecialStrike(Vector3 strikeArea)
+    {
+        playerAudio.PlayOneShot(tigerSpecialStrike, 0.5f);
+        specialHitEffect.transform.position = strikeArea;
+        specialHitEffect.Play();
     }
     IEnumerator Dodge()
     {

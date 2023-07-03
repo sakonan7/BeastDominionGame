@@ -12,6 +12,7 @@ TagManager:
   - Start Game
   - Sensor
   - Wolf Attack
+  - Tiger Special
   layers:
   - Default
   - TransparentFX
