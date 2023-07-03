@@ -786,7 +786,7 @@ public class PlayerController : MonoBehaviour
         }
         //Want DistanceCloser only to play when the tiger isn't close enough. Was originally going to have a distance > 10 || distance <=3
         //above,but I realized that the below will cover it. Maybe, let's keep testing it out
-        if ((distance < 10 && distance > 3) && lockedOn)
+        if ((distance < 10.5f && distance > 3) && lockedOn)
         {
             //I need some way to stop this
             //Maybe like the wolf, once the tiger reaches the necessary distance, just perform the regular attack
@@ -835,6 +835,7 @@ public class PlayerController : MonoBehaviour
     public void TigerSpecial()
     {
         tigerRB.AddForce(attackDirection * (attackForce + 14), ForceMode.Impulse); //+ 8 normally, but try + 12 for blade of
+        tigerRB.AddRelativeTorque(Vector3.up * 5, ForceMode.Impulse);
         animation.Play("Attack 1 & 2");
 
         
