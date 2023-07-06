@@ -721,7 +721,7 @@ public class PlayerController : MonoBehaviour
     {
         charging = true;
         specialInvincibility = true;
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(1.5f);
         charging = false;
         StartCoroutine(TigerSpecialDuration());
         TigerSpecial();
@@ -849,9 +849,10 @@ public class PlayerController : MonoBehaviour
     }
     IEnumerator UseTigerSpecialSecond()
     {
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(1f);
         TigerSpecialSecondStrike();
     }
+    //Test for combo attacks
     public void TigerSpecialSecondStrike()
     {
         playerAudio.PlayOneShot(tigerSwing, 0.05f);
