@@ -844,7 +844,13 @@ public class PlayerController : MonoBehaviour
         tigerRB.AddRelativeTorque(Vector3.down * 5, ForceMode.Impulse);
         animation.Play("Attack 1 & 2");
         //TigerSpecialSecondStrike();
+        StartCoroutine(UseTigerSpecialSecond());
         
+    }
+    IEnumerator UseTigerSpecialSecond()
+    {
+        yield return new WaitForSeconds(0.5f);
+        TigerSpecialSecondStrike();
     }
     public void TigerSpecialSecondStrike()
     {

@@ -249,6 +249,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -5716681864270162303, guid: 6d146be2ce439e4408ac3c30fb154fff, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 100082, guid: 6d146be2ce439e4408ac3c30fb154fff, type: 3}
       propertyPath: m_Name
       value: Wolf 2
