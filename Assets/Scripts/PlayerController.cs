@@ -840,7 +840,7 @@ public class PlayerController : MonoBehaviour
         tigerRB.AddForce(attackDirection * (attackForce + 14), ForceMode.Impulse); //+ 8 normally, but try + 12 for blade of
         attackRotation = Quaternion.LookRotation(target.transform.position - tiger.transform.position);
         tiger.transform.rotation = Quaternion.Slerp(tiger.transform.rotation, attackRotation, 5); //Am using all the attack rotations
-        //here because there is a charge up before Tiger Special Att
+        //here because there is a charge up before Tiger Special Attack
         tigerRB.AddRelativeTorque(Vector3.down * 5, ForceMode.Impulse);
         animation.Play("Attack 1 & 2");
 
