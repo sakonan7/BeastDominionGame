@@ -191,17 +191,23 @@ public class PlayerController : MonoBehaviour
     }
 
     // Update is called once per frame
-    void FixedUpdate()
+    private void Update()
     {
-        //Debug.Log(distance);
         if (Input.GetKeyDown(KeyCode.F) && paused == false)
         {
             PauseGame();
+            Debug.Log("Paused?");
         }
         else if (Input.GetKeyDown(KeyCode.F) && paused == true)
         {
             UnpauseGame();
+            Debug.Log("Unpause? I think this problem started by switching to FixedUpdate");
         }
+    }
+    void FixedUpdate()
+    {
+        //Debug.Log(distance);
+
         if (Input.GetKeyDown(KeyCode.B))
         {
             //Instantiate(ball, new Vector3(tiger.transform.position.x - 1, tiger.transform.position.y + 3f, tiger.transform.position.z), ball.transform.rotation);
@@ -844,7 +850,7 @@ public class PlayerController : MonoBehaviour
         tigerRB.AddRelativeTorque(Vector3.down * 5, ForceMode.Impulse);
         animation.Play("Attack 1 & 2");
         //TigerSpecialSecondStrike();
-        StartCoroutine(UseTigerSpecialSecond());
+        //StartCoroutine(UseTigerSpecialSecond());
         
     }
     IEnumerator UseTigerSpecialSecond()
