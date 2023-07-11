@@ -29,8 +29,8 @@ public class ThirdPersonCamera : MonoBehaviour
     {
         Vector3 viewDir = tiger.transform.position - new Vector3(transform.position.x, tiger.transform.position.y, transform.position.z);
         orientation.forward = viewDir.normalized;
-        float horizontalInput = Input.GetAxis("Horizontal");
-        float verticalInput = Input.GetAxis("Vertical");
+        float horizontalInput = Input.GetAxisRaw("Horizontal");
+        float verticalInput = Input.GetAxisRaw("Vertical");
         Vector3 inputDir = orientation.forward * verticalInput + orientation.right * horizontalInput;
 
         //Trying to make it so that the camera can't move in certain parts like the opening run as well as cutscenes

@@ -246,8 +246,8 @@ public class PlayerController : MonoBehaviour
         }
 
         //movement
-        forwardInput = Input.GetAxis("Vertical");
-        sideInput = Input.GetAxis("Horizontal");
+        forwardInput = Input.GetAxisRaw("Vertical");
+        sideInput = Input.GetAxisRaw("Horizontal");
         //direction = new Vector3(forwardInput, 0, sideInput).normalized;
 
 
@@ -322,7 +322,7 @@ public class PlayerController : MonoBehaviour
                 //tigerRB.AddForce(moveDir.normalized * speed);
                 //tigerRB.AddRelativeForce(Vector3.forward * speed * forwardInput);
                 //tigerRB.AddRelativeForce(Vector3.right * speed * sideInput);
-                tigerRB.AddForce(moveDirection * speed);
+                tigerRB.AddForce(moveDirection.normalized * speed, ForceMode.Force);
 
                 //animation.Stop();
                 //The button presses trigger running bool and running bool triggers animation. Surprisingly simple but not easy to think
