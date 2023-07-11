@@ -323,6 +323,9 @@ public class PlayerController : MonoBehaviour
                 //tigerRB.AddRelativeForce(Vector3.forward * speed * forwardInput);
                 //tigerRB.AddRelativeForce(Vector3.right * speed * sideInput);
                 tigerRB.AddForce(moveDirection.normalized * speed, ForceMode.Force);
+                tigerRB.drag = 5;
+                //speed control
+                Vector3 flatVel = new Vector3(tigerRB.velocity.x, 0, tigerRB.velocity.z);
 
                 //animation.Stop();
                 //The button presses trigger running bool and running bool triggers animation. Surprisingly simple but not easy to think
@@ -337,6 +340,11 @@ public class PlayerController : MonoBehaviour
                 //moveDir = Quaternion.Euler(0, targetAngle, 0) * Vector3.forward;
                 //tigerControl.Move(moveDir.normalized * speed * Time.deltaTime);
                 //}
+                if (flatVel.magnitude > speed)
+                {
+                    Vector3 limitedVel = flatVel.normalized * speed;
+                    tigerRB.velocity = new Vector3(limitedVel.x, 0, limitedVel.z);
+                }
 
                 if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D))
                 {
