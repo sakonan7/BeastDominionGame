@@ -354,7 +354,7 @@ public class NewWolf : MonoBehaviour
         animator.SetBool("Run", true);
         //animator.speed = 1;
     }
-    public void TakeDamage()
+    public void Damaged()
     {
         //ATM, I'm going to make it so that attacking Wolf while they're attacking doesn't stun Wolf
         if(attack == false)
@@ -362,16 +362,7 @@ public class NewWolf : MonoBehaviour
             Stunned();
         }
         
-        if (playerScript.tigerActive == true && HP > 0)
-        {
-            HP -= 2;
-            //HPBar.transform.localScale = new Vector3(HPBar.transform.localScale.x - 0.008f, 0, 0);
-        }
-        else if (playerScript.birdActive == true && HP > 0)
-        {
-            HP -= 1;
-            //HPBar.transform.localScale = new Vector3(HPBar.transform.localScale.x - 0.004f, 0, 0);
-        }
+ 
         //Debug.Log(HP);
         //Was originally an else if case, but moved it into the above because the wolf doesn't die the minute its HP falls under 0
         //Was originally going to place this under each conditional, but it looks like this conditional works on its own
@@ -461,10 +452,15 @@ public class NewWolf : MonoBehaviour
     {
 
         //Going to do this because I need to trigger the take damage methods of each foe
+        //Rewrite,  no TakeDamage method, I will deduct damage here and trigger stun here
+        //Revision of revision, I will change TakeDamage to Damaged for stun and possible death
         if (other.CompareTag("Tiger Attack Regular"))
         {
             //For now, just trigger stun. I will use both of their directions to perform the knockback
-            TakeDamage();
+            //TakeDamage();
+            
+            HP -= 2;
+            Damaged();
             playerScript.PlayTigerRegularStrike(transform.position);
             //Vector3 knockbackDirection = (transform.position - tiger.transform.position).normalized;
             //knockback force is inconsistent. Sometimes it doesn't knockback at all. Sometimes it knocks back too much
@@ -479,7 +475,10 @@ public class NewWolf : MonoBehaviour
         if (other.CompareTag("Tiger Special"))
         {
             //For now, just trigger stun. I will use both of their directions to perform the knockback
-            TakeDamage();
+            //TakeDamage();
+            
+            HP -= 7;
+            Damaged();
             playerScript.PlayTigerSpecialStrike(transform.position);
             //Vector3 knockbackDirection = (transform.position - tiger.transform.position).normalized;
             //knockback force is inconsistent. Sometimes it doesn't knockback at all. Sometimes it knocks back too much
