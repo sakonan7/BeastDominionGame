@@ -234,10 +234,10 @@ public class Wolf : MonoBehaviour
             }
             //Debug.Log("Chase bool = " + chase);
         }
-        if (other.gameObject.CompareTag("Sensor"))
-        {
-            playerScript.EnableLockOn();
+        //if (other.gameObject.CompareTag("Sensor"))
+        //{
+            //playerScript.EnableLockOn();
             //Debug.Log("Lock onto Wolf");
-        }
+        //}
     }
 }

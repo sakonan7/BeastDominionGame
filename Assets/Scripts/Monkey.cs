@@ -264,12 +264,12 @@ public class Monkey : MonoBehaviour
     }
     public void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Sensor"))
-        {
-            playerScript.EnableLockOn(); //It looks like I either can't use a method outside the class or Tiger Sensor specifically
+        //if (other.gameObject.CompareTag("Sensor"))
+        //{
+            //playerScript.EnableLockOn(); //It looks like I either can't use a method outside the class or Tiger Sensor specifically
             //isn't instantiated because Monkey Attack Range is for some reason
             //Debug.Log("Can Lock On?");
-        }
+        //}
         //attack == first is to trigger the attack method when Monkey is chasing the play
         //Need isOnGround because the Monkey triggers this two times by running into the collider and then falling into it
         if (other.gameObject.CompareTag("Monkey Range") && attack == false && isOnGround == true && stunned == false)

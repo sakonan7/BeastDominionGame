@@ -95,7 +95,7 @@ public class PlayerController : MonoBehaviour
     private GameObject targetedEnemy;
     private Vector3 enemyTargetPosition;
     private Rigidbody foeRB;
-    public bool canLockOn = false;
+    //public bool canLockOn = false;
     public bool lockedOn = false;
     public GameObject focalPoint; //Turn camera towards targetted foe
     //New lock on code
@@ -922,10 +922,10 @@ public class PlayerController : MonoBehaviour
         yield return new WaitForSeconds(0.2f);
         swoopLag = false;
     }
-    public void EnableLockOn()
-    {
-        canLockOn = true;
-    }
+    //public void EnableLockOn()
+    //{
+        //canLockOn = true;
+    //}
     public void LockOn()
     {
         //Create target
@@ -1011,13 +1011,13 @@ public class PlayerController : MonoBehaviour
             }
             //I was going to get rid of this because it looked like this code was for shifting the target
             //But it's actually if the lockOn function isn't even on
-            if (lockOnTurnedOn == false)
+            if (lockedOn == false)
             {
                 //if (distance <= 25)
                 //{
                     target.SetActive(true);
                     lockedOn = true;
-                    lockOnTurnedOn = true;
+                    //lockOnTurnedOn = true;
                     //focalPoint.transform.LookAt(targetedEnemy.transform.position); //This one is a lot better than the above
                     //Because it doesn't turn to much in a direc
                     //Put lock on code here
