@@ -14,6 +14,7 @@ public class NewWolf : MonoBehaviour
         /// </summary>
     private new Animation animation;
     private Animator animator;
+    private Enemy enemyScript;
 
     //private new Animator animation;
     //public GameObject focalPoint;
@@ -120,6 +121,8 @@ public class NewWolf : MonoBehaviour
         startIdleTime = Random.Range(2, 7);
         //animator.speed = 1;
         animator.SetBool("Run", true);
+
+        enemyScript = GetComponent<Enemy>();
     }
 
     // Update is called once per frame
@@ -454,12 +457,13 @@ public class NewWolf : MonoBehaviour
         //Going to do this because I need to trigger the take damage methods of each foe
         //Rewrite,  no TakeDamage method, I will deduct damage here and trigger stun here
         //Revision of revision, I will change TakeDamage to Damaged for stun and possible death
+        ///I could just put this stuff in the Enemy script, but I'd have to reference playerScript in that
         if (other.CompareTag("Tiger Attack Regular"))
         {
             //For now, just trigger stun. I will use both of their directions to perform the knockback
             //TakeDamage();
             
-            HP -= 2;
+            enemyScript.HP -= 2;
             Damaged();
             playerScript.PlayTigerRegularStrike(transform.position);
             //Vector3 knockbackDirection = (transform.position - tiger.transform.position).normalized;
@@ -477,7 +481,7 @@ public class NewWolf : MonoBehaviour
             //For now, just trigger stun. I will use both of their directions to perform the knockback
             //TakeDamage();
             
-            HP -= 7;
+            enemyScript.HP -= 7;
             Damaged();
             playerScript.PlayTigerSpecialStrike(transform.position);
             //Vector3 knockbackDirection = (transform.position - tiger.transform.position).normalized;

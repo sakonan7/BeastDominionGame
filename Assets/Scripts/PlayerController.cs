@@ -93,6 +93,7 @@ public class PlayerController : MonoBehaviour
 
     public GameObject target;
     private GameObject targetedEnemy;
+    private Enemy enemyScript;
     private Vector3 enemyTargetPosition;
     private Rigidbody foeRB;
     //public bool canLockOn = false;
@@ -646,7 +647,7 @@ public class PlayerController : MonoBehaviour
             distance = Vector3.Distance(targetedEnemy.transform.position, tiger.transform.position); //Didn't realize I'd have
                                                                                                      //Didn't realize I'd have to keep calculating Distance
                                                                                                      //Actually, I will recalculate distance in lockedOn
-            if (targetedEnemy == null)
+            if (enemyScript.HP <= 0)
             {
                 lockedOn = false;
                 Debug.Log("Can Lock On again"); //I think this should work because target gameObject is not part of
@@ -997,6 +998,7 @@ public class PlayerController : MonoBehaviour
                         smallestDistanceFound = true;
                         targetedEnemy = enemies[j];//This code will avoid problems of two foes having the same distance from
                         //the player
+                        enemyScript = targetedEnemy.GetComponent<Enemy>();
                     }
                     j++;
                 }
