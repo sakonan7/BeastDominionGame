@@ -940,20 +940,62 @@ public class PlayerController : MonoBehaviour
         //I think I should check if there even is a foe first, just to avoid error message
         //Maybe I'll just make a list, but I will test just for null for now.
         //test for targetedEnemy != null and then make a list
+        ///Make a list of enemies, determine which is the closest and then make a function to shift the target
+        ///I'm pretty damn sure this code will work for shifting the target around in a way because activating this same exact code
+        ///again will shift the target to the closest foe
         if (targetedEnemy != null) //There's no immediate way to check if there's an object of tag something, I wished there
         {
+            GameObject [] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+            float [] distanceList = new float[enemies.Length]; //Changed this from list to array
+            float newMin = 0;
+            //int newMinIndex = 0;
+            bool smallestDistanceFound = false;
+            int j = 0;
             //I think I may need to rewrite this because targetedEnemy is not always going to be the same
             //AND it will be determined in this loop
             if (tigerActive == true)
             {
                 //attackRange.transform.position = tiger.transform.position;
                 //I think the method always goes (target, own position)
-                distance = Vector3.Distance(targetedEnemy.transform.position, tiger.transform.position);
+                //distance = Vector3.Distance(targetedEnemy.transform.position, tiger.transform.position);
+                //Create a loop that keeps making a new minimum
+                for(int i = 0; i < enemies.Length; i++)
+                {
+                    distanceList[i] = Vector3.Distance(enemies[i].transform.position, tiger.transform.position);
+                }
+                newMin = Mathf.Min(distanceList);
+                //- 1 because I need to check to the end of the list and I can't go past the end of the
+                //Actually, maybe I don't need to compare all the distanceList. I could check every item, but
+                //What I could do instead if find the Minimum and then find the item on the list with the same val
+                //for (int j = 0; j < distanceList.Length; j++)
+                //{
+                    //newMin = Mathf.Min(distanceList); //Was gonna do this, but I need the index of the enemy with the 
+                    //I can either do a loop to check a and b and then change newMinIndex, or have an index where
+                    //I check newMinIndex with a dummy value to see if there is a new minimum, as I'm writing this, it sounds
+                    //more complicated lol and I will go with the form
+                    //newMinIndex = Mathf.Min(distanceList[j], distanceList[j + 1]);
+                    //if (distanceList[j] < distanceList[j + 1])
+                    //{
+
+                    //}
+                //}
+                while (smallestDistanceFound == false)
+                {
+                    if (distanceList[j] == newMin)
+                    {
+                        smallestDistanceFound = true;
+                        targetedEnemy = enemies[j];//This code will avoid problems of two foes having the same distance from
+                        //the player
+                    }
+                    j++;
+                }
             }
             else if (birdActive == true)
             {
                 //attackRange.transform.position = bird.transform.position;
             }
+            //I was going to get rid of this because it looked like this code was for shifting the target
+            //But it's actually if the lockOn function isn't even on
             if (lockOnTurnedOn == false)
             {
                 //if (distance <= 25)
@@ -967,6 +1009,7 @@ public class PlayerController : MonoBehaviour
                     //May want to put on a canLockOn bool on enemies instead and then put the target on the closest
                     //cam.transform.LookAt(targetedEnemy.transform.position);
                 //}
+                //I got rid of this because Lock On will always work
                 //else
                 //{
                     //Debug.Log("Nothing in range");
