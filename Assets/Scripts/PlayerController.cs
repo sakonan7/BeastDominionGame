@@ -646,6 +646,16 @@ public class PlayerController : MonoBehaviour
             distance = Vector3.Distance(targetedEnemy.transform.position, tiger.transform.position); //Didn't realize I'd have
                                                                                                      //Didn't realize I'd have to keep calculating Distance
                                                                                                      //Actually, I will recalculate distance in lockedOn
+            if (targetedEnemy == null)
+            {
+                lockedOn = false;
+                Debug.Log("Can Lock On again"); //I think this should work because target gameObject is not part of
+                                                //The enemy and is only sent to the enemies' location. So I think the main issue was the target disappears
+                                                //because the enemy's position disappears
+                                                //I thought the main problem was that target was getting destroyed
+                                                //OOOps, I accidentally set the conditional to if targetEnemy != null
+                                                //No wonder the LockOn method still
+            }
         }
         else if (lockedOn == false)
         {
@@ -688,6 +698,7 @@ public class PlayerController : MonoBehaviour
             //tigerCollider.center = new Vector3(tigerCollider.center.x, tigerCollider.center.y, tigerCollider.center.z + 1.25f);
             tigerAttackEffect.SetActive(true);
         }
+
         yield return new WaitForSeconds(attackTimeLength);
         attack = false;
         //Debug.Log("Attack");
@@ -989,6 +1000,10 @@ public class PlayerController : MonoBehaviour
                     }
                     j++;
                 }
+                //if (targetedEnemy == null)
+                //{
+                    //Debug.Log("Targeted Enemy is null");
+                //}
             }
             else if (birdActive == true)
             {
