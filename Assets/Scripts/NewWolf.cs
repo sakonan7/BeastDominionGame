@@ -373,7 +373,7 @@ public class NewWolf : MonoBehaviour
         {
             dyingEffect.Play();
             Destroy(gameObject);
-            playerScript.LockOff();
+            //playerScript.LockOff(); I didn't realize this was here. And it was being used the whole time
             Debug.Log("Wolf Dies");
             gameManager.EnemyDefeated();
         }
@@ -463,9 +463,9 @@ public class NewWolf : MonoBehaviour
             //For now, just trigger stun. I will use both of their directions to perform the knockback
             //TakeDamage();
             
-            enemyScript.HP -= 2;
+            //enemyScript.HP -= 2;
             Damaged();
-            playerScript.PlayTigerRegularStrike(transform.position);
+            //playerScript.PlayTigerRegularStrike(transform.position);
             //Vector3 knockbackDirection = (transform.position - tiger.transform.position).normalized;
             //knockback force is inconsistent. Sometimes it doesn't knockback at all. Sometimes it knocks back too much
             //It doesn't matter what the value is.
@@ -473,17 +473,17 @@ public class NewWolf : MonoBehaviour
             //But I don't want the player to whiff attacks, so I think I will make sure the tiger is the right distance from the wolf
             //Unless I can make a force play until a certain distance is reached
             //I can't use forcemode.impulse then
-            wolfRb.AddForce(playerScript.attackDirection * 15, ForceMode.Impulse);
-            playerScript.AttackLandedTrue();
+            //wolfRb.AddForce(playerScript.attackDirection * 15, ForceMode.Impulse);
+            //playerScript.AttackLandedTrue();
         }
         if (other.CompareTag("Tiger Special"))
         {
             //For now, just trigger stun. I will use both of their directions to perform the knockback
             //TakeDamage();
             
-            enemyScript.HP -= 7;
+            //enemyScript.HP -= 7;
             Damaged();
-            playerScript.PlayTigerSpecialStrike(transform.position);
+            //playerScript.PlayTigerSpecialStrike(transform.position);
             //Vector3 knockbackDirection = (transform.position - tiger.transform.position).normalized;
             //knockback force is inconsistent. Sometimes it doesn't knockback at all. Sometimes it knocks back too much
             //It doesn't matter what the value is.
@@ -491,7 +491,7 @@ public class NewWolf : MonoBehaviour
             //But I don't want the player to whiff attacks, so I think I will make sure the tiger is the right distance from the wolf
             //Unless I can make a force play until a certain distance is reached
             //I can't use forcemode.impulse then
-            wolfRb.AddForce(playerScript.attackDirection * 20, ForceMode.Impulse);
+            //wolfRb.AddForce(playerScript.attackDirection * 20, ForceMode.Impulse);
             //playerScript.AttackLandedTrue();
         }
     }

@@ -35,6 +35,10 @@ public class ThirdPersonCamera : MonoBehaviour
 
         //Trying to make it so that the camera can't move in certain parts like the opening run as well as cutscenes
         ///This method doesn't work atm
+        if (gameManager.startGame == false)
+        {
+            
+        }
         if (inputDir != Vector3.zero && gameManager.startGame == true)
         {
             tiger.transform.forward = Vector3.Slerp(tiger.transform.forward, inputDir.normalized, Time.deltaTime * speed);
