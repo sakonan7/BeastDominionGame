@@ -11,23 +11,37 @@ public class Enemy : MonoBehaviour
     public bool lockedOn = false;
     private Rigidbody enemyRb;
     private PlayerController playerScript;
+    private GameManager gameManager;
+    public ParticleSystem dyingEffect;
     // Start is called before the first frame update
     void Start()
     {
         enemyRb = GetComponent<Rigidbody>();
         playerScript = GameObject.Find("Player").GetComponent<PlayerController>();
+        gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        //Debug.Log(HP);
+        //Was originally an else if case, but moved it into the above because the wolf doesn't die the minute its HP falls under 0
+        //Was originally going to place this under each conditional, but it looks like this conditional works on its own
+        if (HP <= 0)
+        {
+            dyingEffect.Play();
+            Destroy(gameObject);
+            //playerScript.LockOff(); I didn't realize this was here. And it was being used the whole time
+            Debug.Log("Wolf Dies");
+            gameManager.EnemyDefeated();
+        }
     }
     public void OnTriggerEnter(Collider other)
     {
 
         //I will have to keep some of the damagedin each individual script because I need those individual scripts for damage
         //animations
+        Debug.Log(HP + "Left");
         if (other.CompareTag("Tiger Attack Regular"))
         {
             //For now, just trigger stun. I will use both of their directions to perform the knockback

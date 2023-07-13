@@ -263,7 +263,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400082, guid: 6d146be2ce439e4408ac3c30fb154fff, type: 3}
       propertyPath: m_RootOrder
-      value: 9
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400082, guid: 6d146be2ce439e4408ac3c30fb154fff, type: 3}
       propertyPath: m_LocalScale.x
@@ -571,6 +571,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HP: 6
   lockedOn: 0
+  dyingEffect: {fileID: 3882906373868257580}
 --- !u!4 &1385818115537308032 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400082, guid: 6d146be2ce439e4408ac3c30fb154fff, type: 3}
@@ -642,7 +643,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 771596928501578855, guid: eb1a8b300c5eb8142b9d7bd7ab86df3a, type: 3}
       propertyPath: SizeModule.curve.scalar
-      value: 50
+      value: 60
       objectReference: {fileID: 0}
     - target: {fileID: 771596928501578855, guid: eb1a8b300c5eb8142b9d7bd7ab86df3a, type: 3}
       propertyPath: ColorModule.gradient.maxGradient.atime1
@@ -666,7 +667,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3635616269366568998, guid: eb1a8b300c5eb8142b9d7bd7ab86df3a, type: 3}
       propertyPath: SizeModule.curve.scalar
-      value: 50
+      value: 60
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

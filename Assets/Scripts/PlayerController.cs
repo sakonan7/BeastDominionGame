@@ -788,7 +788,7 @@ public class PlayerController : MonoBehaviour
         //I think I need to calculate it constantly in update instead. I calculated it in lockOn because i need to check to see which enemy
         //Is closest to to the player
         //distance = Vector3.Distance(targetedEnemy.transform.position, tiger.transform.position);
-        Debug.Log("Attacking from " + distance);
+        //Debug.Log("Attacking from " + distance);
         
 
         //playerAudio.PlayOneShot(tigerRoar, 0.2f);

@@ -366,17 +366,7 @@ public class NewWolf : MonoBehaviour
         }
         
  
-        //Debug.Log(HP);
-        //Was originally an else if case, but moved it into the above because the wolf doesn't die the minute its HP falls under 0
-        //Was originally going to place this under each conditional, but it looks like this conditional works on its own
-        if (enemyScript.HP <= 0)
-        {
-            dyingEffect.Play();
-            Destroy(gameObject);
-            //playerScript.LockOff(); I didn't realize this was here. And it was being used the whole time
-            Debug.Log("Wolf Dies");
-            gameManager.EnemyDefeated();
-        }
+
     }
     public void Stunned()
     {
