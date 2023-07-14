@@ -41,7 +41,7 @@ public class GameManager : MonoBehaviour
         //StartGame();
         //Area1();
         //Starting Cutscene
-        //StartCoroutine(OpeningSeconds());
+        StartCoroutine(OpeningSeconds());
     }
 
     // Update is called once per frame

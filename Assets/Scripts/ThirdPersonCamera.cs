@@ -10,6 +10,7 @@ public class ThirdPersonCamera : MonoBehaviour
     private GameObject tiger;
     private GameObject bird;
     private float speed = 5;
+    public Rigidbody playerRb;
     private GameManager gameManager;
     private Vector3 originalPosition;
     private Quaternion originalRotation;
@@ -30,7 +31,8 @@ public class ThirdPersonCamera : MonoBehaviour
     {
         //Had to replace instances of tiger with player and playerObj
         //I'm sure using tiger instead of playerObj caused prob
-        Vector3 viewDir = tiger.transform.position - new Vector3(transform.position.x, player.transform.position.y, transform.position.z);
+        //Acc8dentally used .transform when I'm already using Transform
+        Vector3 viewDir = tiger.transform.position - new Vector3(transform.position.x, player.position.y, transform.position.z);
         orientation.forward = viewDir.normalized;
         float horizontalInput = Input.GetAxisRaw("Horizontal");
         float verticalInput = Input.GetAxisRaw("Vertical");
@@ -44,7 +46,7 @@ public class ThirdPersonCamera : MonoBehaviour
         }
         if (inputDir != Vector3.zero && gameManager.startGame == true)
         {
-            playerObj.transform.forward = Vector3.Slerp(playerObj.transform.forward, inputDir.normalized, Time.deltaTime * speed);
+            playerObj.forward = Vector3.Slerp(playerObj.forward, inputDir.normalized, Time.deltaTime * speed);
         }
         if (Input.GetMouseButtonDown(2))
         {

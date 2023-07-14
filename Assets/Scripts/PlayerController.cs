@@ -75,6 +75,7 @@ public class PlayerController : MonoBehaviour
     private Quaternion attackRotation;
     //private float distance;
 
+    private Rigidbody playerRb;
     private Rigidbody tigerRB;
     private bool running = false;
 
@@ -163,6 +164,7 @@ public class PlayerController : MonoBehaviour
         tigerControl = tiger.GetComponent<CharacterController>();
         birdControl = bird.GetComponent<CharacterController>();
         //cam = cameraRef.transform;
+        playerRb = GetComponent<Rigidbody>();
 
         tigerRB = tiger.GetComponent<Rigidbody>();
         animation = tiger.GetComponent<Animation>();
@@ -242,8 +244,8 @@ public class PlayerController : MonoBehaviour
             //wolfRange.transform.position = new Vector3(tiger.transform.position.x, 0.45f, tiger.transform.position.z - 0.1f);
             //sensor.transform.position = new Vector3(tiger.transform.position.x, 0.45f, tiger.transform.position.z - 0.1f);
             //dodgeEffect.transform.position = new Vector3(tiger.transform.position.x, 0.45f, tiger.transform.position.z - 0.1f);
-            orientationObject.transform.position = new Vector3(tiger.transform.position.x, tiger.transform.position.y + 0.77f, tiger.transform.position.z + 0.82f);
-            orientationObject.transform.rotation = tiger.transform.rotation;
+            //orientationObject.transform.position = new Vector3(tiger.transform.position.x, tiger.transform.position.y + 0.77f, tiger.transform.position.z + 0.82f);
+            //orientationObject.transform.rotation = tiger.transform.rotation;
         }
 
         //movement
@@ -323,10 +325,10 @@ public class PlayerController : MonoBehaviour
                 //tigerRB.AddForce(moveDir.normalized * speed);
                 //tigerRB.AddRelativeForce(Vector3.forward * speed * forwardInput);
                 //tigerRB.AddRelativeForce(Vector3.right * speed * sideInput);
-                tigerRB.AddForce(moveDirection.normalized * speed, ForceMode.Force);
-                tigerRB.drag = 5;
+                playerRb.AddForce(moveDirection.normalized * speed, ForceMode.Force);
+                playerRb.drag = 5;
                 //speed control
-                Vector3 flatVel = new Vector3(tigerRB.velocity.x, 0, tigerRB.velocity.z);
+                Vector3 flatVel = new Vector3(playerRb.velocity.x, 0, playerRb.velocity.z);
 
                 //animation.Stop();
                 //The button presses trigger running bool and running bool triggers animation. Surprisingly simple but not easy to think
@@ -344,7 +346,7 @@ public class PlayerController : MonoBehaviour
                 if (flatVel.magnitude > speed)
                 {
                     Vector3 limitedVel = flatVel.normalized * speed;
-                    tigerRB.velocity = new Vector3(limitedVel.x, 0, limitedVel.z);
+                    playerRb.velocity = new Vector3(limitedVel.x, 0, limitedVel.z);
                 }
 
                 if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D))
@@ -686,7 +688,7 @@ public class PlayerController : MonoBehaviour
         //Cutscenes
         if (gameManagerScript.startingCutscene == true)
         {
-            OpeningRun();
+            //OpeningRun();
         }
     }
 
@@ -1240,7 +1242,7 @@ public class PlayerController : MonoBehaviour
     public void OpeningRun()
     {
         running = true;
-        tigerRB.AddForce(Vector3.forward * speed);
+        playerRb.AddForce(Vector3.forward * speed);
         //tigerControl.Move(Vector3.forward * speed * Time.deltaTime);
     }
     public void RunAnimationOff()
