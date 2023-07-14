@@ -12,9 +12,6 @@ public class PlayerController : MonoBehaviour
     public GameObject orientationObject;
     public Transform orientation;
 
-    //Character move
-    private CharacterController tigerControl;
-    private CharacterController birdControl;
 
     private new Animation animation;
     private new Animation birdAnimation;
@@ -23,19 +20,7 @@ public class PlayerController : MonoBehaviour
 
     public GameObject tiger;
     public GameObject bird;
-
-    //private BoxCollider tigerCollider;
-    //private BoxCollider birdCollider;
-
-    //public GameObject tigerSensor;
-    //public GameObject birdSensor;
-    //public GameObject monkeyRange;
-    //public GameObject wolfRange;
-    //public GameObject sensor;
-
-    //public GameObject dodgeEffect;
     
-
 
     public bool specialInvincibility = false;
     public GameObject bladeOfLight;
@@ -161,17 +146,11 @@ public class PlayerController : MonoBehaviour
     private bool attackEffect = false;
     void Start()
     {
-        tigerControl = tiger.GetComponent<CharacterController>();
-        birdControl = bird.GetComponent<CharacterController>();
         //cam = cameraRef.transform;
         playerRb = GetComponent<Rigidbody>();
-
-        //tigerRB = tiger.GetComponent<Rigidbody>();
+        
         animation = tiger.GetComponent<Animation>();
-
-        //tigerCollider = tiger.GetComponent<BoxCollider>();
-        //birdCollider = bird.GetComponent<BoxCollider>();
-        //tigerSensor = GameObject.Find("Tiger Sensor");
+        
 
         birdRB = bird.GetComponent<Rigidbody>();
         birdAnimation = bird.GetComponent<Animation>();
@@ -223,12 +202,7 @@ public class PlayerController : MonoBehaviour
             //Instantiate(ball, new Vector3(tiger.transform.position.x + 3, tiger.transform.position.y + 1f, tiger.transform.position.z), ball.transform.rotation);
             //ballRB.AddForce(Vector3.fwd * 30, ForceMode.Impulse);
         }
-
-        //The attack ranges will always be at y=-0.11, now-0.34f because I put back under parent, now 0 and the rotations will always be equal to 0
-        //monkeyRange.transform.rotation = new Quaternion(0, 0, 0, 0);
-        //wolfRange.transform.rotation = new Quaternion(0, 0, 0, 0);
-        //sensor.transform.rotation = new Quaternion(0, 0, 0, 0);
-        //dodgeEffect.transform.rotation = new Quaternion(0, 0, 0, 0);
+        
 
         //This code is for anything that needs to follow the player
         if (birdActive == true)
@@ -254,19 +228,6 @@ public class PlayerController : MonoBehaviour
         //direction = new Vector3(forwardInput, 0, sideInput).normalized;
 
 
-        //Trying to keep Player empty gameObject around the same place as the characters
-        //I don't think it works because wherever Player goes, the nested objects have to go too
-        //if (birdActive == true)
-        //{
-        //transform.Translate(bird.transform.position.x, 0, bird.transform.position.z); //Causes the bird to soar right
-        //transform.position = bird.transform.position; //Causes the bird to soar up
-        //}
-        //Literally causes the tiger to fly lmao
-        //This code literally doesn't work for some reason lol
-        //if (tigerActive == true)
-        //{
-        //transform.position = new Vector3(tiger.transform.position.x, transform.position.y, tiger.transform.position.z);
-        //}
 
         //Wrap all the code in the instances where the Player can't do anything, like stunlocking and transforming
         //if (gameManagerScript.startGame == true)
@@ -299,13 +260,7 @@ public class PlayerController : MonoBehaviour
 
             if (birdActive == true && attack == false && dodge == false)
             {
-                //targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + cam.eulerAngles.y;
-                //This is just for the rotating, not for the character's horizontal
-                //or vertical move
-                //angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothTime);
-                //bird.transform.rotation = Quaternion.Euler(0, angle, 0);
-                //moveDir = Quaternion.Euler(0, targetAngle, 0) * Vector3.forward;
-                //birdRB.AddForce(moveDir.normalized * speed);
+
                 birdRB.AddForce(Vector3.forward * speed * forwardInput);
                 birdRB.AddForce(Vector3.right * speed * sideInput);
                 if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D))
@@ -321,28 +276,13 @@ public class PlayerController : MonoBehaviour
             else if (tigerActive == true && attack == false && dodge == false && gameManagerScript.startingCutscene == false)
             {
                 moveDirection = orientation.forward * forwardInput + orientation.right * sideInput;
-
-                //tigerRB.AddForce(moveDir.normalized * speed);
-                //tigerRB.AddRelativeForce(Vector3.forward * speed * forwardInput);
-                //tigerRB.AddRelativeForce(Vector3.right * speed * sideInput);
+                
                 playerRb.AddForce(moveDirection.normalized * speed, ForceMode.Force);
                 playerRb.drag = 5;
                 //speed control
                 Vector3 flatVel = new Vector3(playerRb.velocity.x, 0, playerRb.velocity.z);
 
-                //animation.Stop();
-                //The button presses trigger running bool and running bool triggers animation. Surprisingly simple but not easy to think
-                //Just doing the button inputs makes the animation only play one
-                //This is different from dodging and attacking because those are single act
 
-                //if (direction.magnitude >= 0.1f)
-                //{
-                //targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + cam.eulerAngles.y;
-                //angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothTime);
-                //tiger.transform.rotation = Quaternion.Euler(0, angle, 0);
-                //moveDir = Quaternion.Euler(0, targetAngle, 0) * Vector3.forward;
-                //tigerControl.Move(moveDir.normalized * speed * Time.deltaTime);
-                //}
                 if (flatVel.magnitude > speed)
                 {
                     Vector3 limitedVel = flatVel.normalized * speed;
@@ -360,34 +300,7 @@ public class PlayerController : MonoBehaviour
             }
             if (Input.GetKeyDown(KeyCode.Space))
             {
-                //Create countdown and boolean for dodge
-                //transform.Translate(Vector3.forward * 50 * Time.deltaTime);
-                //Quick shifting maybe paper like sound
-                //att the moment, you have to press both butt
-                //Because I don't know how to have the code sense when the player is moving around
-                //Only want dodge to work while they are mov
-                //if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))
-                //{
-                //tigerRB.AddForce(Vector3.forward * dodgeForce, ForceMode.Impulse);
-                //}
-                //if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow))
-                //{
-                //playerRB.AddForce(Vector3.left * dodgeForce, ForceMode.Impulse);
-                //Debug.Log("Left dodge");
-                //StartCoroutine(Dodge());
-                //}
-                //if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow))
-                //{
-                //playerRB.AddForce(Vector3.right * dodgeForce, ForceMode.Impulse);
-                //Debug.Log("Right dodge");
-                //StartCoroutine(Dodge());
-                //}
-                //if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow))
-                //{
-                //playerRB.AddForce(Vector3.down * dodgeForce, ForceMode.Impulse);
-                //Debug.Log("Backward dodge");
-                //StartCoroutine(Dodge());
-                //}
+
 
                 //Make an else case for the current code for when the player isn't pressing a direction
                 //Placed animations here instead so that the full animation plays
@@ -449,21 +362,7 @@ public class PlayerController : MonoBehaviour
                 else if (tigerActive == true)
                 {
                     attackDirection = (target.transform.position - tiger.transform.position).normalized;
-                    //A little wonky atm
-                    //Definitely doesn't
-                    //replaced targetedEnemy.transform.position
-                    ///Fixed by using tiger.transform, while in two places, I used transform instead
-                    ///This is still not working properly though, because tiger is only rotating towards the foe only when it is very
-                    //Vector3 newDirection = Vector3.RotateTowards(tiger.transform.forward, targetedEnemy.transform.position, Time.deltaTime, 0.0f);
-                    //tiger.transform.rotation = Quaternion.LookRotation(newDirection);
 
-                    //Vector3 targetDirection = targetedEnemy.transform.position - tiger.transform.position;
-                    //Vector3 newDirection = Vector3.RotateTowards(tiger.);
-
-                    //Vector3 targetDirection = target.transform.position - tiger.transform.position;
-                    //float singleStep = Mathf.PI * Time.deltaTime;
-                    //Vector3 newDirection = Vector3.RotateTowards(tiger.transform.forward, targetDirection, singleStep, 0.0f);
-                    //tiger.transform.rotation = Quaternion.LookRotation(newDirection);
                     attackRotation = Quaternion.LookRotation(target.transform.position - tiger.transform.position);
                     Strike();
                 }
@@ -936,27 +835,7 @@ public class PlayerController : MonoBehaviour
         //target.SetActive(true);
         //newTarget.SetActive(true);
         targetedEnemy = GameObject.FindGameObjectWithTag("Enemy");
-        //lockedOn = true;
-        //Tret stays on foe in Update
 
-        //I dont really like how the camera locks on
-        //focalPoint.transform.rotation = Quaternion.LookRotation(targetedEnemy.transform.position);
-        //focalPoint.transform.LookAt(targetedEnemy.transform.position); //This one is a lot better than the above
-                                                                       //Because it doesn't turn to much in a direc
-                                                                       //Put lock on code here
-                                                                       //May want to put on a canLockOn bool on enemies instead and then put the target on the closest
-
-        //New LockOn code, atm, track for any enemy that is within a 15 float radius and then lock onto them
-        //New bool lockOnTurnedOn, so that if you already locked onto a foe, it will lock onto the closest foe
-        //First, identify an enemy in the area. Because foes load/Instantiate only when you enter an area, I don't have to worry
-        //About another area's foes being tracked
-
-        //I think I should check if there even is a foe first, just to avoid error message
-        //Maybe I'll just make a list, but I will test just for null for now.
-        //test for targetedEnemy != null and then make a list
-        ///Make a list of enemies, determine which is the closest and then make a function to shift the target
-        ///I'm pretty damn sure this code will work for shifting the target around in a way because activating this same exact code
-        ///again will shift the target to the closest foe
         if (targetedEnemy != null) //There's no immediate way to check if there's an object of tag something, I wished there
         {
             GameObject [] enemies = GameObject.FindGameObjectsWithTag("Enemy");
@@ -978,21 +857,7 @@ public class PlayerController : MonoBehaviour
                     distanceList[i] = Vector3.Distance(enemies[i].transform.position, tiger.transform.position);
                 }
                 newMin = Mathf.Min(distanceList);
-                //- 1 because I need to check to the end of the list and I can't go past the end of the
-                //Actually, maybe I don't need to compare all the distanceList. I could check every item, but
-                //What I could do instead if find the Minimum and then find the item on the list with the same val
-                //for (int j = 0; j < distanceList.Length; j++)
-                //{
-                    //newMin = Mathf.Min(distanceList); //Was gonna do this, but I need the index of the enemy with the 
-                    //I can either do a loop to check a and b and then change newMinIndex, or have an index where
-                    //I check newMinIndex with a dummy value to see if there is a new minimum, as I'm writing this, it sounds
-                    //more complicated lol and I will go with the form
-                    //newMinIndex = Mathf.Min(distanceList[j], distanceList[j + 1]);
-                    //if (distanceList[j] < distanceList[j + 1])
-                    //{
 
-                    //}
-                //}
                 while (smallestDistanceFound == false)
                 {
                     if (distanceList[j] == newMin)
@@ -1021,18 +886,7 @@ public class PlayerController : MonoBehaviour
                 //{
                     target.SetActive(true);
                     lockedOn = true;
-                    //lockOnTurnedOn = true;
-                    //focalPoint.transform.LookAt(targetedEnemy.transform.position); //This one is a lot better than the above
-                    //Because it doesn't turn to much in a direc
-                    //Put lock on code here
-                    //May want to put on a canLockOn bool on enemies instead and then put the target on the closest
-                    //cam.transform.LookAt(targetedEnemy.transform.position);
-                //}
-                //I got rid of this because Lock On will always work
-                //else
-                //{
-                    //Debug.Log("Nothing in range");
-                //}
+
             }
         }
         else
