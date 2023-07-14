@@ -256,27 +256,10 @@ public class PlayerController : MonoBehaviour
             ///this isn't a problem for attack, but it's a problem for dodging
             ///I think that the problem is that the animation keeps going, not that the action gets interrupt
             ///
-
-
-            if (birdActive == true && attack == false && dodge == false)
-            {
-
-                birdRB.AddForce(Vector3.forward * speed * forwardInput);
-                birdRB.AddForce(Vector3.right * speed * sideInput);
-                if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D))
-                {
-                    running = true;
-                }
-                else
-                {
-                    running = false;
-                }
-            }
-            //Tiger has different code for movement because ineed to trigger the running animat
-            else if (tigerActive == true && attack == false && dodge == false && gameManagerScript.startingCutscene == false)
+            if (attack == false && dodge == false && gameManagerScript.startingCutscene == false)
             {
                 moveDirection = orientation.forward * forwardInput + orientation.right * sideInput;
-                
+
                 playerRb.AddForce(moveDirection.normalized * speed, ForceMode.Force);
                 playerRb.drag = 5;
                 //speed control
@@ -288,7 +271,6 @@ public class PlayerController : MonoBehaviour
                     Vector3 limitedVel = flatVel.normalized * speed;
                     playerRb.velocity = new Vector3(limitedVel.x, 0, limitedVel.z);
                 }
-
                 if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D))
                 {
                     running = true;
@@ -298,6 +280,28 @@ public class PlayerController : MonoBehaviour
                     running = false;
                 }
             }
+
+            //if (birdActive == true && attack == false && dodge == false)
+            //{
+
+                //birdRB.AddForce(Vector3.forward * speed * forwardInput);
+                //birdRB.AddForce(Vector3.right * speed * sideInput);
+
+            //}
+            //Tiger has different code for movement because ineed to trigger the running animat
+            //else if (tigerActive == true && attack == false && dodge == false && gameManagerScript.startingCutscene == false)
+            //{
+
+
+                //if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D))
+                //{
+                    //running = true;
+                //}
+                //else
+                //{
+                    //running = false;
+                //}
+            //}
             if (Input.GetKeyDown(KeyCode.Space))
             {
 
