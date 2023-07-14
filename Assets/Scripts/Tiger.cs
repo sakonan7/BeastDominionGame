@@ -64,6 +64,7 @@ public class Tiger : MonoBehaviour
         {
             gameManager.StartGame();
             Destroy(other);
+            Debug.Log("Game Start");
         }
         if (other.CompareTag("Wolf Attack") && (playerScript.dodge == false && playerScript.specialInvincibility == false && playerScript.stunnedInvincibility == false))
         {

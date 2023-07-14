@@ -76,7 +76,7 @@ public class PlayerController : MonoBehaviour
     //private float distance;
 
     private Rigidbody playerRb;
-    private Rigidbody tigerRB;
+    //private Rigidbody tigerRB;
     private bool running = false;
 
     private Rigidbody birdRB;
@@ -166,7 +166,7 @@ public class PlayerController : MonoBehaviour
         //cam = cameraRef.transform;
         playerRb = GetComponent<Rigidbody>();
 
-        tigerRB = tiger.GetComponent<Rigidbody>();
+        //tigerRB = tiger.GetComponent<Rigidbody>();
         animation = tiger.GetComponent<Animation>();
 
         //tigerCollider = tiger.GetComponent<BoxCollider>();
@@ -412,7 +412,7 @@ public class PlayerController : MonoBehaviour
                 else if (tigerActive == true)
                 {
                     //Tried tiger.transform.forward, but the transform of the tiger doesn't
-                    tigerRB.AddForce(moveDirection * dodgeForce, ForceMode.Impulse);
+                    playerRb.AddForce(moveDirection * dodgeForce, ForceMode.Impulse);
                     animation.Play("Jump Tweak");
                     if (running == true)
                     {
@@ -542,7 +542,7 @@ public class PlayerController : MonoBehaviour
         {
             animation.Play("Distance Closer");
                 //I would prefer to use nonImpulse, but it is too slow and using Impulse is unexpectedly cool
-                tigerRB.AddForce(attackDirection * 4, ForceMode.Impulse); //attack force wasn't enough //Also, it isn't enough here //Try impulse
+                playerRb.AddForce(attackDirection * 4, ForceMode.Impulse); //attack force wasn't enough //Also, it isn't enough here //Try impulse
                 //ForceMode Impulse is amazing. Needed to go from speed to 5 becaue of how fast and far it went
                 tiger.transform.rotation = Quaternion.Slerp(tiger.transform.rotation, attackRotation, 5);
             //My plan for this is to have the player close the distance and once they're within 1 distance away from a foe, perform the
@@ -688,7 +688,7 @@ public class PlayerController : MonoBehaviour
         //Cutscenes
         if (gameManagerScript.startingCutscene == true)
         {
-            //OpeningRun();
+            OpeningRun();
         }
     }
 
@@ -800,7 +800,7 @@ public class PlayerController : MonoBehaviour
         {
             attackTimeLength = normalTigerAttacklength;
             StartCoroutine(AttackDuration());
-            tigerRB.AddForce(attackDirection * (attackForce + 10), ForceMode.Impulse);//Changed from 8 to 12
+            playerRb.AddForce(attackDirection * (attackForce + 10), ForceMode.Impulse);//Changed from 8 to 12
             animation.Play("Attack 1 & 2");
             playerAudio.PlayOneShot(tigerSwing, 0.05f);
         }
@@ -810,7 +810,7 @@ public class PlayerController : MonoBehaviour
             tiger.transform.rotation = Quaternion.Slerp(tiger.transform.rotation, attackRotation, 5) ;
             attackTimeLength = normalTigerAttacklength;
             StartCoroutine(AttackDuration());
-            tigerRB.AddForce(attackDirection * (attackForce + 14), ForceMode.Impulse);//Changed from 8 to 12
+            playerRb.AddForce(attackDirection * (attackForce + 14), ForceMode.Impulse);//Changed from 8 to 12
             animation.Play("Attack 1 & 2");
             playerAudio.PlayOneShot(tigerSwing, 0.05f);
         }
@@ -865,11 +865,11 @@ public class PlayerController : MonoBehaviour
     public void TigerSpecial()
     {
         playerAudio.PlayOneShot(tigerSwing, 0.05f);
-        tigerRB.AddForce(attackDirection * (attackForce + 14), ForceMode.Impulse); //+ 8 normally, but try + 12 for blade of
+        playerRb.AddForce(attackDirection * (attackForce + 14), ForceMode.Impulse); //+ 8 normally, but try + 12 for blade of
         attackRotation = Quaternion.LookRotation(target.transform.position - tiger.transform.position);
         tiger.transform.rotation = Quaternion.Slerp(tiger.transform.rotation, attackRotation, 5); //Am using all the attack rotations
         //here because there is a charge up before Tiger Special Attack
-        tigerRB.AddRelativeTorque(Vector3.down * 5, ForceMode.Impulse);
+        playerRb.AddRelativeTorque(Vector3.down * 5, ForceMode.Impulse);
         animation.Play("Attack 1 & 2");
         //TigerSpecialSecondStrike();
         //StartCoroutine(UseTigerSpecialSecond());
@@ -888,7 +888,7 @@ public class PlayerController : MonoBehaviour
         //attackRotation = Quaternion.LookRotation(target.transform.position - tiger.transform.position);
         //tiger.transform.rotation = Quaternion.Slerp(tiger.transform.rotation, attackRotation, 5); //Am using all the attack rotations
         //here because there is a charge up before Tiger Special Attack
-        tigerRB.AddRelativeTorque(Vector3.down * 5, ForceMode.Impulse);
+        playerRb.AddRelativeTorque(Vector3.down * 5, ForceMode.Impulse);
         animation.Play("Attack 1 & 2");
 
 
@@ -1180,8 +1180,8 @@ public class PlayerController : MonoBehaviour
             tiger.transform.Rotate(-16.5f, -8f, -1.5f);
             //tigerRB.AddForce(Vector3.down * 5, ForceMode.Impulse);
             tiger.transform.Translate(0, -0.2f, 0);
-            tigerRB.constraints = RigidbodyConstraints.FreezePositionY;
-            tigerRB.constraints = RigidbodyConstraints.FreezeRotationZ;
+            playerRb.constraints = RigidbodyConstraints.FreezePositionY;
+            playerRb.constraints = RigidbodyConstraints.FreezeRotationZ;
         }
         else if (birdFlinch == true)
         {
@@ -1268,6 +1268,40 @@ public class PlayerController : MonoBehaviour
         Time.timeScale = 0.2f;
         yield return new WaitForSeconds(0.8f);
         Time.timeScale = 0;
+    }
+    public void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.name == "Start Game Boundary")
+        {
+            gameManagerScript.StartGame();
+            Destroy(other);
+            Debug.Log("Game Start");
+        }
+        if (other.CompareTag("Wolf Attack") && (dodge == false && specialInvincibility == false && stunnedInvincibility == false))
+        {
+            //wolfScript = other.gameObject.GetComponent<NewWolf>();
+            //playerScript.LoseHP(wolfScript.damage); //I need to reference Wolf's attack damage based on difficulty, but that's not hard
+            //wolfScript = other.gameObject.GetComponentInParent<NewWolf>();
+            //Was intially going to try putting this in the bigger if loop
+            //if (wolfScript.attackLanded == false)
+            //{
+
+                //playerScript.LoseHP(wolfScript.damage);
+                //playerScript.TigerFlinching(); //Have evoke this one last because this one triggers the StunDuration, and the above
+                //Sets the value of damage
+                //This is going to be more challenging, because I need a specific Wolf's attack direc
+                //I got it, draw a wolf script from the other.gameObject.
+                //I hope this doesn't cause an issue when multiple attacks land on the player
+                //Serendipity, I can use this to determine damage
+                //
+                //wolfScript.SetAttackLanded();
+                //wolfScript.PlayAttackEffect();
+                //tigerRb.AddForce(wolfScript.followDirection * 15, ForceMode.Impulse);
+                //tigerRb.AddForce(Vector3.back * 12, ForceMode.Impulse);
+                //playerScript.AttackLandedTrue();
+            //}
+
+        }
     }
 }
 
