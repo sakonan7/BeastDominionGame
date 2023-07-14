@@ -49,6 +49,13 @@ public class Tiger : MonoBehaviour
                 playerScript.DisplayNumberOfItems();
             }
         }
+        //May have to call anything that stops the player Wall
+        //May need to put this in PlayerController
+        //Worked so far because last time I did tigerSpecial near a wall, it caused Tiger to be rotated off the x-ax
+        if (collision.gameObject.CompareTag("Wall") && (playerScript.attack == true || playerScript.tigerSpecial == true))
+        {
+            tigerRb.velocity = Vector3.zero;
+        }
     }
     //Need this for when the foe is right next to the tig
     public void OnTriggerEnter(Collider other)
