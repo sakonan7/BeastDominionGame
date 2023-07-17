@@ -41,7 +41,7 @@ public class PlayerController : MonoBehaviour
 
     private float speed = 36; //Changed from 30 because now I'm using charactercontroller
     private float birdSpeed = 40;
-    private float dodgeForce = 15; //90 barely jumps
+    private float dodgeForce = 35; //90 barely jumps
     public float attackForce = 5;
     private float forwardInput;
     private Vector3 direction;
@@ -329,7 +329,7 @@ public class PlayerController : MonoBehaviour
                 else if (tigerActive == true)
                 {
                     //Tried tiger.transform.forward, but the transform of the tiger doesn't
-                    playerRb.AddForce(moveDirection * dodgeForce, ForceMode.Impulse);
+                    playerRb.AddForce(moveDirection.normalized * dodgeForce, ForceMode.Impulse);
                     animation.Play("Jump Tweak");
                     if (running == true)
                     {

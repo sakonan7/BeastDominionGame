@@ -32,7 +32,10 @@ public class ThirdPersonCamera : MonoBehaviour
         //Had to replace instances of tiger with player and playerObj
         //I'm sure using tiger instead of playerObj caused prob
         //Acc8dentally used .transform when I'm already using Transform
-        Vector3 viewDir = tiger.transform.position - new Vector3(transform.position.x, player.position.y, transform.position.z);
+        ///The major thing I had to fix was using the Player Object's and playerObj's transform
+        ///I just caught a mistake where I'm still using tiger.transform, but it doesn't look like
+        ///using tiger.transform caused any problems. It probably will cause problems when I use bird
+        Vector3 viewDir = player.position - new Vector3(transform.position.x, player.position.y, transform.position.z);
         orientation.forward = viewDir.normalized;
         float horizontalInput = Input.GetAxisRaw("Horizontal");
         float verticalInput = Input.GetAxisRaw("Vertical");
