@@ -308,34 +308,37 @@ public class PlayerController : MonoBehaviour
 
                 //Make an else case for the current code for when the player isn't pressing a direction
                 //Placed animations here instead so that the full animation plays
-                if (birdActive == true)
+                if (running == true)
                 {
-                    birdRB.AddForce(Vector3.forward * dodgeForce, ForceMode.Impulse);
-                    birdAnimation.Play("Attack");
-                    //Try using rotate degrees instead and Vectors and speed
-                    //transform.Rotate(360, 0, 0);
-                    //bird.transform.Rotate(Vector3.back * 300 * Time.deltaTime); //Doesn't work most likely because I need to use Time.deltaTime but
-                    //something that counts milliseconds, so that bird can spin a full 360 in one second
-                    //Use torque
-                    birdRB.AddTorque(Vector3.back, ForceMode.Impulse);
-                    //Quick fix, but it actually worked. Running animation 
-                    //I tried putting a big case above all the controls, but it doesn't
-                    //For some reason, this is necessary in the code for the actions
-                    if (running == true)
+                    running = false;
+                    if (birdActive == true)
                     {
-                        running = false;
+                        birdRB.AddForce(Vector3.forward * dodgeForce, ForceMode.Impulse);
+                        birdAnimation.Play("Attack");
+                        //Try using rotate degrees instead and Vectors and speed
+                        //transform.Rotate(360, 0, 0);
+                        //bird.transform.Rotate(Vector3.back * 300 * Time.deltaTime); //Doesn't work most likely because I need to use Time.deltaTime but
+                        //something that counts milliseconds, so that bird can spin a full 360 in one second
+                        //Use torque
+                        birdRB.AddTorque(Vector3.back, ForceMode.Impulse);
+                        //Quick fix, but it actually worked. Running animation 
+                        //I tried putting a big case above all the controls, but it doesn't
+                        //For some reason, this is necessary in the code for the actions
+                    }
+                    else if (tigerActive == true)
+                    {
+                        //Tried tiger.transform.forward, but the transform of the tiger doesn't
+                        playerRb.AddForce(moveDirection.normalized * dodgeForce, ForceMode.Impulse);
+                        animation.Play("Jump Tweak");
+
                     }
                 }
-                else if (tigerActive == true)
+                else if (running == false)
                 {
-                    //Tried tiger.transform.forward, but the transform of the tiger doesn't
-                    playerRb.AddForce(moveDirection.normalized * dodgeForce, ForceMode.Impulse);
+                    playerRb.AddForce(Vector3.fwd * dodgeForce, ForceMode.Impulse);
                     animation.Play("Jump Tweak");
-                    if (running == true)
-                    {
-                        running = false;
-                    }
                 }
+
 
                 StartCoroutine(Dodge());
             }
@@ -398,9 +401,10 @@ public class PlayerController : MonoBehaviour
                         Strike();
                     }
                 }
-                else if (running == false)
+                if (running == false)
                 {
                     attackDirection = Vector3.fwd;
+                    Strike();
                 }
             }
             //Special Attack
@@ -482,6 +486,19 @@ public class PlayerController : MonoBehaviour
             }
 
         }
+        //if (specialCloseTheDistance == true)
+        //{
+            //animation.Play("Distance Closer");
+            //I would prefer to use nonImpulse, but it is too slow and using Impulse is unexpectedly cool
+            //playerRb.AddForce(attackDirection * 5, ForceMode.Impulse); //attack force wasn't enough //Also, it isn't enough here //Try impulse
+                                                                       //ForceMode Impulse is amazing. Needed to go from speed to 5 becaue of how fast and far it went
+            //tiger.transform.rotation = Quaternion.Slerp(tiger.transform.rotation, attackRotation, 5);
+            //Put the closeTheDistance code in here
+            //if (distance < 3)
+            //{
+                //Debug.Log("Distance Met At " + distance);
+            //}
+        //}
 
 
 
