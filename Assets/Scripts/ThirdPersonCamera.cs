@@ -35,6 +35,7 @@ public class ThirdPersonCamera : MonoBehaviour
         ///The major thing I had to fix was using the Player Object's and playerObj's transform
         ///I just caught a mistake where I'm still using tiger.transform, but it doesn't look like
         ///using tiger.transform caused any problems. It probably will cause problems when I use bird
+        ///Doing this actually didn't change anything, probably because the tiger faces the same direction as the player ob
         Vector3 viewDir = player.position - new Vector3(transform.position.x, player.position.y, transform.position.z);
         orientation.forward = viewDir.normalized;
         float horizontalInput = Input.GetAxisRaw("Horizontal");
