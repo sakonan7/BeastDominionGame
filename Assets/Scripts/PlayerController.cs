@@ -42,7 +42,7 @@ public class PlayerController : MonoBehaviour
     private float speed = 36; //Changed from 30 because now I'm using charactercontroller
     private float birdSpeed = 40;
     private float dodgeForce = 35; //90 barely jumps
-    public float attackForce = 5;
+    private float attackForce = 20;
     private float forwardInput;
     private Vector3 direction;
     private float sideInput;
@@ -542,7 +542,13 @@ public class PlayerController : MonoBehaviour
 
             //Code to turn camera towards target
             //Test to see if using a method will only place the method once. I don't think so, so try it in the lockedon meth
-            
+            distance = Vector3.Distance(targetedEnemy.transform.position, transform.position); //Didn't realize I'd have
+                                                                                               //Didn't realize I'd have to keep calculating Distance
+                                                                                               //Actually, I will recalculate distance in lockedOn
+                                                                                               //I need this here
+                                                                                               //to keep calculating the distance between foe
+                                                                                               //and player
+
             if (enemyScript.HP <= 0)
             {
                 lockedOn = false;
@@ -699,6 +705,7 @@ public class PlayerController : MonoBehaviour
             playerAudio.PlayOneShot(tigerSwing, 0.05f);
         }
         //I guestimated from gameplay that the distance needs to be at least 15
+        //I think I may want to rewrite this because I don't think this works
         if ((distance > 10 || distance <= 3) && lockedOn)
         {
             tiger.transform.rotation = Quaternion.Slerp(tiger.transform.rotation, attackRotation, 5) ;
@@ -726,10 +733,9 @@ public class PlayerController : MonoBehaviour
     }
     IEnumerator DistanceCloser()
     {
-        distance = Vector3.Distance(targetedEnemy.transform.position, transform.position); //Didn't realize I'd have
-                                                                                           //Didn't realize I'd have to keep calculating Distance
-                                                                                           //Actually, I will recalculate distance in lockedOn
-        if (distance < 2 && closeTheDistance == true)
+        //Removed distance calculating from here becauseit may cause confusion. Want to put distance in Update(), but
+        //it looks like I only have targetedEnemy in FixedUpdate()
+        if (distance < 3 && closeTheDistance == true)
         {
             Debug.Log("Distance met");
             closeTheDistance = false;

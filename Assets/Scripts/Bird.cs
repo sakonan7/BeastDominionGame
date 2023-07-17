@@ -33,7 +33,7 @@ public class Bird : MonoBehaviour
             //foeRB = targetedEnemy.GetComponent<Rigidbody>();
             //attackDirection = (target.transform.position - transform.position).normalized;
             //attackDirection = (target.transform.position - bird.transform.position).normalized;
-            collision.gameObject.GetComponent<Rigidbody>().AddForce(playerScript.attackDirection * playerScript.attackForce, ForceMode.Impulse);
+            //collision.gameObject.GetComponent<Rigidbody>().AddForce(playerScript.attackDirection * playerScript.attackForce, ForceMode.Impulse);
             //trying to make struck foes rise up slightly from a strike
             collision.gameObject.GetComponent<Rigidbody>().AddForce(Vector3.up * 100, ForceMode.Impulse);
             //Debug.Log("attack land");
