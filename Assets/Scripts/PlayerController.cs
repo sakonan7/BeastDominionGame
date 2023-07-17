@@ -441,6 +441,7 @@ public class PlayerController : MonoBehaviour
         //Putting it on here atm because I want this to be interupted by stunning
         //Also, players can't do anything while the character is closing the distance
         //Put it out of the conditional because it's not an action
+        ///Keeping this here even though I moved the code from this to the IEnumerator to play the animation
         if (closeTheDistance == true && stunned == false)
         {
             animation.Play("Distance Closer");
@@ -470,15 +471,7 @@ public class PlayerController : MonoBehaviour
                 closeTheDistance = false;
                 Debug.Log("I don't want to do it, but, closeTheDistance = " + closeTheDistance);
             }
-            if (distance < 2)
-            {
-                Debug.Log("Distance met");
-                closeTheDistance = false;
-                attackTimeLength = distanceCloserTigerAttackLength;
-                StartCoroutine(AttackDuration());
-                animation.Play("Attack 1 & 2");
-                playerAudio.PlayOneShot(tigerSwing, 0.05f);
-            }
+
         }
 
 
@@ -549,9 +542,7 @@ public class PlayerController : MonoBehaviour
 
             //Code to turn camera towards target
             //Test to see if using a method will only place the method once. I don't think so, so try it in the lockedon meth
-            distance = Vector3.Distance(targetedEnemy.transform.position, tiger.transform.position); //Didn't realize I'd have
-                                                                                                     //Didn't realize I'd have to keep calculating Distance
-                                                                                                     //Actually, I will recalculate distance in lockedOn
+            
             if (enemyScript.HP <= 0)
             {
                 lockedOn = false;
@@ -735,7 +726,18 @@ public class PlayerController : MonoBehaviour
     }
     IEnumerator DistanceCloser()
     {
-
+        distance = Vector3.Distance(targetedEnemy.transform.position, transform.position); //Didn't realize I'd have
+                                                                                           //Didn't realize I'd have to keep calculating Distance
+                                                                                           //Actually, I will recalculate distance in lockedOn
+        if (distance < 2 && closeTheDistance == true)
+        {
+            Debug.Log("Distance met");
+            closeTheDistance = false;
+            attackTimeLength = distanceCloserTigerAttackLength;
+            StartCoroutine(AttackDuration());
+            animation.Play("Attack 1 & 2");
+            playerAudio.PlayOneShot(tigerSwing, 0.05f);
+        }
         yield return new WaitForSeconds(0.5f);
         if (closeTheDistance == true)
         {
