@@ -378,20 +378,29 @@ public class PlayerController : MonoBehaviour
             if (Input.GetMouseButtonDown(0) && lockedOn == false)
             {
                 
-                attackDirection = Vector3.fwd; //changed from Vector3.fwd. Changed back from moveDirection
-                if (birdActive == true)
-                {
-                    //attackDirection = (target.transform.position - bird.transform.position).normalized;
-                    Swoop();
-                }
-                else if (tigerActive == true)
-                {
-                    //attackDirection = (target.transform.position - tiger.transform.position).normalized;
-                    Strike();
-                }
+
+                //Temporary fix atm because while the below is what I want, I can't fix the non moving attack at
                 if (running == true)
                 {
                     running = false;
+                    attackDirection = moveDirection; //changed from Vector3.fwd. Changed back from moveDirection
+                                                     //orientation.forward did not work out
+                                                     //While moveDirection makes the attack
+                                                     //moveDirection on its own will not move the player
+                    if (birdActive == true)
+                    {
+                        //attackDirection = (target.transform.position - bird.transform.position).normalized;
+                        Swoop();
+                    }
+                    else if (tigerActive == true)
+                    {
+                        //attackDirection = (target.transform.position - tiger.transform.position).normalized;
+                        Strike();
+                    }
+                }
+                else if (running == false)
+                {
+                    attackDirection = Vector3.fwd;
                 }
             }
             //Special Attack
@@ -658,7 +667,7 @@ public class PlayerController : MonoBehaviour
 
     IEnumerator TigerSpecialDuration()
     {
-        attack = true;
+        //attack = true;
         //specialInvincibility = true;
         //playerAudio.PlayOneShot(tigerSpecial, 0.2f);
         bladeOfLight.SetActive(true);
