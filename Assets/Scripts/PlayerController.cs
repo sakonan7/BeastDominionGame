@@ -478,7 +478,7 @@ public class PlayerController : MonoBehaviour
                                                                        //ForceMode Impulse is amazing. Needed to go from speed to 5 becaue of how fast and far it went
             tiger.transform.rotation = Quaternion.Slerp(tiger.transform.rotation, attackRotation, 5);
             //Put the closeTheDistance code in here
-            if (distance < 5)
+            if (distance < 8)
             {
                 Debug.Log("Distance Met At " + distance);
                 //This will work because specialInvincibility is on and TigerSpecialDuration() cancels
@@ -682,7 +682,7 @@ public class PlayerController : MonoBehaviour
         else if (lockedOn == false)
         {
             attackDirection = Vector3.fwd;
-            playerRb.AddForce(attackDirection * (attackForce + 24), ForceMode.Impulse); //+ 8 normally, but try + 12 for blade of
+            playerRb.AddForce(attackDirection * (attackForce + 64), ForceMode.Impulse); //+ 8 normally, but try + 12 for blade of
             TigerSpecial();
             StartCoroutine(TigerSpecialDuration());
         }
