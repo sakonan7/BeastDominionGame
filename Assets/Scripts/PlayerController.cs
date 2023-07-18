@@ -247,7 +247,8 @@ public class PlayerController : MonoBehaviour
         ///Gonna try to make a general case for all controls where you can't do anything if you're lagged or stunned or using a special
         ///Or if you're using a dodge or if you're using an attack. Just put every case where the player shouldn't be mov
         ///This is so Players can't repeat an action while the action is happen
-        if (lag == false && attack == false && dodge == false && stunned == false && transforming == false && closeTheDistance == false)
+        if (lag == false && attack == false && dodge == false && stunned == false && transforming == false && closeTheDistance == false
+            && charging == false && specialCloseTheDistance == false)
         {
             //I can still perform attack while running, so I will need to make sure I can't run while attacking. Just checked,
             //the same happens when I use a dodge
