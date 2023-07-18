@@ -682,7 +682,7 @@ public class PlayerController : MonoBehaviour
         else if (lockedOn == false)
         {
             attackDirection = Vector3.fwd;
-            playerRb.AddForce(attackDirection * (attackForce + 64), ForceMode.Impulse); //+ 8 normally, but try + 12 for blade of
+            playerRb.AddForce(attackDirection * (attackForce + 154), ForceMode.Impulse); //+ 8 normally, but try + 12 for blade of
             TigerSpecial();
             StartCoroutine(TigerSpecialDuration());
         }
