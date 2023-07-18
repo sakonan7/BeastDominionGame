@@ -676,6 +676,7 @@ public class PlayerController : MonoBehaviour
         if (lockedOn == true)
         {
             attackDirection = (target.transform.position - tiger.transform.position).normalized;
+            attackRotation = Quaternion.LookRotation(target.transform.position - tiger.transform.position);
             specialCloseTheDistance = true;
         }
         else if (lockedOn == false)
