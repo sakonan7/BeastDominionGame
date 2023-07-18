@@ -536,33 +536,37 @@ public class PlayerController : MonoBehaviour
         //updates per frame
         if (lockedOn == true)
         {
-            //Too complicated to place the target on a unique place on a foe atm because I would need to access the enemy's class.
-            //Unless I use tags
+            //Put this in a conditional and changed from enemyScript.HP > 0 so I don't get an error when an enemy is defeat
+            if (targetedEnemy != null)
+                {
+                //Too complicated to place the target on a unique place on a foe atm because I would need to access the enemy's class.
+                //Unless I use tags
 
-            //Weirdly fixed by using position instead of Translate(
-            //enemyTargetPosition = targetedEnemy.GiveTargetPosition();
-            target.transform.position = targetedEnemy.transform.position; //I think I should at most just adjust target's loca
-            //target.transform.position = enemyTargetPosition;
-            //newTarget.transform.position = new Vector3(targetedEnemy.transform.position.x, targetedEnemy.transform.position.y, 0);
+                //Weirdly fixed by using position instead of Translate(
+                //enemyTargetPosition = targetedEnemy.GiveTargetPosition();
+                target.transform.position = targetedEnemy.transform.position; //I think I should at most just adjust target's loca
+                                                                              //target.transform.position = enemyTargetPosition;
+                                                                              //newTarget.transform.position = new Vector3(targetedEnemy.transform.position.x, targetedEnemy.transform.position.y, 0);
 
-            //Original plan was to keep the original target but inactive to give the player a target to hit
-            //And to have the new target appear over the targeted foe
-            //newTargetRect = newTarget.GetComponent<RectTransform>();
-            //newTargetRect.localPosition = new Vector2(target.transform.position.x, target.transform.position.y);
+                //Original plan was to keep the original target but inactive to give the player a target to hit
+                //And to have the new target appear over the targeted foe
+                //newTargetRect = newTarget.GetComponent<RectTransform>();
+                //newTargetRect.localPosition = new Vector2(target.transform.position.x, target.transform.position.y);
 
-            //Code to make lockedOn symbol face camera
-            //The original simple LookAt(cameraRef.transform) didn't work because it showed the clear backside of the plane/quad instead
-            target.transform.LookAt(target.transform.position - (cameraRef.transform.position - target.transform.position));
+                //Code to make lockedOn symbol face camera
+                //The original simple LookAt(cameraRef.transform) didn't work because it showed the clear backside of the plane/quad instead
+                target.transform.LookAt(target.transform.position - (cameraRef.transform.position - target.transform.position));
 
-            //Code to turn camera towards target
-            //Test to see if using a method will only place the method once. I don't think so, so try it in the lockedon meth
-            distance = Vector3.Distance(targetedEnemy.transform.position, transform.position); //Didn't realize I'd have
-                                                                                               //Didn't realize I'd have to keep calculating Distance
-                                                                                               //Actually, I will recalculate distance in lockedOn
-                                                                                               //I need this here
-                                                                                               //to keep calculating the distance between foe
-                                                                                               //and player
-
+                //Code to turn camera towards target
+                //Test to see if using a method will only place the method once. I don't think so, so try it in the lockedon meth
+                distance = Vector3.Distance(targetedEnemy.transform.position, transform.position); //Didn't realize I'd have
+                                                                                                   //Didn't realize I'd have to keep calculating Distance
+                                                                                                   //Actually, I will recalculate distance in lockedOn
+                                                                                                   //I need this here
+                                                                                                   //to keep calculating the distance between foe
+                                                                                                   //and player
+            }
+            //I may want to change this because I can trigger an error by trying to access enemyScript when targetEnemy has been killed
             if (enemyScript.HP <= 0)
             {
                 lockedOn = false;
@@ -677,6 +681,7 @@ public class PlayerController : MonoBehaviour
         else if (lockedOn == false)
         {
             attackDirection = Vector3.fwd;
+            playerRb.AddForce(attackDirection * (attackForce + 24), ForceMode.Impulse); //+ 8 normally, but try + 12 for blade of
             TigerSpecial();
             StartCoroutine(TigerSpecialDuration());
         }
@@ -802,7 +807,7 @@ public class PlayerController : MonoBehaviour
     public void TigerSpecial()
     {
         playerAudio.PlayOneShot(tigerSwing, 0.05f);
-        playerRb.AddForce(attackDirection * (attackForce + 14), ForceMode.Impulse); //+ 8 normally, but try + 12 for blade of
+        
         attackRotation = Quaternion.LookRotation(target.transform.position - tiger.transform.position);
         tiger.transform.rotation = Quaternion.Slerp(tiger.transform.rotation, attackRotation, 5); //Am using all the attack rotations
         //here because there is a charge up before Tiger Special Attack
