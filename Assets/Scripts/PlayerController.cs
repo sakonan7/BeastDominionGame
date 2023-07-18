@@ -54,6 +54,7 @@ public class PlayerController : MonoBehaviour
     private float turnSmoothVelocity;
     private Vector3 moveDir;
     private bool closeTheDistance = false;
+    private bool specialCloseTheDistance = false;
     private float attackTimeLength;
     private float normalTigerAttacklength = 0.3f;
     private float distanceCloserTigerAttackLength = 0.1f;
@@ -486,19 +487,23 @@ public class PlayerController : MonoBehaviour
             }
 
         }
-        //if (specialCloseTheDistance == true)
-        //{
+        if (specialCloseTheDistance == true)
+        {
             //animation.Play("Distance Closer");
             //I would prefer to use nonImpulse, but it is too slow and using Impulse is unexpectedly cool
             //playerRb.AddForce(attackDirection * 5, ForceMode.Impulse); //attack force wasn't enough //Also, it isn't enough here //Try impulse
                                                                        //ForceMode Impulse is amazing. Needed to go from speed to 5 becaue of how fast and far it went
             //tiger.transform.rotation = Quaternion.Slerp(tiger.transform.rotation, attackRotation, 5);
             //Put the closeTheDistance code in here
-            //if (distance < 3)
-            //{
-                //Debug.Log("Distance Met At " + distance);
-            //}
-        //}
+            if (distance < 3)
+            {
+                Debug.Log("Distance Met At " + distance);
+                //This will work because specialInvincibility is on and TigerSpecialDuration() cancels
+                StartCoroutine(TigerSpecialDuration());
+                TigerSpecial();
+                specialCloseTheDistance = false;
+            }
+        }
 
 
 
@@ -677,8 +682,9 @@ public class PlayerController : MonoBehaviour
         specialInvincibility = true;
         yield return new WaitForSeconds(1.5f);
         charging = false;
-        StartCoroutine(TigerSpecialDuration());
-        TigerSpecial();
+        specialCloseTheDistance = true;
+        bladeOfLight.SetActive(true);
+
         playerAudio.PlayOneShot(bladeOfLightChargeUp, 0.2f);
     }
 
@@ -687,7 +693,7 @@ public class PlayerController : MonoBehaviour
         //attack = true;
         //specialInvincibility = true;
         //playerAudio.PlayOneShot(tigerSpecial, 0.2f);
-        bladeOfLight.SetActive(true);
+        //bladeOfLight.SetActive(true);
         yield return new WaitForSeconds(2f);
         attack = false;
         specialInvincibility = false;
