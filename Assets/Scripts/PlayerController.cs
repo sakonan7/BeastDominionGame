@@ -410,11 +410,12 @@ public class PlayerController : MonoBehaviour
                 }
             }
             //Special Attack
-            if (Input.GetKeyDown(KeyCode.Z) && lockedOn == true)
+            //Changed it so that ChargeUp will determine what direction Tiger will go
+            if (Input.GetKeyDown(KeyCode.Z))
             {
                 //StartCoroutine(TigerSpecialDuration());
                 StartCoroutine(ChargeUp());
-                attackDirection = (target.transform.position - tiger.transform.position).normalized;
+                
                 //TigerSpecial();
                 //tigerRB.AddTorque(Vector3.up * 100, ForceMode.VelocityChange);
                 //Either use Fight Idle animation
@@ -422,26 +423,6 @@ public class PlayerController : MonoBehaviour
                 {
                     running = false;
                 }
-            }
-            //wrote this first
-            if (Input.GetKeyDown(KeyCode.Z) && lockedOn == false)
-            {
-                //Summons blade of light and then dashes and performs a 360 degree slash. Need to make sure it's 360
-                //Maybe there is a charge up animation
-                //A little bit further than a regular attack
-
-                //Just do the animation for now. Need an IEnumerator to make the blade go inactive and for attack duration. Could
-                //do it in the same IEnumera
-                //StartCoroutine(TigerSpecialDuration());
-                StartCoroutine(ChargeUp());
-                attackDirection = Vector3.fwd;
-                //TigerSpecial();
-                //tigerRB.AddTorque(Vector3.up * 100, ForceMode.VelocityChange);
-                //Either use Fight Idle animation
-                                    if (running == true)
-                    {
-                        running = false;
-                    }
             }
 
         }
@@ -490,13 +471,14 @@ public class PlayerController : MonoBehaviour
         }
         if (specialCloseTheDistance == true)
         {
-            //animation.Play("Distance Closer");
+            //For some reason I commented out the code for the distance closing lo
+            animation.Play("Distance Closer");
             //I would prefer to use nonImpulse, but it is too slow and using Impulse is unexpectedly cool
-            //playerRb.AddForce(attackDirection * 5, ForceMode.Impulse); //attack force wasn't enough //Also, it isn't enough here //Try impulse
+            playerRb.AddForce(attackDirection * 5, ForceMode.Impulse); //attack force wasn't enough //Also, it isn't enough here //Try impulse
                                                                        //ForceMode Impulse is amazing. Needed to go from speed to 5 becaue of how fast and far it went
-            //tiger.transform.rotation = Quaternion.Slerp(tiger.transform.rotation, attackRotation, 5);
+            tiger.transform.rotation = Quaternion.Slerp(tiger.transform.rotation, attackRotation, 5);
             //Put the closeTheDistance code in here
-            if (distance < 3)
+            if (distance < 5)
             {
                 Debug.Log("Distance Met At " + distance);
                 //This will work because specialInvincibility is on and TigerSpecialDuration() cancels
@@ -683,10 +665,21 @@ public class PlayerController : MonoBehaviour
         specialInvincibility = true;
         yield return new WaitForSeconds(1.5f);
         charging = false;
-        specialCloseTheDistance = true;
+        
         bladeOfLight.SetActive(true);
 
         playerAudio.PlayOneShot(bladeOfLightChargeUp, 0.2f);
+        if (lockedOn == true)
+        {
+            attackDirection = (target.transform.position - tiger.transform.position).normalized;
+            specialCloseTheDistance = true;
+        }
+        else if (lockedOn == false)
+        {
+            attackDirection = Vector3.fwd;
+            TigerSpecial();
+            StartCoroutine(TigerSpecialDuration());
+        }
     }
 
     IEnumerator TigerSpecialDuration()
