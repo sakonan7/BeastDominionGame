@@ -7,6 +7,7 @@ public class Enemy : MonoBehaviour
     //Stuff for like HP, whether the foe is locked on, and battle damage so that I don't have to keep
     //checking each foe and grabbing their component, like grabbing Wolf and then grabbing Wolf's Wolf script
     //Will be public, because stuff like HP will be modified in the inspecter
+    //This would also be a good place to place attribute and attack eff
     public int HP;
     public bool lockedOn = false;
     private Rigidbody enemyRb;

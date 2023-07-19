@@ -1210,9 +1210,9 @@ public class PlayerController : MonoBehaviour
             //I'm pretty sure this is what they do in Kingdom Hearts because all of Master Xehanort's attacks do different damage
             //I'm pretty sure I'm thinking of 3. because it is kind of a hassle to keep having to upload another foe into PlayerController
 
-            NewWolf wolfScript = other.gameObject.GetComponent<NewWolf>();
+            //NewWolf wolfScript = other.gameObject.GetComponent<NewWolf>();
             //playerScript.LoseHP(wolfScript.damage); //I need to reference Wolf's attack damage based on difficulty, but that's not hard
-            //wolfScript = other.gameObject.GetComponentInParent<NewWolf>();
+            NewWolf wolfScript = other.gameObject.GetComponentInParent<NewWolf>();
             //Was intially going to try putting this in the bigger if loop
             if (wolfScript.attackLanded == false)
             {

@@ -28,10 +28,10 @@ public class NewWolf : MonoBehaviour
     private int walkDirection = 0;
     private int walkUpDownDirection = 0;
     private bool directionChosen = false;
-    private float speed = 200;
-    private float jumpForce = 48; //Originally 8
+    private float speed = 230;
+    private float jumpForce = 68; //Originally 8
     private float attackForce = 12; //Originally 10 Changed from 15
-    private float jumpAttackForce = 2;
+    //private float jumpAttackForce = 2;
     public int damage = 1;
     //I think I need another bool for battleStart idle time, but I think I just need to do if battleStart == true, use startIdleTime
     //and then use battleStart = false in every attack start. But writing this, I think I just need to do battleStart == false
@@ -281,7 +281,7 @@ public class NewWolf : MonoBehaviour
         //Debug.Log("Pause done");
         //animation.Stop();
         CorkScrew();
-        StartCoroutine(AttackDuration());
+        
     }
 
     IEnumerator AttackDuration()
@@ -306,18 +306,25 @@ public class NewWolf : MonoBehaviour
     //That way, I don't need to use AttackCounter
     public void CorkScrew()
     {
-        //animation.Play("Wolf Corkscrew");
-        animator.SetBool("Ground Attack", true);
-        //animator.speed = 3;
-        wolfRb.AddForce(followDirection * jumpForce, ForceMode.Impulse);
-        attackRecoil = (transform.position - playerPosition).normalized;
-        wolfRb.AddForce(attackRecoil, ForceMode.Impulse);
-        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, 5); //In case the the player runs around the Wolf
-        //right before the att
-        //Debug.Log("Corkscrew");
-        //I don't think this is going to make much of a difference, but attack aura keeps spazzing 
-        attackAura.SetActive(true);
-        attackRange.SetActive(true);
+        if (attackLanded == false)
+        {
+            //animation.Play("Wolf Corkscrew");
+            animator.SetBool("Ground Attack", true);
+            //animator.speed = 3;
+            wolfRb.AddForce(followDirection * jumpForce, ForceMode.Impulse);
+            attackRecoil = (transform.position - playerPosition).normalized;
+            wolfRb.AddForce(attackRecoil, ForceMode.Impulse);
+            transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, 5); //In case the the player runs around the Wolf
+                                                                                        //right before the att
+                                                                                        //Debug.Log("Corkscrew");
+                                                                                        //I don't think this is going to make much of a difference, but attack aura keeps spazzing 
+            attackAura.SetActive(true);
+            attackRange.SetActive(true);
+        }
+        else
+        {
+            Debug.Log("Attack repeated for some rea");
+        }
     }
     public void PlayAttackEffect()
     {
