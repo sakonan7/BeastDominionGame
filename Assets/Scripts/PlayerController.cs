@@ -359,20 +359,20 @@ public class PlayerController : MonoBehaviour
             ///Doing AttackDuration in attack methods instead
             if (Input.GetMouseButtonDown(0) &&lockedOn == true)
             {
-                
+                //Moved attackDirection here because the player object gets rotated now
+                attackDirection = (target.transform.position - transform.position).normalized;
+
+                attackRotation = Quaternion.LookRotation(target.transform.position - transform.position);
 
                 //attackDirection isn't changing directions because it's using the empty Player object as the reference and the Player
                 //object doesn't move
                 if (birdActive == true)
                 {
-                    attackDirection = (target.transform.position - bird.transform.position).normalized;
                     Swoop();
                 }
                 else if (tigerActive == true)
                 {
-                    attackDirection = (target.transform.position - tiger.transform.position).normalized;
 
-                    attackRotation = Quaternion.LookRotation(target.transform.position - tiger.transform.position);
                     Strike();
                 }
                 if (running == true)
@@ -444,7 +444,7 @@ public class PlayerController : MonoBehaviour
                 //I would prefer to use nonImpulse, but it is too slow and using Impulse is unexpectedly cool
                 playerRb.AddForce(attackDirection * 4, ForceMode.Impulse); //attack force wasn't enough //Also, it isn't enough here //Try impulse
                 //ForceMode Impulse is amazing. Needed to go from speed to 5 becaue of how fast and far it went
-                tiger.transform.rotation = Quaternion.Slerp(tiger.transform.rotation, attackRotation, 5);
+                transform.rotation = Quaternion.Slerp(transform.rotation, attackRotation, 5);
             //My plan for this is to have the player close the distance and once they're within 1 distance away from a foe, perform the
             //strike. I'm thinking that I don't want to use the regular AttackDuration. Use a reduced AttackDuration
             //Use a set of time limits. For Distance Closer, use 0.2 seconds. The funny thing is, the original attack duration is around
@@ -476,9 +476,9 @@ public class PlayerController : MonoBehaviour
             //I would prefer to use nonImpulse, but it is too slow and using Impulse is unexpectedly cool
             playerRb.AddForce(attackDirection * 5, ForceMode.Impulse); //attack force wasn't enough //Also, it isn't enough here //Try impulse
                                                                        //ForceMode Impulse is amazing. Needed to go from speed to 5 becaue of how fast and far it went
-            tiger.transform.rotation = Quaternion.Slerp(tiger.transform.rotation, attackRotation, 5);
+            transform.rotation = Quaternion.Slerp(transform.rotation, attackRotation, 5);
             //Put the closeTheDistance code in here
-            if (distance < 8)
+            if (distance < 7)
             {
                 Debug.Log("Distance Met At " + distance);
                 //This will work because specialInvincibility is on and TigerSpecialDuration() cancels
@@ -675,8 +675,8 @@ public class PlayerController : MonoBehaviour
         playerAudio.PlayOneShot(bladeOfLightChargeUp, 0.2f);
         if (lockedOn == true)
         {
-            attackDirection = (target.transform.position - tiger.transform.position).normalized;
-            attackRotation = Quaternion.LookRotation(target.transform.position - tiger.transform.position);
+            attackDirection = (target.transform.position - transform.position).normalized;
+            attackRotation = Quaternion.LookRotation(target.transform.position - transform.position);
             specialCloseTheDistance = true;
         }
         else if (lockedOn == false)
@@ -740,7 +740,7 @@ public class PlayerController : MonoBehaviour
         //I think I may want to rewrite this because I don't think this works
         if ((distance > 10 || distance <= 3) && lockedOn)
         {
-            tiger.transform.rotation = Quaternion.Slerp(tiger.transform.rotation, attackRotation, 5) ;
+            transform.rotation = Quaternion.Slerp(transform.rotation, attackRotation, 5) ;
             attackTimeLength = normalTigerAttacklength;
             StartCoroutine(AttackDuration());
             playerRb.AddForce(attackDirection * (attackForce + 14), ForceMode.Impulse);//Changed from 8 to 12
@@ -807,13 +807,14 @@ public class PlayerController : MonoBehaviour
     }
     public void TigerSpecial()
     {
+        animation.Play("Attack 1 & 2");
         playerAudio.PlayOneShot(tigerSwing, 0.05f);
         
-        attackRotation = Quaternion.LookRotation(target.transform.position - tiger.transform.position);
-        tiger.transform.rotation = Quaternion.Slerp(tiger.transform.rotation, attackRotation, 5); //Am using all the attack rotations
+        attackRotation = Quaternion.LookRotation(target.transform.position - transform.position);
+        transform.rotation = Quaternion.Slerp(transform.rotation, attackRotation, 5); //Am using all the attack rotations
         //here because there is a charge up before Tiger Special Attack
         playerRb.AddRelativeTorque(Vector3.down * 5, ForceMode.Impulse);
-        animation.Play("Attack 1 & 2");
+        
         //TigerSpecialSecondStrike();
         //StartCoroutine(UseTigerSpecialSecond());
         
@@ -898,7 +899,7 @@ public class PlayerController : MonoBehaviour
                 //Create a loop that keeps making a new minimum
                 for(int i = 0; i < enemies.Length; i++)
                 {
-                    distanceList[i] = Vector3.Distance(enemies[i].transform.position, tiger.transform.position);
+                    distanceList[i] = Vector3.Distance(enemies[i].transform.position, transform.position);
                 }
                 newMin = Mathf.Min(distanceList);
 
@@ -948,7 +949,7 @@ public class PlayerController : MonoBehaviour
     {
         transforming = true;
         //transformEffect.SetActive(true);
-        Instantiate(transformEffect, tiger.transform.position, Quaternion.identity);
+        Instantiate(transformEffect, transform.position, Quaternion.identity);
         //transformEffect.gameObject.SetActive(true);
         yield return new WaitForSeconds(1.5f);
         Transform();
