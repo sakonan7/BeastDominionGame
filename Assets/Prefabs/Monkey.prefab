@@ -1832,6 +1832,7 @@ GameObject:
   - component: {fileID: 710810659962941824}
   - component: {fileID: 710810659962941825}
   - component: {fileID: 867147146}
+  - component: {fileID: 6255276312178562614}
   m_Layer: 0
   m_Name: Monkey
   m_TagString: Enemy
@@ -1944,6 +1945,27 @@ Animation:
   m_PlayAutomatically: 1
   m_AnimatePhysics: 0
   m_CullingType: 0
+--- !u!95 &6255276312178562614
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 710810659962788091}
+  m_Enabled: 0
+  m_Avatar: {fileID: 9000000, guid: 6c3bebbb4da07c64f9a76d8e05760e8f, type: 3}
+  m_Controller: {fileID: 9100000, guid: 80f75a47117f70f4a93e44b03c1a5c83, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1001 &325307860
 PrefabInstance:
   m_ObjectHideFlags: 0

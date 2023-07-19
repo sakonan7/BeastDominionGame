@@ -2225,6 +2225,10 @@ PrefabInstance:
       propertyPath: healingItemDisplay
       value: 
       objectReference: {fileID: 505936366}
+    - target: {fileID: 2229569607164538043, guid: cc5d1e7149cb79549b8d52ad54f5c8e3, type: 3}
+      propertyPath: m_Constraints
+      value: 80
+      objectReference: {fileID: 0}
     - target: {fileID: 4010593551167423253, guid: cc5d1e7149cb79549b8d52ad54f5c8e3, type: 3}
       propertyPath: m_RootOrder
       value: 3

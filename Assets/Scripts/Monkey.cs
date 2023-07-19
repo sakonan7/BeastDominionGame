@@ -29,6 +29,7 @@ public class Monkey : MonoBehaviour
     public GameObject firstClawSlash;
     public GameObject secondClawSlash;
     public bool isOnGround = false;
+    private float distance;
     
     private bool stunned = false; //Freeze Monkey when i don't want it to move and when the Monkey is being stunlocked by att
 
@@ -91,9 +92,13 @@ public class Monkey : MonoBehaviour
                 //newDirection = Vector3.RotateTowards(transform.forward, bird.transform.position, speed * Time.deltaTime, 0.0f);
                 //transform.rotation = Quaternion.LookRotation(newDirection);
             }
-            
+            distance = Vector3.Distance(player.transform.position, transform.position);
             monkeyRb.AddForce(followDirection * speed);
             //StartCoroutine(AttackCountdown());
+            if (distance <= 6)
+            {
+                StartCoroutine(FirstClaw());
+            }
         }
         //Originally used if (alive==true) but because it's independent of attack == false, it will keep replaying AttackCountdown
         //also, as an unexpected side effect, followDirection will keep playing

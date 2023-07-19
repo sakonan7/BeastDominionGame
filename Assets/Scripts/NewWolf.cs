@@ -294,6 +294,7 @@ public class NewWolf : MonoBehaviour
         yield return new WaitForSeconds(0.4f);
         animator.SetBool("Ground Attack", false);
         attack = false;
+        attackCounter = 0;
         attackAura.SetActive(false);
         attackRange.SetActive(false);
         attackLanded = false;
@@ -306,7 +307,7 @@ public class NewWolf : MonoBehaviour
     //That way, I don't need to use AttackCounter
     public void CorkScrew()
     {
-        if (attackLanded == false)
+        if (attackCounter == 0)
         {
             //animation.Play("Wolf Corkscrew");
             animator.SetBool("Ground Attack", true);
@@ -320,6 +321,8 @@ public class NewWolf : MonoBehaviour
                                                                                         //I don't think this is going to make much of a difference, but attack aura keeps spazzing 
             attackAura.SetActive(true);
             attackRange.SetActive(true);
+            StartCoroutine(AttackDuration());
+            attackCounter = 1;
         }
         else
         {
