@@ -89,6 +89,7 @@ public class PlayerController : MonoBehaviour
     //New lock on code
     private float distance = 0;
     private bool lockOnTurnedOn = false;
+    private bool noHealingItems = true;
 
     public Vector3 attackDirection;
     public Vector3 transformPosition;
@@ -187,6 +188,7 @@ public class PlayerController : MonoBehaviour
             Debug.Log("Unpause? I think this problem started by switching to FixedUpdate");
         }
     }
+    //I tried putting everything in regular Update(), but it makes everything a lot slower
     void FixedUpdate()
     {
         //Debug.Log(distance);
@@ -1168,7 +1170,29 @@ public class PlayerController : MonoBehaviour
         yield return new WaitForSeconds(0.8f);
         Time.timeScale = 0;
     }
-    public void OnTriggerEnter(Collider other)
+    public void OnCollisionEnter(Collision collision)
+    {
+
+        //For some reason trigger doesn't work with meat, but it worked for attack range
+        if (collision.gameObject.CompareTag("Heal"))
+        {
+            Destroy(collision.gameObject);
+            IncreaseHealingItems();
+            if (noHealingItems == true)
+            {
+                noHealingItems = false;
+                DisplayNumberOfItems();
+            }
+        }
+        //May have to call anything that stops the player Wall
+        //May need to put this in PlayerController
+        //Worked so far because last time I did tigerSpecial near a wall, it caused Tiger to be rotated off the x-ax
+        if (collision.gameObject.CompareTag("Wall") && (attack == true || specialInvincibility == true))
+        {
+            playerRb.velocity = Vector3.zero;
+        }
+    }
+        public void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.name == "Start Game Boundary")
         {
@@ -1178,27 +1202,35 @@ public class PlayerController : MonoBehaviour
         }
         if (other.CompareTag("Wolf Attack") && (dodge == false && specialInvincibility == false && stunnedInvincibility == false))
         {
-            //wolfScript = other.gameObject.GetComponent<NewWolf>();
+            //I have three options
+            //1. Forgot what one was lol
+            //2. Access the corresponding script because that enemy is already out anyway
+            //3. Put all attack colliders under the same tag "Attack", and then through inspecter, Give an individual damage
+            //For attacks that do more damage than others, I can make another tag called "Strong Attack"
+            //I'm pretty sure this is what they do in Kingdom Hearts because all of Master Xehanort's attacks do different damage
+            //I'm pretty sure I'm thinking of 3. because it is kind of a hassle to keep having to upload another foe into PlayerController
+
+            NewWolf wolfScript = other.gameObject.GetComponent<NewWolf>();
             //playerScript.LoseHP(wolfScript.damage); //I need to reference Wolf's attack damage based on difficulty, but that's not hard
             //wolfScript = other.gameObject.GetComponentInParent<NewWolf>();
             //Was intially going to try putting this in the bigger if loop
-            //if (wolfScript.attackLanded == false)
-            //{
+            if (wolfScript.attackLanded == false)
+            {
 
-                //playerScript.LoseHP(wolfScript.damage);
-                //playerScript.TigerFlinching(); //Have evoke this one last because this one triggers the StunDuration, and the above
+                LoseHP(wolfScript.damage);
+                TigerFlinching(); //Have evoke this one last because this one triggers the StunDuration, and the above
                 //Sets the value of damage
                 //This is going to be more challenging, because I need a specific Wolf's attack direc
                 //I got it, draw a wolf script from the other.gameObject.
                 //I hope this doesn't cause an issue when multiple attacks land on the player
                 //Serendipity, I can use this to determine damage
                 //
-                //wolfScript.SetAttackLanded();
-                //wolfScript.PlayAttackEffect();
-                //tigerRb.AddForce(wolfScript.followDirection * 15, ForceMode.Impulse);
-                //tigerRb.AddForce(Vector3.back * 12, ForceMode.Impulse);
+                wolfScript.SetAttackLanded();
+                wolfScript.PlayAttackEffect();
+                playerRb.AddForce(wolfScript.followDirection * 15, ForceMode.Impulse);
+                playerRb.AddForce(Vector3.back * 12, ForceMode.Impulse);
                 //playerScript.AttackLandedTrue();
-            //}
+            }
 
         }
     }

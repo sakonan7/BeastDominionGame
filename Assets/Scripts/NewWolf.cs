@@ -81,7 +81,7 @@ public class NewWolf : MonoBehaviour
 
     //Miscellaneous
     private GameManager gameManager;
-    private bool testingStun = true;
+    private bool testingStun = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -128,7 +128,7 @@ public class NewWolf : MonoBehaviour
     // Update is called once per frame
     //Want Wolf to go back to chasing the player after getting stunned by an attack, but there are benefits to
     //The Wolf having to restart its pace, rather than attacking right af
-    void FixedUpdate()
+    void Update()
     {
 
         //I'm just going to try measuring distance instead
