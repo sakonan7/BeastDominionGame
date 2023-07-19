@@ -13,7 +13,7 @@ public class Monkey : MonoBehaviour
     private Rigidbody tigerRB;
     private Rigidbody birdRB;
     private PlayerController playerScript;
-    private float speed = 32;
+    private float speed = 52;
     private Rigidbody monkeyRb;
     private Rigidbody playerRb;
     private Collider monkeyAttackReach;
@@ -41,6 +41,7 @@ public class Monkey : MonoBehaviour
         animation = GetComponent<Animation>();
 
         player = GameObject.Find("Player");
+        playerRb = player.GetComponent<Rigidbody>();
         playerScript = player.GetComponent<PlayerController>();
 
         tiger = playerScript.tiger;
@@ -146,7 +147,7 @@ public class Monkey : MonoBehaviour
                 if (playerScript.tigerActive == true)
                 {
                     //attackDirection = transform.position - tiger.transform.position;
-                    tigerRB.AddForce(followDirection, ForceMode.Impulse);
+                    playerRb.AddForce(followDirection, ForceMode.Impulse);
                     playerScript.TigerFlinching();
                 }
                 else if (playerScript.birdActive == true)
