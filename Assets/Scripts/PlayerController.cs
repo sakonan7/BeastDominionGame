@@ -447,23 +447,15 @@ public class PlayerController : MonoBehaviour
                 playerRb.AddForce(attackDirection * 4, ForceMode.Impulse); //attack force wasn't enough //Also, it isn't enough here //Try impulse
                 //ForceMode Impulse is amazing. Needed to go from speed to 5 becaue of how fast and far it went
                 transform.rotation = Quaternion.Slerp(transform.rotation, attackRotation, 5);
-            //My plan for this is to have the player close the distance and once they're within 1 distance away from a foe, perform the
-            //strike. I'm thinking that I don't want to use the regular AttackDuration. Use a reduced AttackDuration
-            //Use a set of time limits. For Distance Closer, use 0.2 seconds. The funny thing is, the original attack duration is around
-            //0.3 already. That means the duration is already really short
-            //make DistanceCloser an IEnumerator
-            //It will also perform the Strike animation it
-            //closeTheDistance will be part of the upper conditionals
-            //Actually, I need another method for the attack part. I'm pretty sure I can cancel closeTheDistance if I program
-            //to reach 1. The attack part is DistanceCloserStrike. Otherwise, I may attempt to do it in AttackDuration instead
-            //because I don't want the code to be too complicated. It may also work because DistanceCloser's attack duration is supposed
-            //to be shorter
-            //I think this is a good idea
-            //After the distance is met or the duration of DistanceCloser is met, perform the attack
-            //Unless player is stunned
-            //After the time is reached in DistanceCloser, see if closeTheDistance is true, and if it is true, perform the attack
-            //DistanceCloser is oddly complicated lol
-            //Have stunned cancel closeTheDistance here
+            if (distance < 3 && closeTheDistance == true)
+            {
+                Debug.Log("Distance met For Regul");
+                closeTheDistance = false;
+                attackTimeLength = distanceCloserTigerAttackLength;
+                StartCoroutine(AttackDuration());
+                animation.Play("Attack 1 & 2");
+                playerAudio.PlayOneShot(tigerSwing, 0.05f);
+            }
             if (stunned == true)
             {
                 closeTheDistance = false;
@@ -480,7 +472,7 @@ public class PlayerController : MonoBehaviour
                                                                        //ForceMode Impulse is amazing. Needed to go from speed to 5 becaue of how fast and far it went
             transform.rotation = Quaternion.Slerp(transform.rotation, attackRotation, 5);
             //Put the closeTheDistance code in here
-            if (distance < 7)
+            if (distance < 8)
             {
                 Debug.Log("Distance Met At " + distance);
                 //This will work because specialInvincibility is on and TigerSpecialDuration() cancels
@@ -740,7 +732,7 @@ public class PlayerController : MonoBehaviour
         }
         //I guestimated from gameplay that the distance needs to be at least 15
         //I think I may want to rewrite this because I don't think this works
-        if (lockedOn)
+        if (distance > 9 && lockedOn)
         {
             transform.rotation = Quaternion.Slerp(transform.rotation, attackRotation, 5) ;
             attackTimeLength = normalTigerAttacklength;
@@ -748,11 +740,12 @@ public class PlayerController : MonoBehaviour
             playerRb.AddForce(attackDirection * (attackForce + 14), ForceMode.Impulse);//Changed from 8 to 12
             animation.Play("Attack 1 & 2");
             playerAudio.PlayOneShot(tigerSwing, 0.05f);
+            Debug.Log("Non Distance Closer");
         }
         //Want DistanceCloser only to play when the tiger isn't close enough. Was originally going to have a distance > 10 || distance <=3
         //above,but I realized that the below will cover it. Maybe, let's keep testing it out
-        //if ((distance < 10.5f && distance > 3) && lockedOn)
-        //{
+        else if ((distance < 9 && distance > 3) && lockedOn)
+        {
             //I need some way to stop this
             //Maybe like the wolf, once the tiger reaches the necessary distance, just perform the regular attack
             //I could either have a non impulse movement to close the distance, or an impulse that will definitely get me close
@@ -760,10 +753,20 @@ public class PlayerController : MonoBehaviour
             //Gonna need a method like DistanceCloser
             ///At first, I was wondering if the attack duration plays long enough for distance closer, but it looks like it does
             //Debug.Log("Distance Closer");
-            //closeTheDistance = true;
+            closeTheDistance = true;
             //StartCoroutine(DistanceCloser());
             //tigerRB.AddForce(attackDirection * (attackForce + 16), ForceMode.Impulse);
-        //}
+        }
+        else if (distance < 3 && lockedOn)
+        {
+            transform.rotation = Quaternion.Slerp(transform.rotation, attackRotation, 5);
+            attackTimeLength = normalTigerAttacklength;
+            StartCoroutine(AttackDuration());
+            playerRb.AddForce(attackDirection * (attackForce + 14), ForceMode.Impulse);//Changed from 8 to 12
+            animation.Play("Attack 1 & 2");
+            playerAudio.PlayOneShot(tigerSwing, 0.05f);
+            Debug.Log("Short Ranged Att");
+        }
     }
     IEnumerator DistanceCloser()
     {

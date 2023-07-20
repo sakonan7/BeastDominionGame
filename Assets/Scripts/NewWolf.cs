@@ -251,7 +251,7 @@ public class NewWolf : MonoBehaviour
         walkDirection = Random.Range(0, 2);
         directionChosen = true;
         //Debug.Log(walkDirection);
-        Debug.Log("Direction Chosen");
+        //Debug.Log("Direction Chosen");
     }
     public void ChooseUpDownDirection()
     {

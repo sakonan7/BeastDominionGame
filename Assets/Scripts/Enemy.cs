@@ -72,7 +72,7 @@ public class Enemy : MonoBehaviour
             //For now, just trigger stun. I will use both of their directions to perform the knockback
             //TakeDamage();
 
-            HP -= 7;
+            HP -= 0;
             //Damaged();
             playerScript.PlayTigerSpecialStrike(transform.position);
             //Vector3 knockbackDirection = (transform.position - tiger.transform.position).normalized;
@@ -82,7 +82,7 @@ public class Enemy : MonoBehaviour
             //But I don't want the player to whiff attacks, so I think I will make sure the tiger is the right distance from the wolf
             //Unless I can make a force play until a certain distance is reached
             //I can't use forcemode.impulse then
-            enemyRb.AddForce(playerScript.attackDirection * 20, ForceMode.Impulse);
+            enemyRb.AddForce(playerScript.attackDirection * 280, ForceMode.Impulse);
             //playerScript.AttackLandedTrue();
         }
     }
