@@ -55,6 +55,7 @@ public class NewWolf : MonoBehaviour
     private bool cooldown = false;
 
     private bool stunned = false;
+    private bool jumpedBack = false;
 
     private GameObject player;
     private PlayerController playerScript;
@@ -185,6 +186,8 @@ public class NewWolf : MonoBehaviour
         //So actions are only performed on the ground
         //Got rid of //cooldown == false, then  && attack == false && isOnGround == true
         //I need to edit this, this is moving to close to the tiger. Also, for some reason I can't use distance in the if paramet
+
+        //I need to start rewriting from chase
         if (chase == true)
         {
             animator.SetBool("Dash", true);
@@ -280,13 +283,26 @@ public class NewWolf : MonoBehaviour
         yield return new WaitForSeconds(0.3f);
         //Debug.Log("Pause done");
         //animation.Stop();
-        CorkScrew();
-        
+        //CorkScrew();
+        StartCoroutine(AttackDuration());
     }
 
     IEnumerator AttackDuration()
     {
-
+        //animation.Play("Wolf Corkscrew");
+        animator.SetBool("Ground Attack", true);
+        //animator.speed = 3;
+        wolfRb.AddForce(followDirection * jumpForce, ForceMode.Impulse);
+        attackRecoil = (transform.position - playerPosition).normalized;
+        wolfRb.AddForce(attackRecoil, ForceMode.Impulse);
+        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, 5); //In case the the player runs around the Wolf
+                                                                                    //right before the att
+                                                                                    //Debug.Log("Corkscrew");
+                                                                                    //I don't think this is going to make much of a difference, but attack aura keeps spazzing 
+        attackAura.SetActive(true);
+        attackRange.SetActive(true);
+        //StartCoroutine(AttackDuration());
+        attackCounter = 1;
 
         attack = true;
 
@@ -345,6 +361,7 @@ public class NewWolf : MonoBehaviour
     IEnumerator StartCoolDown()
     {
         cooldown = true;
+        jumpedBack = false;
         animator.SetBool("Near Wall", false);
         if (playerScript.tigerActive == true)
         {
@@ -427,17 +444,17 @@ public class NewWolf : MonoBehaviour
         //is called, jumpedBack will be false a
         //Atm, I will have it play after every attack because I think the code only works if the Wolf is directly in front of the middle
         //of the 
-            //for (int i = 0; i<Walls.Length; i++)
-            //{
-                //if (Vector3.Distance(Walls[i].transform.position, transform.position)< 4 && jumpedBack == false)
-                //{
-                    //jumpedBack = true;
+            for (int i = 0; i<Walls.Length; i++)
+            {
+                if (Vector3.Distance(Walls[i].transform.position, transform.position)< 4 && jumpedBack == false)
+                {
+                    jumpedBack = true;
                 //Code for Jumping back
                 wolfRb.AddForce(Vector3.back * attackForce, ForceMode.Impulse);
                 Debug.Log("Jumped Back");
                 animator.SetBool("Near Wall", true);
-                //}
-            //}
+                }
+            }
         StartCoroutine(StartCoolDown());
     }
     public void OnCollisionEnter(Collision collision)

@@ -8,6 +8,7 @@ public class Enemy : MonoBehaviour
     //checking each foe and grabbing their component, like grabbing Wolf and then grabbing Wolf's Wolf script
     //Will be public, because stuff like HP will be modified in the inspecter
     //This would also be a good place to place attribute and attack eff
+    //I could link animations here by linking to animator and using the same bools such as damage for all foes
     public int HP;
     public bool lockedOn = false;
     private Rigidbody enemyRb;
@@ -33,7 +34,7 @@ public class Enemy : MonoBehaviour
             dyingEffect.Play();
             Destroy(gameObject);
             //playerScript.LockOff(); I didn't realize this was here. And it was being used the whole time
-            Debug.Log("Wolf Dies");
+            //Debug.Log("Wolf Dies");
             gameManager.EnemyDefeated();
         }
     }
