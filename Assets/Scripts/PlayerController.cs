@@ -732,7 +732,11 @@ public class PlayerController : MonoBehaviour
         }
         //I guestimated from gameplay that the distance needs to be at least 15
         //I think I may want to rewrite this because I don't think this works
-        if (distance > 9 && lockedOn)
+        if (lockedOn == true)
+        {
+            Debug.Log(distance);
+        }
+        if (distance > 15 && lockedOn)
         {
             transform.rotation = Quaternion.Slerp(transform.rotation, attackRotation, 5) ;
             attackTimeLength = normalTigerAttacklength;
@@ -744,7 +748,7 @@ public class PlayerController : MonoBehaviour
         }
         //Want DistanceCloser only to play when the tiger isn't close enough. Was originally going to have a distance > 10 || distance <=3
         //above,but I realized that the below will cover it. Maybe, let's keep testing it out
-        else if ((distance < 9 && distance > 3) && lockedOn)
+        else if ((distance < 15 && distance > 3) && lockedOn)
         {
             //I need some way to stop this
             //Maybe like the wolf, once the tiger reaches the necessary distance, just perform the regular attack
@@ -757,7 +761,7 @@ public class PlayerController : MonoBehaviour
             //StartCoroutine(DistanceCloser());
             //tigerRB.AddForce(attackDirection * (attackForce + 16), ForceMode.Impulse);
         }
-        else if (distance < 3 && lockedOn)
+        else if (distance < 4 && lockedOn)
         {
             transform.rotation = Quaternion.Slerp(transform.rotation, attackRotation, 5);
             attackTimeLength = normalTigerAttacklength;

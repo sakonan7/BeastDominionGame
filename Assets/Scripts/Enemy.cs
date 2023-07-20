@@ -45,7 +45,7 @@ public class Enemy : MonoBehaviour
 
         //I will have to keep some of the damagedin each individual script because I need those individual scripts for damage
         //animations
-        Debug.Log(HP + "Left");
+        //Debug.Log(HP + "Left");
         if (other.CompareTag("Tiger Attack Regular"))
         {
             //For now, just trigger stun. I will use both of their directions to perform the knockback
@@ -62,7 +62,7 @@ public class Enemy : MonoBehaviour
             //Unless I can make a force play until a certain distance is reached
             //I can't use forcemode.impulse then
             //Wow, I had to upgrade from 15 to 200 just to push foe back at most a few meters
-            enemyRb.AddForce(playerScript.attackDirection * 250, ForceMode.Impulse);
+            enemyRb.AddForce(playerScript.attackDirection * 240, ForceMode.Impulse);
             float distance = Vector3.Distance(playerScript.transform.position, transform.position);
             playerScript.AttackLandedTrue();
             Debug.Log(distance);
