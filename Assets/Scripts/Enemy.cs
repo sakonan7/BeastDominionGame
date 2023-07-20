@@ -15,13 +15,18 @@ public class Enemy : MonoBehaviour
     public bool lockedOn = false;
     private Rigidbody enemyRb;
     private PlayerController playerScript;
+    private GameObject player;
+    private Rigidbody playerRb;
     private GameManager gameManager;
     public ParticleSystem dyingEffect;
+    private bool attacked = false;
     // Start is called before the first frame update
     void Start()
     {
         enemyRb = GetComponent<Rigidbody>();
         playerScript = GameObject.Find("Player").GetComponent<PlayerController>();
+        player = GameObject.Find("Player");
+        playerRb = player.GetComponent<Rigidbody>();
         gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
     }
 
@@ -39,6 +44,26 @@ public class Enemy : MonoBehaviour
             //Debug.Log("Wolf Dies");
             gameManager.EnemyDefeated();
         }
+    }
+    public void OnCollisionEnter(Collision collision)
+    {
+       if (collision.gameObject.CompareTag("Wall") && attacked == true)
+        {
+            enemyRb.velocity = Vector3.zero;
+            Debug.Log("Code Worked!");
+        }
+       if (collision.gameObject.CompareTag("Player") && attacked == true)
+        {
+            playerRb.AddForce((transform.position - player.transform.position).normalized * 15, ForceMode.Impulse);
+            playerRb.velocity = (transform.position - player.transform.position).normalized * 15;
+            Debug.Log("Player Pushed Back");
+        }
+    }
+    IEnumerator FoeAttacked()
+    {
+        attacked = true;
+        yield return new WaitForSeconds(0.5f);
+        attacked = false;
     }
     public void OnTriggerEnter(Collider other)
     {
@@ -67,6 +92,7 @@ public class Enemy : MonoBehaviour
             float distance = Vector3.Distance(playerScript.transform.position, transform.position);
             playerScript.AttackLandedTrue();
             Debug.Log(distance + " " + enemyRb.velocity);
+            StartCoroutine(FoeAttacked());
         }
         if (other.CompareTag("Tiger Special"))
         {
