@@ -9,6 +9,8 @@ public class Enemy : MonoBehaviour
     //Will be public, because stuff like HP will be modified in the inspecter
     //This would also be a good place to place attribute and attack eff
     //I could link animations here by linking to animator and using the same bools such as damage for all foes
+    //For a game with a lot of enemies, keep calling on Enemy script and set up things like hit damage and knockback values
+    //Unless I'm making a complex game like Kingdom Hearts where each attack has a different attribute and different damage val
     public int HP;
     public bool lockedOn = false;
     private Rigidbody enemyRb;
@@ -48,8 +50,8 @@ public class Enemy : MonoBehaviour
         {
             //For now, just trigger stun. I will use both of their directions to perform the knockback
             //TakeDamage();
-
-            HP -= 2;
+            
+            HP -= 0;
             //Damaged();
             playerScript.PlayTigerRegularStrike(transform.position);
             //Vector3 knockbackDirection = (transform.position - tiger.transform.position).normalized;
@@ -59,8 +61,11 @@ public class Enemy : MonoBehaviour
             //But I don't want the player to whiff attacks, so I think I will make sure the tiger is the right distance from the wolf
             //Unless I can make a force play until a certain distance is reached
             //I can't use forcemode.impulse then
-            enemyRb.AddForce(playerScript.attackDirection * 15, ForceMode.Impulse);
+            //Wow, I had to upgrade from 15 to 200 just to push foe back at most a few meters
+            enemyRb.AddForce(playerScript.attackDirection * 250, ForceMode.Impulse);
+            float distance = Vector3.Distance(playerScript.transform.position, transform.position);
             playerScript.AttackLandedTrue();
+            Debug.Log(distance);
         }
         if (other.CompareTag("Tiger Special"))
         {
