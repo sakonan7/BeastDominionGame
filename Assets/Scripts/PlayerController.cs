@@ -748,7 +748,7 @@ public class PlayerController : MonoBehaviour
         }
         //Want DistanceCloser only to play when the tiger isn't close enough. Was originally going to have a distance > 10 || distance <=3
         //above,but I realized that the below will cover it. Maybe, let's keep testing it out
-        else if ((distance < 15 && distance > 3) && lockedOn)
+        else if ((distance < 15 && distance > 4) && lockedOn)
         {
             //I need some way to stop this
             //Maybe like the wolf, once the tiger reaches the necessary distance, just perform the regular attack
