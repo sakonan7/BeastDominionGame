@@ -20,6 +20,7 @@ public class Enemy : MonoBehaviour
     private GameManager gameManager;
     public ParticleSystem dyingEffect;
     private bool attacked = false;
+    private bool hitAgainstWall = true;
     // Start is called before the first frame update
     void Start()
     {
@@ -50,12 +51,13 @@ public class Enemy : MonoBehaviour
        if (collision.gameObject.CompareTag("Wall") && attacked == true)
         {
             enemyRb.velocity = Vector3.zero;
-            Debug.Log("Code Worked!");
+            //Debug.Log("Code Worked!");
+            StartCoroutine(HitWall());
         }
-       if (collision.gameObject.CompareTag("Player") && attacked == true)
+       else if (collision.gameObject.CompareTag("Player") && hitAgainstWall == true)
         {
-            playerRb.AddForce((transform.position - player.transform.position).normalized * 15, ForceMode.Impulse);
-            playerRb.velocity = (transform.position - player.transform.position).normalized * 15;
+            playerRb.AddForce((transform.position - player.transform.position).normalized * 30, ForceMode.Impulse);
+            playerRb.velocity = (transform.position - player.transform.position).normalized * 30;
             Debug.Log("Player Pushed Back");
         }
     }
@@ -64,6 +66,12 @@ public class Enemy : MonoBehaviour
         attacked = true;
         yield return new WaitForSeconds(0.5f);
         attacked = false;
+    }
+    IEnumerator HitWall()
+    {
+        hitAgainstWall = true;
+        yield return new WaitForSeconds(0.5f);
+        hitAgainstWall = false;
     }
     public void OnTriggerEnter(Collider other)
     {
