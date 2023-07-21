@@ -444,9 +444,10 @@ public class PlayerController : MonoBehaviour
         {
             animation.Play("Distance Closer");
                 //I would prefer to use nonImpulse, but it is too slow and using Impulse is unexpectedly cool
-                playerRb.AddForce(attackDirection * 4, ForceMode.Impulse); //attack force wasn't enough //Also, it isn't enough here //Try impulse
+                playerRb.AddForce(attackDirection * 10, ForceMode.Impulse); //attack force wasn't enough //Also, it isn't enough here //Try impulse
                 //ForceMode Impulse is amazing. Needed to go from speed to 5 becaue of how fast and far it went
                 transform.rotation = Quaternion.Slerp(transform.rotation, attackRotation, 5);
+            playerRb.velocity = attackDirection * 10;
             if (distance < 3 && closeTheDistance == true)
             {
                 Debug.Log("Distance met For Regul");
@@ -717,16 +718,18 @@ public class PlayerController : MonoBehaviour
         //Is closest to to the player
         //distance = Vector3.Distance(targetedEnemy.transform.position, tiger.transform.position);
         //Debug.Log("Attacking from " + distance);
-        
+
 
         //playerAudio.PlayOneShot(tigerRoar, 0.2f);
         //Why did I think of lockedOn == false, I think I thought of it in the case you aren't locked
         //I think I will create a case where lockedOn == false and for now, I want to make the distance smaller for
+        //Debug.Log(playerRb.velocity);
         if (lockedOn == false)
         {
             attackTimeLength = normalTigerAttacklength;
             StartCoroutine(AttackDuration());
             playerRb.AddForce(attackDirection * (attackForce + 10), ForceMode.Impulse);//Changed from 8 to 12
+            playerRb.velocity = attackDirection * (attackForce + 10);
             animation.Play("Attack 1 & 2");
             playerAudio.PlayOneShot(tigerSwing, 0.05f);
         }
@@ -742,6 +745,7 @@ public class PlayerController : MonoBehaviour
             attackTimeLength = normalTigerAttacklength;
             StartCoroutine(AttackDuration());
             playerRb.AddForce(attackDirection * (attackForce + 14), ForceMode.Impulse);//Changed from 8 to 12
+            playerRb.velocity = attackDirection * (attackForce + 14);
             animation.Play("Attack 1 & 2");
             playerAudio.PlayOneShot(tigerSwing, 0.05f);
             Debug.Log("Non Distance Closer");
@@ -1205,7 +1209,7 @@ public class PlayerController : MonoBehaviour
         {
             gameManagerScript.StartGame();
             Destroy(other);
-            Debug.Log("Game Start");
+            //Debug.Log("Game Start");
         }
         if (other.CompareTag("Wolf Attack") && (dodge == false && specialInvincibility == false && stunnedInvincibility == false))
         {

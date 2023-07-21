@@ -54,12 +54,12 @@ public class Enemy : MonoBehaviour
             //Debug.Log("Code Worked!");
             StartCoroutine(HitWall());
         }
-       else if (collision.gameObject.CompareTag("Player") && hitAgainstWall == true)
-        {
-            playerRb.AddForce((transform.position - player.transform.position).normalized * 30, ForceMode.Impulse);
-            playerRb.velocity = (transform.position - player.transform.position).normalized * 30;
-            Debug.Log("Player Pushed Back");
-        }
+       //else if (collision.gameObject.CompareTag("Player") && hitAgainstWall == true)
+        //{
+            //playerRb.AddForce((transform.position - player.transform.position).normalized * 30, ForceMode.Impulse);
+            //playerRb.velocity = (transform.position - player.transform.position).normalized * 30;
+            //Debug.Log("Player Pushed Back");
+        //}
     }
     IEnumerator FoeAttacked()
     {
@@ -95,9 +95,10 @@ public class Enemy : MonoBehaviour
             //Unless I can make a force play until a certain distance is reached
             //I can't use forcemode.impulse then
             //Wow, I had to upgrade from 15 to 200 just to push foe back at most a few meters
-            enemyRb.AddForce(playerScript.attackDirection * 200, ForceMode.Impulse);
-            enemyRb.velocity = playerScript.attackDirection * 200;
-            float distance = Vector3.Distance(playerScript.transform.position, transform.position);
+            enemyRb.AddForce(playerScript.attackDirection * 160, ForceMode.Impulse);
+            //enemyRb.velocity = playerScript.attackDirection * 160;
+            enemyRb.velocity = new Vector3(playerScript.attackDirection.x * 160, 0, playerScript.attackDirection.z * 160);
+            float distance = Vector3.Distance(player.transform.position, transform.position);
             playerScript.AttackLandedTrue();
             Debug.Log(distance + " " + enemyRb.velocity);
             StartCoroutine(FoeAttacked());
