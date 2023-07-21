@@ -168,7 +168,7 @@ public class PlayerController : MonoBehaviour
         playerAudio = GetComponent<AudioSource>();
         //playerUI = GameObject.Find("Canvas");
         //DisplayHP(HP);
-        maxHPBarFill = 10;//Changed this from HPBar.FillAmount because that is always going to equal
+        maxHPBarFill = 10;//Changed this from HPBar.FillAmount because that is always going to equal 1
 
         gameManagerScript = GameObject.Find("Game Manager").GetComponent<GameManager>();
 

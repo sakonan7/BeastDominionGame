@@ -279,13 +279,7 @@ public class Monkey : MonoBehaviour
         //}
         //attack == first is to trigger the attack method when Monkey is chasing the play
         //Need isOnGround because the Monkey triggers this two times by running into the collider and then falling into it
-        if (other.gameObject.CompareTag("Monkey Range") && attack == false && isOnGround == true && stunned == false)
-        {
-            attack = true;
-            //StartCoroutine(PauseBeforeJump());
-            StartCoroutine(FirstClaw());
-            //Debug.Log("Monkey Attack Range");
-        }
+
     }
     public void TakeDamage()
     {
