@@ -11,6 +11,10 @@ public class Enemy : MonoBehaviour
     //I could link animations here by linking to animator and using the same bools such as damage for all foes
     //For a game with a lot of enemies, keep calling on Enemy script and set up things like hit damage and knockback values
     //Unless I'm making a complex game like Kingdom Hearts where each attack has a different attribute and different damage val
+    //I could also put attack ranges in here too, so that I don't need to keep calling individual enemy scripts.
+    //I thought of complex attacks like Kingdom Hearts, and I could just modify the size of the collider in the individual enemy script
+    //Could also feed the damage of the enemy script in here
+    //Could do XemnasHelicopterSlash(), enemyScript.damage = 10; XemnasSparkOrbs(), enemyScript.damage = 5, enemyScript.attribute = thunder
     public int HP;
     public bool lockedOn = false;
     private Rigidbody enemyRb;

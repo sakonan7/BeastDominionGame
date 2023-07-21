@@ -188,7 +188,7 @@ public class Monkey : MonoBehaviour
         //StartCoroutine(Attack());
         followDirection = (tiger.transform.position - transform.position).normalized;
         monkeyRb.AddForce(followDirection * jumpForce, ForceMode.Impulse);
-        monkeyRb.AddForce(Vector3.up, ForceMode.Impulse); //For jumping, may need to modify gravity
+        monkeyRb.AddForce(Vector3.up * 5, ForceMode.Impulse); //For jumping, may need to modify gravity
         animation.Play("Attack");
         secondClawSlash.SetActive(true);
         if (playerStunned == true)

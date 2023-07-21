@@ -13,6 +13,7 @@ TagManager:
   - Sensor
   - Wolf Attack
   - Tiger Special
+  - Enemy Attack Range
   layers:
   - Default
   - TransparentFX
