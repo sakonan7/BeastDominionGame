@@ -732,7 +732,7 @@ public class PlayerController : MonoBehaviour
         {
             attackTimeLength = normalTigerAttacklength;
             StartCoroutine(AttackDuration());
-            playerRb.AddForce(attackDirection * (attackForce + 10), ForceMode.Impulse);//Changed from 8 to 12
+            //playerRb.AddForce(attackDirection * (attackForce + 10), ForceMode.Impulse);//Changed from 8 to 12
             playerRb.velocity = attackDirection * (attackForce + 10);
             animation.Play("Attack 1 & 2");
             playerAudio.PlayOneShot(tigerSwing, 0.05f);
@@ -748,7 +748,7 @@ public class PlayerController : MonoBehaviour
             transform.rotation = Quaternion.Slerp(transform.rotation, attackRotation, 5) ;
             attackTimeLength = normalTigerAttacklength;
             StartCoroutine(AttackDuration());
-            playerRb.AddForce(attackDirection * (attackForce + 14), ForceMode.Impulse);//Changed from 8 to 12
+            //playerRb.AddForce(attackDirection * (attackForce + 14), ForceMode.Impulse);//Changed from 8 to 12
             playerRb.velocity = attackDirection * (attackForce + 14);
             animation.Play("Attack 1 & 2");
             playerAudio.PlayOneShot(tigerSwing, 0.05f);
