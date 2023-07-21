@@ -168,7 +168,7 @@ public class PlayerController : MonoBehaviour
         playerAudio = GetComponent<AudioSource>();
         //playerUI = GameObject.Find("Canvas");
         //DisplayHP(HP);
-        maxHPBarFill = HPBar.fillAmount;
+        maxHPBarFill = 10;//Changed this from HPBar.FillAmount because that is always going to equal
 
         gameManagerScript = GameObject.Find("Game Manager").GetComponent<GameManager>();
 
@@ -1127,7 +1127,8 @@ public class PlayerController : MonoBehaviour
     {
         HP-= damage;
         damageForDisplay = damage;
-        //HPBar.fillAmount = HPBar.fillAmount - damage / maxHPBarFill;
+        float damageDone = damage / maxHPBarFill;
+        HPBar.fillAmount = HPBar.fillAmount - damage / maxHPBarFill;
         //This was for showing the damage done from each attack on the Player, but isn't necessary because the player and that
         //text is always at the center of the screen
         //damageDisplay.transform.position = new Vector3(tiger.transform.position.x, tiger.transform.position.y+ 5, tiger.transform.position.z);

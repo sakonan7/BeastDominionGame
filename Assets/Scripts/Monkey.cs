@@ -35,7 +35,7 @@ public class Monkey : MonoBehaviour
 
     private GameManager gameManager;
     public int HP = 5;
-    private bool testingStun = true;
+    private bool testingStun = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -144,7 +144,7 @@ public class Monkey : MonoBehaviour
             if (playerScript.dodge == false)
             {
                 //Need to put LoseHP first because this method changes the int that will be used to display how much damage the player took
-                //playerScript.LoseHP(damage);
+                playerScript.LoseHP(damage);
                 if (playerScript.tigerActive == true)
                 {
                     //attackDirection = transform.position - tiger.transform.position;
@@ -193,7 +193,7 @@ public class Monkey : MonoBehaviour
         secondClawSlash.SetActive(true);
         if (playerStunned == true)
         {
-            //playerScript.LoseHP(damage);
+            playerScript.LoseHP(damage);
             playerScript.TigerFlinching2();
             playerStunned = false;
         }
