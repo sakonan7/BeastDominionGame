@@ -35,6 +35,7 @@ public class Monkey : MonoBehaviour
 
     private GameManager gameManager;
     public int HP = 5;
+    private bool testingStun = true;
     // Start is called before the first frame update
     void Start()
     {
@@ -74,7 +75,7 @@ public class Monkey : MonoBehaviour
     {
         HPBar.transform.position = new Vector3(transform.position.x, transform.position.y + 1.9f, transform.position.z + 0.1f);
         //Monkey will only do it's chase while it's on the ground to avoid antigravity business
-        if (attack == false && cooldown == false && stunned == false && isOnGround == true)
+        if (attack == false && cooldown == false && stunned == false && isOnGround == true && testingStun == false)
         {
             animation.Play("Run");
 

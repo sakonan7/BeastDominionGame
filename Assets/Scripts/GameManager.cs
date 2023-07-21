@@ -93,7 +93,7 @@ public class GameManager : MonoBehaviour
         //Instantiate(enemies[0], enemies[0].transform.position, enemies[0].transform.rotation);
         //Instantiate(enemies[0], new Vector3(wolfLocation.x + 2, wolfLocation.y, wolfLocation.z - 2), enemies[0].transform.rotation);
         Instantiate(enemies[0], new Vector3(wolfLocation.x + 5, wolfLocation.y, wolfLocation.z - 15), enemies[0].transform.rotation);
-        //Instantiate(enemies[0], new Vector3(wolfLocation.x + 5, wolfLocation.y, wolfLocation.z - 8), enemies[0].transform.rotation);
+        Instantiate(enemies[1], new Vector3(wolfLocation.x + 5, wolfLocation.y, wolfLocation.z - 8), enemies[0].transform.rotation);
         //Instantiate(enemies[0], new Vector3(wolfLocation.x + 18, wolfLocation.y, wolfLocation.z - 5), enemies[0].transform.rotation);
         //Instantiate(enemies[1], new Vector3(enemies[0].transform.position.x + 30, enemies[0].transform.position.y, enemies[0].transform.position.z - 5), enemies[0].transform.rotation);
         //foeHPBar.gameObject.SetActive(true);
