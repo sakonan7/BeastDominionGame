@@ -25,6 +25,7 @@ public class PlayerController : MonoBehaviour
     public bool specialInvincibility = false;
     public GameObject bladeOfLight;
     private bool charging = false;
+    private Light staffLight;
 
     [Header("Place tiger and bird sound and effects here")]
     public AudioClip tigerRegularStrike;
@@ -172,6 +173,7 @@ public class PlayerController : MonoBehaviour
         gameManagerScript = GameObject.Find("Game Manager").GetComponent<GameManager>();
 
         //ballRB = ball.GetComponent<Rigidbody>();
+        staffLight = GameObject.Find("Staff").GetComponent<Light>();
     }
 
     // Update is called once per frame
@@ -666,6 +668,7 @@ public class PlayerController : MonoBehaviour
         charging = false;
         
         bladeOfLight.SetActive(true);
+        staffLight.intensity = 2;
 
         playerAudio.PlayOneShot(bladeOfLightChargeUp, 0.2f);
         if (lockedOn == true)
@@ -694,6 +697,7 @@ public class PlayerController : MonoBehaviour
         specialInvincibility = false;
         bladeOfLight.SetActive(false);
         StartCoroutine(StrikeLag());
+        staffLight.intensity = 0;
     }
     public void Swoop()
     {
