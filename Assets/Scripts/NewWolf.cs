@@ -82,7 +82,7 @@ public class NewWolf : MonoBehaviour
 
     //Miscellaneous
     private GameManager gameManager;
-    private bool testingStun = true;
+    private bool testingStun = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -280,6 +280,7 @@ public class NewWolf : MonoBehaviour
     IEnumerator PreAttackPause()
     {
         //animation.Play("Wolf New Idle");
+        wolfRb.velocity = Vector3.zero;
         yield return new WaitForSeconds(0.3f);
         //Debug.Log("Pause done");
         //animation.Stop();
@@ -343,6 +344,7 @@ public class NewWolf : MonoBehaviour
         else
         {
             Debug.Log("Attack repeated for some rea");
+            animator.SetBool("Ground Attack", false);
         }
     }
     public void PlayAttackEffect()
@@ -363,6 +365,7 @@ public class NewWolf : MonoBehaviour
         cooldown = true;
         jumpedBack = false;
         animator.SetBool("Near Wall", false);
+        wolfRb.velocity = Vector3.zero;
         if (playerScript.tigerActive == true)
         {
             yield return new WaitForSeconds(2);

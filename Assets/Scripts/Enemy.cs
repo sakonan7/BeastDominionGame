@@ -99,9 +99,18 @@ public class Enemy : MonoBehaviour
             //Unless I can make a force play until a certain distance is reached
             //I can't use forcemode.impulse then
             //Wow, I had to upgrade from 15 to 200 just to push foe back at most a few meters
-            //enemyRb.AddForce(playerScript.attackDirection * 160, ForceMode.Impulse);
+            enemyRb.AddForce(playerScript.attackDirection * 160, ForceMode.Impulse);
             //enemyRb.velocity = playerScript.attackDirection * 160;
-            enemyRb.velocity = new Vector3(playerScript.attackDirection.x * 160, 0, playerScript.attackDirection.z * 160);
+            //enemyRb.velocity = new Vector3(playerScript.attackDirection.x * 160, 0, playerScript.attackDirection.z * 160);
+
+            Vector3 consistentVel = new Vector3(enemyRb.velocity.x, 0, enemyRb.velocity.z);
+
+
+            if (consistentVel.magnitude > 160)
+            {
+                Vector3 limitedVel = consistentVel.normalized * 160;
+                enemyRb.velocity = new Vector3(limitedVel.x, 0, limitedVel.z);
+            }
             float distance = Vector3.Distance(player.transform.position, transform.position);
             playerScript.AttackLandedTrue();
             Debug.Log(distance + " " + enemyRb.velocity);
