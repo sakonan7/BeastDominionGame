@@ -1966,6 +1966,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HP: 5
+  damage: 0
+  attackDirection: {x: 0, y: 0, z: 0}
   lockedOn: 0
   dyingEffect: {fileID: 8823286275267212766, guid: 168707ab83dc4d246bac1d5303f0dc83, type: 3}
 --- !u!114 &3490599109342707433
@@ -1980,9 +1982,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec6d7a90f05ff6e4fa67b42397dcb432, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HPBar: {fileID: 0}
-  firstClawSlash: {fileID: 0}
-  secondClawSlash: {fileID: 0}
+  HPBar: {fileID: 4439932719559539862, guid: 8124843f71ff707488edef76ccd23445, type: 3}
+  firstClawSlash: {fileID: 9016192933078443391}
+  secondClawSlash: {fileID: 7062399739782678793}
+  attackRange: {fileID: 7003767959790346800}
+  attackEffect: {fileID: 7439308813559816116, guid: 48271c0ded95de54e8873ea92d83dd16, type: 3}
   isOnGround: 0
   HP: 5
 --- !u!1 &7003767959790346800

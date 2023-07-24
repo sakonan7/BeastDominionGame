@@ -125,6 +125,8 @@ public class Monkey : MonoBehaviour
         //Want to expand the Monkey's collider slightly
         //StartCoroutine(Attack());
         //Debug.Log("First Claw");
+
+        //May want to do a counter so that an attack doesn't re
         attack = true;
         firstClawSlash.SetActive(true);
         attackRange.SetActive(true);
@@ -132,8 +134,8 @@ public class Monkey : MonoBehaviour
         //Necessary because there's enough time for the Monkey to repeat an attack on the bird
         //May not be necessary after my edit to the collider
         enemyScript.SetAttackDirection(followDirection);
-        if (stunned == false && playerStunned == false && playerScript.specialInvincibility == false)
-        {
+        //if (stunned == false && playerStunned == false && playerScript.specialInvincibility == false)
+        //{
             if (playerScript.tigerActive == true)
             {
                 followDirection = (tiger.transform.position - transform.position).normalized;
@@ -149,25 +151,7 @@ public class Monkey : MonoBehaviour
                 isOnGround = false;
             }
             //If that doesn't work, put an if (dodge == false
-            if (playerScript.dodge == false)
-            {
-                //Need to put LoseHP first because this method changes the int that will be used to display how much damage the player took
-                playerScript.LoseHP(damage);
-                if (playerScript.tigerActive == true)
-                {
-                    //attackDirection = transform.position - tiger.transform.position;
-                    playerRb.AddForce(followDirection, ForceMode.Impulse);
-                    playerScript.TigerFlinching();
-                }
-                else if (playerScript.birdActive == true)
-                {
-                    //attackDirection = transform.position - bird.transform.position;
-                    birdRB.AddForce(followDirection * 1.75f, ForceMode.Impulse);
-                    playerScript.BirdFlinching();
-                }
-                playerStunned = true;
-            }
-        }
+          
         animation.Play("Attack");
         yield return new WaitForSeconds(1.5f);
         attack = false;
