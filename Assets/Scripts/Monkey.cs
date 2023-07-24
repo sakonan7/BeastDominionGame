@@ -26,6 +26,9 @@ public class Monkey : MonoBehaviour
     private bool cooldown = false;
     private bool playerStunned = false; //For if the Tiger is hit by the first claw. Tiger will always get hit twice
     private int damage = 1;
+    private bool hitThrown = false;
+    //private bool hitLanded = false;
+    public int hitCount = 0;
 
     public GameObject firstClawSlash;
     public GameObject secondClawSlash;
@@ -136,6 +139,8 @@ public class Monkey : MonoBehaviour
         enemyScript.SetAttackDirection(followDirection);
         //if (stunned == false && playerStunned == false && playerScript.specialInvincibility == false)
         //{
+        //if (hitOnce == false)
+        //{
             if (playerScript.tigerActive == true)
             {
                 //followDirection = (tiger.transform.position - transform.position).normalized;
@@ -151,21 +156,23 @@ public class Monkey : MonoBehaviour
                 isOnGround = false;
             }
             //If that doesn't work, put an if (dodge == false
-          
-        animation.Play("Attack");
+
+            animation.Play("Attack");
+        //}
         yield return new WaitForSeconds(1.5f);
         attack = false;
         firstClawSlash.SetActive(false);
         attackRange.SetActive(false);
         //For simplicity, second claw attack will only happen if player was hit by the first
-        if (playerScript.tigerActive == true && playerStunned == true && stunned == false)
+        if (playerScript.tigerActive == true && enemyScript.hitLanded == true)
         {
+            hitCount = 1;
             StartCoroutine(SecondClaw());
         }
         else if (playerScript.birdActive == true)
         {
             StartCoroutine(StartCoolDown());
-            playerStunned = false; //Because a second atack will not be made on the bird
+            //playerStunned = false; //Because a second atack will not be made on the bird
         }
         //For some reason there's a glitch when I try to modify the Collider's X and Y but not when I modify the Monkey's
         //monkeyAttackRange.transform.localScale = new Vector3(monkeyAttackRange.transform.localScale.x + 1, 0, monkeyAttackRange.transform.localScale.x + 1);
@@ -187,6 +194,7 @@ public class Monkey : MonoBehaviour
         monkeyRb.AddForce(Vector3.up * 5, ForceMode.Impulse); //For jumping, may need to modify gravity
         animation.Play("Attack");
         secondClawSlash.SetActive(true);
+        hitCount = 2;
         //if (playerStunned == true)
         //{
             //playerScript.LoseHP(damage);
@@ -199,7 +207,11 @@ public class Monkey : MonoBehaviour
         attack = false;
         secondClawSlash.SetActive(false);
         attackRange.SetActive(false);
+        Debug.Log("Start Cool");
+        //hitLanded = false;
+       
     }
+
     //Needed because the forward movement from the force causes the monkey to jump in an arc instead of upwards as intended
     IEnumerator PauseBeforeJump()
     {
@@ -237,6 +249,8 @@ public class Monkey : MonoBehaviour
             yield return new WaitForSeconds(7);
         }
         cooldown = false;
+        hitCount = 0;
+        enemyScript.ResetHitLanded();
         //playerScript.monkeyRange.SetActive(true);
     }
     //IEnumerator Fall()

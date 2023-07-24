@@ -1970,6 +1970,7 @@ MonoBehaviour:
   attackDirection: {x: 0, y: 0, z: 0}
   lockedOn: 0
   dyingEffect: {fileID: 8823286275267212766, guid: 168707ab83dc4d246bac1d5303f0dc83, type: 3}
+  hitLanded: 0
 --- !u!114 &3490599109342707433
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1983,6 +1984,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HPBar: {fileID: 4439932719559539862, guid: 8124843f71ff707488edef76ccd23445, type: 3}
+  hitCount: 0
   firstClawSlash: {fileID: 9016192933078443391}
   secondClawSlash: {fileID: 7062399739782678793}
   attackRange: {fileID: 7003767959790346800}
@@ -2005,7 +2007,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &8336243902042672391
 Transform:
   m_ObjectHideFlags: 0

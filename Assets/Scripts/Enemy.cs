@@ -30,6 +30,7 @@ public class Enemy : MonoBehaviour
     public ParticleSystem dyingEffect;
     private bool attacked = false;
     private bool hitAgainstWall = true;
+    public bool hitLanded = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -66,6 +67,15 @@ public class Enemy : MonoBehaviour
     public void SetAttackDirection(Vector3 newDirection)
     {
         attackDirection = newDirection;
+    }
+    public void AttackLanded()
+    {
+        hitLanded = true; //I could always do hitLanded = !hitLanded, but that would make it potentially confusing if
+        //I use a long combo
+    }
+    public void ResetHitLanded()
+    {
+        hitLanded = false;
     }
     public void OnCollisionEnter(Collision collision)
     {

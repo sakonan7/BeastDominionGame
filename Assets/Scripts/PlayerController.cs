@@ -1274,6 +1274,7 @@ public class PlayerController : MonoBehaviour
 
             //Attack Force will have to be fed to Enemy
                 playerRb.AddForce(enemyScript.attackDirection * 6, ForceMode.Impulse);
+            enemyScript.AttackLanded();
                 //playerRb.AddForce(Vector3.back * 12, ForceMode.Impulse); //I don't know why I have this
                 //playerScript.AttackLandedTrue();
             //}
