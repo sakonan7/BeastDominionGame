@@ -1254,7 +1254,7 @@ public class PlayerController : MonoBehaviour
         //Play attack effect in Enemy and load the effect in the individual script. IE, if Xemnas is using his ethereal blades,
         //load the ethereal blade effect into the private variable in Enemy. If Xemnas is using his spark orbs, load the spark orbs
         //effect into the private variable in Enem
-        if (other.CompareTag("Enemy Attack") && (dodge == false && specialInvincibility == false && stunnedInvincibility == false))
+        if (other.CompareTag("Enemy Attack Range") && (dodge == false && specialInvincibility == false && stunnedInvincibility == false))
         {
             Enemy enemyScript = other.gameObject.GetComponentInParent<Enemy>();
             LoseHP(enemyScript.damage);
@@ -1271,7 +1271,9 @@ public class PlayerController : MonoBehaviour
                 //
                 //wolfScript.SetAttackLanded();
                 //wolfScript.PlayAttackEffect();
-                playerRb.AddForce(enemyScript.attackDirection * 15, ForceMode.Impulse);
+
+            //Attack Force will have to be fed to Enemy
+                playerRb.AddForce(enemyScript.attackDirection * 6, ForceMode.Impulse);
                 //playerRb.AddForce(Vector3.back * 12, ForceMode.Impulse); //I don't know why I have this
                 //playerScript.AttackLandedTrue();
             //}

@@ -138,7 +138,7 @@ public class Monkey : MonoBehaviour
         //{
             if (playerScript.tigerActive == true)
             {
-                followDirection = (tiger.transform.position - transform.position).normalized;
+                //followDirection = (tiger.transform.position - transform.position).normalized;
                 monkeyRb.AddForce(followDirection * jumpForce, ForceMode.Impulse);
                 monkeyRb.AddForce(Vector3.up * 2, ForceMode.Impulse); //For jumping, may need to modify gravity
                                                                       //attackCount++;
@@ -181,16 +181,18 @@ public class Monkey : MonoBehaviour
         attackRange.SetActive(true);
         //StartCoroutine(Attack());
         followDirection = (tiger.transform.position - transform.position).normalized;
+        enemyScript.SetAttackEffect(attackEffect);
+        enemyScript.SetAttackDirection(followDirection);
         monkeyRb.AddForce(followDirection * jumpForce, ForceMode.Impulse);
         monkeyRb.AddForce(Vector3.up * 5, ForceMode.Impulse); //For jumping, may need to modify gravity
         animation.Play("Attack");
         secondClawSlash.SetActive(true);
-        if (playerStunned == true)
-        {
-            playerScript.LoseHP(damage);
-            playerScript.TigerFlinching2();
-            playerStunned = false;
-        }
+        //if (playerStunned == true)
+        //{
+            //playerScript.LoseHP(damage);
+            //playerScript.TigerFlinching2();
+            //playerStunned = false;
+        //}
         
         yield return new WaitForSeconds(1f);
         StartCoroutine(StartCoolDown());
