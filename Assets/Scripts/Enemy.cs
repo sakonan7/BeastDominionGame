@@ -15,7 +15,12 @@ public class Enemy : MonoBehaviour
     //I thought of complex attacks like Kingdom Hearts, and I could just modify the size of the collider in the individual enemy script
     //Could also feed the damage of the enemy script in here
     //Could do XemnasHelicopterSlash(), enemyScript.damage = 10; XemnasSparkOrbs(), enemyScript.damage = 5, enemyScript.attribute = thunder
+    
+        //I need to set Vector3 attackDirection here, because I need it for playerControll
     public int HP;
+    public int damage = 0;
+    private ParticleSystem attackEffect;
+    public Vector3 attackDirection;
     public bool lockedOn = false;
     private Rigidbody enemyRb;
     private PlayerController playerScript;
@@ -49,6 +54,18 @@ public class Enemy : MonoBehaviour
             //Debug.Log("Wolf Dies");
             gameManager.EnemyDefeated();
         }
+    }
+    public void SetDamage(int newDamage)
+    {
+        damage = newDamage;
+    }
+    public void SetAttackEffect(ParticleSystem newEffect)
+    {
+        attackEffect = newEffect;
+    }
+    public void SetAttackDirection(Vector3 newDirection)
+    {
+        attackDirection = newDirection;
     }
     public void OnCollisionEnter(Collision collision)
     {

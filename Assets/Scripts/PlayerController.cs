@@ -1225,6 +1225,8 @@ public class PlayerController : MonoBehaviour
             //For attacks that do more damage than others, I can make another tag called "Strong Attack"
             //I'm pretty sure this is what they do in Kingdom Hearts because all of Master Xehanort's attacks do different damage
             //I'm pretty sure I'm thinking of 3. because it is kind of a hassle to keep having to upload another foe into PlayerController
+            //I think I'm going to go with a fourth op
+            //I wrote all of this in the Enemy
 
             //NewWolf wolfScript = other.gameObject.GetComponent<NewWolf>();
             //playerScript.LoseHP(wolfScript.damage); //I need to reference Wolf's attack damage based on difficulty, but that's not hard
@@ -1247,6 +1249,32 @@ public class PlayerController : MonoBehaviour
                 playerRb.AddForce(Vector3.back * 12, ForceMode.Impulse);
                 //playerScript.AttackLandedTrue();
             }
+
+        }
+        //Play attack effect in Enemy and load the effect in the individual script. IE, if Xemnas is using his ethereal blades,
+        //load the ethereal blade effect into the private variable in Enemy. If Xemnas is using his spark orbs, load the spark orbs
+        //effect into the private variable in Enem
+        if (other.CompareTag("Enemy Attack") && (dodge == false && specialInvincibility == false && stunnedInvincibility == false))
+        {
+            Enemy enemyScript = other.gameObject.GetComponentInParent<Enemy>();
+            LoseHP(enemyScript.damage);
+            //if (wolfScript.attackLanded == false)
+            //{
+
+                //LoseHP(wolfScript.damage);
+                TigerFlinching(); //Have evoke this one last because this one triggers the StunDuration, and the above
+                //Sets the value of damage
+                //This is going to be more challenging, because I need a specific Wolf's attack direc
+                //I got it, draw a wolf script from the other.gameObject.
+                //I hope this doesn't cause an issue when multiple attacks land on the player
+                //Serendipity, I can use this to determine damage
+                //
+                //wolfScript.SetAttackLanded();
+                //wolfScript.PlayAttackEffect();
+                playerRb.AddForce(enemyScript.attackDirection * 15, ForceMode.Impulse);
+                //playerRb.AddForce(Vector3.back * 12, ForceMode.Impulse); //I don't know why I have this
+                //playerScript.AttackLandedTrue();
+            //}
 
         }
     }

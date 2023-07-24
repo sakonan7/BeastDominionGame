@@ -13,6 +13,7 @@ public class Monkey : MonoBehaviour
     private Rigidbody tigerRB;
     private Rigidbody birdRB;
     private PlayerController playerScript;
+    private Enemy enemyScript;
     private float speed = 52;
     private Rigidbody monkeyRb;
     private Rigidbody playerRb;
@@ -28,6 +29,8 @@ public class Monkey : MonoBehaviour
 
     public GameObject firstClawSlash;
     public GameObject secondClawSlash;
+    public GameObject attackRange;
+    public ParticleSystem attackEffect;
     public bool isOnGround = false;
     private float distance;
     
@@ -40,6 +43,7 @@ public class Monkey : MonoBehaviour
     void Start()
     {
         animation = GetComponent<Animation>();
+        enemyScript = GetComponent<Enemy>();
 
         player = GameObject.Find("Player");
         playerRb = player.GetComponent<Rigidbody>();
@@ -66,6 +70,7 @@ public class Monkey : MonoBehaviour
         {
             damage = 3;
         }
+        enemyScript.SetDamage(damage);
 
         cameraRef = GameObject.Find("Main Camera");
     }
@@ -122,8 +127,11 @@ public class Monkey : MonoBehaviour
         //Debug.Log("First Claw");
         attack = true;
         firstClawSlash.SetActive(true);
+        attackRange.SetActive(true);
+        enemyScript.SetAttackEffect(attackEffect); //Doing this for practice for when I have enemies with multiple attacks
         //Necessary because there's enough time for the Monkey to repeat an attack on the bird
         //May not be necessary after my edit to the collider
+        enemyScript.SetAttackDirection(followDirection);
         if (stunned == false && playerStunned == false && playerScript.specialInvincibility == false)
         {
             if (playerScript.tigerActive == true)
@@ -164,6 +172,7 @@ public class Monkey : MonoBehaviour
         yield return new WaitForSeconds(1.5f);
         attack = false;
         firstClawSlash.SetActive(false);
+        attackRange.SetActive(false);
         //For simplicity, second claw attack will only happen if player was hit by the first
         if (playerScript.tigerActive == true && playerStunned == true && stunned == false)
         {
@@ -185,6 +194,7 @@ public class Monkey : MonoBehaviour
         //Need a cooldown period before this that is only a second
         //Debug.Log("Second claw");
         attack = true;
+        attackRange.SetActive(true);
         //StartCoroutine(Attack());
         followDirection = (tiger.transform.position - transform.position).normalized;
         monkeyRb.AddForce(followDirection * jumpForce, ForceMode.Impulse);
@@ -202,6 +212,7 @@ public class Monkey : MonoBehaviour
         StartCoroutine(StartCoolDown());
         attack = false;
         secondClawSlash.SetActive(false);
+        attackRange.SetActive(false);
     }
     //Needed because the forward movement from the force causes the monkey to jump in an arc instead of upwards as intended
     IEnumerator PauseBeforeJump()
