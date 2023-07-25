@@ -137,6 +137,7 @@ public class Monkey : MonoBehaviour
         //Necessary because there's enough time for the Monkey to repeat an attack on the bird
         //May not be necessary after my edit to the collider
         enemyScript.SetAttackDirection(followDirection);
+        enemyScript.SetForce(6);
         //if (stunned == false && playerStunned == false && playerScript.specialInvincibility == false)
         //{
         //if (hitOnce == false)
@@ -178,6 +179,7 @@ public class Monkey : MonoBehaviour
         //monkeyAttackRange.transform.localScale = new Vector3(monkeyAttackRange.transform.localScale.x + 1, 0, monkeyAttackRange.transform.localScale.x + 1);
         //monkeyAttackRange.transform.localScale = new Vector3(1, 0, 1);
         //animation.Play("Attack");
+        enemyScript.ResetHitLanded();
     }
 
     IEnumerator SecondClaw()
@@ -208,6 +210,7 @@ public class Monkey : MonoBehaviour
         secondClawSlash.SetActive(false);
         attackRange.SetActive(false);
         Debug.Log("Start Cool");
+        enemyScript.ResetHitLanded();
         //hitLanded = false;
        
     }

@@ -21,6 +21,10 @@ public class Enemy : MonoBehaviour
     public int damage = 0;
     private ParticleSystem attackEffect;
     public Vector3 attackDirection;
+    public float attackForce;
+    public int hitNumber = 0;
+    public bool comboAttack = false;
+
     public bool lockedOn = false;
     private Rigidbody enemyRb;
     private PlayerController playerScript;
@@ -68,14 +72,27 @@ public class Enemy : MonoBehaviour
     {
         attackDirection = newDirection;
     }
+    public void SetForce(float newForce)
+    {
+        attackForce = newForce;
+    }
     public void AttackLanded()
     {
         hitLanded = true; //I could always do hitLanded = !hitLanded, but that would make it potentially confusing if
         //I use a long combo
+        hitNumber++;
     }
     public void ResetHitLanded()
     {
         hitLanded = false;
+    }
+    public void ResetHitNumber()
+    {
+        hitNumber = 0;
+    }
+    public void SetComboAttack()
+    {
+        comboAttack = true;
     }
     public void OnCollisionEnter(Collision collision)
     {

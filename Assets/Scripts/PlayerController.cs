@@ -1048,13 +1048,17 @@ public class PlayerController : MonoBehaviour
         playerAudio.PlayOneShot(damaged, 0.1f);
         stunned = true;
         stunnedInvincibility = true;
-        if (tigerFlinch == true)
+
+        if (tigerActive == true)
         {
-            animation.Play("Flinch 1");
-        }
-        if (tigerFlinch2 == true)
-        {
-            animation.Play("Flinch 2");
+            if (enemyScript.hitNumber % 2 == 0)
+            {
+                animation.Play("Flinch 1");
+            }
+            else if (enemyScript.hitNumber % 2 != 0)
+            {
+                animation.Play("Flinch 2");
+            }
         }
         if (tigerKnockedBack == true)
         {
@@ -1080,14 +1084,6 @@ public class PlayerController : MonoBehaviour
         //The text also is
         damageDisplay.text = "" + damageForDisplay;
         yield return new WaitForSeconds(1.4f);
-        if (tigerFlinch == true)
-        {
-            tigerFlinch = false;
-        }
-        if (tigerFlinch2 == true)
-        {
-            tigerFlinch2 = false;
-        }
         if (tigerKnockedBack == true)
         {
             tigerKnockedBack = false;
@@ -1129,6 +1125,7 @@ public class PlayerController : MonoBehaviour
         damageForDisplay = damage;
         float damageDone = damage / maxHPBarFill;
         HPBar.fillAmount = HPBar.fillAmount - damage / maxHPBarFill;
+        StartCoroutine(StunDuration());
         //This was for showing the damage done from each attack on the Player, but isn't necessary because the player and that
         //text is always at the center of the screen
         //damageDisplay.transform.position = new Vector3(tiger.transform.position.x, tiger.transform.position.y+ 5, tiger.transform.position.z);
@@ -1262,7 +1259,7 @@ public class PlayerController : MonoBehaviour
             //{
 
                 //LoseHP(wolfScript.damage);
-                TigerFlinching(); //Have evoke this one last because this one triggers the StunDuration, and the above
+                //TigerFlinching(); //Have evoke this one last because this one triggers the StunDuration, and the above
                 //Sets the value of damage
                 //This is going to be more challenging, because I need a specific Wolf's attack direc
                 //I got it, draw a wolf script from the other.gameObject.
@@ -1273,7 +1270,7 @@ public class PlayerController : MonoBehaviour
                 //wolfScript.PlayAttackEffect();
 
             //Attack Force will have to be fed to Enemy
-                playerRb.AddForce(enemyScript.attackDirection * 6, ForceMode.Impulse);
+                playerRb.AddForce(enemyScript.attackDirection * enemyScript.attackForce, ForceMode.Impulse);
             enemyScript.AttackLanded();
                 //playerRb.AddForce(Vector3.back * 12, ForceMode.Impulse); //I don't know why I have this
                 //playerScript.AttackLandedTrue();
