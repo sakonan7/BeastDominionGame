@@ -28,12 +28,20 @@ public class Monkey : MonoBehaviour
     private bool playerStunned = false; //For if the Tiger is hit by the first claw. Tiger will always get hit twice
     private int damage = 1;
     private bool hitThrown = false;
+    //This will account for multiple attacks and multiple effects. Might use an array instead
+    //I will need to feed this into Enemy, possibly with a method like WhichAttack, so I can feed it into AttackLanded(
+    public int attack1 = 0;
+    public int attack2 = 1;
+    public int attack3 = 2;
 
     public GameObject firstClawSlash;
     public GameObject secondClawSlash;
     public GameObject attackRange;
     public ParticleSystem attackEffect;
+    private AudioSource audio;
+    public AudioClip monkeyAttack;
     public bool isOnGround = false;
+    private bool attackFinished = false;
     private float distance;
     
     private bool stunned = false; //Freeze Monkey when i don't want it to move and when the Monkey is being stunlocked by att
@@ -73,6 +81,9 @@ public class Monkey : MonoBehaviour
             damage = 3;
         }
         enemyScript.SetDamage(damage);
+        enemyScript.attackEffect[0] = attackEffect;
+        audio = GetComponent<AudioSource>();
+        enemyScript.enemySounds[0] = monkeyAttack;
 
         cameraRef = GameObject.Find("Main Camera");
     }
@@ -115,6 +126,11 @@ public class Monkey : MonoBehaviour
             }
         }
             HPBar.transform.LookAt(HPBar.transform.position - (cameraRef.transform.position - HPBar.transform.position));
+        if (attackFinished == true && isOnGround == true)
+        {
+            attackFinished = false;
+            StartCoroutine(StartCoolDown());
+        }
     }
     //Change code. Monkey will start by running at the character and then within range, attack. Afterwards, the monkey will wait 4 seconds
     //Before attacking again
@@ -128,7 +144,7 @@ public class Monkey : MonoBehaviour
         attack = true;
         firstClawSlash.SetActive(true);
         attackRange.SetActive(true);
-        enemyScript.SetAttackEffect(attackEffect); //Doing this for practice for when I have enemies with multiple attacks
+        //enemyScript.SetAttackEffect(attackEffect); //Doing this for practice for when I have enemies with multiple attacks
         //Necessary because there's enough time for the Monkey to repeat an attack on the bird
         //May not be necessary after my edit to the collider
         enemyScript.SetAttackDirection(followDirection);
@@ -149,11 +165,16 @@ public class Monkey : MonoBehaviour
                 //followDirection = (bird.transform.position - transform.position).normalized;
                 //monkeyRb.AddForce(followDirection, ForceMode.Impulse);
                 monkeyRb.AddForce(Vector3.up * 5, ForceMode.Impulse); //For jumping, may need to modify gravity
-                isOnGround = false;
+                
             }
             //If that doesn't work, put an if (dodge == false
 
             animation.Play("Attack");
+        isOnGround = false; //Will always have this happen, because both attacks make the Monkey jump
+        //}
+        //if (enemyScript.hitLanded == true)
+        //{
+        //PlayAttackEffect();
         //}
         yield return new WaitForSeconds(1.5f);
         attack = false;
@@ -164,15 +185,15 @@ public class Monkey : MonoBehaviour
         {
             //hitCount = 1;
             StartCoroutine(SecondClaw());
-            enemyScript.SetComboAttack();
+            enemyScript.SetComboAttack(); //I put this here because if the IEnumerator goes on too long, it'll set the comboAttack repeatedly
         }
         else
         {
-            StartCoroutine(StartCoolDown());
+            attackFinished = true;
             //playerStunned = false; //Because a second atack will not be made on the bird
         }
         enemyScript.ResetHitLanded();
-        Debug.Log("First Hit");
+        //Debug.Log("First Hit");
     }
 
     //Combos will be complicated because I need the combo finisher to trigger stunInvincibility, but also, it needs to land
@@ -185,7 +206,7 @@ public class Monkey : MonoBehaviour
         attackRange.SetActive(true);
         //StartCoroutine(Attack());
         followDirection = (tiger.transform.position - transform.position).normalized;
-        enemyScript.SetAttackEffect(attackEffect);
+        //enemyScript.SetAttackEffect(attackEffect);
         enemyScript.SetAttackDirection(followDirection);
         enemyScript.SetForce(12);
         monkeyRb.AddForce(followDirection * jumpForce, ForceMode.Impulse);
@@ -196,7 +217,8 @@ public class Monkey : MonoBehaviour
         enemyScript.SetComboFinisher();
 
         yield return new WaitForSeconds(1f);
-        StartCoroutine(StartCoolDown());
+        //StartCoroutine(StartCoolDown());
+        attackFinished = true;
         attack = false;
         secondClawSlash.SetActive(false);
         attackRange.SetActive(false);
@@ -207,10 +229,14 @@ public class Monkey : MonoBehaviour
         enemyScript.SetComboFinisher();
 
         //hitLanded = false;
-        Debug.Log("Second Hit");
+        //Debug.Log("Second Hit");
         //Debug.Log("Combo Finisher is " + enemyScript.comboFinisher);
     }
-
+    //public void PlayAttackEffect()
+    //{
+        //attackEffect.Play();
+        //wolfAudio.PlayOneShot(wolfAttack, 0.1f);
+    //}
     //Needed because the forward movement from the force causes the monkey to jump in an arc instead of upwards as intended
     IEnumerator PauseBeforeJump()
     {

@@ -19,12 +19,14 @@ public class Enemy : MonoBehaviour
         //I need to set Vector3 attackDirection here, because I need it for playerControll
     public int HP;
     public int damage = 0;
-    private ParticleSystem attackEffect;
+    public ParticleSystem [] attackEffect = new ParticleSystem [3];
     public Vector3 attackDirection;
     public float attackForce;
     public int hitNumber = 0;
     public bool comboAttack = false;
     public bool comboFinisher = false;
+    private AudioSource enemyAudio;
+    public AudioClip[] enemySounds = new AudioClip[3];
 
     public bool lockedOn = false;
     private Rigidbody enemyRb;
@@ -44,6 +46,7 @@ public class Enemy : MonoBehaviour
         player = GameObject.Find("Player");
         playerRb = player.GetComponent<Rigidbody>();
         gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
+        enemyAudio = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -65,10 +68,10 @@ public class Enemy : MonoBehaviour
     {
         damage = newDamage;
     }
-    public void SetAttackEffect(ParticleSystem newEffect)
-    {
-        attackEffect = newEffect;
-    }
+    //public void SetAttackEffect(ParticleSystem newEffect)
+    //{
+        //attackEffect = newEffect;
+    //}
     public void SetAttackDirection(Vector3 newDirection)
     {
         attackDirection = newDirection;
@@ -77,11 +80,12 @@ public class Enemy : MonoBehaviour
     {
         attackForce = newForce;
     }
-    public void AttackLanded()
+    public void AttackLanded(int whichEffect)
     {
         hitLanded = true; //I could always do hitLanded = !hitLanded, but that would make it potentially confusing if
         //I use a long combo
         hitNumber++;
+        PlayAttackEffect(whichEffect);
     }
     public void ResetHitLanded()
     {
@@ -99,6 +103,22 @@ public class Enemy : MonoBehaviour
     {
         comboFinisher = !comboFinisher;
     }
+    //I really want to feed everything into here for simplicity's sake
+    //I could alternatively just use Enemy to play the effect from Monkey
+    //Actually, this will be hardand complicated, because I'd have to call Monkey then
+    //I think what I was thinking is, that if Monkey uses hitLanded, then just activate effect and sound effect
+    //Something tells me it would be less complicated to do this all in the individual enemy script. Like putting Xemnas's
+    //ethereal blade slash effects and spark bomb effects in Xemnas' invididual enemy
+    //It's complicated because it requires a lot of feed
+
+        //If I do play effects and sounds from the individual scripts, use hitLanded to do this.
+    public void PlayAttackEffect(int whichEffect)
+    {
+        attackEffect[whichEffect].Play();
+        Debug.Log("Attack Effect");
+        enemyAudio.PlayOneShot(enemySounds[whichEffect], 0.1f);
+    }
+
     public void OnCollisionEnter(Collision collision)
     {
        if (collision.gameObject.CompareTag("Wall") && attacked == true)

@@ -1100,7 +1100,8 @@ public class PlayerController : MonoBehaviour
         //Putting stun animations here because I need to feed a method/IEnumerator with what stun type I'm going to
         if (tigerActive == true)
         {
-            if (stunType % 2 != 0)
+            //Debug.Log(stunType % 2);
+            if (stunType % 2 == 1)
             {
                 animation.Play("Flinch 1");
             }
@@ -1240,11 +1241,12 @@ public class PlayerController : MonoBehaviour
 
             //Attack Force will have to be fed to Enemy
             playerRb.AddForce(enemyScript.attackDirection * enemyScript.attackForce, ForceMode.Impulse);
-            enemyScript.AttackLanded();
+            enemyScript.AttackLanded(0);
             //playerRb.AddForce(Vector3.back * 12, ForceMode.Impulse); //I don't know why I have this
             //playerScript.AttackLandedTrue();
             //}
             LoseHP(enemyScript.damage, enemyScript.hitNumber);
+            //enemyScript.PlayAttackEffect();
             if (enemyScript.comboAttack == true && enemyScript.comboFinisher == true)
             {
                 StartCoroutine(StunDuration());
