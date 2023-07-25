@@ -75,7 +75,7 @@ public class Tiger : MonoBehaviour
             if (wolfScript.attackLanded == false)
             {
                 
-                playerScript.LoseHP(wolfScript.damage);
+                //playerScript.LoseHP(wolfScript.damage);
                 playerScript.TigerFlinching(); //Have evoke this one last because this one triggers the StunDuration, and the above
                 //Sets the value of damage
                 //This is going to be more challenging, because I need a specific Wolf's attack direc

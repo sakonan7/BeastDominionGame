@@ -92,7 +92,7 @@ public class Enemy : MonoBehaviour
     }
     public void SetComboAttack()
     {
-        comboAttack = true;
+        comboAttack = !comboAttack;
     }
     public void OnCollisionEnter(Collision collision)
     {

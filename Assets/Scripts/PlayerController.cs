@@ -1049,36 +1049,7 @@ public class PlayerController : MonoBehaviour
         stunned = true;
         stunnedInvincibility = true;
 
-        if (tigerActive == true)
-        {
-            if (enemyScript.hitNumber % 2 == 0)
-            {
-                animation.Play("Flinch 1");
-            }
-            else if (enemyScript.hitNumber % 2 != 0)
-            {
-                animation.Play("Flinch 2");
-            }
-        }
-        if (tigerKnockedBack == true)
-        {
-            animation.Play("Hit Back T");
 
-        }
-        else if (birdFlinch == true)
-        {
-            //Flinch, less tilt back and a tilt towards the bird's left
-            //Knockback, more tilt and no left or
-            //Back right z turn
-            //Left tilt up x
-            //Up tilt horizontal y
-            birdRB.AddTorque(Vector3.left * 0.75f, ForceMode.Impulse); //tilt backwards
-            birdRB.AddTorque(Vector3.up * 0.25f, ForceMode.Impulse);
-        }
-        else if (birdKnockedBack == true)
-        {
-            birdRB.AddTorque(Vector3.left * 1.1f, ForceMode.Impulse);
-        }
 
         //The display code works because of the camera. Because of the camera, the player character is always at the center of it, where
         //The text also is
@@ -1119,12 +1090,43 @@ public class PlayerController : MonoBehaviour
     //{
         //HPText.text = "" + HP;
     //}
-    public void LoseHP(int damage)
+    public void LoseHP(int damage, int stunType)
     {
         HP-= damage;
         damageForDisplay = damage;
         float damageDone = damage / maxHPBarFill;
         HPBar.fillAmount = HPBar.fillAmount - damage / maxHPBarFill;
+        //Putting stun animations here because I need to feed a method/IEnumerator with what stun type I'm going to
+        if (tigerActive == true)
+        {
+            if (stunType % 2 != 0)
+            {
+                animation.Play("Flinch 1");
+            }
+            else if (stunType % 2 == 0)
+            {
+                animation.Play("Flinch 2");
+            }
+        }
+        if (tigerKnockedBack == true)
+        {
+            animation.Play("Hit Back T");
+
+        }
+        else if (birdFlinch == true)
+        {
+            //Flinch, less tilt back and a tilt towards the bird's left
+            //Knockback, more tilt and no left or
+            //Back right z turn
+            //Left tilt up x
+            //Up tilt horizontal y
+            birdRB.AddTorque(Vector3.left * 0.75f, ForceMode.Impulse); //tilt backwards
+            birdRB.AddTorque(Vector3.up * 0.25f, ForceMode.Impulse);
+        }
+        else if (birdKnockedBack == true)
+        {
+            birdRB.AddTorque(Vector3.left * 1.1f, ForceMode.Impulse);
+        }
         StartCoroutine(StunDuration());
         //This was for showing the damage done from each attack on the Player, but isn't necessary because the player and that
         //text is always at the center of the screen
@@ -1232,7 +1234,7 @@ public class PlayerController : MonoBehaviour
             if (wolfScript.attackLanded == false)
             {
 
-                LoseHP(wolfScript.damage);
+                //LoseHP(wolfScript.damage);
                 TigerFlinching(); //Have evoke this one last because this one triggers the StunDuration, and the above
                 //Sets the value of damage
                 //This is going to be more challenging, because I need a specific Wolf's attack direc
@@ -1254,28 +1256,28 @@ public class PlayerController : MonoBehaviour
         if (other.CompareTag("Enemy Attack Range") && (dodge == false && specialInvincibility == false && stunnedInvincibility == false))
         {
             Enemy enemyScript = other.gameObject.GetComponentInParent<Enemy>();
-            LoseHP(enemyScript.damage);
+
             //if (wolfScript.attackLanded == false)
             //{
 
-                //LoseHP(wolfScript.damage);
-                //TigerFlinching(); //Have evoke this one last because this one triggers the StunDuration, and the above
-                //Sets the value of damage
-                //This is going to be more challenging, because I need a specific Wolf's attack direc
-                //I got it, draw a wolf script from the other.gameObject.
-                //I hope this doesn't cause an issue when multiple attacks land on the player
-                //Serendipity, I can use this to determine damage
-                //
-                //wolfScript.SetAttackLanded();
-                //wolfScript.PlayAttackEffect();
+            //LoseHP(wolfScript.damage);
+            //TigerFlinching(); //Have evoke this one last because this one triggers the StunDuration, and the above
+            //Sets the value of damage
+            //This is going to be more challenging, because I need a specific Wolf's attack direc
+            //I got it, draw a wolf script from the other.gameObject.
+            //I hope this doesn't cause an issue when multiple attacks land on the player
+            //Serendipity, I can use this to determine damage
+            //
+            //wolfScript.SetAttackLanded();
+            //wolfScript.PlayAttackEffect();
 
             //Attack Force will have to be fed to Enemy
-                playerRb.AddForce(enemyScript.attackDirection * enemyScript.attackForce, ForceMode.Impulse);
+            playerRb.AddForce(enemyScript.attackDirection * enemyScript.attackForce, ForceMode.Impulse);
             enemyScript.AttackLanded();
-                //playerRb.AddForce(Vector3.back * 12, ForceMode.Impulse); //I don't know why I have this
-                //playerScript.AttackLandedTrue();
+            //playerRb.AddForce(Vector3.back * 12, ForceMode.Impulse); //I don't know why I have this
+            //playerScript.AttackLandedTrue();
             //}
-
+            LoseHP(enemyScript.damage, enemyScript.hitNumber);
         }
     }
 }
