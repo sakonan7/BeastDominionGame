@@ -20,6 +20,7 @@ public class Monkey : MonoBehaviour
     private Collider monkeyAttackReach;
     private Vector3 followDirection;
     private Vector3 attackDirection;
+    private Quaternion lookRotation;
     private float jumpForce = 4; //Slight jump before attack
     private float attackForce = 1; //May remove attackForce because Monkey doesn't knock chaarcter back a
     private bool attack = false;
@@ -87,21 +88,26 @@ public class Monkey : MonoBehaviour
 
             //I think i should do the direction following outside of this
             //Either way, it looks like the Monkey only does it at the start and never rotates to face the tiger again
-            Vector3 newDirection;
-            if (playerScript.tigerActive == true)
-            {
-                followDirection = (tiger.transform.position - transform.position).normalized;
-                newDirection = Vector3.RotateTowards(transform.forward, tiger.transform.position, speed * Time.deltaTime, 0.0f);
-                transform.rotation = Quaternion.LookRotation(newDirection);
-            }
-            else if (playerScript.birdActive == true)
-            {
-                followDirection = (bird.transform.position - transform.position).normalized;
+            //Vector3 newDirection;
+            //if (playerScript.tigerActive == true)
+            //{
+                followDirection = (player.transform.position - transform.position).normalized;
+                //newDirection = Vector3.RotateTowards(transform.forward, tiger.transform.position, speed * Time.deltaTime, 0.0f);
+                //transform.rotation = Quaternion.LookRotation(newDirection);
+            ///}
+            //else if (playerScript.birdActive == true)
+            //{
+                //followDirection = (bird.transform.position - transform.position).normalized;
                 //newDirection = Vector3.RotateTowards(transform.forward, bird.transform.position, speed * Time.deltaTime, 0.0f);
                 //transform.rotation = Quaternion.LookRotation(newDirection);
-            }
+            //}
             distance = Vector3.Distance(player.transform.position, transform.position);
+            //playerPosition = tiger.transform.position;
+            //attackRange.transform.position = tiger.transform.position;
+            //distance = Vector3.Distance(player.transform.position, transform.position);
+            lookRotation = Quaternion.LookRotation(player.transform.position - transform.position);
             monkeyRb.AddForce(followDirection * speed);
+            transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, 3); //Turned from 5 to 3 for smooth
             //StartCoroutine(AttackCountdown());
             if (distance <= 6)
             {
@@ -126,7 +132,7 @@ public class Monkey : MonoBehaviour
         //Necessary because there's enough time for the Monkey to repeat an attack on the bird
         //May not be necessary after my edit to the collider
         enemyScript.SetAttackDirection(followDirection);
-        enemyScript.SetForce(1);
+        enemyScript.SetForce(6);
         //if (stunned == false && playerStunned == false && playerScript.specialInvincibility == false)
         //{
         //if (hitOnce == false)
@@ -160,12 +166,13 @@ public class Monkey : MonoBehaviour
             StartCoroutine(SecondClaw());
             enemyScript.SetComboAttack();
         }
-        else if (playerScript.birdActive == true)
+        else
         {
             StartCoroutine(StartCoolDown());
             //playerStunned = false; //Because a second atack will not be made on the bird
         }
         enemyScript.ResetHitLanded();
+        Debug.Log("First Hit");
     }
 
     //Combos will be complicated because I need the combo finisher to trigger stunInvincibility, but also, it needs to land
@@ -180,24 +187,28 @@ public class Monkey : MonoBehaviour
         followDirection = (tiger.transform.position - transform.position).normalized;
         enemyScript.SetAttackEffect(attackEffect);
         enemyScript.SetAttackDirection(followDirection);
-        enemyScript.SetForce(6);
+        enemyScript.SetForce(12);
         monkeyRb.AddForce(followDirection * jumpForce, ForceMode.Impulse);
         monkeyRb.AddForce(Vector3.up * 5, ForceMode.Impulse); //For jumping, may need to modify gravity
         animation.Play("Attack");
         secondClawSlash.SetActive(true);
-        enemyScript.SetComboAttack();
+        
+        enemyScript.SetComboFinisher();
 
         yield return new WaitForSeconds(1f);
         StartCoroutine(StartCoolDown());
         attack = false;
         secondClawSlash.SetActive(false);
         attackRange.SetActive(false);
-        Debug.Log("Start Cool");
+        //Debug.Log("Start Cool");
         enemyScript.ResetHitLanded();
         enemyScript.ResetHitNumber();
-        
+        enemyScript.SetComboAttack();
+        enemyScript.SetComboFinisher();
+
         //hitLanded = false;
-       
+        Debug.Log("Second Hit");
+        //Debug.Log("Combo Finisher is " + enemyScript.comboFinisher);
     }
 
     //Needed because the forward movement from the force causes the monkey to jump in an arc instead of upwards as intended
@@ -238,6 +249,7 @@ public class Monkey : MonoBehaviour
         }
         cooldown = false;
         //playerScript.monkeyRange.SetActive(true);
+        Debug.Log("Cooldown finished");
     }
     //IEnumerator Fall()
    // {

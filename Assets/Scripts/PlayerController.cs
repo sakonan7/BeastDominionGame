@@ -1045,7 +1045,7 @@ public class PlayerController : MonoBehaviour
     }
     IEnumerator StunDuration()
     {
-        playerAudio.PlayOneShot(damaged, 0.1f);
+        
         stunned = true;
         stunnedInvincibility = true;
 
@@ -1096,6 +1096,7 @@ public class PlayerController : MonoBehaviour
         damageForDisplay = damage;
         float damageDone = damage / maxHPBarFill;
         HPBar.fillAmount = HPBar.fillAmount - damage / maxHPBarFill;
+        playerAudio.PlayOneShot(damaged, 0.1f);
         //Putting stun animations here because I need to feed a method/IEnumerator with what stun type I'm going to
         if (tigerActive == true)
         {
@@ -1127,7 +1128,7 @@ public class PlayerController : MonoBehaviour
         {
             birdRB.AddTorque(Vector3.left * 1.1f, ForceMode.Impulse);
         }
-        StartCoroutine(StunDuration());
+        
         //This was for showing the damage done from each attack on the Player, but isn't necessary because the player and that
         //text is always at the center of the screen
         //damageDisplay.transform.position = new Vector3(tiger.transform.position.x, tiger.transform.position.y+ 5, tiger.transform.position.z);
@@ -1244,6 +1245,10 @@ public class PlayerController : MonoBehaviour
             //playerScript.AttackLandedTrue();
             //}
             LoseHP(enemyScript.damage, enemyScript.hitNumber);
+            if (enemyScript.comboAttack == true && enemyScript.comboFinisher == true)
+            {
+                StartCoroutine(StunDuration());
+            }
         }
     }
 }

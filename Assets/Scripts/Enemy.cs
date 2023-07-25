@@ -24,6 +24,7 @@ public class Enemy : MonoBehaviour
     public float attackForce;
     public int hitNumber = 0;
     public bool comboAttack = false;
+    public bool comboFinisher = false;
 
     public bool lockedOn = false;
     private Rigidbody enemyRb;
@@ -93,6 +94,10 @@ public class Enemy : MonoBehaviour
     public void SetComboAttack()
     {
         comboAttack = !comboAttack;
+    }
+    public void SetComboFinisher()
+    {
+        comboFinisher = !comboFinisher;
     }
     public void OnCollisionEnter(Collision collision)
     {
