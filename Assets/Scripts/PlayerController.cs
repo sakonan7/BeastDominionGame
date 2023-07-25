@@ -1215,41 +1215,7 @@ public class PlayerController : MonoBehaviour
             Destroy(other);
             //Debug.Log("Game Start");
         }
-        if (other.CompareTag("Wolf Attack") && (dodge == false && specialInvincibility == false && stunnedInvincibility == false))
-        {
-            //I have three options
-            //1. Forgot what one was lol
-            //2. Access the corresponding script because that enemy is already out anyway
-            //3. Put all attack colliders under the same tag "Attack", and then through inspecter, Give an individual damage
-            //For attacks that do more damage than others, I can make another tag called "Strong Attack"
-            //I'm pretty sure this is what they do in Kingdom Hearts because all of Master Xehanort's attacks do different damage
-            //I'm pretty sure I'm thinking of 3. because it is kind of a hassle to keep having to upload another foe into PlayerController
-            //I think I'm going to go with a fourth op
-            //I wrote all of this in the Enemy
 
-            //NewWolf wolfScript = other.gameObject.GetComponent<NewWolf>();
-            //playerScript.LoseHP(wolfScript.damage); //I need to reference Wolf's attack damage based on difficulty, but that's not hard
-            NewWolf wolfScript = other.gameObject.GetComponentInParent<NewWolf>();
-            //Was intially going to try putting this in the bigger if loop
-            if (wolfScript.attackLanded == false)
-            {
-
-                //LoseHP(wolfScript.damage);
-                TigerFlinching(); //Have evoke this one last because this one triggers the StunDuration, and the above
-                //Sets the value of damage
-                //This is going to be more challenging, because I need a specific Wolf's attack direc
-                //I got it, draw a wolf script from the other.gameObject.
-                //I hope this doesn't cause an issue when multiple attacks land on the player
-                //Serendipity, I can use this to determine damage
-                //
-                wolfScript.SetAttackLanded();
-                wolfScript.PlayAttackEffect();
-                playerRb.AddForce(wolfScript.followDirection * 15, ForceMode.Impulse);
-                playerRb.AddForce(Vector3.back * 12, ForceMode.Impulse);
-                //playerScript.AttackLandedTrue();
-            }
-
-        }
         //Play attack effect in Enemy and load the effect in the individual script. IE, if Xemnas is using his ethereal blades,
         //load the ethereal blade effect into the private variable in Enemy. If Xemnas is using his spark orbs, load the spark orbs
         //effect into the private variable in Enem

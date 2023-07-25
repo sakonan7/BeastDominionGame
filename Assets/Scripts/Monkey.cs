@@ -27,8 +27,6 @@ public class Monkey : MonoBehaviour
     private bool playerStunned = false; //For if the Tiger is hit by the first claw. Tiger will always get hit twice
     private int damage = 1;
     private bool hitThrown = false;
-    //private bool hitLanded = false;
-    public int hitCount = 0;
 
     public GameObject firstClawSlash;
     public GameObject secondClawSlash;
@@ -110,15 +108,6 @@ public class Monkey : MonoBehaviour
                 StartCoroutine(FirstClaw());
             }
         }
-        //Originally used if (alive==true) but because it's independent of attack == false, it will keep replaying AttackCountdown
-        //also, as an unexpected side effect, followDirection will keep playing
-        //if (attack == true)
-        //{
-            //StartCoroutine(Attack());
-        //}
-
-        //Code for HP Bar always facing camera
-        //Have to do the whole thing that was done in PlayerController
             HPBar.transform.LookAt(HPBar.transform.position - (cameraRef.transform.position - HPBar.transform.position));
     }
     //Change code. Monkey will start by running at the character and then within range, attack. Afterwards, the monkey will wait 4 seconds
@@ -176,10 +165,6 @@ public class Monkey : MonoBehaviour
             StartCoroutine(StartCoolDown());
             //playerStunned = false; //Because a second atack will not be made on the bird
         }
-        //For some reason there's a glitch when I try to modify the Collider's X and Y but not when I modify the Monkey's
-        //monkeyAttackRange.transform.localScale = new Vector3(monkeyAttackRange.transform.localScale.x + 1, 0, monkeyAttackRange.transform.localScale.x + 1);
-        //monkeyAttackRange.transform.localScale = new Vector3(1, 0, 1);
-        //animation.Play("Attack");
         enemyScript.ResetHitLanded();
     }
 
@@ -201,13 +186,6 @@ public class Monkey : MonoBehaviour
         animation.Play("Attack");
         secondClawSlash.SetActive(true);
         enemyScript.SetComboAttack();
-        //hitCount = 2;
-        //if (playerStunned == true)
-        //{
-        //playerScript.LoseHP(damage);
-        //playerScript.TigerFlinching2();
-        //playerStunned = false;
-        //}
 
         yield return new WaitForSeconds(1f);
         StartCoroutine(StartCoolDown());
@@ -259,8 +237,6 @@ public class Monkey : MonoBehaviour
             yield return new WaitForSeconds(7);
         }
         cooldown = false;
-        hitCount = 0;
-        enemyScript.ResetHitLanded();
         //playerScript.monkeyRange.SetActive(true);
     }
     //IEnumerator Fall()
