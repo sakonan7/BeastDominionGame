@@ -22,7 +22,7 @@ public class Monkey : MonoBehaviour
     private Vector3 followDirection;
     private Vector3 attackDirection;
     private Quaternion lookRotation;
-    private float jumpForce = 40; //Slight jump before attack
+    private float jumpForce = 100; //Slight jump before attack
     private float attackForce = 1; //May remove attackForce because Monkey doesn't knock chaarcter back a
     private bool attack = false;
     private bool beginningIdle = true;
@@ -161,12 +161,15 @@ public class Monkey : MonoBehaviour
         //Necessary because there's enough time for the Monkey to repeat an attack on the bird
         //May not be necessary after my edit to the collider
         enemyScript.SetAttackDirection(followDirection);
-        enemyScript.SetForce(6);
+        enemyScript.SetForce(4);
+        //lookRotation = Quaternion.LookRotation(player.transform.position - transform.position);
+        //monkeyRb.AddForce(followDirection * speed);
+        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, 5); //For extra right target turning
         //if (stunned == false && playerStunned == false && playerScript.specialInvincibility == false)
         //{
         //if (hitOnce == false)
         //{
-            if (playerScript.tigerActive == true)
+        if (playerScript.tigerActive == true)
             {
                 //followDirection = (tiger.transform.position - transform.position).normalized;
                 monkeyRb.AddForce(followDirection * jumpForce, ForceMode.Impulse);
@@ -208,7 +211,7 @@ public class Monkey : MonoBehaviour
             //playerStunned = false; //Because a second atack will not be made on the bird
         }
         enemyScript.ResetHitLanded();
-        //Debug.Log("First Hit");
+        Debug.Log("First Hit");
     }
 
     //Combos will be complicated because I need the combo finisher to trigger stunInvincibility, but also, it needs to land
@@ -223,8 +226,8 @@ public class Monkey : MonoBehaviour
         followDirection = (tiger.transform.position - transform.position).normalized;
         //enemyScript.SetAttackEffect(attackEffect);
         enemyScript.SetAttackDirection(followDirection);
-        enemyScript.SetForce(12);
-        monkeyRb.AddForce(followDirection * jumpForce, ForceMode.Impulse);
+        enemyScript.SetForce(9);
+        //monkeyRb.AddForce(followDirection * (jumpForce/2), ForceMode.Impulse);
         monkeyRb.AddForce(Vector3.up * 5, ForceMode.Impulse); //For jumping, may need to modify gravity
         //animation.Play("Attack");
         animator.SetBool("Attack 2", true);
@@ -246,7 +249,7 @@ public class Monkey : MonoBehaviour
         enemyScript.SetComboFinisher();
 
         //hitLanded = false;
-        //Debug.Log("Second Hit");
+        Debug.Log("Second Hit");
         //Debug.Log("Combo Finisher is " + enemyScript.comboFinisher);
     }
     //public void PlayAttackEffect()
