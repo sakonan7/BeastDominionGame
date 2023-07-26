@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class Monkey : MonoBehaviour
 {
-    private new Animation animation;
+    //private new Animation animation;
+    private Animator animator;
     public GameObject HPBar;
     private GameObject cameraRef;
     private GameObject player;
@@ -14,17 +15,19 @@ public class Monkey : MonoBehaviour
     private Rigidbody birdRB;
     private PlayerController playerScript;
     private Enemy enemyScript;
-    private float speed = 52;
+    private float speed = 220;
     private Rigidbody monkeyRb;
     private Rigidbody playerRb;
     private Collider monkeyAttackReach;
     private Vector3 followDirection;
     private Vector3 attackDirection;
     private Quaternion lookRotation;
-    private float jumpForce = 4; //Slight jump before attack
+    private float jumpForce = 40; //Slight jump before attack
     private float attackForce = 1; //May remove attackForce because Monkey doesn't knock chaarcter back a
     private bool attack = false;
-    private bool cooldown = false;
+    private bool beginningIdle = true;
+    private bool idle = true;
+    private bool chase = false;
     private bool playerStunned = false; //For if the Tiger is hit by the first claw. Tiger will always get hit twice
     private int damage = 1;
     private bool hitThrown = false;
@@ -52,7 +55,8 @@ public class Monkey : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        animation = GetComponent<Animation>();
+        //animation = GetComponent<Animation>();
+        animator = GetComponent<Animator>();
         enemyScript = GetComponent<Enemy>();
 
         player = GameObject.Find("Player");
@@ -86,6 +90,8 @@ public class Monkey : MonoBehaviour
         enemyScript.enemySounds[0] = monkeyAttack;
 
         cameraRef = GameObject.Find("Main Camera");
+
+        StartCoroutine(IdleAnimation());
     }
 
     // Update is called once per frame
@@ -93,44 +99,51 @@ public class Monkey : MonoBehaviour
     {
         HPBar.transform.position = new Vector3(transform.position.x, transform.position.y + 1.9f, transform.position.z + 0.1f);
         //Monkey will only do it's chase while it's on the ground to avoid antigravity business
-        if (attack == false && cooldown == false && stunned == false && isOnGround == true && testingStun == false)
+        if (testingStun == false)
         {
-            animation.Play("Run");
-
-            //I think i should do the direction following outside of this
-            //Either way, it looks like the Monkey only does it at the start and never rotates to face the tiger again
-            //Vector3 newDirection;
-            //if (playerScript.tigerActive == true)
-            //{
+            if (idle == false && chase == true && stunned == false)
+            {
+                //animation.Play("Run");
+                
+                //I think i should do the direction following outside of this
+                //Either way, it looks like the Monkey only does it at the start and never rotates to face the tiger again
+                //Vector3 newDirection;
+                //if (playerScript.tigerActive == true)
+                //{
                 followDirection = (player.transform.position - transform.position).normalized;
                 //newDirection = Vector3.RotateTowards(transform.forward, tiger.transform.position, speed * Time.deltaTime, 0.0f);
                 //transform.rotation = Quaternion.LookRotation(newDirection);
-            ///}
-            //else if (playerScript.birdActive == true)
-            //{
+                ///}
+                //else if (playerScript.birdActive == true)
+                //{
                 //followDirection = (bird.transform.position - transform.position).normalized;
                 //newDirection = Vector3.RotateTowards(transform.forward, bird.transform.position, speed * Time.deltaTime, 0.0f);
                 //transform.rotation = Quaternion.LookRotation(newDirection);
-            //}
-            distance = Vector3.Distance(player.transform.position, transform.position);
-            //playerPosition = tiger.transform.position;
-            //attackRange.transform.position = tiger.transform.position;
-            //distance = Vector3.Distance(player.transform.position, transform.position);
-            lookRotation = Quaternion.LookRotation(player.transform.position - transform.position);
-            monkeyRb.AddForce(followDirection * speed);
-            transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, 3); //Turned from 5 to 3 for smooth
-            //StartCoroutine(AttackCountdown());
-            if (distance <= 6)
+                //}
+                distance = Vector3.Distance(player.transform.position, transform.position);
+                //playerPosition = tiger.transform.position;
+                //attackRange.transform.position = tiger.transform.position;
+                //distance = Vector3.Distance(player.transform.position, transform.position);
+                lookRotation = Quaternion.LookRotation(player.transform.position - transform.position);
+                monkeyRb.AddForce(followDirection * speed);
+                transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, 3); //Turned from 5 to 3 for smooth
+                                                                                            //StartCoroutine(AttackCountdown());
+                if (distance <= 6)
+                {
+                    animator.SetBool("Chase", false);
+                    chase = false;
+                    StartCoroutine(FirstClaw());
+                }
+            }
+            if (attackFinished == true && isOnGround == true)
             {
-                StartCoroutine(FirstClaw());
+                attackFinished = false;
+                StartCoroutine(IdleAnimation());
             }
         }
+
             HPBar.transform.LookAt(HPBar.transform.position - (cameraRef.transform.position - HPBar.transform.position));
-        if (attackFinished == true && isOnGround == true)
-        {
-            attackFinished = false;
-            StartCoroutine(StartCoolDown());
-        }
+
     }
     //Change code. Monkey will start by running at the character and then within range, attack. Afterwards, the monkey will wait 4 seconds
     //Before attacking again
@@ -167,9 +180,10 @@ public class Monkey : MonoBehaviour
                 monkeyRb.AddForce(Vector3.up * 5, ForceMode.Impulse); //For jumping, may need to modify gravity
                 
             }
-            //If that doesn't work, put an if (dodge == false
+        //If that doesn't work, put an if (dodge == false
 
-            animation.Play("Attack");
+        //animation.Play("Attack");
+        animator.SetBool("Attack 1", true);
         isOnGround = false; //Will always have this happen, because both attacks make the Monkey jump
         //}
         //if (enemyScript.hitLanded == true)
@@ -177,6 +191,7 @@ public class Monkey : MonoBehaviour
         //PlayAttackEffect();
         //}
         yield return new WaitForSeconds(1.5f);
+        animator.SetBool("Attack 1", false);
         attack = false;
         firstClawSlash.SetActive(false);
         attackRange.SetActive(false);
@@ -211,12 +226,14 @@ public class Monkey : MonoBehaviour
         enemyScript.SetForce(12);
         monkeyRb.AddForce(followDirection * jumpForce, ForceMode.Impulse);
         monkeyRb.AddForce(Vector3.up * 5, ForceMode.Impulse); //For jumping, may need to modify gravity
-        animation.Play("Attack");
+        //animation.Play("Attack");
+        animator.SetBool("Attack 2", true);
         secondClawSlash.SetActive(true);
         
         enemyScript.SetComboFinisher();
 
         yield return new WaitForSeconds(1f);
+        animator.SetBool("Attack 2", false);
         //StartCoroutine(StartCoolDown());
         attackFinished = true;
         attack = false;
@@ -258,22 +275,34 @@ public class Monkey : MonoBehaviour
         attack = false;
         Debug.Log("Start Air Attack");
     }
-    IEnumerator StartCoolDown()
+    IEnumerator IdleAnimation()
     {
-        cooldown = true;
-        animation.Play("Idle");
+        idle = true;
+        //animation.Play("Idle");
+        animator.SetBool("Idle", true);
         //For the timebeing, turn off the player's monkey range
         //playerScript.monkeyRange.SetActive(false);
-        if (playerScript.tigerActive == true)
+        if (beginningIdle == true)
+        {
+            yield return new WaitForSeconds(Random.Range(3, 7));
+        }
+        //if (playerScript.tigerActive == true)
+        //{
+        else
         {
             yield return new WaitForSeconds(3);
         }
-        else if (playerScript.birdActive == true)
-        {
+        //}
+        //else if (playerScript.birdActive == true)
+        //{
             //monkeyRb.AddForce(Vector3.down * 2, ForceMode.Impulse);
-            yield return new WaitForSeconds(7);
-        }
-        cooldown = false;
+            //yield return new WaitForSeconds(7);
+        //}
+        beginningIdle = false;
+        idle = false;
+        chase = true;
+        animator.SetBool("Idle", false);
+        animator.SetBool("Chase", true);
         //playerScript.monkeyRange.SetActive(true);
         Debug.Log("Cooldown finished");
     }
@@ -351,7 +380,7 @@ public class Monkey : MonoBehaviour
     IEnumerator StunnedDuration()
     {
         stunned = true;
-        animation.Play("Damage Monkey");
+        //animation.Play("Damage Monkey");
         yield return new WaitForSeconds(1.5f);
         stunned = false;
     }

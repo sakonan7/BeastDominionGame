@@ -1921,7 +1921,7 @@ Animation:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 710810659962788091}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Animation: {fileID: 7400000, guid: caa1d35b830593845bb418c43b5db252, type: 2}
   m_Animations:
@@ -1942,12 +1942,12 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 710810659962788091}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 6c3bebbb4da07c64f9a76d8e05760e8f, type: 3}
   m_Controller: {fileID: 9100000, guid: 80f75a47117f70f4a93e44b03c1a5c83, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
-  m_ApplyRootMotion: 0
+  m_ApplyRootMotion: 1
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
   m_WarningMessage: 
