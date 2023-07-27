@@ -20,6 +20,7 @@ public class NewWolf : MonoBehaviour
     //public GameObject focalPoint;
     public GameObject attackAura;
     public GameObject attackRange;
+    public GameObject HPBar;
     //public GameObject enemyTarget;
     private Rigidbody wolfRb;
     public Vector3 followDirection;
@@ -83,6 +84,7 @@ public class NewWolf : MonoBehaviour
     //Miscellaneous
     private GameManager gameManager;
     private bool testingStun = true;
+    private GameObject cameraRef;
     // Start is called before the first frame update
     void Start()
     {
@@ -99,6 +101,8 @@ public class NewWolf : MonoBehaviour
         tigerRB = tiger.GetComponent<Rigidbody>();
         bird = playerScript.bird;
         birdRB = bird.GetComponent<Rigidbody>();
+
+        cameraRef = GameObject.Find("Main Camera");
 
         Physics.gravity *= 0.5f;
 
@@ -124,6 +128,7 @@ public class NewWolf : MonoBehaviour
         animator.SetBool("Run", true);
 
         enemyScript = GetComponent<Enemy>();
+        //HPBar.Instantiate();
     }
 
     // Update is called once per frame
@@ -131,7 +136,8 @@ public class NewWolf : MonoBehaviour
     //The Wolf having to restart its pace, rather than attacking right af
     void Update()
     {
-
+        HPBar.transform.position = new Vector3(transform.position.x, transform.position.y + 1.9f, transform.position.z + 0.1f);
+        HPBar.transform.LookAt(HPBar.transform.position - (cameraRef.transform.position - HPBar.transform.position));
         //I'm just going to try measuring distance instead
         if (playerScript.tigerActive == true)
         {
