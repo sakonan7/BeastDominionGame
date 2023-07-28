@@ -493,15 +493,7 @@ public class PlayerController : MonoBehaviour
             TigerFlinching2();
         }
 
-        //Lock On
-            //Changing code for now because lock on doesn't work on foes who have been generated into the scene
-            //and not already
-            //Removed canLockOn == true
-        if (Input.GetMouseButtonDown(1))
-        {
-            //sensor.SetActive(true);
-            LockOn();
-        }
+
             //Motion Blur
             //I'm thinking I don't want a motion blur for special attacks
         //Almost forgot to add tigerActive because I don't want the blur for the bird
@@ -553,6 +545,7 @@ public class PlayerController : MonoBehaviour
                 //Code to make lockedOn symbol face camera
                 //The original simple LookAt(cameraRef.transform) didn't work because it showed the clear backside of the plane/quad instead
                 target.transform.LookAt(target.transform.position - (cameraRef.transform.position - target.transform.position));
+                
 
                 //Code to turn camera towards target
                 //Test to see if using a method will only place the method once. I don't think so, so try it in the lockedon meth
@@ -604,6 +597,18 @@ public class PlayerController : MonoBehaviour
         if (gameManagerScript.startingCutscene == true)
         {
             OpeningRun();
+        }
+    }
+    private void LateUpdate()
+    {
+        //Lock On
+        //Changing code for now because lock on doesn't work on foes who have been generated into the scene
+        //and not already
+        //Removed canLockOn == true
+        if (Input.GetMouseButtonDown(1))
+        {
+            //sensor.SetActive(true);
+            LockOn();
         }
     }
 
@@ -906,10 +911,14 @@ public class PlayerController : MonoBehaviour
             //int newMinIndex = 0;
             bool smallestDistanceFound = false;
             int j = 0;
+
+            //Doing this in case there's already a foe that's been locked
+            //if (lockedOn == true)
+            //{
+                //enemyScript.LockOff();
+            //}
             //I think I may need to rewrite this because targetedEnemy is not always going to be the same
             //AND it will be determined in this loop
-            if (tigerActive == true)
-            {
                 //attackRange.transform.position = tiger.transform.position;
                 //I think the method always goes (target, own position)
                 //distance = Vector3.Distance(targetedEnemy.transform.position, tiger.transform.position);
@@ -926,30 +935,29 @@ public class PlayerController : MonoBehaviour
                     {
                         smallestDistanceFound = true;
                         targetedEnemy = enemies[j];//This code will avoid problems of two foes having the same distance from
-                        //the player
-                        enemyScript = targetedEnemy.GetComponent<Enemy>();
+                                                   //the player
+                                                   //Doing this in case there's already a foe that's been locked
+                                                   if (lockedOn == true)
+                                                   {
+                                                   enemyScript.LockOff();
+                                                   }
+                    enemyScript = targetedEnemy.GetComponent<Enemy>();
+                    //if (enemyScript.lockedOn == false)
+                    //{
+                        enemyScript.LockOn();
+                    //}
+                        
                     }
                     j++;
                 }
                 //if (targetedEnemy == null)
                 //{
-                    //Debug.Log("Targeted Enemy is null");
+                //Debug.Log("Targeted Enemy is null");
                 //}
-            }
-            else if (birdActive == true)
-            {
-                //attackRange.transform.position = bird.transform.position;
-            }
+                target.SetActive(true);
+                lockedOn = true;
             //I was going to get rid of this because it looked like this code was for shifting the target
             //But it's actually if the lockOn function isn't even on
-            if (lockedOn == false)
-            {
-                //if (distance <= 25)
-                //{
-                    target.SetActive(true);
-                    lockedOn = true;
-
-            }
         }
         else
         {

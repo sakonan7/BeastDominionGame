@@ -212,6 +212,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  HPBar: {fileID: 4719315092999967468, guid: 5271de4043d03634aa25c9787d484d61, type: 3}
   attackDirection: {x: 0, y: 0, z: 0}
   attackForce: 0
   hitNumber: 0

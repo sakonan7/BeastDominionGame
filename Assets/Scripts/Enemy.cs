@@ -20,6 +20,7 @@ public class Enemy : MonoBehaviour
     public int HP;
     public int damage = 0;
     public ParticleSystem [] attackEffect = new ParticleSystem [3];
+    public GameObject HPBar;
     public Vector3 attackDirection;
     public float attackForce;
     public int hitNumber = 0;
@@ -47,6 +48,7 @@ public class Enemy : MonoBehaviour
         playerRb = player.GetComponent<Rigidbody>();
         gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
         enemyAudio = GetComponent<AudioSource>();
+        //HPBar.SetActive(false);
     }
 
     // Update is called once per frame
@@ -62,6 +64,15 @@ public class Enemy : MonoBehaviour
             //playerScript.LockOff(); I didn't realize this was here. And it was being used the whole time
             //Debug.Log("Wolf Dies");
             gameManager.EnemyDefeated();
+        }
+        if (lockedOn == true)
+        {
+            //Debug.Log("HP Bar Out");
+            HPBar.SetActive(true);
+        }
+        else if (lockedOn == false)
+        {
+            HPBar.SetActive(false);
         }
     }
     public void SetDamage(int newDamage)
@@ -117,6 +128,16 @@ public class Enemy : MonoBehaviour
         attackEffect[whichEffect].Play();
         Debug.Log("Attack Effect");
         enemyAudio.PlayOneShot(enemySounds[whichEffect], 0.1f);
+    }
+    public void LockOn()
+    {
+        lockedOn = true;
+        Debug.Log("Enemy is Locked On");
+    }
+    public void LockOff()
+    {
+        lockedOn = false;
+        Debug.Log("Enemy is Locked Off");
     }
 
     public void OnCollisionEnter(Collision collision)
