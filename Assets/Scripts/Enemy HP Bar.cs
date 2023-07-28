@@ -6,6 +6,7 @@ public class EnemyHPBar : MonoBehaviour
 {
     private GameObject cameraRef;
     private Quaternion lookRotation;
+    private Enemy enemyScript;
     // Start is called before the first frame update
     void Start()
     {

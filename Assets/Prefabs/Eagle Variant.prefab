@@ -14,15 +14,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 744618101675420812, guid: 8124843f71ff707488edef76ccd23445, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.005
+      value: 0.014
       objectReference: {fileID: 0}
     - target: {fileID: 744618101675420812, guid: 8124843f71ff707488edef76ccd23445, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.485
+      value: 0.359
       objectReference: {fileID: 0}
     - target: {fileID: 744618101675420812, guid: 8124843f71ff707488edef76ccd23445, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.308
+      value: -0.275
       objectReference: {fileID: 0}
     - target: {fileID: 744618101675420812, guid: 8124843f71ff707488edef76ccd23445, type: 3}
       propertyPath: m_LocalRotation.w
@@ -77,6 +77,10 @@ PrefabInstance:
     - target: {fileID: 100000, guid: 7ebac5696286bc642b0091b1257f5d54, type: 3}
       propertyPath: m_Name
       value: Eagle Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 7ebac5696286bc642b0091b1257f5d54, type: 3}
+      propertyPath: m_TagString
+      value: Enemy
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 7ebac5696286bc642b0091b1257f5d54, type: 3}
       propertyPath: m_RootOrder
