@@ -118,6 +118,7 @@ GameObject:
   - component: {fileID: 2011257132871178427}
   - component: {fileID: 5046675152096679590}
   - component: {fileID: 183035014008709922}
+  - component: {fileID: 8564491151718613162}
   m_Layer: 0
   m_Name: HPBar Background
   m_TagString: Untagged
@@ -132,14 +133,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4439932719559539862}
-  m_LocalRotation: {x: -0.024605976, y: -0.24200249, z: -0.0061392267, w: 0.9699442}
-  m_LocalPosition: {x: 15.34, y: 2.002068, z: -2.7000003}
-  m_LocalScale: {x: 0.2052, y: 4.5, z: 0.0495}
+  m_LocalRotation: {x: -0.004179896, y: 0.17887671, z: 0.00075994985, w: 0.98386234}
+  m_LocalPosition: {x: 15.340001, y: 2.0028303, z: -2.699923}
+  m_LocalScale: {x: 0.1026, y: 2.25, z: 0.02475}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 9101429940298052543}
   m_Father: {fileID: 0}
-  m_RootOrder: -1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!33 &2011257132871178427
 MeshFilter:
@@ -213,3 +214,15 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &8564491151718613162
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4439932719559539862}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87167af2433260d43bc21696836b95e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

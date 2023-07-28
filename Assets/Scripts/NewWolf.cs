@@ -137,7 +137,7 @@ public class NewWolf : MonoBehaviour
     void Update()
     {
         HPBar.transform.position = new Vector3(transform.position.x, transform.position.y + 1.9f, transform.position.z + 0.1f);
-        HPBar.transform.LookAt(HPBar.transform.position - (cameraRef.transform.position - HPBar.transform.position));
+        //HPBar.transform.LookAt(HPBar.transform.position - (cameraRef.transform.position - HPBar.transform.position));
         //I'm just going to try measuring distance instead
         if (playerScript.tigerActive == true)
         {
@@ -145,6 +145,7 @@ public class NewWolf : MonoBehaviour
             //attackRange.transform.position = tiger.transform.position;
             distance = Vector3.Distance(tiger.transform.position, transform.position);
             lookRotation = Quaternion.LookRotation(tiger.transform.position - transform.position);
+            transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, 2);
         }
         else if (playerScript.birdActive == true)
         {

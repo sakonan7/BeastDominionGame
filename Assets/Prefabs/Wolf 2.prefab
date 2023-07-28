@@ -516,7 +516,6 @@ MonoBehaviour:
   attackEffect: {fileID: 7882083515859875761}
   dyingEffect: {fileID: 3882906373868257580}
   wolfAttack: {fileID: 8300000, guid: 5c7fa0f70731933478a06b0da5c37bce, type: 3}
-  cameraRef: {fileID: 0}
 --- !u!82 &5531718391197527315
 AudioSource:
   m_ObjectHideFlags: 0
@@ -758,11 +757,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 744618101675420812, guid: 8124843f71ff707488edef76ccd23445, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.22
+      value: 1.01
       objectReference: {fileID: 0}
     - target: {fileID: 744618101675420812, guid: 8124843f71ff707488edef76ccd23445, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.13
+      value: 0.063
       objectReference: {fileID: 0}
     - target: {fileID: 744618101675420812, guid: 8124843f71ff707488edef76ccd23445, type: 3}
       propertyPath: m_LocalRotation.w

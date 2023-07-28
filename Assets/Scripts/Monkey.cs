@@ -142,7 +142,7 @@ public class Monkey : MonoBehaviour
             }
         }
 
-            HPBar.transform.LookAt(HPBar.transform.position - (cameraRef.transform.position - HPBar.transform.position));
+            //HPBar.transform.LookAt(HPBar.transform.position - (cameraRef.transform.position - HPBar.transform.position));
 
     }
     //Change code. Monkey will start by running at the character and then within range, attack. Afterwards, the monkey will wait 4 seconds
