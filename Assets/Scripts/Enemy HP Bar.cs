@@ -8,6 +8,8 @@ public class EnemyHPBar : MonoBehaviour
     private Quaternion lookRotation;
     private Enemy enemyScript;
     private GameObject target;
+    public GameObject HP;
+    private float originalHP;
     //Need to reference Target here so i can put HP Bar relative to Tar
 
     // Start is called before the first frame update

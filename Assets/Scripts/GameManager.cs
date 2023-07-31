@@ -25,6 +25,10 @@ public class GameManager : MonoBehaviour
     public Button normal;
     public Button hard;
     public Button veryHard;
+    public TextMeshProUGUI music;
+    private string startMenuMusic = "Lightning Temple By Motoi Sakuraba";
+    private string battleMusic = "Field Battle By Manaka Kataoka";
+    private string explorationMusic = "Uncharted Island By Greg Edmonson";
 
     public bool startGame = true; //Set this to true so that you can move the player now
 
@@ -42,6 +46,7 @@ public class GameManager : MonoBehaviour
         //Area1();
         //Starting Cutscene
         //StartCoroutine(OpeningSeconds());
+        music.text = "Music: " + battleMusic;
     }
 
     // Update is called once per frame
