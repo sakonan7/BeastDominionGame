@@ -505,7 +505,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackAura: {fileID: 1438303638}
   attackRange: {fileID: 8048470791851266537}
-  HPBar: {fileID: 4439932719559539862, guid: 8124843f71ff707488edef76ccd23445, type: 3}
+  HPBar: {fileID: 6406307906542368233}
   followDirection: {x: 0, y: 0, z: 0}
   damage: 1
   idleTime: 3
@@ -651,7 +651,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  HPBar: {fileID: 4719315092999967468, guid: 5271de4043d03634aa25c9787d484d61, type: 3}
+  HPBar: {fileID: 6406307906542368233}
   attackDirection: {x: 0, y: 0, z: 0}
   attackForce: 0
   hitNumber: 0
@@ -801,6 +801,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8124843f71ff707488edef76ccd23445, type: 3}
+--- !u!1 &6406307906542368233 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4439932719559539862, guid: 8124843f71ff707488edef76ccd23445, type: 3}
+  m_PrefabInstance: {fileID: 7312166091336255871}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &8011730454211290611 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 744618101675420812, guid: 8124843f71ff707488edef76ccd23445, type: 3}

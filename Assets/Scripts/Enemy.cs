@@ -52,7 +52,7 @@ public class Enemy : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void LateUpdate()
     {
         //Debug.Log(HP);
         //Was originally an else if case, but moved it into the above because the wolf doesn't die the minute its HP falls under 0
@@ -70,10 +70,10 @@ public class Enemy : MonoBehaviour
             //Debug.Log("HP Bar Out");
             HPBar.SetActive(true);
         }
-        else if (lockedOn == false)
-        {
-            HPBar.SetActive(false);
-        }
+        //else if (lockedOn == false)
+        //
+            //HPBar.SetActive(false);
+        //}
     }
     public void SetDamage(int newDamage)
     {
@@ -133,6 +133,7 @@ public class Enemy : MonoBehaviour
     {
         lockedOn = true;
         Debug.Log("Enemy is Locked On");
+        //HPBar.SetActive(true);
     }
     public void LockOff()
     {
@@ -178,7 +179,7 @@ public class Enemy : MonoBehaviour
             //For now, just trigger stun. I will use both of their directions to perform the knockback
             //TakeDamage();
             
-            HP -= 0;
+            HP -= 7;
             //Damaged();
             playerScript.PlayTigerRegularStrike(transform.position);
             //Vector3 knockbackDirection = (transform.position - tiger.transform.position).normalized;
