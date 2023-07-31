@@ -18,9 +18,11 @@ public class Enemy : MonoBehaviour
     
         //I need to set Vector3 attackDirection here, because I need it for playerControll
     public int HP;
+    private float originalHP;
     public int damage = 0;
     public ParticleSystem [] attackEffect = new ParticleSystem [3];
     public GameObject HPBar;
+    private EnemyHPBar HPBarScript;
     public Vector3 attackDirection;
     public float attackForce;
     public int hitNumber = 0;
@@ -49,6 +51,8 @@ public class Enemy : MonoBehaviour
         gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
         enemyAudio = GetComponent<AudioSource>();
         //HPBar.SetActive(false);
+        originalHP = HP;
+        HPBarScript = HPBar.GetComponent<EnemyHPBar>();
     }
 
     // Update is called once per frame
@@ -180,6 +184,7 @@ public class Enemy : MonoBehaviour
             //TakeDamage();
             
             HP -= 2;
+            HPBarScript.HPDecrease(2, originalHP);
             //Damaged();
             playerScript.PlayTigerRegularStrike(transform.position);
             //Vector3 knockbackDirection = (transform.position - tiger.transform.position).normalized;
