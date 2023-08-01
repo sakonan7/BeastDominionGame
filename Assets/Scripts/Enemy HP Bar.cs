@@ -17,7 +17,7 @@ public class EnemyHPBar : MonoBehaviour
     {
         cameraRef = GameObject.Find("Main Camera");
         enemyScript = GetComponentInParent<Enemy>();
-        target = GameObject.Find("Target");
+        
         originalHPLength = HP.transform.localScale.x;
     }
 
@@ -32,10 +32,12 @@ public class EnemyHPBar : MonoBehaviour
         //transform.rotation = new Quaternion();
         //transform.rotation = target.transform.rotation;
         //transform.rotation = new Quaternion(transform.rotation.x -90, transform.rotation.y, transform.rotation.z, 0);
-        transform.position = new Vector3(target.transform.position.x, target.transform.position.y + 2.5f, target.transform.position.z);
+        
         if (enemyScript.lockedOn == true)
         {
+            target = GameObject.Find("Target");
             gameObject.SetActive(true);
+            transform.position = new Vector3(target.transform.position.x, target.transform.position.y + 2.5f, target.transform.position.z);
         }
         else if (enemyScript.lockedOn == false)
         {
