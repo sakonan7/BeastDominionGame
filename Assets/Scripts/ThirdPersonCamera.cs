@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Cinemachine;
 
 public class ThirdPersonCamera : MonoBehaviour
 {
@@ -14,6 +15,7 @@ public class ThirdPersonCamera : MonoBehaviour
     private GameManager gameManager;
     private Vector3 originalPosition;
     private Quaternion originalRotation;
+    public CinemachineFreeLook cinemachineFL;
     // Start is called before the first frame update
     void Start()
     {
@@ -46,7 +48,9 @@ public class ThirdPersonCamera : MonoBehaviour
         ///This method doesn't work atm
         if (gameManager.startGame == false)
         {
-            
+            Debug.Log("Game Has Start");
+            cinemachineFL.m_XAxis.m_MaxSpeed = 0.0f;
+            cinemachineFL.m_YAxis.m_MaxSpeed = 0.0f;
         }
         if (inputDir != Vector3.zero && gameManager.startGame == true)
         {
