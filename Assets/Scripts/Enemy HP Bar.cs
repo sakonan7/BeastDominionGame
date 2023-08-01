@@ -38,7 +38,8 @@ public class EnemyHPBar : MonoBehaviour
             target = GameObject.Find("Target");
             gameObject.SetActive(true);
             transform.position = new Vector3(target.transform.position.x, target.transform.position.y + 2.5f, target.transform.position.z);
-            transform.rotation = new Quaternion(transform.rotation.x, target.transform.rotation.y, target.transform.rotation.z, 0);
+            //transform.rotation = new Quaternion(transform.rotation.x, target.transform.rotation.y, target.transform.rotation.z, 0);
+            //transform.forward = target.transform.forward;
         }
         else if (enemyScript.lockedOn == false)
         {
