@@ -23,6 +23,7 @@ public class Enemy : MonoBehaviour
     public ParticleSystem [] attackEffect = new ParticleSystem [3];
     public GameObject HPBar;
     private EnemyHPBar HPBarScript;
+    public TextMesh damageDisplay;
     public Vector3 attackDirection;
     public float attackForce;
     public int hitNumber = 0;
@@ -165,6 +166,7 @@ public class Enemy : MonoBehaviour
         attacked = true;
         yield return new WaitForSeconds(0.5f);
         attacked = false;
+        damageDisplay.gameObject.SetActive(false);
     }
     IEnumerator HitWall()
     {
@@ -211,6 +213,9 @@ public class Enemy : MonoBehaviour
             playerScript.AttackLandedTrue();
             Debug.Log(distance + " " + enemyRb.velocity);
             StartCoroutine(FoeAttacked());
+            damageDisplay.gameObject.SetActive(true);
+            damageDisplay.transform.position = new Vector3(HPBar.transform.position.x, HPBar.transform.position.y + 2, HPBar.transform.position.z);
+            damageDisplay.text = "2";
         }
         if (other.CompareTag("Tiger Special"))
         {

@@ -30,7 +30,7 @@ public class GameManager : MonoBehaviour
     private string battleMusic = "Field Battle By Manaka Kataoka";
     private string explorationMusic = "Uncharted Island By Greg Edmonson";
 
-    public bool startGame = true; //Set this to true so that you can move the player now
+    public bool startGame = false; //Set this to true so that you can move the player now
 
     public bool startingCutscene = true;
 

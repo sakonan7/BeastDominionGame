@@ -66,6 +66,77 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 744618101675420812, guid: 8124843f71ff707488edef76ccd23445, type: 3}
   m_PrefabInstance: {fileID: 1082760760912118916}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &1782167464480426173
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 8609524798227661549}
+    m_Modifications:
+    - target: {fileID: 1231551698010090590, guid: e31bc8f2105a96d48a2019333b15d5b8, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1231551698010090590, guid: e31bc8f2105a96d48a2019333b15d5b8, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 16.19
+      objectReference: {fileID: 0}
+    - target: {fileID: 1231551698010090590, guid: e31bc8f2105a96d48a2019333b15d5b8, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2.17
+      objectReference: {fileID: 0}
+    - target: {fileID: 1231551698010090590, guid: e31bc8f2105a96d48a2019333b15d5b8, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -21.806
+      objectReference: {fileID: 0}
+    - target: {fileID: 1231551698010090590, guid: e31bc8f2105a96d48a2019333b15d5b8, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1231551698010090590, guid: e31bc8f2105a96d48a2019333b15d5b8, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1231551698010090590, guid: e31bc8f2105a96d48a2019333b15d5b8, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1231551698010090590, guid: e31bc8f2105a96d48a2019333b15d5b8, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1231551698010090590, guid: e31bc8f2105a96d48a2019333b15d5b8, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1231551698010090590, guid: e31bc8f2105a96d48a2019333b15d5b8, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1231551698010090590, guid: e31bc8f2105a96d48a2019333b15d5b8, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7394522651173475643, guid: e31bc8f2105a96d48a2019333b15d5b8, type: 3}
+      propertyPath: m_Name
+      value: Damage Display
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: e31bc8f2105a96d48a2019333b15d5b8, type: 3}
+--- !u!4 &697176560477070563 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1231551698010090590, guid: e31bc8f2105a96d48a2019333b15d5b8, type: 3}
+  m_PrefabInstance: {fileID: 1782167464480426173}
+  m_PrefabAsset: {fileID: 0}
+--- !u!102 &2438516770650254629 stripped
+TextMesh:
+  m_CorrespondingSourceObject: {fileID: 4137926011392992664, guid: e31bc8f2105a96d48a2019333b15d5b8, type: 3}
+  m_PrefabInstance: {fileID: 1782167464480426173}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8609524798227273837
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -84,7 +155,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 7ebac5696286bc642b0091b1257f5d54, type: 3}
       propertyPath: m_RootOrder
-      value: 9
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 7ebac5696286bc642b0091b1257f5d54, type: 3}
       propertyPath: m_LocalScale.x
@@ -168,6 +239,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 400000, guid: 7ebac5696286bc642b0091b1257f5d54, type: 3}
       insertIndex: -1
       addedObject: {fileID: 383886904243152904}
+    - targetCorrespondingSourceObject: {fileID: 400000, guid: 7ebac5696286bc642b0091b1257f5d54, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 697176560477070563}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 100000, guid: 7ebac5696286bc642b0091b1257f5d54, type: 3}
       insertIndex: -1
@@ -213,6 +287,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   HPBar: {fileID: 4439932719559539862, guid: 8124843f71ff707488edef76ccd23445, type: 3}
+  damageDisplay: {fileID: 2438516770650254629}
   attackDirection: {x: 0, y: 0, z: 0}
   attackForce: 0
   hitNumber: 0

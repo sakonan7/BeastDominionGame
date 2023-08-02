@@ -26,6 +26,9 @@ public class ThirdPersonCamera : MonoBehaviour
         Cursor.visible = false;
         originalPosition = transform.position;
         originalRotation = transform.rotation;
+        cinemachineFL.m_XAxis.m_MaxSpeed = 0.0f;
+        cinemachineFL.m_YAxis.m_MaxSpeed = 0.0f;
+        cinemachineFL.gameObject.SetActive(false);
     }
 
     // Update is called once per frame
@@ -46,11 +49,12 @@ public class ThirdPersonCamera : MonoBehaviour
 
         //Trying to make it so that the camera can't move in certain parts like the opening run as well as cutscenes
         ///This method doesn't work atm
-        if (gameManager.startGame == false)
+        if (gameManager.startGame == true)
         {
-            Debug.Log("Game Has Start");
-            cinemachineFL.m_XAxis.m_MaxSpeed = 0.0f;
-            cinemachineFL.m_YAxis.m_MaxSpeed = 0.0f;
+            //Debug.Log("Game Has Start");
+            cinemachineFL.m_XAxis.m_MaxSpeed = 200f;
+            cinemachineFL.m_YAxis.m_MaxSpeed = 0.5f;
+            cinemachineFL.gameObject.SetActive(true);
         }
         if (inputDir != Vector3.zero && gameManager.startGame == true)
         {
