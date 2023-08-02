@@ -117,6 +117,7 @@ public class PlayerController : MonoBehaviour
     public TextMeshProUGUI HPText;
     //public Image playerMugshot;
     public int HP = 10;
+    private int originalHP = 10;
     public RawImage playerMugshot;
     public Texture tigerMugshot;
     public Texture birdMugshot;
@@ -680,6 +681,7 @@ public class PlayerController : MonoBehaviour
         if (lockedOn == true)
         {
             attackDirection = (target.transform.position - transform.position).normalized;
+            transform.rotation = Quaternion.Slerp(transform.rotation, attackRotation, 5);
             attackRotation = Quaternion.LookRotation(target.transform.position - transform.position);
             specialCloseTheDistance = true;
         }
@@ -771,6 +773,7 @@ public class PlayerController : MonoBehaviour
             //Gonna need a method like DistanceCloser
             ///At first, I was wondering if the attack duration plays long enough for distance closer, but it looks like it does
             //Debug.Log("Distance Closer");
+            transform.rotation = Quaternion.Slerp(transform.rotation, attackRotation, 5);
             closeTheDistance = true;
             //StartCoroutine(DistanceCloser());
             //tigerRB.AddForce(attackDirection * (attackForce + 16), ForceMode.Impulse);
@@ -786,32 +789,7 @@ public class PlayerController : MonoBehaviour
             Debug.Log("Short Ranged Att");
         }
     }
-    IEnumerator DistanceCloser()
-    {
-        //Removed distance calculating from here becauseit may cause confusion. Want to put distance in Update(), but
-        //it looks like I only have targetedEnemy in FixedUpdate()
-        if (distance < 3 && closeTheDistance == true)
-        {
-            Debug.Log("Distance met");
-            closeTheDistance = false;
-            attackTimeLength = distanceCloserTigerAttackLength;
-            StartCoroutine(AttackDuration());
-            animation.Play("Attack 1 & 2");
-            playerAudio.PlayOneShot(tigerSwing, 0.05f);
-        }
-        yield return new WaitForSeconds(0.5f);
-        if (closeTheDistance == true)
-        {
-            Debug.Log("Time reached");
-            closeTheDistance = false;
-            //I have some reservations about doing this because I need to trigger this in the above if I close the distance before
-            //the time limit is reached. I may have to make another method for
-            attackTimeLength = distanceCloserTigerAttackLength;
-            StartCoroutine(AttackDuration());
-            animation.Play("Attack 1 & 2");
-            playerAudio.PlayOneShot(tigerSwing, 0.05f);
-        }
-    }
+
 
     //The Vector3 strikeArea is for making the hit effect play directly on the
     public void PlayTigerRegularStrike(Vector3 strikeArea)
@@ -1107,8 +1085,8 @@ public class PlayerController : MonoBehaviour
         damageDisplay.gameObject.SetActive(true);
 
         damageDisplay.text = "" + damageForDisplay;
-        float damageDone = damage / maxHPBarFill;
-        HPBar.fillAmount = HPBar.fillAmount - damage / maxHPBarFill;
+        float damageDone = damage / originalHP / maxHPBarFill;
+        HPBar.fillAmount = HPBar.fillAmount - damageDone;
         playerAudio.PlayOneShot(damaged, 0.1f);
         //Putting stun animations here because I need to feed a method/IEnumerator with what stun type I'm going to
         if (tigerActive == true)

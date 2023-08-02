@@ -95,7 +95,7 @@ public class GameManager : MonoBehaviour
         //startMenu.SetActive(false);
         //tiger.SetActive(true);
         Vector3 wolfLocation = enemies[0].transform.position;
-        //Instantiate(enemies[0], enemies[0].transform.position, enemies[0].transform.rotation);
+        Instantiate(enemies[0], enemies[0].transform.position, enemies[0].transform.rotation);
         //Enemy #
         //Instantiate(enemies[0], new Vector3(wolfLocation.x + 1, wolfLocation.y, wolfLocation.z - 6), enemies[0].transform.rotation);
         //Enemy # 2
@@ -108,7 +108,7 @@ public class GameManager : MonoBehaviour
         //string name tage foes for the HP Bar and damage display to have something to follow
         //Instantiate(foeHPBar, enemies[1].transform.position, enemies[1].transform.rotation); //I'm not sure this is even going
         //to Instantiate on the Canvas
-        Instantiate(enemies[1], new Vector3(enemies[1].transform.position.x + 10, enemies[1].transform.position.y, enemies[1].transform.position.z - 5), enemies[1].transform.rotation);
+        //Instantiate(enemies[1], new Vector3(enemies[1].transform.position.x + 10, enemies[1].transform.position.y, enemies[1].transform.position.z - 5), enemies[1].transform.rotation);
         //enemies[1].name = "Monkey";
         //May need to make a boolean for each foe when they get damaged so I can reduce their HP Bar
     }

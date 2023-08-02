@@ -51,7 +51,7 @@ public class Monkey : MonoBehaviour
 
     private GameManager gameManager;
     public int HP = 5;
-    private bool testingStun = false;
+    private bool testingStun = true;
     // Start is called before the first frame update
     void Start()
     {
