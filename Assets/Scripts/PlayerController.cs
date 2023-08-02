@@ -169,7 +169,7 @@ public class PlayerController : MonoBehaviour
         playerAudio = GetComponent<AudioSource>();
         //playerUI = GameObject.Find("Canvas");
         //DisplayHP(HP);
-        maxHPBarFill = 10;//Changed this from HPBar.FillAmount because that is always going to equal 1
+        maxHPBarFill = 1;//Changed this from HPBar.FillAmount because that is always going to equal 1
 
         gameManagerScript = GameObject.Find("Game Manager").GetComponent<GameManager>();
 
@@ -753,7 +753,7 @@ public class PlayerController : MonoBehaviour
         }
         if (distance > 15 && lockedOn)
         {
-            transform.rotation = Quaternion.Slerp(transform.rotation, attackRotation, 5) ;
+            transform.rotation = Quaternion.Slerp(transform.rotation, attackRotation, 10) ;
             attackTimeLength = normalTigerAttacklength;
             StartCoroutine(AttackDuration());
             //playerRb.AddForce(attackDirection * (attackForce + 14), ForceMode.Impulse);//Changed from 8 to 12
@@ -773,14 +773,14 @@ public class PlayerController : MonoBehaviour
             //Gonna need a method like DistanceCloser
             ///At first, I was wondering if the attack duration plays long enough for distance closer, but it looks like it does
             //Debug.Log("Distance Closer");
-            transform.rotation = Quaternion.Slerp(transform.rotation, attackRotation, 5);
+            transform.rotation = Quaternion.Slerp(transform.rotation, attackRotation, 10);
             closeTheDistance = true;
             //StartCoroutine(DistanceCloser());
             //tigerRB.AddForce(attackDirection * (attackForce + 16), ForceMode.Impulse);
         }
         else if (distance < 4 && lockedOn)
         {
-            transform.rotation = Quaternion.Slerp(transform.rotation, attackRotation, 5);
+            transform.rotation = Quaternion.Slerp(transform.rotation, attackRotation, 10);
             attackTimeLength = normalTigerAttacklength;
             StartCoroutine(AttackDuration());
             playerRb.AddForce(attackDirection * (attackForce + 14), ForceMode.Impulse);//Changed from 8 to 12
@@ -812,7 +812,7 @@ public class PlayerController : MonoBehaviour
         playerAudio.PlayOneShot(tigerSwing, 0.05f);
         
         attackRotation = Quaternion.LookRotation(target.transform.position - transform.position);
-        transform.rotation = Quaternion.Slerp(transform.rotation, attackRotation, 5); //Am using all the attack rotations
+        transform.rotation = Quaternion.Slerp(transform.rotation, attackRotation, 10); //Am using all the attack rotations
         //here because there is a charge up before Tiger Special Attack
         playerRb.AddRelativeTorque(Vector3.down * 5, ForceMode.Impulse);
         
@@ -1080,13 +1080,18 @@ public class PlayerController : MonoBehaviour
     //}
     public void LoseHP(int damage, int stunType)
     {
-        HP-= damage;
+
+        //float damageDone = damage / originalHP / maxHPBarFill;
+
+        //HPBar.fillAmount = HPBar.fillAmount - damageDone;
+        HPBar.fillAmount -= 1 - ((maxHPBarFill / originalHP) * (HP - damage));
+        //HPBar.fillAmount -= damage / maxHPBarFill;
+        HP -= damage;
         damageForDisplay = damage;
         damageDisplay.gameObject.SetActive(true);
 
         damageDisplay.text = "" + damageForDisplay;
-        float damageDone = damage / originalHP / maxHPBarFill;
-        HPBar.fillAmount = HPBar.fillAmount - damageDone;
+        Debug.Log(HPBar.fillAmount);
         playerAudio.PlayOneShot(damaged, 0.1f);
         //Putting stun animations here because I need to feed a method/IEnumerator with what stun type I'm going to
         if (tigerActive == true)
