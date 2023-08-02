@@ -1052,6 +1052,7 @@ public class PlayerController : MonoBehaviour
         birdKnockedBack = true;
         StartCoroutine(StunDuration());
     }
+    //Turn this into StunInvincibilityDuration() because that is the main purpose of
     IEnumerator StunDuration()
     {
         
@@ -1093,7 +1094,7 @@ public class PlayerController : MonoBehaviour
         }
         stunned = false;
         stunnedInvincibility = false;
-        damageDisplay.gameObject.SetActive(false);
+        
     }
     //public void DisplayHP(int currentHP)
     //{
@@ -1153,6 +1154,11 @@ public class PlayerController : MonoBehaviour
             Debug.Log("Game O");
             StartCoroutine(GameOverSlowDown());
         }
+    }
+    IEnumerator DamageDisplayed()
+    {
+        yield return new WaitForSeconds(0.5f);
+        damageDisplay.gameObject.SetActive(false);
     }
     public void IncreaseHealingItems()
     {
@@ -1258,6 +1264,7 @@ public class PlayerController : MonoBehaviour
             //playerScript.AttackLandedTrue();
             //}
             LoseHP(enemyScript.damage, enemyScript.hitNumber);
+            StartCoroutine(DamageDisplayed());
             //enemyScript.PlayAttackEffect();
             if (enemyScript.comboAttack == true && enemyScript.comboFinisher == true)
             {

@@ -222,7 +222,7 @@ public class Enemy : MonoBehaviour
             //For now, just trigger stun. I will use both of their directions to perform the knockback
             //TakeDamage();
 
-            HP -= 7;
+            HP -= 2;
             //Damaged();
             playerScript.PlayTigerSpecialStrike(transform.position);
             //Vector3 knockbackDirection = (transform.position - tiger.transform.position).normalized;
@@ -234,6 +234,7 @@ public class Enemy : MonoBehaviour
             //I can't use forcemode.impulse then
             enemyRb.AddForce(playerScript.attackDirection * 280, ForceMode.Impulse);
             //playerScript.AttackLandedTrue();
+            StartCoroutine(FoeAttacked());
             damageDisplay.gameObject.SetActive(true);
             damageDisplay.transform.position = new Vector3(HPBar.transform.position.x, HPBar.transform.position.y + 2, HPBar.transform.position.z);
             damageDisplay.text = "2";
