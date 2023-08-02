@@ -53,4 +53,8 @@ public class EnemyHPBar : MonoBehaviour
         HP.transform.position -= new Vector3(damage/2, 0, 0);
         //Debug.Log("Damage Dealt Is " +damage);
     }
+    void LateUpdate()
+    {
+        //transform.LookAt(transform.position + Camera.main.transform.rotation * Vector3.forward, Camera.main.transform.rotation * Vector3.up);
+    }
 }

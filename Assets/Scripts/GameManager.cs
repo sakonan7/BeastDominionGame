@@ -98,13 +98,13 @@ public class GameManager : MonoBehaviour
         Vector3 wolfLocation = enemies[0].transform.position;
         //Instantiate(enemies[0], enemies[0].transform.position, enemies[0].transform.rotation);
         //Enemy #
-        //Instantiate(enemies[0], new Vector3(wolfLocation.x + 1, wolfLocation.y, wolfLocation.z - 6), enemies[0].transform.rotation);
+        Instantiate(enemies[0], new Vector3(wolfLocation.x + 1, wolfLocation.y, wolfLocation.z - 6), enemies[0].transform.rotation);
         //Enemy # 2
-        //Instantiate(enemies[0], new Vector3(wolfLocation.x + 19, wolfLocation.y, wolfLocation.z - 3), enemies[0].transform.rotation);
-        //Instantiate(enemies[0], new Vector3(wolfLocation.x + 5, wolfLocation.y, wolfLocation.z - 15), enemies[0].transform.rotation);
-        //Instantiate(enemies[0], new Vector3(wolfLocation.x + 7, wolfLocation.y, wolfLocation.z - 10), enemies[0].transform.rotation);
-        //Instantiate(enemies[0], new Vector3(wolfLocation.x + 11.5f, wolfLocation.y, wolfLocation.z - 8), enemies[0].transform.rotation);
-        Instantiate(enemies[1], new Vector3(enemies[0].transform.position.x + 30, enemies[0].transform.position.y, enemies[0].transform.position.z - 5), enemies[0].transform.rotation);
+        Instantiate(enemies[0], new Vector3(wolfLocation.x + 19, wolfLocation.y, wolfLocation.z - 3), enemies[0].transform.rotation);
+        Instantiate(enemies[0], new Vector3(wolfLocation.x + 5, wolfLocation.y, wolfLocation.z - 15), enemies[0].transform.rotation);
+        Instantiate(enemies[0], new Vector3(wolfLocation.x + 7, wolfLocation.y, wolfLocation.z - 10), enemies[0].transform.rotation);
+        Instantiate(enemies[0], new Vector3(wolfLocation.x + 11.5f, wolfLocation.y, wolfLocation.z - 8), enemies[0].transform.rotation);
+        //Instantiate(enemies[1], new Vector3(enemies[0].transform.position.x + 30, enemies[0].transform.position.y, enemies[0].transform.position.z - 5), enemies[0].transform.rotation);
         //foeHPBar.gameObject.SetActive(true);
         //string name tage foes for the HP Bar and damage display to have something to follow
         //Instantiate(foeHPBar, enemies[1].transform.position, enemies[1].transform.rotation); //I'm not sure this is even going
@@ -130,7 +130,7 @@ public class GameManager : MonoBehaviour
     }
     IEnumerator SlowDown()
     {
-        Time.timeScale = 0.5f; //Instead of 0.2 because I think 0.2 makes it slow down even
+        Time.timeScale = 0f; //Instead of 0.2 because I think 0.2 makes it slow down even
         yield return new WaitForSeconds(0.2f);
         Time.timeScale = 1;
         enemyJustDefeated = false;

@@ -144,8 +144,8 @@ public class NewWolf : MonoBehaviour
             playerPosition = tiger.transform.position;
             //attackRange.transform.position = tiger.transform.position;
             distance = Vector3.Distance(tiger.transform.position, transform.position);
-            //lookRotation = Quaternion.LookRotation(tiger.transform.position - transform.position);
-            //transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, 2);
+            lookRotation = Quaternion.LookRotation(tiger.transform.position - transform.position);
+            transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, 2);
         }
         else if (playerScript.birdActive == true)
         {
