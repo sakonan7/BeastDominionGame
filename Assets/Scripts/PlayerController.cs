@@ -122,7 +122,7 @@ public class PlayerController : MonoBehaviour
     public Texture birdMugshot;
     public Image HPBar;
     float maxHPBarFill; //References the max amount of physical space the HP fills
-    public TextMeshProUGUI damageDisplay;
+    public TextMesh damageDisplay;
     private int damageForDisplay; //Proxy variable just for displaying damage taken
     public GameObject healingItemDisplay;
     public TextMeshProUGUI healingItemNumber;
@@ -174,6 +174,7 @@ public class PlayerController : MonoBehaviour
 
         //ballRB = ball.GetComponent<Rigidbody>();
         staffLight = GameObject.Find("Staff").GetComponent<Light>();
+        damageDisplay.color = new Color(1, 1, 1, 1);
     }
 
     // Update is called once per frame
@@ -1061,7 +1062,7 @@ public class PlayerController : MonoBehaviour
 
         //The display code works because of the camera. Because of the camera, the player character is always at the center of it, where
         //The text also is
-        damageDisplay.text = "" + damageForDisplay;
+
         yield return new WaitForSeconds(1.4f);
         if (tigerKnockedBack == true)
         {
@@ -1092,7 +1093,7 @@ public class PlayerController : MonoBehaviour
         }
         stunned = false;
         stunnedInvincibility = false;
-        damageDisplay.text = "";
+        damageDisplay.gameObject.SetActive(false);
     }
     //public void DisplayHP(int currentHP)
     //{
@@ -1102,6 +1103,9 @@ public class PlayerController : MonoBehaviour
     {
         HP-= damage;
         damageForDisplay = damage;
+        damageDisplay.gameObject.SetActive(true);
+
+        damageDisplay.text = "" + damageForDisplay;
         float damageDone = damage / maxHPBarFill;
         HPBar.fillAmount = HPBar.fillAmount - damage / maxHPBarFill;
         playerAudio.PlayOneShot(damaged, 0.1f);
