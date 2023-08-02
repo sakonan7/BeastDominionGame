@@ -1084,14 +1084,14 @@ public class PlayerController : MonoBehaviour
         //float damageDone = damage / originalHP / maxHPBarFill;
 
         //HPBar.fillAmount = HPBar.fillAmount - damageDone;
-        HPBar.fillAmount -= 1 - ((maxHPBarFill / originalHP) * (HP - damage));
+        HPBar.fillAmount = (maxHPBarFill / originalHP) * (HP - damage);
         //HPBar.fillAmount -= damage / maxHPBarFill;
         HP -= damage;
         damageForDisplay = damage;
         damageDisplay.gameObject.SetActive(true);
 
         damageDisplay.text = "" + damageForDisplay;
-        Debug.Log(HPBar.fillAmount);
+        //Debug.Log(HPBar.fillAmount);
         playerAudio.PlayOneShot(damaged, 0.1f);
         //Putting stun animations here because I need to feed a method/IEnumerator with what stun type I'm going to
         if (tigerActive == true)

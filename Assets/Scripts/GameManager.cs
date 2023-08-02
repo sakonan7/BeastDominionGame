@@ -47,6 +47,7 @@ public class GameManager : MonoBehaviour
         //Starting Cutscene
         //StartCoroutine(OpeningSeconds());
         music.text = "Music: " + battleMusic;
+        music.transform.Translate(44,0,0);
     }
 
     // Update is called once per frame
