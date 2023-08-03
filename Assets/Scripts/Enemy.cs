@@ -204,14 +204,14 @@ public class Enemy : MonoBehaviour
             Vector3 consistentVel = new Vector3(enemyRb.velocity.x, 0, enemyRb.velocity.z);
 
 
-            if (consistentVel.magnitude > 160)
-            {
+            //if (consistentVel.magnitude > 160)
+            //{
                 Vector3 limitedVel = consistentVel.normalized * 160;
                 enemyRb.velocity = new Vector3(limitedVel.x, 0, limitedVel.z);
-            }
+            //}
             float distance = Vector3.Distance(player.transform.position, transform.position);
             playerScript.AttackLandedTrue();
-            Debug.Log(distance + " " + enemyRb.velocity);
+            Debug.Log("Distance is " + distance);
             StartCoroutine(FoeAttacked());
             damageDisplay.gameObject.SetActive(true);
             damageDisplay.transform.position = new Vector3(HPBar.transform.position.x, HPBar.transform.position.y + 2, HPBar.transform.position.z);
