@@ -735,20 +735,13 @@ public class PlayerController : MonoBehaviour
         //playerAudio.PlayOneShot(tigerRoar, 0.2f);
         //Why did I think of lockedOn == false, I think I thought of it in the case you aren't locked
         //I think I will create a case where lockedOn == false and for now, I want to make the distance smaller for
-        Vector3 attackVel;
-        
+        //Debug.Log(playerRb.velocity);
         if (lockedOn == false)
         {
             attackTimeLength = normalTigerAttacklength;
             StartCoroutine(AttackDuration());
-            playerRb.AddForce(attackDirection * (attackForce + 10), ForceMode.Impulse);//Changed from 8 to 12
-            //attackVel = new Vector3(playerRb.velocity.x, 0, playerRb.velocity.z);
-            //playerRb.velocity = attackDirection * (attackForce + 10);
-            //if (attackVel.magnitude > (attackForce + 10) || attackVel.magnitude < (attackForce + 10))
-            //{
-                //Vector3 limitedVel = attackVel.normalized * speed;
-                //playerRb.velocity = new Vector3(limitedVel.x, 0, limitedVel.z);
-            //}
+            //playerRb.AddForce(attackDirection * (attackForce + 10), ForceMode.Impulse);//Changed from 8 to 12
+            playerRb.velocity = attackDirection * (attackForce + 10);
             animation.Play("Attack 1 & 2");
             playerAudio.PlayOneShot(tigerSwing, 0.05f);
         }
@@ -758,28 +751,21 @@ public class PlayerController : MonoBehaviour
         {
             Debug.Log(distance);
         }
-        if (lockedOn)
+        if (distance > 15 && lockedOn)
         {
-            transform.rotation = Quaternion.Slerp(transform.rotation, attackRotation, 5) ;
+            transform.rotation = Quaternion.Slerp(transform.rotation, attackRotation, 10) ;
             attackTimeLength = normalTigerAttacklength;
             StartCoroutine(AttackDuration());
-            playerRb.AddForce(attackDirection * (attackForce + 14), ForceMode.Impulse);//Changed from 8 to 12
-            //playerRb.velocity = attackDirection * (attackForce + 14);
+            //playerRb.AddForce(attackDirection * (attackForce + 14), ForceMode.Impulse);//Changed from 8 to 12
+            playerRb.velocity = attackDirection * (attackForce + 14);
             animation.Play("Attack 1 & 2");
             playerAudio.PlayOneShot(tigerSwing, 0.05f);
             Debug.Log("Non Distance Closer");
-            //attackVel = new Vector3(playerRb.velocity.x, 0, playerRb.velocity.z);
-            //playerRb.velocity = attackDirection * (attackForce + 10);
-            //if (attackVel.magnitude > (attackForce + 14) || attackVel.magnitude < (attackForce + 14))
-            //{
-                //Vector3 limitedVel = attackVel.normalized * speed;
-                //playerRb.velocity = new Vector3(limitedVel.x, 0, limitedVel.z);
-            //}
         }
         //Want DistanceCloser only to play when the tiger isn't close enough. Was originally going to have a distance > 10 || distance <=3
         //above,but I realized that the below will cover it. Maybe, let's keep testing it out
-        //else if ((distance < 15 && distance > 4) && lockedOn)
-        //{
+        else if ((distance < 15 && distance > 4) && lockedOn)
+        {
             //I need some way to stop this
             //Maybe like the wolf, once the tiger reaches the necessary distance, just perform the regular attack
             //I could either have a non impulse movement to close the distance, or an impulse that will definitely get me close
@@ -787,16 +773,14 @@ public class PlayerController : MonoBehaviour
             //Gonna need a method like DistanceCloser
             ///At first, I was wondering if the attack duration plays long enough for distance closer, but it looks like it does
             //Debug.Log("Distance Closer");
-
-            //transform.rotation = Quaternion.Slerp(transform.rotation, attackRotation, 10);
-            //closeTheDistance = true;
-
+            transform.rotation = Quaternion.Slerp(transform.rotation, attackRotation, 10);
+            closeTheDistance = true;
             //StartCoroutine(DistanceCloser());
             //tigerRB.AddForce(attackDirection * (attackForce + 16), ForceMode.Impulse);
-        //}
+        }
         else if (distance < 4 && lockedOn)
         {
-            transform.rotation = Quaternion.Slerp(transform.rotation, attackRotation, 5);
+            transform.rotation = Quaternion.Slerp(transform.rotation, attackRotation, 10);
             attackTimeLength = normalTigerAttacklength;
             StartCoroutine(AttackDuration());
             playerRb.AddForce(attackDirection * (attackForce + 14), ForceMode.Impulse);//Changed from 8 to 12
@@ -804,7 +788,6 @@ public class PlayerController : MonoBehaviour
             playerAudio.PlayOneShot(tigerSwing, 0.05f);
             Debug.Log("Short Ranged Att");
         }
-        //Debug.Log("Velocity is equal to " + playerRb.velocity);
     }
 
 
