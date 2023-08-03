@@ -33,6 +33,7 @@ public class Enemy : MonoBehaviour
     public AudioClip[] enemySounds = new AudioClip[3];
 
     public bool lockedOn = false;
+    private GameObject target;
     private Rigidbody enemyRb;
     private PlayerController playerScript;
     private GameObject player;
@@ -54,6 +55,7 @@ public class Enemy : MonoBehaviour
         //HPBar.SetActive(false);
         originalHP = HP;
         HPBarScript = HPBar.GetComponent<EnemyHPBar>();
+        target = GameObject.Find("Target");
     }
 
     // Update is called once per frame
@@ -73,12 +75,14 @@ public class Enemy : MonoBehaviour
         if (lockedOn == true)
         {
             //Debug.Log("HP Bar Out");
+            //I guess I guess I need to do this code in here. I guess it's like the code with Target.
             HPBar.SetActive(true);
+            transform.position = new Vector3(target.transform.position.x, target.transform.position.y + 2.5f, target.transform.position.z);
         }
-        //else if (lockedOn == false)
-        //
-            //HPBar.SetActive(false);
-        //}
+        else if (lockedOn == false)
+        { 
+            HPBar.SetActive(false);
+        }
     }
     public void SetDamage(int newDamage)
     {

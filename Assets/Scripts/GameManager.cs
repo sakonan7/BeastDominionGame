@@ -130,7 +130,7 @@ public class GameManager : MonoBehaviour
     }
     IEnumerator SlowDown()
     {
-        Time.timeScale = 0f; //Instead of 0.2 because I think 0.2 makes it slow down even
+        Time.timeScale = 0.5f; //Instead of 0.2 because I think 0.2 makes it slow down even
         yield return new WaitForSeconds(0.2f);
         Time.timeScale = 1;
         enemyJustDefeated = false;

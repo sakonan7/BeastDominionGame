@@ -36,15 +36,15 @@ public class EnemyHPBar : MonoBehaviour
         if (enemyScript.lockedOn == true)
         {
             target = GameObject.Find("Target");
-            gameObject.SetActive(true);
-            transform.position = new Vector3(target.transform.position.x, target.transform.position.y + 2.5f, target.transform.position.z);
+            //gameObject.SetActive(true);
+            //transform.position = new Vector3(target.transform.position.x, target.transform.position.y + 2.5f, target.transform.position.z);
             //transform.rotation = new Quaternion(transform.rotation.x, target.transform.rotation.y, target.transform.rotation.z, 0);
             //transform.forward = target.transform.forward;
         }
-        else if (enemyScript.lockedOn == false)
-        {
-            gameObject.SetActive(false);
-        }
+        //else if (enemyScript.lockedOn == false)
+        //{
+            //gameObject.SetActive(false);
+        //}
     }
     public void HPDecrease(float newDamage, float originalHP)
     {

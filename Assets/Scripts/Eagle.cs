@@ -8,6 +8,8 @@ public class Eagle : MonoBehaviour
     private GameObject player;
     private PlayerController playerScript;
     private Quaternion lookRotation;
+    public bool grounded = true; //This will make it so that Tiger can only hitnEagle when Eagle has made an attack.
+    //May also use this bool to also make it so that Tiger can't rotate up
 
     public GameObject HPBar;
     private GameObject cameraRef;

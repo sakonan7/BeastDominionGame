@@ -451,20 +451,15 @@ public class PlayerController : MonoBehaviour
                 playerRb.AddForce(attackDirection * 10, ForceMode.Impulse); //attack force wasn't enough //Also, it isn't enough here //Try impulse
                 //ForceMode Impulse is amazing. Needed to go from speed to 5 becaue of how fast and far it went
                 transform.rotation = Quaternion.Slerp(transform.rotation, attackRotation, 5);
-            playerRb.velocity = attackDirection * 10;
-            if (distance < 3 && closeTheDistance == true)
+            //playerRb.velocity = attackDirection * 10;
+            //speed control
+            Vector3 dashVel = new Vector3(playerRb.velocity.x, 0, playerRb.velocity.z);
+
+
+            if (dashVel.magnitude > speed)
             {
-                Debug.Log("Distance met For Regul");
-                closeTheDistance = false;
-                attackTimeLength = distanceCloserTigerAttackLength;
-                StartCoroutine(AttackDuration());
-                animation.Play("Attack 1 & 2");
-                playerAudio.PlayOneShot(tigerSwing, 0.05f);
-            }
-            if (stunned == true)
-            {
-                closeTheDistance = false;
-                Debug.Log("I don't want to do it, but, closeTheDistance = " + closeTheDistance);
+                Vector3 limitedDashVel = dashVel.normalized * speed;
+                playerRb.velocity = new Vector3(limitedDashVel.x, 0, limitedDashVel.z);
             }
 
         }
@@ -477,14 +472,15 @@ public class PlayerController : MonoBehaviour
                                                                        //ForceMode Impulse is amazing. Needed to go from speed to 5 becaue of how fast and far it went
             transform.rotation = Quaternion.Slerp(transform.rotation, attackRotation, 5);
             //Put the closeTheDistance code in here
-            if (distance < 8)
+            Vector3 specVel = new Vector3(playerRb.velocity.x, 0, playerRb.velocity.z);
+
+
+            if (specVel.magnitude > speed)
             {
-                Debug.Log("Distance Met At " + distance);
-                //This will work because specialInvincibility is on and TigerSpecialDuration() cancels
-                StartCoroutine(TigerSpecialDuration());
-                TigerSpecial();
-                specialCloseTheDistance = false;
+                Vector3 limitedSpecVel = specVel.normalized * speed;
+                playerRb.velocity = new Vector3(limitedSpecVel.x, 0, limitedSpecVel.z);
             }
+
         }
 
 
@@ -611,6 +607,29 @@ public class PlayerController : MonoBehaviour
         {
             //sensor.SetActive(true);
             LockOn();
+        }
+        if (distance < 3 && closeTheDistance == true)
+        {
+            Debug.Log("Distance met For Regul");
+            closeTheDistance = false;
+            attackTimeLength = distanceCloserTigerAttackLength;
+            StartCoroutine(AttackDuration());
+            animation.Play("Attack 1 & 2");
+            playerAudio.PlayOneShot(tigerSwing, 0.05f);
+        }
+        if (stunned == true)
+        {
+            closeTheDistance = false;
+            Debug.Log("I don't want to do it, but, closeTheDistance = " + closeTheDistance);
+        }
+        if (distance < 8 && specialCloseTheDistance)
+        {
+            Debug.Log("Distance Met At " + distance);
+            //This will work because specialInvincibility is on and TigerSpecialDuration() cancels
+            animation.Play("Attack 1 & 2");
+            StartCoroutine(TigerSpecialDuration());
+            TigerSpecial();
+            specialCloseTheDistance = false;
         }
     }
 
@@ -740,8 +759,8 @@ public class PlayerController : MonoBehaviour
         {
             attackTimeLength = normalTigerAttacklength;
             StartCoroutine(AttackDuration());
-            //playerRb.AddForce(attackDirection * (attackForce + 10), ForceMode.Impulse);//Changed from 8 to 12
-            playerRb.velocity = attackDirection * (attackForce + 10);
+            playerRb.AddForce(attackDirection * (attackForce + 10), ForceMode.Impulse);//Changed from 8 to 12
+            //playerRb.velocity = attackDirection * (attackForce + 10);
             animation.Play("Attack 1 & 2");
             playerAudio.PlayOneShot(tigerSwing, 0.05f);
         }
@@ -808,7 +827,7 @@ public class PlayerController : MonoBehaviour
     }
     public void TigerSpecial()
     {
-        animation.Play("Attack 1 & 2");
+        
         playerAudio.PlayOneShot(tigerSwing, 0.05f);
         
         attackRotation = Quaternion.LookRotation(target.transform.position - transform.position);
