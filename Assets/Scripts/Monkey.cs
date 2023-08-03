@@ -193,6 +193,7 @@ public class Monkey : MonoBehaviour
         //{
         //PlayAttackEffect();
         //}
+        monkeyRb.constraints = RigidbodyConstraints.FreezeRotation;
         yield return new WaitForSeconds(1.5f);
         animator.SetBool("Attack 1", false);
         attack = false;
@@ -235,6 +236,7 @@ public class Monkey : MonoBehaviour
         
         enemyScript.SetComboFinisher();
 
+        monkeyRb.constraints = RigidbodyConstraints.FreezeRotation;
         yield return new WaitForSeconds(1f);
         animator.SetBool("Attack 2", false);
         //StartCoroutine(StartCoolDown());

@@ -615,6 +615,7 @@ public class PlayerController : MonoBehaviour
             attackTimeLength = distanceCloserTigerAttackLength;
             StartCoroutine(AttackDuration());
             animation.Play("Attack 1 & 2");
+            playerRb.constraints = RigidbodyConstraints.FreezeRotation;
             playerAudio.PlayOneShot(tigerSwing, 0.05f);
         }
         if (stunned == true)
@@ -780,6 +781,7 @@ public class PlayerController : MonoBehaviour
             animation.Play("Attack 1 & 2");
             playerAudio.PlayOneShot(tigerSwing, 0.05f);
             Debug.Log("Non Distance Closer");
+            playerRb.constraints = RigidbodyConstraints.FreezeRotation;
         }
         //Want DistanceCloser only to play when the tiger isn't close enough. Was originally going to have a distance > 10 || distance <=3
         //above,but I realized that the below will cover it. Maybe, let's keep testing it out
@@ -806,6 +808,7 @@ public class PlayerController : MonoBehaviour
             animation.Play("Attack 1 & 2");
             playerAudio.PlayOneShot(tigerSwing, 0.05f);
             Debug.Log("Short Ranged Att");
+            playerRb.constraints = RigidbodyConstraints.FreezeRotation;
         }
     }
 

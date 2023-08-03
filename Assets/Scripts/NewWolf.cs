@@ -169,7 +169,7 @@ public class NewWolf : MonoBehaviour
         if ((idle == true && directionChosen == true) && chase == false && stunned == false && testingStun == false)
         {
             StartCoroutine(IdleWalk());
-            transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, 2);
+            //transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, 2);
             if (walkDirection == 0)
             {
                 wolfRb.AddForce(Vector3.left * walkSpeed);
@@ -313,7 +313,7 @@ public class NewWolf : MonoBehaviour
         attackCounter = 1;
 
         attack = true;
-
+        wolfRb.constraints = RigidbodyConstraints.FreezeRotation;
         //attackCounter = 1; //Putting it here because regardless, the wolf will not repeat an attack
         yield return new WaitForSeconds(0.4f);
         animator.SetBool("Ground Attack", false);
