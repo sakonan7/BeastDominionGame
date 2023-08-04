@@ -20,7 +20,10 @@ public class PlayerController : MonoBehaviour
 
     public GameObject tiger;
     public GameObject bird;
-    
+
+    [Header("Combo Meter")]
+    public int hitNumber = 0;
+    private bool rackingUpCombo = false;
 
     public bool specialInvincibility = false;
     public GameObject bladeOfLight;
@@ -115,6 +118,7 @@ public class PlayerController : MonoBehaviour
     public AudioClip tigerSwing;
 
     //Display
+    [Header ("Display")]
     public TextMeshProUGUI HPText;
     //public Image playerMugshot;
     public int HP = 10;
@@ -134,6 +138,7 @@ public class PlayerController : MonoBehaviour
     public TextMeshProUGUI comboCounter; //Make it slightly increase in size and become yellow which each. When it reaches 3, make it
     //yellow orange, then a yellower orange for hits after 3, then light blue for 6 hits and the special attack pops
     //Then a tiger roar
+    public RawImage tigerComboIcon;
 
     //Miscellaneous
     private GameManager gameManagerScript;
@@ -177,6 +182,7 @@ public class PlayerController : MonoBehaviour
         //ballRB = ball.GetComponent<Rigidbody>();
         staffLight = GameObject.Find("Staff").GetComponent<Light>();
         damageDisplay.color = new Color(1, 1, 1, 1);
+        comboCounter.text = "x " + hitNumber;
     }
 
     // Update is called once per frame
@@ -633,6 +639,12 @@ public class PlayerController : MonoBehaviour
             TigerSpecial();
             specialCloseTheDistance = false;
         }
+        //Setting this here because I want to make more space in Update and because this will happen after certainn actions
+        //like getting damaged or performing a spec
+        if (rackingUpCombo == false)
+        {
+            comboCounter.gameObject.SetActive(false);
+        }
     }
 
     IEnumerator AttackDuration()
@@ -679,6 +691,20 @@ public class PlayerController : MonoBehaviour
             attackLanded = true;
             //Debug.Log("Can Continue To Attack");
             StartCoroutine(NoAttackLag());
+        }
+        if (hitNumber == 0)
+        {
+            StartCombo();
+        }
+        hitNumber++;
+    }
+    public void StartCombo()
+    {
+        if (tigerActive == true)
+        {
+            rackingUpCombo = true;
+            comboCounter.gameObject.SetActive(true);
+            hitNumber = 1;
         }
     }
     IEnumerator NoAttackLag()
