@@ -43,6 +43,7 @@ public class Enemy : MonoBehaviour
     private bool attacked = false;
     private bool hitAgainstWall = true;
     public bool hitLanded = false;
+    private ConstantForce enemyForce;
     // Start is called before the first frame update
     void Start()
     {
@@ -55,7 +56,7 @@ public class Enemy : MonoBehaviour
         //HPBar.SetActive(false);
         originalHP = HP;
         HPBarScript = HPBar.GetComponent<EnemyHPBar>();
-        
+        enemyForce = GetComponent<ConstantForce>();
     }
 
     // Update is called once per frame
@@ -169,8 +170,58 @@ public class Enemy : MonoBehaviour
     IEnumerator FoeAttacked()
     {
         attacked = true;
+        float attackForce = 280;
+        //enemyRb.AddForce(playerScript.attackDirection * attackForce, ForceMode.Force);
+        //enemyRb.velocity = new Vector3(playerScript.attackDirection.x * attackForce, 0, playerScript.attackDirection.z * attackForce);
+
+        //Vector3 consistentVel = new Vector3(enemyRb.velocity.x, 0, enemyRb.velocity.z);
+
+
+        //if (consistentVel.magnitude > attackForce)
+        //{
+        //Vector3 limitedVel = consistentVel.normalized * attackForce;
+        //enemyRb.velocity = new Vector3(limitedVel.x, 0, limitedVel.z);
+        //}
+        enemyForce.relativeForce = -playerScript.attackDirection * attackForce;
         yield return new WaitForSeconds(0.5f);
         attacked = false;
+        damageDisplay.gameObject.SetActive(false);
+        float distance = Vector3.Distance(player.transform.position, transform.position);
+        Debug.Log("Distance is equal to " + distance);
+        enemyForce.relativeForce = new Vector3(0,0,0);
+    }
+    //This will be helpful for combo att
+    IEnumerator SecondHit()
+    {
+        attacked = true;
+        float attackForce = 280;
+        //enemyRb.AddForce(playerScript.attackDirection * attackForce, ForceMode.Force);
+        //enemyRb.velocity = new Vector3(playerScript.attackDirection.x * attackForce, 0, playerScript.attackDirection.z * attackForce);
+
+        //Vector3 consistentVel = new Vector3(enemyRb.velocity.x, 0, enemyRb.velocity.z);
+
+
+        //if (consistentVel.magnitude > attackForce)
+        //{
+        //Vector3 limitedVel = consistentVel.normalized * attackForce;
+        //enemyRb.velocity = new Vector3(limitedVel.x, 0, limitedVel.z);
+        //}
+        enemyForce.relativeForce = -playerScript.attackDirection * attackForce;
+        yield return new WaitForSeconds(1f);
+        attacked = false;
+        damageDisplay.gameObject.SetActive(false);
+        //float distance = Vector3.Distance(player.transform.position, transform.position);
+        //Debug.Log("Distance is equal to " + distance);
+        enemyForce.relativeForce = new Vector3(0, 0, 0);
+        StartCoroutine(DamageDisplayDuration());
+    }
+    //I may want to do all damage display on 
+    IEnumerator DamageDisplayDuration()
+    {
+        damageDisplay.gameObject.SetActive(true);
+        damageDisplay.transform.position = new Vector3(HPBar.transform.position.x, HPBar.transform.position.y + 2, HPBar.transform.position.z);
+        damageDisplay.text = "4";
+        yield return new WaitForSeconds(0.5f);
         damageDisplay.gameObject.SetActive(false);
     }
     IEnumerator HitWall()
@@ -202,21 +253,21 @@ public class Enemy : MonoBehaviour
             //Unless I can make a force play until a certain distance is reached
             //I can't use forcemode.impulse then
             //Wow, I had to upgrade from 15 to 200 just to push foe back at most a few meters
-            enemyRb.AddForce(playerScript.attackDirection * 160, ForceMode.Impulse);
+            //enemyRb.AddForce(playerScript.attackDirection * 160, ForceMode.Impulse);
             //enemyRb.velocity = playerScript.attackDirection * 160;
             //enemyRb.velocity = new Vector3(playerScript.attackDirection.x * 160, 0, playerScript.attackDirection.z * 160);
 
-            Vector3 consistentVel = new Vector3(enemyRb.velocity.x, 0, enemyRb.velocity.z);
+            //Vector3 consistentVel = new Vector3(enemyRb.velocity.x, 0, enemyRb.velocity.z);
 
 
-            if (consistentVel.magnitude > 160)
-            {
-                Vector3 limitedVel = consistentVel.normalized * 160;
-                enemyRb.velocity = new Vector3(limitedVel.x, 0, limitedVel.z);
-            }
-            float distance = Vector3.Distance(player.transform.position, transform.position);
+            //if (consistentVel.magnitude > 160)
+            //{
+                //Vector3 limitedVel = consistentVel.normalized * 160;
+                //enemyRb.velocity = new Vector3(limitedVel.x, 0, limitedVel.z);
+            //}
+            
             playerScript.AttackLandedTrue();
-            Debug.Log(distance + " " + enemyRb.velocity);
+            //Debug.Log(distance + " " + enemyRb.velocity);
             StartCoroutine(FoeAttacked());
             damageDisplay.gameObject.SetActive(true);
             damageDisplay.transform.position = new Vector3(HPBar.transform.position.x, HPBar.transform.position.y + 2, HPBar.transform.position.z);
@@ -227,7 +278,7 @@ public class Enemy : MonoBehaviour
             //For now, just trigger stun. I will use both of their directions to perform the knockback
             //TakeDamage();
 
-            HP -= 7;
+            HP -= 3;
             //Damaged();
             playerScript.PlayTigerSpecialStrike(transform.position);
             //Vector3 knockbackDirection = (transform.position - tiger.transform.position).normalized;
@@ -237,12 +288,18 @@ public class Enemy : MonoBehaviour
             //But I don't want the player to whiff attacks, so I think I will make sure the tiger is the right distance from the wolf
             //Unless I can make a force play until a certain distance is reached
             //I can't use forcemode.impulse then
-            enemyRb.AddForce(playerScript.attackDirection * 280, ForceMode.Impulse);
+            //enemyRb.AddForce(playerScript.attackDirection * 280, ForceMode.Impulse);
             //playerScript.AttackLandedTrue();
-            StartCoroutine(FoeAttacked());
+            //StartCoroutine(FoeAttacked());
             damageDisplay.gameObject.SetActive(true);
             damageDisplay.transform.position = new Vector3(HPBar.transform.position.x, HPBar.transform.position.y + 2, HPBar.transform.position.z);
-            damageDisplay.text = "2";
+            damageDisplay.text = "3";
+            if (HP > 0)
+            {
+                HP -= 4;
+                StartCoroutine(SecondHit());
+                playerScript.PlayTigerSpecialStrike(transform.position);
+            }
         }
     }
 }

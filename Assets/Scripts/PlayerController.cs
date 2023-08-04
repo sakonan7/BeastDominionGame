@@ -24,6 +24,7 @@ public class PlayerController : MonoBehaviour
 
     public bool specialInvincibility = false;
     public GameObject bladeOfLight;
+    public GameObject tigerSpecialAOE;
     private bool charging = false;
     private Light staffLight;
 
@@ -724,6 +725,7 @@ public class PlayerController : MonoBehaviour
         attack = false;
         specialInvincibility = false;
         bladeOfLight.SetActive(false);
+        tigerSpecialAOE.SetActive(false);
         StartCoroutine(StrikeLag());
         staffLight.intensity = 0;
     }
@@ -836,11 +838,21 @@ public class PlayerController : MonoBehaviour
         attackRotation = Quaternion.LookRotation(target.transform.position - transform.position);
         transform.rotation = Quaternion.Slerp(transform.rotation, attackRotation, 10); //Am using all the attack rotations
         //here because there is a charge up before Tiger Special Attack
-        playerRb.AddRelativeTorque(Vector3.down * 5, ForceMode.Impulse);
-        
+        //playerRb.AddRelativeTorque(Vector3.down * 5, ForceMode.Impulse);
+        //transform.rotation = new Quaternion(0, 360, 0, 0);
+        StartCoroutine(Spin());
+        tigerSpecialAOE.SetActive(true);
         //TigerSpecialSecondStrike();
         //StartCoroutine(UseTigerSpecialSecond());
         
+    }
+    IEnumerator Spin()
+    {
+        //playerRb.AddRelativeTorque(Vector3.down * 10, ForceMode.Impulse);
+        transform.rotation = new Quaternion(0, 180, 0, 0);
+        //transform.Rotate(Vector3.down, 60 * Time.deltaTime);
+        yield return new WaitForSeconds(2);
+        //Debug.Log(Spin());
     }
     IEnumerator UseTigerSpecialSecond()
     {
