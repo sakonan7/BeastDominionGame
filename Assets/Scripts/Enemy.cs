@@ -68,6 +68,7 @@ public class Enemy : MonoBehaviour
         if (HP <= 0)
         {
             dyingEffect.Play();
+            lockedOn = false;
             Destroy(gameObject);
             //playerScript.LockOff(); I didn't realize this was here. And it was being used the whole time
             //Debug.Log("Wolf Dies");
@@ -170,9 +171,10 @@ public class Enemy : MonoBehaviour
     IEnumerator FoeAttacked()
     {
         attacked = true;
-        float attackForce = 280;
+        float attackForce = 100;
         //enemyRb.AddForce(playerScript.attackDirection * attackForce, ForceMode.Force);
-        //enemyRb.velocity = new Vector3(playerScript.attackDirection.x * attackForce, 0, playerScript.attackDirection.z * attackForce);
+        enemyRb.velocity = new Vector3(playerScript.attackDirection.x * attackForce, 0, playerScript.attackDirection.z * attackForce);
+        //enemyRb.maxLinearVelocity = attackForce;
 
         //Vector3 consistentVel = new Vector3(enemyRb.velocity.x, 0, enemyRb.velocity.z);
 
@@ -182,13 +184,14 @@ public class Enemy : MonoBehaviour
         //Vector3 limitedVel = consistentVel.normalized * attackForce;
         //enemyRb.velocity = new Vector3(limitedVel.x, 0, limitedVel.z);
         //}
-        enemyForce.relativeForce = -playerScript.attackDirection * attackForce;
+        //enemyForce.relativeForce = -playerScript.attackDirection * attackForce;
+        //enemyRb.velocity = new Vector3(enemyRb.maxLinearVelocity, 0, enemyRb.maxLinearVelocity);
         yield return new WaitForSeconds(0.5f);
         attacked = false;
-        damageDisplay.gameObject.SetActive(false);
+        //damageDisplay.gameObject.SetActive(false);
         float distance = Vector3.Distance(player.transform.position, transform.position);
         Debug.Log("Distance is equal to " + distance);
-        enemyForce.relativeForce = new Vector3(0,0,0);
+        //enemyForce.relativeForce = new Vector3(0,0,0);
     }
     //This will be helpful for combo att
     IEnumerator SecondHit()
@@ -209,7 +212,7 @@ public class Enemy : MonoBehaviour
         enemyForce.relativeForce = -playerScript.attackDirection * attackForce;
         yield return new WaitForSeconds(1f);
         attacked = false;
-        damageDisplay.gameObject.SetActive(false);
+        //damageDisplay.gameObject.SetActive(false);
         //float distance = Vector3.Distance(player.transform.position, transform.position);
         //Debug.Log("Distance is equal to " + distance);
         enemyForce.relativeForce = new Vector3(0, 0, 0);
@@ -219,7 +222,7 @@ public class Enemy : MonoBehaviour
     IEnumerator DamageDisplayDuration(int damage)
     {
         damageDisplay.gameObject.SetActive(true);
-        damageDisplay.transform.position = new Vector3(HPBar.transform.position.x, HPBar.transform.position.y + 2, HPBar.transform.position.z);
+        damageDisplay.transform.position = new Vector3(HPBar.transform.position.x, HPBar.transform.position.y + 1.5f, HPBar.transform.position.z);
         damageDisplay.text = "" + damage;
         yield return new WaitForSeconds(0.5f);
         damageDisplay.gameObject.SetActive(false);
@@ -241,7 +244,7 @@ public class Enemy : MonoBehaviour
             //For now, just trigger stun. I will use both of their directions to perform the knockback
             //TakeDamage();
             
-            HP -= 2;
+            HP -= 0;
             HPBarScript.HPDecrease(2, originalHP);
             //Damaged();
             playerScript.PlayTigerRegularStrike(transform.position);
@@ -269,9 +272,7 @@ public class Enemy : MonoBehaviour
             playerScript.AttackLandedTrue();
             //Debug.Log(distance + " " + enemyRb.velocity);
             StartCoroutine(FoeAttacked());
-            damageDisplay.gameObject.SetActive(true);
-            damageDisplay.transform.position = new Vector3(HPBar.transform.position.x, HPBar.transform.position.y + 2, HPBar.transform.position.z);
-            damageDisplay.text = "2";
+            StartCoroutine(DamageDisplayDuration(0));
         }
         if (other.CompareTag("Tiger Special"))
         {
