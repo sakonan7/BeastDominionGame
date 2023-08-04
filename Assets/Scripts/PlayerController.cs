@@ -24,6 +24,7 @@ public class PlayerController : MonoBehaviour
     [Header("Combo Meter")]
     public int hitNumber = 0;
     private bool rackingUpCombo = false;
+    private bool tigerSpecialUnlocked = false;
 
     public bool specialInvincibility = false;
     public GameObject bladeOfLight;
@@ -139,6 +140,7 @@ public class PlayerController : MonoBehaviour
     //yellow orange, then a yellower orange for hits after 3, then light blue for 6 hits and the special attack pops
     //Then a tiger roar
     public RawImage tigerComboIcon;
+    public RawImage tigerSpecialCommand;
 
     //Miscellaneous
     private GameManager gameManagerScript;
@@ -424,7 +426,7 @@ public class PlayerController : MonoBehaviour
             }
             //Special Attack
             //Changed it so that ChargeUp will determine what direction Tiger will go
-            if (Input.GetKeyDown(KeyCode.Z))
+            if (Input.GetKeyDown(KeyCode.Z) && tigerSpecialUnlocked == true)
             {
                 //StartCoroutine(TigerSpecialDuration());
                 StartCoroutine(ChargeUp());
@@ -644,6 +646,7 @@ public class PlayerController : MonoBehaviour
         if (rackingUpCombo == false)
         {
             comboCounter.gameObject.SetActive(false);
+            hitNumber = 0;
         }
     }
 
@@ -697,6 +700,12 @@ public class PlayerController : MonoBehaviour
             StartCombo();
         }
         hitNumber++;
+        comboCounter.text = "x " + hitNumber;
+        if (hitNumber > 3)
+        {
+            tigerSpecialUnlocked = true;
+            tigerSpecialCommand.gameObject.SetActive(true);
+        }
     }
     public void StartCombo()
     {
@@ -704,7 +713,7 @@ public class PlayerController : MonoBehaviour
         {
             rackingUpCombo = true;
             comboCounter.gameObject.SetActive(true);
-            hitNumber = 1;
+            hitNumber = 0; //Was initially 1, but I decided to put hitNumber++ in AttackLandedTrue(
         }
     }
     IEnumerator NoAttackLag()
@@ -754,6 +763,9 @@ public class PlayerController : MonoBehaviour
         tigerSpecialAOE.SetActive(false);
         StartCoroutine(StrikeLag());
         staffLight.intensity = 0;
+        rackingUpCombo = false;
+        tigerSpecialUnlocked = false;
+        tigerSpecialCommand.gameObject.SetActive(false);
     }
     public void Swoop()
     {
@@ -1184,6 +1196,10 @@ public class PlayerController : MonoBehaviour
         else if (birdKnockedBack == true)
         {
             birdRB.AddTorque(Vector3.left * 1.1f, ForceMode.Impulse);
+        }
+        if (rackingUpCombo == true)
+        {
+            rackingUpCombo = false;
         }
         
         //This was for showing the damage done from each attack on the Player, but isn't necessary because the player and that
