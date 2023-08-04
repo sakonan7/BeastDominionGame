@@ -213,14 +213,14 @@ public class Enemy : MonoBehaviour
         //float distance = Vector3.Distance(player.transform.position, transform.position);
         //Debug.Log("Distance is equal to " + distance);
         enemyForce.relativeForce = new Vector3(0, 0, 0);
-        StartCoroutine(DamageDisplayDuration());
+        StartCoroutine(DamageDisplayDuration(4));
     }
     //I may want to do all damage display on 
-    IEnumerator DamageDisplayDuration()
+    IEnumerator DamageDisplayDuration(int damage)
     {
         damageDisplay.gameObject.SetActive(true);
         damageDisplay.transform.position = new Vector3(HPBar.transform.position.x, HPBar.transform.position.y + 2, HPBar.transform.position.z);
-        damageDisplay.text = "4";
+        damageDisplay.text = "" + damage;
         yield return new WaitForSeconds(0.5f);
         damageDisplay.gameObject.SetActive(false);
     }
@@ -291,9 +291,7 @@ public class Enemy : MonoBehaviour
             //enemyRb.AddForce(playerScript.attackDirection * 280, ForceMode.Impulse);
             //playerScript.AttackLandedTrue();
             //StartCoroutine(FoeAttacked());
-            damageDisplay.gameObject.SetActive(true);
-            damageDisplay.transform.position = new Vector3(HPBar.transform.position.x, HPBar.transform.position.y + 2, HPBar.transform.position.z);
-            damageDisplay.text = "3";
+            StartCoroutine(DamageDisplayDuration(3));
             if (HP > 0)
             {
                 HP -= 4;
