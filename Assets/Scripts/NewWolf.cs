@@ -136,7 +136,7 @@ public class NewWolf : MonoBehaviour
     //The Wolf having to restart its pace, rather than attacking right af
     void Update()
     {
-        HPBar.transform.position = new Vector3(transform.position.x, transform.position.y + 1.9f, transform.position.z + 0.1f);
+        //HPBar.transform.position = new Vector3(transform.position.x, transform.position.y + 1.9f, transform.position.z + 0.1f);
         //HPBar.transform.LookAt(HPBar.transform.position - (cameraRef.transform.position - HPBar.transform.position));
         //I'm just going to try measuring distance instead
         if (playerScript.tigerActive == true)
@@ -460,6 +460,8 @@ public class NewWolf : MonoBehaviour
                 {
                     jumpedBack = true;
                 //Code for Jumping back
+                //I think I need to do transform.position - player.transform.position because enemies don't
+                //have a vector3.forward like Play
                 wolfRb.AddForce(Vector3.back * attackForce, ForceMode.Impulse);
                 Debug.Log("Jumped Back");
                 animator.SetBool("Near Wall", true);

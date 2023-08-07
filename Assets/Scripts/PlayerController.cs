@@ -14,6 +14,7 @@ public class PlayerController : MonoBehaviour
 
 
     private new Animation animation;
+    private Animator tigerAnimator;
     private new Animation birdAnimation;
     public bool tigerActive = true;
     public bool birdActive = false;
@@ -162,6 +163,7 @@ public class PlayerController : MonoBehaviour
         playerRb = GetComponent<Rigidbody>();
         
         animation = tiger.GetComponent<Animation>();
+        tigerAnimator = tiger.GetComponent<Animator>();
         
 
         birdRB = bird.GetComponent<Rigidbody>();
@@ -251,7 +253,8 @@ public class PlayerController : MonoBehaviour
         //Idle animat
         if (dodge == false && attack == false && tigerActive == true && lag == false && running == false && stunned == false)
             {
-                animation.Play("Idle Tweak");
+            //animation.Play("Idle Tweak");
+            tigerAnimator.SetBool("Idle", true);
             }
             if (dodge == false && attack == false && birdActive == true && lag == false && stunned == false)
             {
@@ -273,6 +276,7 @@ public class PlayerController : MonoBehaviour
             ///this isn't a problem for attack, but it's a problem for dodging
             ///I think that the problem is that the animation keeps going, not that the action gets interrupt
             ///
+            tigerAnimator.SetBool("Idle", false);
             if (attack == false && dodge == false && gameManagerScript.startingCutscene == false)
             {
                 moveDirection = orientation.forward * forwardInput + orientation.right * sideInput;
@@ -393,7 +397,12 @@ public class PlayerController : MonoBehaviour
 
         if (running == true)
         {
-            animation.Play("Run Tweak");
+            //animation.Play("Run Tweak");
+            tigerAnimator.SetTrigger("Run");
+        }
+        else
+        {
+            tigerAnimator.SetTrigger("Run");
         }
         //Putting it on here atm because I want this to be interupted by stunning
         //Also, players can't do anything while the character is closing the distance
@@ -1238,6 +1247,7 @@ public class PlayerController : MonoBehaviour
     public void OpeningRun()
     {
         running = true;
+        tigerAnimator.SetBool("Idle", false);
         playerRb.AddForce(Vector3.forward * speed);
         //tigerControl.Move(Vector3.forward * speed * Time.deltaTime);
     }

@@ -1048,7 +1048,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1297755657}
-  m_LocalRotation: {x: 0.078835115, y: 0.0000039122506, z: -0.00000030938568, w: 0.9968877}
+  m_LocalRotation: {x: 0.078835115, y: 0.0000039294036, z: -0.00000031074214, w: 0.9968877}
   m_LocalPosition: {x: -0.000012397766, y: 0.24800873, z: -0.63609314}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1920,7 +1920,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1779919244}
-  m_LocalRotation: {x: 0.2639016, y: 0.000003905352, z: 0.00000042828995, w: 0.96454966}
+  m_LocalRotation: {x: 0.2639016, y: 0.000003913904, z: 0.0000004292278, w: 0.96454966}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -2537,6 +2537,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 510421706}
     - target: {fileID: 1550653510, guid: cc5d1e7149cb79549b8d52ad54f5c8e3, type: 3}
+      propertyPath: tigerMugshot
+      value: 
+      objectReference: {fileID: 2800000, guid: fdb8044ce1cf88f4184c2cc12a2f5cd8, type: 3}
+    - target: {fileID: 1550653510, guid: cc5d1e7149cb79549b8d52ad54f5c8e3, type: 3}
       propertyPath: damageDisplay
       value: 
       objectReference: {fileID: 8532065848300009818}
@@ -2560,6 +2564,10 @@ PrefabInstance:
       propertyPath: tigerSpecialCommand
       value: 
       objectReference: {fileID: 7477383511868025911}
+    - target: {fileID: 1799832250106285452, guid: cc5d1e7149cb79549b8d52ad54f5c8e3, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 67e6d9315d457b64b8d5fce69339f6cd, type: 2}
     - target: {fileID: 2390036261218699326, guid: cc5d1e7149cb79549b8d52ad54f5c8e3, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.515
@@ -2620,7 +2628,8 @@ PrefabInstance:
       propertyPath: m_ReceiveShadows
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 4097948204512680865, guid: cc5d1e7149cb79549b8d52ad54f5c8e3, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 4010593551167423253, guid: cc5d1e7149cb79549b8d52ad54f5c8e3, type: 3}
@@ -2630,6 +2639,9 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 829102116}
     m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1799832250094760438, guid: cc5d1e7149cb79549b8d52ad54f5c8e3, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4010593549892150245}
     - targetCorrespondingSourceObject: {fileID: 8914123929791036340, guid: cc5d1e7149cb79549b8d52ad54f5c8e3, type: 3}
       insertIndex: -1
       addedObject: {fileID: 553112812}
@@ -2639,6 +2651,27 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1799832250095017728, guid: cc5d1e7149cb79549b8d52ad54f5c8e3, type: 3}
   m_PrefabInstance: {fileID: 4010593549892150239}
   m_PrefabAsset: {fileID: 0}
+--- !u!95 &4010593549892150245
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1606392748}
+  m_Enabled: 1
+  m_Avatar: {fileID: 9000000, guid: 96f1d4c3584f9644bad0a30f31d0da7f, type: 3}
+  m_Controller: {fileID: 9100000, guid: 80f75a47117f70f4a93e44b03c1a5c83, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1001 &7477383511868025903
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2647,6 +2680,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 54188210278504258, guid: 4f0a326d21919974c803a88238e49d9a, type: 3}
+      propertyPath: m_Texture
+      value: 
+      objectReference: {fileID: 2800000, guid: fdb8044ce1cf88f4184c2cc12a2f5cd8, type: 3}
     - target: {fileID: 4773532658103731901, guid: 4f0a326d21919974c803a88238e49d9a, type: 3}
       propertyPath: m_Pivot.x
       value: 0
