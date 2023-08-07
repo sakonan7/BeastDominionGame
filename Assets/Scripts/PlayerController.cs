@@ -81,6 +81,8 @@ public class PlayerController : MonoBehaviour
     public bool attack = false;
     public bool swoopLag = false;
     public bool attackLanded = false;
+    public bool canCombo = true;
+    //I can either make the distance closers stop movement or use stuned/damaged to do the 
     private bool cantMove = false;
 
     private bool transforming = false;
@@ -700,6 +702,12 @@ public class PlayerController : MonoBehaviour
         {
             StartCoroutine(StrikeLag());
         }
+        else
+        {
+            attackLanded = false;
+            Debug.Log("Combo Attack");
+            StartCoroutine(ComboAttack());
+        }
     }
     //This one is going to be tough, because I need attackLanded to be false eventually.
     //Test it only being true for 0.1 seconds
@@ -711,7 +719,7 @@ public class PlayerController : MonoBehaviour
         {
             attackLanded = true;
             //Debug.Log("Can Continue To Attack");
-            StartCoroutine(NoAttackLag());
+            //StartCoroutine(NoAttackLag());
         }
         if (hitNumber == 0)
         {
@@ -734,10 +742,12 @@ public class PlayerController : MonoBehaviour
             hitNumber = 0; //Was initially 1, but I decided to put hitNumber++ in AttackLandedTrue(
         }
     }
-    IEnumerator NoAttackLag()
+    IEnumerator ComboAttack()
     {
-        yield return new WaitForSeconds(1.5f); //1.3f instead of 0.1f, so lag can't take effect. Temporary?
-        attackLanded = false;
+        canCombo = true;
+        yield return new WaitForSeconds(1f); //1.3f instead of 0.1f, so lag can't take effect. Temporary?
+        canCombo = false;
+        Debug.Log("May have Lost The Combo Opportunity");
     }
     //IEnumerator for charging up Blade of light
     //Blade of light also increases into its full size
@@ -827,10 +837,10 @@ public class PlayerController : MonoBehaviour
         }
         //I guestimated from gameplay that the distance needs to be at least 15
         //I think I may want to rewrite this because I don't think this works
-        if (lockedOn == true)
-        {
-            Debug.Log(distance);
-        }
+        //if (lockedOn == true)
+        //{
+            //Debug.Log(distance);
+        //}
         if (distance > 15 && lockedOn)
         {
             transform.rotation = Quaternion.Slerp(transform.rotation, attackRotation, 10) ;
@@ -845,7 +855,7 @@ public class PlayerController : MonoBehaviour
         }
         //Want DistanceCloser only to play when the tiger isn't close enough. Was originally going to have a distance > 10 || distance <=3
         //above,but I realized that the below will cover it. Maybe, let's keep testing it out
-        else if ((distance < 15 && distance > 4) && lockedOn)
+        else if (((distance < 15 && distance > 4) || canCombo == true) && lockedOn)
         {
             //I need some way to stop this
             //Maybe like the wolf, once the tiger reaches the necessary distance, just perform the regular attack
@@ -858,6 +868,7 @@ public class PlayerController : MonoBehaviour
             closeTheDistance = true;
             //StartCoroutine(DistanceCloser());
             //tigerRB.AddForce(attackDirection * (attackForce + 16), ForceMode.Impulse);
+            canCombo = false;
         }
         else if (distance < 4 && lockedOn)
         {
@@ -1257,7 +1268,7 @@ public class PlayerController : MonoBehaviour
     public void OpeningRun()
     {
         running = true;
-        tigerAnimator.SetBool("Idle", false);
+        //tigerAnimator.SetBool("Idle", false);
         playerRb.AddForce(Vector3.forward * speed);
         //tigerControl.Move(Vector3.forward * speed * Time.deltaTime);
     }
