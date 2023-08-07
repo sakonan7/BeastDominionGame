@@ -369,61 +369,7 @@ public class PlayerController : MonoBehaviour
                     running = false;
                 }
             }
-            //Attacking
-            ///Small note, I accidentally used & instead of && for lockedOn. It seems like it didn't affect the code
-            ///Doing AttackDuration in attack methods instead
-            if (Input.GetMouseButtonDown(0) &&lockedOn == true)
-            {
-                //Moved attackDirection here because the player object gets rotated now
-                attackDirection = (target.transform.position - transform.position).normalized;
 
-                attackRotation = Quaternion.LookRotation(target.transform.position - transform.position);
-
-                //attackDirection isn't changing directions because it's using the empty Player object as the reference and the Player
-                //object doesn't move
-                if (birdActive == true)
-                {
-                    Swoop();
-                }
-                else if (tigerActive == true)
-                {
-
-                    Strike();
-                }
-                if (running == true)
-                {
-                    running = false;
-                }
-            }
-            if (Input.GetMouseButtonDown(0) && lockedOn == false)
-            {
-                
-
-                //Temporary fix atm because while the below is what I want, I can't fix the non moving attack at
-                if (running == true)
-                {
-                    running = false;
-                    attackDirection = moveDirection; //changed from Vector3.fwd. Changed back from moveDirection
-                                                     //orientation.forward did not work out
-                                                     //While moveDirection makes the attack
-                                                     //moveDirection on its own will not move the player
-                    if (birdActive == true)
-                    {
-                        //attackDirection = (target.transform.position - bird.transform.position).normalized;
-                        Swoop();
-                    }
-                    else if (tigerActive == true)
-                    {
-                        //attackDirection = (target.transform.position - tiger.transform.position).normalized;
-                        Strike();
-                    }
-                }
-                if (running == false)
-                {
-                    attackDirection = Vector3.fwd;
-                    Strike();
-                }
-            }
             //Special Attack
             //Changed it so that ChargeUp will determine what direction Tiger will go
             if (Input.GetKeyDown(KeyCode.Z) && tigerSpecialUnlocked == true)
@@ -647,6 +593,61 @@ public class PlayerController : MonoBehaviour
         {
             comboCounter.gameObject.SetActive(false);
             hitNumber = 0;
+        }
+        //Attacking
+        ///Small note, I accidentally used & instead of && for lockedOn. It seems like it didn't affect the code
+        ///Doing AttackDuration in attack methods instead
+        if (Input.GetMouseButtonDown(0) && lockedOn == true)
+        {
+            //Moved attackDirection here because the player object gets rotated now
+            attackDirection = (target.transform.position - transform.position).normalized;
+
+            attackRotation = Quaternion.LookRotation(target.transform.position - transform.position);
+
+            //attackDirection isn't changing directions because it's using the empty Player object as the reference and the Player
+            //object doesn't move
+            if (birdActive == true)
+            {
+                Swoop();
+            }
+            else if (tigerActive == true)
+            {
+
+                Strike();
+            }
+            if (running == true)
+            {
+                running = false;
+            }
+        }
+        if (Input.GetMouseButtonDown(0) && lockedOn == false)
+        {
+
+
+            //Temporary fix atm because while the below is what I want, I can't fix the non moving attack at
+            if (running == true)
+            {
+                running = false;
+                attackDirection = moveDirection; //changed from Vector3.fwd. Changed back from moveDirection
+                                                 //orientation.forward did not work out
+                                                 //While moveDirection makes the attack
+                                                 //moveDirection on its own will not move the player
+                if (birdActive == true)
+                {
+                    //attackDirection = (target.transform.position - bird.transform.position).normalized;
+                    Swoop();
+                }
+                else if (tigerActive == true)
+                {
+                    //attackDirection = (target.transform.position - tiger.transform.position).normalized;
+                    Strike();
+                }
+            }
+            if (running == false)
+            {
+                attackDirection = Vector3.fwd;
+                Strike();
+            }
         }
     }
 

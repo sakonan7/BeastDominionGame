@@ -171,7 +171,7 @@ public class Enemy : MonoBehaviour
     IEnumerator FoeAttacked()
     {
         attacked = true;
-        float attackForce = 100;
+        float attackForce = 200;
         //enemyRb.AddForce(playerScript.attackDirection * attackForce, ForceMode.Force);
         enemyRb.velocity = new Vector3(playerScript.attackDirection.x * attackForce, 0, playerScript.attackDirection.z * attackForce);
         //enemyRb.maxLinearVelocity = attackForce;
