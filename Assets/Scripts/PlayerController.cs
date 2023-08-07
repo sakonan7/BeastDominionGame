@@ -75,11 +75,13 @@ public class PlayerController : MonoBehaviour
     private Rigidbody birdRB;
     private Vector3 resetY;
 
+    //These bools are necessary because they are important outside of making the player unable to 
     public bool dodge = false;
-    public bool lag = false;
+    //public bool lag = false;
     public bool attack = false;
     public bool swoopLag = false;
     public bool attackLanded = false;
+    private bool cantMove = false;
 
     private bool transforming = false;
     public bool stunnedInvincibility;
@@ -107,7 +109,6 @@ public class PlayerController : MonoBehaviour
     private bool tigerKnockedBack = false;
     private bool birdFlinch = false;
     private bool birdKnockedBack = false;
-    public bool stunned = false;
     public bool invincible = false;
 
     //Sound
@@ -251,12 +252,12 @@ public class PlayerController : MonoBehaviour
         //if (gameManagerScript.startGame == true)
         //{
         //Idle animat
-        if (dodge == false && attack == false && tigerActive == true && lag == false && running == false && stunned == false)
+        if (dodge == false && attack == false && tigerActive == true && running == false && cantMove == false)
             {
-            //animation.Play("Idle Tweak");
-            tigerAnimator.SetBool("Idle", true);
+                animation.Play("Idle Tweak");
+            //tigerAnimator.SetBool("Idle", true);
             }
-            if (dodge == false && attack == false && birdActive == true && lag == false && stunned == false)
+            if (dodge == false && attack == false && birdActive == true && cantMove == false)
             {
                 birdAnimation.Play("Idle");
             }
@@ -265,8 +266,7 @@ public class PlayerController : MonoBehaviour
         ///Gonna try to make a general case for all controls where you can't do anything if you're lagged or stunned or using a special
         ///Or if you're using a dodge or if you're using an attack. Just put every case where the player shouldn't be mov
         ///This is so Players can't repeat an action while the action is happen
-        if (lag == false && attack == false && dodge == false && stunned == false && transforming == false && closeTheDistance == false
-            && charging == false && specialCloseTheDistance == false)
+        if (cantMove == false && closeTheDistance == false && specialCloseTheDistance == false)
         {
             //I can still perform attack while running, so I will need to make sure I can't run while attacking. Just checked,
             //the same happens when I use a dodge
@@ -276,7 +276,9 @@ public class PlayerController : MonoBehaviour
             ///this isn't a problem for attack, but it's a problem for dodging
             ///I think that the problem is that the animation keeps going, not that the action gets interrupt
             ///
-            tigerAnimator.SetBool("Idle", false);
+            //tigerAnimator.SetBool("Idle", false);
+
+            //May remove this
             if (attack == false && dodge == false && gameManagerScript.startingCutscene == false)
             {
                 moveDirection = orientation.forward * forwardInput + orientation.right * sideInput;
@@ -363,7 +365,7 @@ public class PlayerController : MonoBehaviour
 
                 StartCoroutine(Dodge());
             }
-            if (Input.GetKeyDown(KeyCode.E) && dodge == false && attack == false && stunned == false)
+            if (Input.GetKeyDown(KeyCode.E))
             {
                 //Transform();
                 //Debug.Log("Transform");
@@ -397,18 +399,18 @@ public class PlayerController : MonoBehaviour
 
         if (running == true)
         {
-            //animation.Play("Run Tweak");
-            tigerAnimator.SetTrigger("Run");
+            animation.Play("Run Tweak");
+            //tigerAnimator.SetTrigger("Run");
         }
-        else
-        {
-            tigerAnimator.SetTrigger("Run");
-        }
+        //else
+        //{
+            //tigerAnimator.SetTrigger("Run");
+        //}
         //Putting it on here atm because I want this to be interupted by stunning
         //Also, players can't do anything while the character is closing the distance
         //Put it out of the conditional because it's not an action
         ///Keeping this here even though I moved the code from this to the IEnumerator to play the animation
-        if (closeTheDistance == true && stunned == false)
+        if (closeTheDistance == true && cantMove == false)
         {
             animation.Play("Distance Closer");
                 //I would prefer to use nonImpulse, but it is too slow and using Impulse is unexpectedly cool
@@ -582,7 +584,7 @@ public class PlayerController : MonoBehaviour
             playerRb.constraints = RigidbodyConstraints.FreezeRotation;
             playerAudio.PlayOneShot(tigerSwing, 0.05f);
         }
-        if (stunned == true)
+        if (cantMove == true)
         {
             closeTheDistance = false;
             Debug.Log("I don't want to do it, but, closeTheDistance = " + closeTheDistance);
@@ -606,63 +608,68 @@ public class PlayerController : MonoBehaviour
         //Attacking
         ///Small note, I accidentally used & instead of && for lockedOn. It seems like it didn't affect the code
         ///Doing AttackDuration in attack methods instead
-        if (Input.GetMouseButtonDown(0) && lockedOn == true)
+        if(cantMove == false)
         {
-            //Moved attackDirection here because the player object gets rotated now
-            attackDirection = (target.transform.position - transform.position).normalized;
-
-            attackRotation = Quaternion.LookRotation(target.transform.position - transform.position);
-
-            //attackDirection isn't changing directions because it's using the empty Player object as the reference and the Player
-            //object doesn't move
-            if (birdActive == true)
+            if (Input.GetMouseButtonDown(0) && lockedOn == true)
             {
-                Swoop();
-            }
-            else if (tigerActive == true)
-            {
+                //Moved attackDirection here because the player object gets rotated now
+                attackDirection = (target.transform.position - transform.position).normalized;
 
-                Strike();
-            }
-            if (running == true)
-            {
-                running = false;
-            }
-        }
-        if (Input.GetMouseButtonDown(0) && lockedOn == false)
-        {
+                attackRotation = Quaternion.LookRotation(target.transform.position - transform.position);
 
-
-            //Temporary fix atm because while the below is what I want, I can't fix the non moving attack at
-            if (running == true)
-            {
-                running = false;
-                attackDirection = moveDirection; //changed from Vector3.fwd. Changed back from moveDirection
-                                                 //orientation.forward did not work out
-                                                 //While moveDirection makes the attack
-                                                 //moveDirection on its own will not move the player
+                //attackDirection isn't changing directions because it's using the empty Player object as the reference and the Player
+                //object doesn't move
                 if (birdActive == true)
                 {
-                    //attackDirection = (target.transform.position - bird.transform.position).normalized;
                     Swoop();
                 }
                 else if (tigerActive == true)
                 {
-                    //attackDirection = (target.transform.position - tiger.transform.position).normalized;
+
+                    Strike();
+                }
+                if (running == true)
+                {
+                    running = false;
+                }
+            }
+            if (Input.GetMouseButtonDown(0) && lockedOn == false)
+            {
+
+
+                //Temporary fix atm because while the below is what I want, I can't fix the non moving attack at
+                if (running == true)
+                {
+                    running = false;
+                    attackDirection = moveDirection; //changed from Vector3.fwd. Changed back from moveDirection
+                                                     //orientation.forward did not work out
+                                                     //While moveDirection makes the attack
+                                                     //moveDirection on its own will not move the player
+                    if (birdActive == true)
+                    {
+                        //attackDirection = (target.transform.position - bird.transform.position).normalized;
+                        Swoop();
+                    }
+                    else if (tigerActive == true)
+                    {
+                        //attackDirection = (target.transform.position - tiger.transform.position).normalized;
+                        Strike();
+                    }
+                }
+                if (running == false)
+                {
+                    attackDirection = Vector3.fwd;
                     Strike();
                 }
             }
-            if (running == false)
-            {
-                attackDirection = Vector3.fwd;
-                Strike();
-            }
         }
+ 
     }
 
     IEnumerator AttackDuration()
     {
         attack = true;
+        cantMove = true;
         if (tigerActive == true)
         {
             //tigerCollider.size = new Vector3(tigerCollider.size.x + 2.5f, tigerCollider.size.y, tigerCollider.size.z + 2.2f);
@@ -672,6 +679,7 @@ public class PlayerController : MonoBehaviour
 
         yield return new WaitForSeconds(attackTimeLength);
         attack = false;
+        cantMove = false;
         //Debug.Log("Attack");
         if (birdActive == true)
         {
@@ -737,6 +745,7 @@ public class PlayerController : MonoBehaviour
     {
         charging = true;
         specialInvincibility = true;
+        cantMove = true; //The placement of this stuff is necessary because specialCloseTheDistance is not affected by stuns, hun
         yield return new WaitForSeconds(1.5f);
         charging = false;
         
@@ -768,6 +777,7 @@ public class PlayerController : MonoBehaviour
         //bladeOfLight.SetActive(true);
         yield return new WaitForSeconds(2f);
         attack = false;
+        cantMove = true;
         specialInvincibility = false;
         bladeOfLight.SetActive(false);
         tigerSpecialAOE.SetActive(false);
@@ -873,10 +883,10 @@ public class PlayerController : MonoBehaviour
     IEnumerator StrikeLag()
     {
         //Atm after all attacks. The player can't do anything, even walk or dodge
-        lag = true;
+        cantMove = true;
         //Debug.Log("Attack Lag");
         yield return new WaitForSeconds(0.2f);
-        lag = false;
+        cantMove = false;
     }
     public void TigerSpecial()
     {
@@ -929,6 +939,7 @@ public class PlayerController : MonoBehaviour
     IEnumerator Dodge()
     {
         dodge = true;
+        cantMove = true;
         //dodgeEffect.SetActive(true);
         yield return new WaitForSeconds(0.8f);
         if (birdActive == true)
@@ -941,10 +952,9 @@ public class PlayerController : MonoBehaviour
     }
     IEnumerator DodgeLag()
     {
-        lag = true;
         Debug.Log("Dodge Lag");
         yield return new WaitForSeconds(0.2f);
-        lag = false;
+        cantMove = false;
     }
     IEnumerator SwoopLag()
     {
@@ -1034,6 +1044,7 @@ public class PlayerController : MonoBehaviour
     IEnumerator TransformCountdown()
     {
         transforming = true;
+        cantMove = true;
         //transformEffect.SetActive(true);
         Instantiate(transformEffect, transform.position, Quaternion.identity);
         //transformEffect.gameObject.SetActive(true);
@@ -1042,6 +1053,7 @@ public class PlayerController : MonoBehaviour
         //transformEffect.gameObject.SetActive(false);
         //Destroy(transformEffect);
         transforming = false;
+        cantMove = false;
     }
     public void Transform()
     {
@@ -1116,9 +1128,8 @@ public class PlayerController : MonoBehaviour
     IEnumerator StunDuration()
     {
         
-        stunned = true;
         stunnedInvincibility = true;
-
+        cantMove = true;
 
 
         //The display code works because of the camera. Because of the camera, the player character is always at the center of it, where
@@ -1152,9 +1163,8 @@ public class PlayerController : MonoBehaviour
             birdKnockedBack = false;
             //Debug.Log("Flinch done");
         }
-        stunned = false;
         stunnedInvincibility = false;
-        
+        cantMove = false;
     }
     //public void DisplayHP(int currentHP)
     //{

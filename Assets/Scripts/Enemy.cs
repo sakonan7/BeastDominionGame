@@ -242,8 +242,8 @@ public class Enemy : MonoBehaviour
         if (other.CompareTag("Tiger Attack Regular"))
         {
 
-            if (playerScript.attackLanded == false)
-            {
+            //if (playerScript.attackLanded == false)
+            //{
                 //For now, just trigger stun. I will use both of their directions to perform the knockback
                 //TakeDamage();
 
@@ -276,7 +276,7 @@ public class Enemy : MonoBehaviour
                 //Debug.Log(distance + " " + enemyRb.velocity);
                 StartCoroutine(FoeAttacked());
                 StartCoroutine(DamageDisplayDuration(2));
-            }
+            //}
         }
         if (other.CompareTag("Tiger Special"))
         {
