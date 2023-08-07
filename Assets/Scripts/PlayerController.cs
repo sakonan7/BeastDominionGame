@@ -747,7 +747,7 @@ public class PlayerController : MonoBehaviour
         canCombo = true;
         yield return new WaitForSeconds(1f); //1.3f instead of 0.1f, so lag can't take effect. Temporary?
         canCombo = false;
-        Debug.Log("May have Lost The Combo Opportunity");
+        Debug.Log("May have Lost The Combo Opportunity"); //Can test for this by checking if canCombo is false after this IEnumerator finish
     }
     //IEnumerator for charging up Blade of light
     //Blade of light also increases into its full size
