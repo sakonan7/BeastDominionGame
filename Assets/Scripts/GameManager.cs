@@ -29,10 +29,14 @@ public class GameManager : MonoBehaviour
     private string startMenuMusic = "Lightning Temple By Motoi Sakuraba";
     private string battleMusic = "Field Battle By Manaka Kataoka";
     private string explorationMusic = "Uncharted Island By Greg Edmonson";
+    private bool storyScroll = true;
+    public TextMeshProUGUI storyScrollObject;
+    private bool tutorialMessage = false;
+    public TextMeshProUGUI tutorialMessageObject;
 
     public bool startGame = false; //Set this to true so that you can move the player now
 
-    public bool startingCutscene = true;
+    public bool startingCutscene = false;
 
     public bool enemyJustDefeated = false;
 
@@ -59,6 +63,15 @@ public class GameManager : MonoBehaviour
         //{
             //StartGame();
         //}
+        if (storyScroll == true)
+        {
+            TheStoryScroll();
+        }
+        else if (tutorialMessage == true)
+        {
+            TheTutorialMessage();
+        }
+        //Need to make player unable to move until storyScroll and startingRun are 
     }
     //public void StartGame(string inputedDifficulty)
     //{
@@ -81,6 +94,14 @@ public class GameManager : MonoBehaviour
         playerScript.RunAnimationOff();
         barrier.SetActive(true);
         Area1();
+    }
+    public void TheStoryScroll()
+    {
+        storyScrollObject.gameObject.SetActive(true);
+    }
+    public void TheTutorialMessage()
+    {
+        tutorialMessageObject.gameObject.SetActive(true);
     }
     public void StartGame()
     {
@@ -142,5 +163,21 @@ public class GameManager : MonoBehaviour
     public void ResetFoeStruck()
     {
         foeStruck = false;
+    }
+
+    public void OnMouseUp()
+    {
+        if (storyScroll == true)
+        {
+            storyScroll = false;
+            storyScrollObject.gameObject.SetActive(false);
+            tutorialMessage = true;
+        }
+        if (tutorialMessage == true)
+        {
+            tutorialMessage = false;
+            tutorialMessageObject.gameObject.SetActive(false);
+            startingCutscene = true;
+        }
     }
 }

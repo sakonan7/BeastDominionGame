@@ -1265,6 +1265,14 @@ public class PlayerController : MonoBehaviour
     //This part will be dedicated to cutscenes
     //I think for this part, i will have the tiger run up to a sensor and destroy the sensor and start the game
     //That way the gameplay will always start when the tiger reaches a certain part. The same way I will have foes manifest in each aren
+    public void Cutscenes()
+    {
+        cantMove = true;
+    }
+    public void CutsceneOff()
+    {
+        cantMove = false;
+    }
     public void OpeningRun()
     {
         running = true;
