@@ -52,6 +52,9 @@ public class GameManager : MonoBehaviour
         //StartCoroutine(OpeningSeconds());
         music.text = "Music: " + battleMusic;
         music.transform.Translate(44,0,0);
+        playerScript.Cutscenes();
+        //Time.timeScale = 0;
+        StartCoroutine(TheStoryScroll());
     }
 
     // Update is called once per frame
@@ -63,14 +66,14 @@ public class GameManager : MonoBehaviour
         //{
             //StartGame();
         //}
-        if (storyScroll == true)
-        {
-            TheStoryScroll();
-        }
-        else if (tutorialMessage == true)
-        {
-            TheTutorialMessage();
-        }
+        //if (storyScroll == true)
+        //{
+            //TheStoryScroll();
+        //}
+        //else if (tutorialMessage == true)
+        //{
+            //TheTutorialMessage();
+        //}
         //Need to make player unable to move until storyScroll and startingRun are 
     }
     //public void StartGame(string inputedDifficulty)
@@ -95,19 +98,30 @@ public class GameManager : MonoBehaviour
         barrier.SetActive(true);
         Area1();
     }
-    public void TheStoryScroll()
+    IEnumerator TheStoryScroll()
     {
         storyScrollObject.gameObject.SetActive(true);
+        yield return new WaitForSeconds(1);
+        StartCoroutine(TheTutorialMessage());
     }
-    public void TheTutorialMessage()
+    IEnumerator TheTutorialMessage()
     {
+        storyScrollObject.gameObject.SetActive(false);
         tutorialMessageObject.gameObject.SetActive(true);
+        yield return new WaitForSeconds(1);
+        tutorialMessageObject.gameObject.SetActive(false);
+        //Time.timeScale = 1;
+        startingCutscene = true;
+        startGame = true;
     }
-    public void StartGame()
+    public void UIAppear() { 
+}
+    public void StartGameMethod()
     {
         //mainCam.SetActive(true);
         //cutsceneCam.SetActive(false);
         startingCutscene = false;
+        playerScript.CutsceneOff();
         playerScript.RunAnimationOff();
         barrier.SetActive(true);
         Area1();
@@ -167,13 +181,14 @@ public class GameManager : MonoBehaviour
 
     public void OnMouseUp()
     {
-        if (storyScroll == true)
+        Debug.Log("Clicked On Stuff");
+        if (storyScroll == true && gameObject.CompareTag("Continue"))
         {
             storyScroll = false;
             storyScrollObject.gameObject.SetActive(false);
             tutorialMessage = true;
         }
-        if (tutorialMessage == true)
+        if (tutorialMessage == true && gameObject.CompareTag("Continue"))
         {
             tutorialMessage = false;
             tutorialMessageObject.gameObject.SetActive(false);

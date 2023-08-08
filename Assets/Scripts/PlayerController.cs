@@ -83,7 +83,7 @@ public class PlayerController : MonoBehaviour
     public bool attackLanded = false;
     public bool canCombo = true;
     //I can either make the distance closers stop movement or use stuned/damaged to do the 
-    private bool cantMove = false;
+    private bool cantMove = true;
 
     private bool transforming = false;
     public bool stunnedInvincibility;
@@ -281,7 +281,7 @@ public class PlayerController : MonoBehaviour
             //tigerAnimator.SetBool("Idle", false);
 
             //May remove this
-            if (attack == false && dodge == false && gameManagerScript.startingCutscene == false)
+            if (attack == false && dodge == false)
             {
                 moveDirection = orientation.forward * forwardInput + orientation.right * sideInput;
 
@@ -586,7 +586,7 @@ public class PlayerController : MonoBehaviour
             playerRb.constraints = RigidbodyConstraints.FreezeRotation;
             playerAudio.PlayOneShot(tigerSwing, 0.05f);
         }
-        if (cantMove == true)
+        if (closeTheDistance == true && cantMove == true)
         {
             closeTheDistance = false;
             Debug.Log("I don't want to do it, but, closeTheDistance = " + closeTheDistance);
@@ -1265,9 +1265,14 @@ public class PlayerController : MonoBehaviour
     //This part will be dedicated to cutscenes
     //I think for this part, i will have the tiger run up to a sensor and destroy the sensor and start the game
     //That way the gameplay will always start when the tiger reaches a certain part. The same way I will have foes manifest in each aren
+    /// <summary>
+    /// For somereason, I need to set cantMove to private and to true from the very beginning, even though I am successfully changing
+    /// cantMove to 
+    /// </summary>
     public void Cutscenes()
     {
         cantMove = true;
+        //Debug.Log("Can't Move Should Be " + cantMove);
     }
     public void CutsceneOff()
     {
@@ -1330,8 +1335,9 @@ public class PlayerController : MonoBehaviour
     {
         if (other.gameObject.name == "Start Game Boundary")
         {
-            gameManagerScript.StartGame();
+            gameManagerScript.StartGameMethod();
             Destroy(other);
+            RunAnimationOff(); //For some reason,now it doesn't work in Game Mana
             //Debug.Log("Game Start");
         }
 
