@@ -9,10 +9,6 @@ public class Monkey : MonoBehaviour
     public GameObject HPBar;
     private GameObject cameraRef;
     private GameObject player;
-    private GameObject tiger;
-    private GameObject bird;
-    private Rigidbody tigerRB;
-    private Rigidbody birdRB;
     private PlayerController playerScript;
     private Enemy enemyScript;
     private float speed = 220;
@@ -62,11 +58,7 @@ public class Monkey : MonoBehaviour
         player = GameObject.Find("Player");
         playerRb = player.GetComponent<Rigidbody>();
         playerScript = player.GetComponent<PlayerController>();
-
-        tiger = playerScript.tiger;
-        bird = playerScript.bird;
-        tigerRB = tiger.GetComponent<Rigidbody>();
-        birdRB = bird.GetComponent<Rigidbody>();
+        
         monkeyRb = GetComponent<Rigidbody>();
         monkeyAttackReach = GetComponent<Collider>();
 
@@ -224,7 +216,7 @@ public class Monkey : MonoBehaviour
         attack = true;
         attackRange.SetActive(true);
         //StartCoroutine(Attack());
-        followDirection = (tiger.transform.position - transform.position).normalized;
+        followDirection = (player.transform.position - transform.position).normalized;
         //enemyScript.SetAttackEffect(attackEffect);
         enemyScript.SetAttackDirection(followDirection);
         enemyScript.SetForce(9);

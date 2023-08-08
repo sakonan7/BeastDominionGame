@@ -61,10 +61,6 @@ public class NewWolf : MonoBehaviour
     private GameObject player;
     private PlayerController playerScript;
     private Vector3 playerPosition;
-    private GameObject tiger;
-    private GameObject bird;
-    private Rigidbody tigerRB;
-    private Rigidbody birdRB;
 
     public bool isOnGround = true;
 
@@ -97,10 +93,6 @@ public class NewWolf : MonoBehaviour
 
         player = GameObject.Find("Player");
         playerScript = player.GetComponent<PlayerController>();
-        tiger = playerScript.tiger;
-        tigerRB = tiger.GetComponent<Rigidbody>();
-        bird = playerScript.bird;
-        birdRB = bird.GetComponent<Rigidbody>();
 
         cameraRef = GameObject.Find("Main Camera");
 
@@ -141,16 +133,11 @@ public class NewWolf : MonoBehaviour
         //I'm just going to try measuring distance instead
         if (playerScript.tigerActive == true)
         {
-            playerPosition = tiger.transform.position;
+            //playerPosition = tiger.transform.position;
             //attackRange.transform.position = tiger.transform.position;
-            distance = Vector3.Distance(tiger.transform.position, transform.position);
-            lookRotation = Quaternion.LookRotation(tiger.transform.position - transform.position);
+            distance = Vector3.Distance(player.transform.position, transform.position);
+            lookRotation = Quaternion.LookRotation(player.transform.position - transform.position);
             transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, 2);
-        }
-        else if (playerScript.birdActive == true)
-        {
-            playerPosition = bird.transform.position;
-            //attackRange.transform.position = bird.transform.position;
         }
 
         if (cooldown == true)
