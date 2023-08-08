@@ -766,6 +766,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6926350091770770419, guid: db7727c824c44604d8cbe9465dce1ab6, type: 3}
   m_PrefabInstance: {fileID: 1693775191}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1232818335 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3342428866874599388, guid: 4f0a326d21919974c803a88238e49d9a, type: 3}
+  m_PrefabInstance: {fileID: 7477383511868025903}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1344c3c82d62a2a41a3576d8abb8e3ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1269062167
 GameObject:
   m_ObjectHideFlags: 0
@@ -1064,7 +1075,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1297755657}
-  m_LocalRotation: {x: 0.078835115, y: 0.0000039122506, z: -0.00000030938568, w: 0.9968877}
+  m_LocalRotation: {x: 0.078835115, y: 0.0000039294036, z: -0.00000031074214, w: 0.9968877}
   m_LocalPosition: {x: -0.000012397766, y: 0.24800873, z: -0.63609314}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1351,6 +1362,17 @@ Rigidbody:
   m_CorrespondingSourceObject: {fileID: 2229569607164538043, guid: cc5d1e7149cb79549b8d52ad54f5c8e3, type: 3}
   m_PrefabInstance: {fileID: 4010593549892150239}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1450263295 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 449648260610420408, guid: 4f0a326d21919974c803a88238e49d9a, type: 3}
+  m_PrefabInstance: {fileID: 7477383511868025903}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1344c3c82d62a2a41a3576d8abb8e3ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1526250647 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4036520312971243658, guid: 4f0a326d21919974c803a88238e49d9a, type: 3}
@@ -1952,7 +1974,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1779919244}
-  m_LocalRotation: {x: 0.2639016, y: 0.000003905352, z: 0.00000042828995, w: 0.96454966}
+  m_LocalRotation: {x: 0.2639016, y: 0.000003913904, z: 0.0000004292278, w: 0.96454966}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -2625,6 +2647,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1049213117}
     - target: {fileID: 1550653510, guid: cc5d1e7149cb79549b8d52ad54f5c8e3, type: 3}
+      propertyPath: tigerComboLightUp
+      value: 
+      objectReference: {fileID: 1232818335}
+    - target: {fileID: 1550653510, guid: cc5d1e7149cb79549b8d52ad54f5c8e3, type: 3}
       propertyPath: healingItemDisplay
       value: 
       objectReference: {fileID: 505936366}
@@ -2632,6 +2658,10 @@ PrefabInstance:
       propertyPath: tigerSpecialCommand
       value: 
       objectReference: {fileID: 7477383511868025911}
+    - target: {fileID: 1550653510, guid: cc5d1e7149cb79549b8d52ad54f5c8e3, type: 3}
+      propertyPath: tigerSpecialLightUp
+      value: 
+      objectReference: {fileID: 1450263295}
     - target: {fileID: 1799832250106285452, guid: cc5d1e7149cb79549b8d52ad54f5c8e3, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -2772,9 +2802,18 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3991414391362678187, guid: 4f0a326d21919974c803a88238e49d9a, type: 3}
+      propertyPath: m_text
+      value: The Gorilla Empire has attacked and taken over the Beast Dominon. You,
+        The Prince are the sole survivor and you must return and take back your Kingdom!
+      objectReference: {fileID: 0}
+    - target: {fileID: 4092805830383091534, guid: 4f0a326d21919974c803a88238e49d9a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4194087187325688513, guid: 4f0a326d21919974c803a88238e49d9a, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4773532658103731901, guid: 4f0a326d21919974c803a88238e49d9a, type: 3}
       propertyPath: m_Pivot.x
@@ -2860,6 +2899,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5471523255201608641, guid: 4f0a326d21919974c803a88238e49d9a, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6125400271844185257, guid: 4f0a326d21919974c803a88238e49d9a, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 109
@@ -2867,6 +2910,14 @@ PrefabInstance:
     - target: {fileID: 6153993975139119163, guid: 4f0a326d21919974c803a88238e49d9a, type: 3}
       propertyPath: m_Name
       value: Battle Commands
+      objectReference: {fileID: 0}
+    - target: {fileID: 6153993975139119163, guid: 4f0a326d21919974c803a88238e49d9a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7065536954063967570, guid: 4f0a326d21919974c803a88238e49d9a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7692759527757037971, guid: 4f0a326d21919974c803a88238e49d9a, type: 3}
       propertyPath: m_Name

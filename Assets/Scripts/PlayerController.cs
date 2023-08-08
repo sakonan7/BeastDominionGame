@@ -83,7 +83,7 @@ public class PlayerController : MonoBehaviour
     public bool attackLanded = false;
     public bool canCombo = true;
     //I can either make the distance closers stop movement or use stuned/damaged to do the 
-    private bool cantMove = false;
+    private bool cantMove = true;
 
     private bool transforming = false;
     public bool stunnedInvincibility;
@@ -145,6 +145,8 @@ public class PlayerController : MonoBehaviour
     //Then a tiger roar
     public RawImage tigerComboIcon;
     public RawImage tigerSpecialCommand;
+    public RawImage tigerSpecialLightUp;
+    public RawImage tigerComboLightUp;
 
     //Miscellaneous
     private GameManager gameManagerScript;
@@ -756,6 +758,8 @@ public class PlayerController : MonoBehaviour
         charging = true;
         specialInvincibility = true;
         cantMove = true; //The placement of this stuff is necessary because specialCloseTheDistance is not affected by stuns, hun
+        tigerSpecialLightUp.gameObject.SetActive(true);
+        tigerComboLightUp.gameObject.SetActive(true);
         yield return new WaitForSeconds(1.5f);
         charging = false;
         
@@ -796,6 +800,8 @@ public class PlayerController : MonoBehaviour
         rackingUpCombo = false;
         tigerSpecialUnlocked = false;
         tigerSpecialCommand.gameObject.SetActive(false);
+        tigerSpecialLightUp.gameObject.SetActive(false);
+        tigerComboLightUp.gameObject.SetActive(false);
     }
     public void Swoop()
     {
