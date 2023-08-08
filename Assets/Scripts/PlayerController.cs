@@ -83,7 +83,7 @@ public class PlayerController : MonoBehaviour
     public bool attackLanded = false;
     public bool canCombo = true;
     //I can either make the distance closers stop movement or use stuned/damaged to do the 
-    private bool cantMove = true;
+    private bool cantMove = false;
 
     private bool transforming = false;
     public bool stunnedInvincibility;
@@ -1337,7 +1337,7 @@ public class PlayerController : MonoBehaviour
         {
             gameManagerScript.StartGameMethod();
             Destroy(other);
-            RunAnimationOff(); //For some reason,now it doesn't work in Game Mana
+            //RunAnimationOff(); //For some reason,now it doesn't work in Game Mana
             //Debug.Log("Game Start");
         }
 

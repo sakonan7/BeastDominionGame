@@ -33,10 +33,14 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI storyScrollObject;
     private bool tutorialMessage = false;
     public TextMeshProUGUI tutorialMessageObject;
+    public TextMeshProUGUI tutorialMessageObject2;
+    public GameObject battleCommandsObject;
+    public GameObject currentForm;
+    public GameObject HPDisplay;
 
-    public bool startGame = false; //Set this to true so that you can move the player now
+    public bool startGame = true; //Set this to true so that you can move the player now
 
-    public bool startingCutscene = false;
+    public bool startingCutscene = true;
 
     public bool enemyJustDefeated = false;
 
@@ -52,9 +56,9 @@ public class GameManager : MonoBehaviour
         //StartCoroutine(OpeningSeconds());
         music.text = "Music: " + battleMusic;
         music.transform.Translate(44,0,0);
-        playerScript.Cutscenes();
+        //playerScript.Cutscenes();
         //Time.timeScale = 0;
-        StartCoroutine(TheStoryScroll());
+        //StartCoroutine(TheStoryScroll());
     }
 
     // Update is called once per frame
@@ -113,8 +117,12 @@ public class GameManager : MonoBehaviour
         //Time.timeScale = 1;
         startingCutscene = true;
         startGame = true;
+        UIAppear();
     }
-    public void UIAppear() { 
+    public void UIAppear() {
+        battleCommandsObject.SetActive(true);
+        HPDisplay.SetActive(true);
+        currentForm.SetActive(true);
 }
     public void StartGameMethod()
     {
