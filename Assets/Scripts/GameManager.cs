@@ -39,7 +39,7 @@ public class GameManager : MonoBehaviour
     public GameObject currentForm;
     public GameObject HPDisplay;
 
-    public bool startGame = true; //Set this to true so that you can move the player now
+    public bool startGame = false; //Set this to true so that you can move the player now
 
     public bool startingCutscene = true;
 
@@ -115,6 +115,13 @@ public class GameManager : MonoBehaviour
         tutorialMessageObject.gameObject.SetActive(true);
         yield return new WaitForSeconds(1);
         tutorialMessageObject.gameObject.SetActive(false);
+        StartCoroutine(TheTutorialMessage2());
+    }
+    IEnumerator TheTutorialMessage2()
+    {
+        tutorialMessageObject2.gameObject.SetActive(true);
+        yield return new WaitForSeconds(1);
+        tutorialMessageObject2.gameObject.SetActive(false);
         //Time.timeScale = 1;
         startingCutscene = true;
         startGame = true;

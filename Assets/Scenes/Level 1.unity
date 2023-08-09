@@ -745,6 +745,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &916046484 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 301787691282221543, guid: 4f0a326d21919974c803a88238e49d9a, type: 3}
+  m_PrefabInstance: {fileID: 7477383511868025903}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1034591650 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6437177078801586567, guid: 4f0a326d21919974c803a88238e49d9a, type: 3}
@@ -1080,7 +1091,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1297755657}
-  m_LocalRotation: {x: 0.078835115, y: 0.0000039294036, z: -0.00000031074214, w: 0.9968877}
+  m_LocalRotation: {x: 0.078835115, y: 0.0000039122506, z: -0.00000030938568, w: 0.9968877}
   m_LocalPosition: {x: -0.000012397766, y: 0.24800873, z: -0.63609314}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1979,7 +1990,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1779919244}
-  m_LocalRotation: {x: 0.2639016, y: 0.000003913904, z: 0.0000004292278, w: 0.96454966}
+  m_LocalRotation: {x: 0.2639016, y: 0.000003905352, z: 0.00000042828995, w: 0.96454966}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -2784,42 +2795,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 402939165459784910, guid: 4f0a326d21919974c803a88238e49d9a, type: 3}
-      propertyPath: m_text
-      value: 'WASD - Movement
-
-        Space - Dodge
-
-        Left Click - Attack
-
-        Right
-        Click - Lock On/Change Lock On Target
-
-        X - Lock Off
-
-        F -
-        Pause Game/Unpause Game
-
-
-'
-      objectReference: {fileID: 0}
-    - target: {fileID: 3119505838467826828, guid: 4f0a326d21919974c803a88238e49d9a, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3991414391362678187, guid: 4f0a326d21919974c803a88238e49d9a, type: 3}
-      propertyPath: m_text
-      value: The Gorilla Empire has attacked and taken over the Beast Dominon. You,
-        The Prince are the sole survivor and you must return and take back your Kingdom!
-      objectReference: {fileID: 0}
-    - target: {fileID: 4092805830383091534, guid: 4f0a326d21919974c803a88238e49d9a, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4194087187325688513, guid: 4f0a326d21919974c803a88238e49d9a, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 4773532658103731901, guid: 4f0a326d21919974c803a88238e49d9a, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -2902,26 +2877,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4773532658103731901, guid: 4f0a326d21919974c803a88238e49d9a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5471523255201608641, guid: 4f0a326d21919974c803a88238e49d9a, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6125400271844185257, guid: 4f0a326d21919974c803a88238e49d9a, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 109
-      objectReference: {fileID: 0}
-    - target: {fileID: 6153993975139119163, guid: 4f0a326d21919974c803a88238e49d9a, type: 3}
-      propertyPath: m_Name
-      value: Battle Commands
-      objectReference: {fileID: 0}
-    - target: {fileID: 6153993975139119163, guid: 4f0a326d21919974c803a88238e49d9a, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7065536954063967570, guid: 4f0a326d21919974c803a88238e49d9a, type: 3}
-      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7692759527757037971, guid: 4f0a326d21919974c803a88238e49d9a, type: 3}
@@ -3052,6 +3007,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1034591650}
     - target: {fileID: 8123722900266441927, guid: 60ec10cfb6f3d844b8ff5decbda68e88, type: 3}
+      propertyPath: startGame
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8123722900266441927, guid: 60ec10cfb6f3d844b8ff5decbda68e88, type: 3}
       propertyPath: startMenu
       value: 
       objectReference: {fileID: 1526250647}
@@ -3099,6 +3058,10 @@ PrefabInstance:
       propertyPath: tutorialMessageObject
       value: 
       objectReference: {fileID: 278167061}
+    - target: {fileID: 8123722900266441927, guid: 60ec10cfb6f3d844b8ff5decbda68e88, type: 3}
+      propertyPath: tutorialMessageObject2
+      value: 
+      objectReference: {fileID: 916046484}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
