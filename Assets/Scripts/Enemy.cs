@@ -74,7 +74,7 @@ public class Enemy : MonoBehaviour
             //Debug.Log("Wolf Dies");
             gameManager.EnemyDefeated();
         }
-        if (lockedOn == true && gameObject != null)
+        if (lockedOn == true && HP > 0)
         {
             //Debug.Log("HP Bar Out");
             //I guess I guess I need to do this code in here. I guess it's like the code with Target.
@@ -144,7 +144,7 @@ public class Enemy : MonoBehaviour
     public void LockOn()
     {
         lockedOn = true;
-        Debug.Log("Enemy is Locked On");
+        //Debug.Log("Enemy is Locked On");
         //HPBar.SetActive(true);
     }
     public void LockOff()

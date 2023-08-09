@@ -1074,7 +1074,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 7071f57fec7c856409182885800ccaac, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 36b4babb85f75734da552a5b080a029b, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 0.141
   m_Pitch: 1
@@ -1264,6 +1264,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c909d079e754a844dbae4f2840f3151a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  battle: {fileID: 8300000, guid: 36b4babb85f75734da552a5b080a029b, type: 3}
+  victory: {fileID: 8300000, guid: e3204adb58601e44482fe1c089f1e361, type: 3}
   playerObj: {fileID: 4010593549892150240}
   player: {fileID: 1447893420}
   orientation: {fileID: 23484207}
@@ -1613,6 +1615,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c909d079e754a844dbae4f2840f3151a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  battle: {fileID: 0}
+  victory: {fileID: 0}
   playerObj: {fileID: 1447893420}
   player: {fileID: 0}
   orientation: {fileID: 23484207}

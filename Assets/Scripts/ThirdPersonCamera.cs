@@ -5,6 +5,9 @@ using Cinemachine;
 
 public class ThirdPersonCamera : MonoBehaviour
 {
+    private AudioSource musicSource;
+    public AudioClip battle;
+    public AudioClip victory;
     public Transform playerObj;
     public Transform player;
     public Transform orientation;
@@ -16,6 +19,8 @@ public class ThirdPersonCamera : MonoBehaviour
     private Vector3 originalPosition;
     private Quaternion originalRotation;
     public CinemachineFreeLook cinemachineFL;
+
+    private bool evokeOnce = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -29,6 +34,7 @@ public class ThirdPersonCamera : MonoBehaviour
         cinemachineFL.m_XAxis.m_MaxSpeed = 0.0f;
         cinemachineFL.m_YAxis.m_MaxSpeed = 0.0f;
         cinemachineFL.gameObject.SetActive(false);
+        musicSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -69,5 +75,23 @@ public class ThirdPersonCamera : MonoBehaviour
             transform.position = originalPosition;
             transform.rotation = originalRotation;
         }
+        if (gameManager.battleStart == true)
+        {
+            PlayBattleMusic();
+        }
+        if (gameManager.gameEnd == true)
+        {
+            PlayVictoryMusic();
+        }
+    }
+    public void PlayBattleMusic()
+    {
+        musicSource.clip = battle;
+        musicSource.Play();
+    }
+    public void PlayVictoryMusic()
+    {
+        musicSource.clip = victory;
+        musicSource.Play();
     }
 }

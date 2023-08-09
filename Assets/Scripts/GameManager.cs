@@ -9,9 +9,7 @@ public class GameManager : MonoBehaviour
 {
     public GameObject mainCam;
     public GameObject cutsceneCam;
-    private AudioSource musicSource;
-    public AudioClip battle;
-    public AudioClip victory;
+
     private bool gameOver = false;
     public GameObject player;
     private PlayerController playerScript;
@@ -21,6 +19,8 @@ public class GameManager : MonoBehaviour
     public List<GameObject> enemies;
     public string difficulty = "Normal"; //Before using buttons
     private int numOfEnemies = 1;
+    public bool battleStart = false;
+    public bool gameEnd = false;
 
     //Canvas
     public Canvas areaCanvas;
@@ -57,7 +57,7 @@ public class GameManager : MonoBehaviour
     {
         //player = GameObject.Find("Player");
         playerScript = player.GetComponent<PlayerController>();
-        musicSource = GameObject.Find("Main Camera").GetComponent<AudioSource>();
+        //musicSource = GameObject.Find("Main Camera").GetComponent<AudioSource>();
         //StartGame();
         //Area1();
         //Starting Cutscene
@@ -89,7 +89,8 @@ public class GameManager : MonoBehaviour
         {
             playerScript.Cutscenes();
             congratulationsMessage.gameObject.SetActive(true);
-            Time.timeScale = 0;
+            //Time.timeScale = 0;
+            VictoryMusicOn();
         }
     }
     //public void StartGame(string inputedDifficulty)
@@ -113,7 +114,8 @@ public class GameManager : MonoBehaviour
         playerScript.RunAnimationOff();
         barrier.SetActive(true);
         Area1();
-        //musicSource.;
+        //musicSource.clip = battle;
+        //musicSource.Play();
     }
     IEnumerator TheStoryScroll()
     {
@@ -154,12 +156,21 @@ public class GameManager : MonoBehaviour
         playerScript.RunAnimationOff();
         barrier.SetActive(true);
         Area1();
-        BattleMusicOn();
+        //BattleMusicOn();
     }
     public void BattleMusicOn()
-    {//May not work when switching music from exploration mus
+    {
+        battleStart = true;
+        //May not work when switching music from exploration mus
         music.text = "Music: " + battleMusic;
         music.transform.Translate(44, 0, 0);
+    }
+    public void VictoryMusicOn()
+    {
+        gameEnd = true;
+        //May not work when switching music from exploration mus
+        music.text = "Music: " + victoryMusic;
+        music.transform.Translate(5, 0, 0);
     }
     public void Area1()
     {

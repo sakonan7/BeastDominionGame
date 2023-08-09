@@ -748,7 +748,7 @@ public class PlayerController : MonoBehaviour
     IEnumerator ComboAttack()
     {
         canCombo = true;
-        yield return new WaitForSeconds(1f); //1.3f instead of 0.1f, so lag can't take effect. Temporary?
+        yield return new WaitForSeconds(2f); //1.3f instead of 0.1f, so lag can't take effect. Temporary?
         canCombo = false;
         Debug.Log("May have Lost The Combo Opportunity"); //Can test for this by checking if canCombo is false after this IEnumerator finish
     }
@@ -958,6 +958,7 @@ public class PlayerController : MonoBehaviour
     {
         dodge = true;
         cantMove = true;
+        canCombo = false;
         //dodgeEffect.SetActive(true);
         yield return new WaitForSeconds(0.8f);
         if (birdActive == true)
