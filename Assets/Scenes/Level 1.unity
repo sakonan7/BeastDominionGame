@@ -676,6 +676,11 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 67.47, y: -180.49, z: -174.834}
+--- !u!1 &710488045 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4194087187325688513, guid: 4f0a326d21919974c803a88238e49d9a, type: 3}
+  m_PrefabInstance: {fileID: 7477383511868025903}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &829102115
 GameObject:
   m_ObjectHideFlags: 0
@@ -3082,6 +3087,10 @@ PrefabInstance:
       propertyPath: battleCommandsObject
       value: 
       objectReference: {fileID: 1960940731}
+    - target: {fileID: 8123722900266441927, guid: 60ec10cfb6f3d844b8ff5decbda68e88, type: 3}
+      propertyPath: battleCommands2Object
+      value: 
+      objectReference: {fileID: 710488045}
     - target: {fileID: 8123722900266441927, guid: 60ec10cfb6f3d844b8ff5decbda68e88, type: 3}
       propertyPath: enemies.Array.data[0]
       value: 

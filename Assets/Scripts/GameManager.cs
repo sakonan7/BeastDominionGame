@@ -35,6 +35,7 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI tutorialMessageObject;
     public TextMeshProUGUI tutorialMessageObject2;
     public GameObject battleCommandsObject;
+    public GameObject battleCommands2Object;
     public GameObject currentForm;
     public GameObject HPDisplay;
 
@@ -56,9 +57,9 @@ public class GameManager : MonoBehaviour
         //StartCoroutine(OpeningSeconds());
         music.text = "Music: " + battleMusic;
         music.transform.Translate(44,0,0);
-        //playerScript.Cutscenes();
+        playerScript.Cutscenes();
         //Time.timeScale = 0;
-        //StartCoroutine(TheStoryScroll());
+        StartCoroutine(TheStoryScroll());
     }
 
     // Update is called once per frame
@@ -121,6 +122,7 @@ public class GameManager : MonoBehaviour
     }
     public void UIAppear() {
         battleCommandsObject.SetActive(true);
+        battleCommands2Object.SetActive(true);
         HPDisplay.SetActive(true);
         currentForm.SetActive(true);
 }

@@ -83,7 +83,7 @@ public class PlayerController : MonoBehaviour
     public bool attackLanded = false;
     public bool canCombo = true;
     //I can either make the distance closers stop movement or use stuned/damaged to do the 
-    private bool cantMove = true;
+    private bool cantMove = false;
 
     private bool transforming = false;
     public bool stunnedInvincibility;
