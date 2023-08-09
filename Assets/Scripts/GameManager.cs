@@ -55,8 +55,6 @@ public class GameManager : MonoBehaviour
         //Area1();
         //Starting Cutscene
         //StartCoroutine(OpeningSeconds());
-        music.text = "Music: " + battleMusic;
-        music.transform.Translate(44,0,0);
         playerScript.Cutscenes();
         //Time.timeScale = 0;
         StartCoroutine(TheStoryScroll());
@@ -142,6 +140,12 @@ public class GameManager : MonoBehaviour
         playerScript.RunAnimationOff();
         barrier.SetActive(true);
         Area1();
+        BattleMusicOn();
+    }
+    public void BattleMusicOn()
+    {//May not work when switching music from exploration mus
+        music.text = "Music: " + battleMusic;
+        music.transform.Translate(44, 0, 0);
     }
     public void Area1()
     {
