@@ -140,6 +140,7 @@ public class PlayerController : MonoBehaviour
     public int numberOfItems = 0;
     //RectTransform newTargetRect;
     //public GameObject newTarget;
+    public GameObject comboCounterHolder;
     public TextMeshProUGUI comboCounter; //Make it slightly increase in size and become yellow which each. When it reaches 3, make it
     //yellow orange, then a yellower orange for hits after 3, then light blue for 6 hits and the special attack pops
     //Then a tiger roar
@@ -509,7 +510,7 @@ public class PlayerController : MonoBehaviour
                 //And to have the new target appear over the targeted foe
                 //newTargetRect = newTarget.GetComponent<RectTransform>();
                 //newTargetRect.localPosition = new Vector2(target.transform.position.x, target.transform.position.y);
-
+                target.SetActive(true);
                 //Code to make lockedOn symbol face camera
                 //The original simple LookAt(cameraRef.transform) didn't work because it showed the clear backside of the plane/quad instead
                 target.transform.LookAt(target.transform.position - (cameraRef.transform.position - target.transform.position));
@@ -606,7 +607,7 @@ public class PlayerController : MonoBehaviour
         //like getting damaged or performing a spec
         if (rackingUpCombo == false)
         {
-            comboCounter.gameObject.SetActive(false);
+            comboCounterHolder.gameObject.SetActive(false);
             hitNumber = 0;
         }
         //Attacking
@@ -740,7 +741,7 @@ public class PlayerController : MonoBehaviour
         if (tigerActive == true)
         {
             rackingUpCombo = true;
-            comboCounter.gameObject.SetActive(true);
+            comboCounterHolder.gameObject.SetActive(true);
             hitNumber = 0; //Was initially 1, but I decided to put hitNumber++ in AttackLandedTrue(
         }
     }
@@ -1042,7 +1043,7 @@ public class PlayerController : MonoBehaviour
                 //{
                 //Debug.Log("Targeted Enemy is null");
                 //}
-                target.SetActive(true);
+                
                 lockedOn = true;
             //I was going to get rid of this because it looked like this code was for shifting the target
             //But it's actually if the lockOn function isn't even on

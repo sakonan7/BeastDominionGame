@@ -9,6 +9,9 @@ public class GameManager : MonoBehaviour
 {
     public GameObject mainCam;
     public GameObject cutsceneCam;
+    private AudioSource musicSource;
+    public AudioClip battle;
+    public AudioClip victory;
     private bool gameOver = false;
     public GameObject player;
     private PlayerController playerScript;
@@ -17,6 +20,7 @@ public class GameManager : MonoBehaviour
     private Vector3 playerPositionStart = new Vector3(16.4f, 0, -11.24f);
     public List<GameObject> enemies;
     public string difficulty = "Normal"; //Before using buttons
+    private int numOfEnemies = 1;
 
     //Canvas
     public Canvas areaCanvas;
@@ -29,6 +33,7 @@ public class GameManager : MonoBehaviour
     private string startMenuMusic = "Lightning Temple By Motoi Sakuraba";
     private string battleMusic = "Field Battle By Manaka Kataoka";
     private string explorationMusic = "Uncharted Island By Greg Edmonson";
+    private string victoryMusic = "Victory Fanfare By Hitoshi Sakimoto";
     private bool storyScroll = true;
     public TextMeshProUGUI storyScrollObject;
     private bool tutorialMessage = false;
@@ -38,6 +43,7 @@ public class GameManager : MonoBehaviour
     public GameObject battleCommands2Object;
     public GameObject currentForm;
     public GameObject HPDisplay;
+    public TextMeshProUGUI congratulationsMessage;
 
     public bool startGame = false; //Set this to true so that you can move the player now
 
@@ -51,6 +57,7 @@ public class GameManager : MonoBehaviour
     {
         //player = GameObject.Find("Player");
         playerScript = player.GetComponent<PlayerController>();
+        musicSource = GameObject.Find("Main Camera").GetComponent<AudioSource>();
         //StartGame();
         //Area1();
         //Starting Cutscene
@@ -67,17 +74,23 @@ public class GameManager : MonoBehaviour
         //This method will run until startGame == true
         //if (startGame == false)
         //{
-            //StartGame();
+        //StartGame();
         //}
         //if (storyScroll == true)
         //{
-            //TheStoryScroll();
+        //TheStoryScroll();
         //}
         //else if (tutorialMessage == true)
         //{
-            //TheTutorialMessage();
+        //TheTutorialMessage();
         //}
         //Need to make player unable to move until storyScroll and startingRun are 
+        if (numOfEnemies == 0)
+        {
+            playerScript.Cutscenes();
+            congratulationsMessage.gameObject.SetActive(true);
+            Time.timeScale = 0;
+        }
     }
     //public void StartGame(string inputedDifficulty)
     //{
@@ -100,6 +113,7 @@ public class GameManager : MonoBehaviour
         playerScript.RunAnimationOff();
         barrier.SetActive(true);
         Area1();
+        //musicSource.;
     }
     IEnumerator TheStoryScroll()
     {
@@ -168,6 +182,7 @@ public class GameManager : MonoBehaviour
         //Instantiate(enemies[1], new Vector3(enemies[1].transform.position.x + 10, enemies[1].transform.position.y, enemies[1].transform.position.z - 5), enemies[1].transform.rotation);
         //enemies[1].name = "Monkey";
         //May need to make a boolean for each foe when they get damaged so I can reduce their HP Bar
+        numOfEnemies = 1;
     }
     //This is all temporary code because it would be weird for enemy HP to be displayed like this
     public void DisplayEnemyHP ()
@@ -183,6 +198,7 @@ public class GameManager : MonoBehaviour
             enemyJustDefeated = true;
             StartCoroutine(SlowDown());
         }
+        numOfEnemies--;
     }
     IEnumerator SlowDown()
     {
