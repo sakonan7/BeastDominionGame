@@ -90,7 +90,6 @@ public class Enemy : MonoBehaviour
     public void SetHP(int newHP)
     {
         HP = newHP;
-        Debug.Log("Enemy's HP is = " + HP);
     }
     public int GetHP()
     {

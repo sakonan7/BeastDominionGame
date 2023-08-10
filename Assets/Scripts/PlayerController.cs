@@ -370,16 +370,16 @@ public class PlayerController : MonoBehaviour
 
                 StartCoroutine(Dodge());
             }
-            if (Input.GetKeyDown(KeyCode.E))
-            {
+            //if (Input.GetKeyDown(KeyCode.E))
+            //{
                 //Transform();
                 //Debug.Log("Transform");
-                StartCoroutine(TransformCountdown());
-                if (running == true)
-                {
-                    running = false;
-                }
-            }
+                //StartCoroutine(TransformCountdown());
+                //if (running == true)
+                //{
+                    //running = false;
+                //}
+            //}
 
             //Special Attack
             //Changed it so that ChargeUp will determine what direction Tiger will go
@@ -454,13 +454,6 @@ public class PlayerController : MonoBehaviour
 
         }
 
-
-
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-
-            TigerFlinching2();
-        }
 
 
             //Motion Blur
@@ -773,7 +766,20 @@ public class PlayerController : MonoBehaviour
             attackDirection = (target.transform.position - transform.position).normalized;
             transform.rotation = Quaternion.Slerp(transform.rotation, attackRotation, 5);
             attackRotation = Quaternion.LookRotation(target.transform.position - transform.position);
-            specialCloseTheDistance = true;
+            if (distance <= 5)
+            {
+                animation.Play("Distance Closer");
+                //I would prefer to use nonImpulse, but it is too slow and using Impulse is unexpectedly cool
+                playerRb.AddForce(attackDirection * (attackForce + 10), ForceMode.Impulse);
+                animation.Play("Attack 1 & 2");
+                StartCoroutine(TigerSpecialDuration());
+                TigerSpecial();
+            }
+            else
+            {
+                specialCloseTheDistance = true;
+            }
+            
         }
         else if (lockedOn == false)
         {
