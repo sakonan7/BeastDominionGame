@@ -48,9 +48,9 @@ public class EnemyHPBar : MonoBehaviour
     }
     public void HPDecrease(float newDamage, float originalHP)
     {
-        float damage = (originalHPLength / originalHP) * newDamage;
-        HP.transform.localScale -= new Vector3(damage, 0, 0);
-        HP.transform.position -= new Vector3(damage/2, 0, 0);
+        //float damage = (originalHPLength / originalHP) * newDamage;
+        //HP.transform.localScale -= new Vector3(damage, 0, 0);
+        //HP.transform.position -= new Vector3(damage/2, 0, 0);
         //Debug.Log("Damage Dealt Is " +damage);
     }
     void LateUpdate()

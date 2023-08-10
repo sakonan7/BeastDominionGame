@@ -18,7 +18,7 @@ public class Monkey : MonoBehaviour
     private Vector3 followDirection;
     private Vector3 attackDirection;
     private Quaternion lookRotation;
-    private float jumpForce = 100; //Slight jump before attack
+    private float jumpForce = 80; //Slight jump before attack
     private float attackForce = 1; //May remove attackForce because Monkey doesn't knock chaarcter back a
     private bool attack = false;
     private bool beginningIdle = true;
@@ -47,7 +47,7 @@ public class Monkey : MonoBehaviour
 
     private GameManager gameManager;
     public int HP = 5;
-    private bool testingStun = true;
+    private bool testingStun = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -187,6 +187,7 @@ public class Monkey : MonoBehaviour
         //PlayAttackEffect();
         //}
         monkeyRb.constraints = RigidbodyConstraints.FreezeRotation;
+
         yield return new WaitForSeconds(1.5f);
         animator.SetBool("Attack 1", false);
         attack = false;
@@ -203,6 +204,10 @@ public class Monkey : MonoBehaviour
         {
             attackFinished = true;
             //playerStunned = false; //Because a second atack will not be made on the bird
+        }
+        if (enemyScript.hitLanded == true)
+        {
+            attackEffect.Play();
         }
         enemyScript.ResetHitLanded();
         Debug.Log("First Hit");
@@ -230,6 +235,10 @@ public class Monkey : MonoBehaviour
         enemyScript.SetComboFinisher();
 
         monkeyRb.constraints = RigidbodyConstraints.FreezeRotation;
+        if (enemyScript.hitLanded == true)
+        {
+            attackEffect.Play();
+        }
         yield return new WaitForSeconds(1f);
         animator.SetBool("Attack 2", false);
         //StartCoroutine(StartCoolDown());

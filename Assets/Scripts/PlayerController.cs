@@ -565,7 +565,7 @@ public class PlayerController : MonoBehaviour
             OpeningRun();
         }
     }
-    private void LateUpdate()
+    public void LateUpdate()
     {
         //Lock On
         //Changing code for now because lock on doesn't work on foes who have been generated into the scene
@@ -621,7 +621,7 @@ public class PlayerController : MonoBehaviour
                 //Moved attackDirection here because the player object gets rotated now
                 attackDirection = (targetedEnemy.transform.position - transform.position).normalized;
 
-                attackRotation = Quaternion.LookRotation(target.transform.position - transform.position);
+                attackRotation = Quaternion.LookRotation(targetedEnemy.transform.position - transform.position);
                 transform.rotation = Quaternion.Slerp(transform.rotation, attackRotation, 10); //Moved this from Strike() to
                 //see if I can immediately turn my character towards an ene
 
@@ -775,7 +775,7 @@ public class PlayerController : MonoBehaviour
         {
             attackDirection = (targetedEnemy.transform.position - transform.position).normalized;
             transform.rotation = Quaternion.Slerp(transform.rotation, attackRotation, 5);
-            attackRotation = Quaternion.LookRotation(target.transform.position - transform.position);
+            attackRotation = Quaternion.LookRotation(targetedEnemy.transform.position - transform.position);
             if (distance <= 5)
             {
                 animation.Play("Distance Closer");
@@ -927,7 +927,7 @@ public class PlayerController : MonoBehaviour
         
         playerAudio.PlayOneShot(tigerSwing, 0.05f);
         
-        attackRotation = Quaternion.LookRotation(target.transform.position - transform.position);
+        attackRotation = Quaternion.LookRotation(targetedEnemy.transform.position - transform.position);
         transform.rotation = Quaternion.Slerp(transform.rotation, attackRotation, 10); //Am using all the attack rotations
         //here because there is a charge up before Tiger Special Attack
         //playerRb.AddRelativeTorque(Vector3.down * 5, ForceMode.Impulse);

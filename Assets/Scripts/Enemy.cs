@@ -116,7 +116,7 @@ public class Enemy : MonoBehaviour
         hitLanded = true; //I could always do hitLanded = !hitLanded, but that would make it potentially confusing if
         //I use a long combo
         hitNumber++;
-        PlayAttackEffect(whichEffect);
+        //PlayAttackEffect(whichEffect);
     }
     public void ResetHitLanded()
     {
