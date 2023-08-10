@@ -148,6 +148,7 @@ public class PlayerController : MonoBehaviour
     public RawImage tigerSpecialCommand;
     public RawImage tigerSpecialLightUp;
     public RawImage tigerComboLightUp;
+    public TextMeshProUGUI pauseMessage;
 
     //Miscellaneous
     private GameManager gameManagerScript;
@@ -201,12 +202,10 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.F) && paused == false)
         {
             PauseGame();
-            Debug.Log("Paused?");
         }
         else if (Input.GetKeyDown(KeyCode.F) && paused == true)
         {
             UnpauseGame();
-            Debug.Log("Unpause? I think this problem started by switching to FixedUpdate");
         }
     }
     //I tried putting everything in regular Update(), but it makes everything a lot slower
@@ -572,6 +571,10 @@ public class PlayerController : MonoBehaviour
             //sensor.SetActive(true);
             LockOn();
         }
+        if (Input.GetKeyDown(KeyCode.X) && lockedOn == true)
+        {
+            LockOff();
+        }
         if (distance < 3 && closeTheDistance == true)
         {
             Debug.Log("Distance met For Regul");
@@ -614,6 +617,8 @@ public class PlayerController : MonoBehaviour
                 attackDirection = (target.transform.position - transform.position).normalized;
 
                 attackRotation = Quaternion.LookRotation(target.transform.position - transform.position);
+                transform.rotation = Quaternion.Slerp(transform.rotation, attackRotation, 10); //Moved this from Strike() to
+                //see if I can immediately turn my character towards an ene
 
                 //attackDirection isn't changing directions because it's using the empty Player object as the reference and the Player
                 //object doesn't move
@@ -856,7 +861,7 @@ public class PlayerController : MonoBehaviour
         //}
         if (distance > 15 && lockedOn)
         {
-            transform.rotation = Quaternion.Slerp(transform.rotation, attackRotation, 10) ;
+            
             attackTimeLength = normalTigerAttacklength;
             StartCoroutine(AttackDuration());
             //playerRb.AddForce(attackDirection * (attackForce + 14), ForceMode.Impulse);//Changed from 8 to 12
@@ -1309,11 +1314,13 @@ public class PlayerController : MonoBehaviour
     //}
     public void PauseGame()
     {
+        pauseMessage.gameObject.SetActive(true);
         Time.timeScale = 0;
         paused = true;
     }
     public void UnpauseGame()
     {
+        pauseMessage.gameObject.SetActive(false);
         Time.timeScale = 1;
         paused = false;
     }
