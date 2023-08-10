@@ -94,13 +94,14 @@ public class GameManager : MonoBehaviour
             VictoryMusicOn();
         }
     }
+
     //public void StartGame(string inputedDifficulty)
     //{
-        //Instantiate(player, player.transform.position, player.transform.rotation);
-        //normal.onClick = difficulty == "Normal";
-        //difficulty = inputedDifficulty;
-        //startGame = true;
-        //Area1();
+    //Instantiate(player, player.transform.position, player.transform.rotation);
+    //normal.onClick = difficulty == "Normal";
+    //difficulty = inputedDifficulty;
+    //startGame = true;
+    //Area1();
     //}
     void ResetPlayerPosition()
     {
@@ -173,6 +174,10 @@ public class GameManager : MonoBehaviour
         //May not work when switching music from exploration mus
         music.text = "Music: " + victoryMusic;
         music.transform.Translate(0, 0, 0);
+    }
+    public void GameOver()
+    {
+        SceneManager.LoadScene("Level 1");
     }
     public void TutorialLevel()
     {

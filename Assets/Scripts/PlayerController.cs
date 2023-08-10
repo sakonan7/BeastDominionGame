@@ -149,6 +149,7 @@ public class PlayerController : MonoBehaviour
     public RawImage tigerSpecialLightUp;
     public RawImage tigerComboLightUp;
     public TextMeshProUGUI pauseMessage;
+    public TextMeshProUGUI gameOverMessage;
 
     //Miscellaneous
     private GameManager gameManagerScript;
@@ -395,6 +396,10 @@ public class PlayerController : MonoBehaviour
                     running = false;
                 }
             }
+            if (Input.GetKeyDown(KeyCode.G))
+            {
+                LoseHP(10, 1);
+            }
 
         }
 
@@ -614,7 +619,7 @@ public class PlayerController : MonoBehaviour
             if (Input.GetMouseButtonDown(0) && lockedOn == true)
             {
                 //Moved attackDirection here because the player object gets rotated now
-                attackDirection = (target.transform.position - transform.position).normalized;
+                attackDirection = (targetedEnemy.transform.position - transform.position).normalized;
 
                 attackRotation = Quaternion.LookRotation(target.transform.position - transform.position);
                 transform.rotation = Quaternion.Slerp(transform.rotation, attackRotation, 10); //Moved this from Strike() to
@@ -768,7 +773,7 @@ public class PlayerController : MonoBehaviour
         playerAudio.PlayOneShot(bladeOfLightChargeUp, 0.2f);
         if (lockedOn == true)
         {
-            attackDirection = (target.transform.position - transform.position).normalized;
+            attackDirection = (targetedEnemy.transform.position - transform.position).normalized;
             transform.rotation = Quaternion.Slerp(transform.rotation, attackRotation, 5);
             attackRotation = Quaternion.LookRotation(target.transform.position - transform.position);
             if (distance <= 5)
@@ -799,7 +804,7 @@ public class PlayerController : MonoBehaviour
     {
         //attack = true;
         //specialInvincibility = true;
-        //playerAudio.PlayOneShot(tigerSpecial, 0.2f);
+        playerAudio.PlayOneShot(tigerSpecial, 0.1f);
         //bladeOfLight.SetActive(true);
         yield return new WaitForSeconds(2f);
         attack = false;
@@ -1327,8 +1332,11 @@ public class PlayerController : MonoBehaviour
     IEnumerator GameOverSlowDown()
     {
         Time.timeScale = 0.2f;
+        gameOverMessage.gameObject.SetActive(true);
         yield return new WaitForSeconds(0.8f);
-        Time.timeScale = 0;
+        //Time.timeScale = 0;
+        Time.timeScale = 1; //The interesting thingis that is that the timeScale doesn't set back to . gameOverMessage does setback, 
+        gameManagerScript.GameOver();
     }
     public void OnCollisionEnter(Collision collision)
     {
