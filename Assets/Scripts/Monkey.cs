@@ -80,7 +80,6 @@ public class Monkey : MonoBehaviour
         enemyScript.attackEffect[0] = attackEffect;
         audio = GetComponent<AudioSource>();
         enemyScript.enemySounds[0] = monkeyAttack;
-        enemyScript.SetHP(HP);
 
         cameraRef = GameObject.Find("Main Camera");
 
@@ -335,54 +334,40 @@ public class Monkey : MonoBehaviour
     {
         //if (other.gameObject.CompareTag("Sensor"))
         //{
-        //playerScript.EnableLockOn(); //It looks like I either can't use a method outside the class or Tiger Sensor specifically
-        //isn't instantiated because Monkey Attack Range is for some reason
-        //Debug.Log("Can Lock On?");
+            //playerScript.EnableLockOn(); //It looks like I either can't use a method outside the class or Tiger Sensor specifically
+            //isn't instantiated because Monkey Attack Range is for some reason
+            //Debug.Log("Can Lock On?");
         //}
         //attack == first is to trigger the attack method when Monkey is chasing the play
         //Need isOnGround because the Monkey triggers this two times by running into the collider and then falling into it
-        if (other.CompareTag("Tiger Attack Regular"))
-        {
-            //For now, just trigger stun. I will use both of their directions to perform the knockback
-            //TakeDamage();
 
-            //enemyScript.HP -= 2;
-            Damaged();
-            //playerScript.PlayTigerRegularStrike(transform.position);
-            //Vector3 knockbackDirection = (transform.position - tiger.transform.position).normalized;
-            //knockback force is inconsistent. Sometimes it doesn't knockback at all. Sometimes it knocks back too much
-            //It doesn't matter what the value is.
-            //It may not matter because I will have the attack lag minimized
-            //But I don't want the player to whiff attacks, so I think I will make sure the tiger is the right distance from the wolf
-            //Unless I can make a force play until a certain distance is reached
-            //I can't use forcemode.impulse then
-            //wolfRb.AddForce(playerScript.attackDirection * 15, ForceMode.Impulse);
-            //playerScript.AttackLandedTrue();
-        }
-        if (other.CompareTag("Tiger Special"))
-        {
-            //For now, just trigger stun. I will use both of their directions to perform the knockback
-            //TakeDamage();
-
-            //enemyScript.HP -= 7;
-            Damaged();
-            //playerScript.PlayTigerSpecialStrike(transform.position);
-            //Vector3 knockbackDirection = (transform.position - tiger.transform.position).normalized;
-            //knockback force is inconsistent. Sometimes it doesn't knockback at all. Sometimes it knocks back too much
-            //It doesn't matter what the value is.
-            //It may not matter because I will have the attack lag minimized
-            //But I don't want the player to whiff attacks, so I think I will make sure the tiger is the right distance from the wolf
-            //Unless I can make a force play until a certain distance is reached
-            //I can't use forcemode.impulse then
-            //wolfRb.AddForce(playerScript.attackDirection * 20, ForceMode.Impulse);
-            //playerScript.AttackLandedTrue();
-        }
     }
-    public void Damaged()
+    public void TakeDamage()
     {
-        if (attack == false)
+        if (playerScript.tigerActive == true)
         {
-            Stunned();
+            
+            //HPBar.transform.localScale = new Vector3(HPBar.transform.localScale.x - 0.008f, 0, 0);
+            if (playerScript.specialInvincibility == false)
+            {
+                HP -= 2;
+            }
+            else if (playerScript.specialInvincibility == true)
+            {
+                HP -= 2;
+            }
+        }
+        else if (playerScript.birdActive == true)
+        {
+            HP -= 1;
+            //HPBar.transform.localScale = new Vector3(HPBar.transform.localScale.x - 0.004f, 0, 0);
+        }
+        if (HP <= 0)
+        {
+            Destroy(gameObject);
+            //Need to put an if case because there are chances I can kill a foe that isn't locked on
+            //I think I will put a locked on boolean on foes
+            playerScript.LockOff();
         }
     }
     public void Stunned()
