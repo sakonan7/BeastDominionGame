@@ -526,7 +526,7 @@ public class PlayerController : MonoBehaviour
                                                                                                    //and player
             }
             //I may want to change this because I can trigger an error by trying to access enemyScript when targetEnemy has been killed
-            if (enemyScript.HP <= 0)
+            if (enemyScript.GetHP() <= 0)
             {
                 lockedOn = false;
                 Debug.Log("Can Lock On again"); //I think this should work because target gameObject is not part of

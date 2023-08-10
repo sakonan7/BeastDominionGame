@@ -15,9 +15,9 @@ public class Enemy : MonoBehaviour
     //I thought of complex attacks like Kingdom Hearts, and I could just modify the size of the collider in the individual enemy script
     //Could also feed the damage of the enemy script in here
     //Could do XemnasHelicopterSlash(), enemyScript.damage = 10; XemnasSparkOrbs(), enemyScript.damage = 5, enemyScript.attribute = thunder
-    
-        //I need to set Vector3 attackDirection here, because I need it for playerControll
-    public int HP;
+
+    //I need to set Vector3 attackDirection here, because I need it for playerControll
+    private int HP;
     private float originalHP;
     public int damage = 0;
     public ParticleSystem [] attackEffect = new ParticleSystem [3];
@@ -43,7 +43,7 @@ public class Enemy : MonoBehaviour
     private bool attacked = false;
     private bool hitAgainstWall = true;
     public bool hitLanded = false;
-    private ConstantForce enemyForce;
+    //private ConstantForce enemyForce;
     // Start is called before the first frame update
     void Start()
     {
@@ -56,11 +56,11 @@ public class Enemy : MonoBehaviour
         //HPBar.SetActive(false);
         originalHP = HP;
         HPBarScript = HPBar.GetComponent<EnemyHPBar>();
-        enemyForce = GetComponent<ConstantForce>();
+        //enemyForce = GetComponent<ConstantForce>();
     }
 
     // Update is called once per frame
-    void LateUpdate()
+    void Update()
     {
         //Debug.Log(HP);
         //Was originally an else if case, but moved it into the above because the wolf doesn't die the minute its HP falls under 0
@@ -86,6 +86,15 @@ public class Enemy : MonoBehaviour
         { 
             HPBar.SetActive(false);
         }
+    }
+    public void SetHP(int newHP)
+    {
+        HP = newHP;
+        Debug.Log("Enemy's HP is = " + HP);
+    }
+    public int GetHP()
+    {
+        return HP;
     }
     public void SetDamage(int newDamage)
     {
@@ -171,7 +180,7 @@ public class Enemy : MonoBehaviour
     IEnumerator FoeAttacked()
     {
         attacked = true;
-        float attackForce = 200;
+        float attackForce = 150;
         //enemyRb.AddForce(playerScript.attackDirection * attackForce, ForceMode.Force);
         enemyRb.velocity = new Vector3(playerScript.attackDirection.x * attackForce, 0, playerScript.attackDirection.z * attackForce);
         //enemyRb.maxLinearVelocity = attackForce;
@@ -209,13 +218,13 @@ public class Enemy : MonoBehaviour
         //Vector3 limitedVel = consistentVel.normalized * attackForce;
         //enemyRb.velocity = new Vector3(limitedVel.x, 0, limitedVel.z);
         //}
-        enemyForce.relativeForce = -playerScript.attackDirection * attackForce;
+        //enemyForce.relativeForce = -playerScript.attackDirection * attackForce;
         yield return new WaitForSeconds(1f);
         attacked = false;
         //damageDisplay.gameObject.SetActive(false);
         //float distance = Vector3.Distance(player.transform.position, transform.position);
         //Debug.Log("Distance is equal to " + distance);
-        enemyForce.relativeForce = new Vector3(0, 0, 0);
+        //enemyForce.relativeForce = new Vector3(0, 0, 0);
         StartCoroutine(DamageDisplayDuration(4));
     }
     //I may want to do all damage display on 
@@ -246,7 +255,7 @@ public class Enemy : MonoBehaviour
             {
                 //For now, just trigger stun. I will use both of their directions to perform the knockback
                 //TakeDamage();
-
+                Debug.Log(HP + " left");
                 HP -= 2;
                 HPBarScript.HPDecrease(2, originalHP);
                 //Damaged();
@@ -284,6 +293,7 @@ public class Enemy : MonoBehaviour
             //TakeDamage();
 
             HP -= 3;
+            HPBarScript.HPDecrease(3, originalHP);
             //Damaged();
             playerScript.PlayTigerSpecialStrike(transform.position);
             //Vector3 knockbackDirection = (transform.position - tiger.transform.position).normalized;
@@ -300,6 +310,7 @@ public class Enemy : MonoBehaviour
             if (HP > 0)
             {
                 HP -= 4;
+                HPBarScript.HPDecrease(4, originalHP);
                 StartCoroutine(SecondHit());
                 playerScript.PlayTigerSpecialStrike(transform.position);
             }
