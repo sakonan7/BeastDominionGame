@@ -623,8 +623,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'After landing a hit, press attack within the same second to keep up a
-    combo!
+  m_text: 'After landing a hit, press attack within the same second to close the
+    distance and keep up a combo!
 
 
 '
@@ -3503,6 +3503,18 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.x
       value: 9
       objectReference: {fileID: 0}
+    - target: {fileID: 5760473428173550850, guid: 4f0a326d21919974c803a88238e49d9a, type: 3}
+      propertyPath: m_text
+      value: Right Click To Continue
+      objectReference: {fileID: 0}
+    - target: {fileID: 5760473428173550850, guid: 4f0a326d21919974c803a88238e49d9a, type: 3}
+      propertyPath: m_fontSize
+      value: 24
+      objectReference: {fileID: 0}
+    - target: {fileID: 5760473428173550850, guid: 4f0a326d21919974c803a88238e49d9a, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 24
+      objectReference: {fileID: 0}
     - target: {fileID: 5839207848165324534, guid: 4f0a326d21919974c803a88238e49d9a, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 33
@@ -3532,6 +3544,10 @@ PrefabInstance:
       value: 59.6
       objectReference: {fileID: 0}
     - target: {fileID: 6437177078801586567, guid: 4f0a326d21919974c803a88238e49d9a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6612609014848508228, guid: 4f0a326d21919974c803a88238e49d9a, type: 3}
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}

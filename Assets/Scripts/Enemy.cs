@@ -180,9 +180,9 @@ public class Enemy : MonoBehaviour
     IEnumerator FoeAttacked()
     {
         attacked = true;
-        float attackForce = 150;
+        float playerAttackForce = 150;
         //enemyRb.AddForce(playerScript.attackDirection * attackForce, ForceMode.Force);
-        enemyRb.velocity = new Vector3(playerScript.attackDirection.x * attackForce, 0, playerScript.attackDirection.z * attackForce);
+        enemyRb.velocity = new Vector3(playerScript.attackDirection.x * playerAttackForce, 0, playerScript.attackDirection.z * playerAttackForce);
         //enemyRb.maxLinearVelocity = attackForce;
 
         //Vector3 consistentVel = new Vector3(enemyRb.velocity.x, 0, enemyRb.velocity.z);
@@ -206,7 +206,7 @@ public class Enemy : MonoBehaviour
     IEnumerator SecondHit()
     {
         attacked = true;
-        float attackForce = 280;
+        float playerAttackForce = 280;
         //enemyRb.AddForce(playerScript.attackDirection * attackForce, ForceMode.Force);
         //enemyRb.velocity = new Vector3(playerScript.attackDirection.x * attackForce, 0, playerScript.attackDirection.z * attackForce);
 

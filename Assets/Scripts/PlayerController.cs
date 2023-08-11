@@ -169,6 +169,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         //cam = cameraRef.transform;
+        Cutscenes();
         playerRb = GetComponent<Rigidbody>();
         
         animation = tiger.GetComponent<Animation>();
@@ -1377,6 +1378,9 @@ public class PlayerController : MonoBehaviour
         if (other.gameObject.name == "Start Game Boundary")
         {
             gameManagerScript.StartGameMethod();
+            //For some reason, now the below methods don'twork in GameManager.Maybe GameManager isn't functioning fasten
+            CutsceneOff();
+            RunAnimationOff();
             Destroy(other);
             //RunAnimationOff(); //For some reason,now it doesn't work in Game Mana
             //Debug.Log("Game Start");
@@ -1404,7 +1408,7 @@ public class PlayerController : MonoBehaviour
             //wolfScript.PlayAttackEffect();
 
             //Attack Force will have to be fed to Enemy
-            playerRb.AddForce(-orientation.forward * enemyScript.attackForce, ForceMode.Impulse);
+            //playerRb.AddForce(-orientation.forward * enemyScript.attackForce, ForceMode.Impulse);
             enemyScript.AttackLanded(0);
             //playerRb.AddForce(Vector3.back * 12, ForceMode.Impulse); //I don't know why I have this
             //playerScript.AttackLandedTrue();
@@ -1416,6 +1420,7 @@ public class PlayerController : MonoBehaviour
             if (enemyScript.comboAttack == true && enemyScript.comboFinisher == true)
             {
                 StartCoroutine(StunDuration());
+                //playerRb.AddForce(-orientation.forward * enemyScript.attackForce, ForceMode.Impulse);
             }
         }
     }

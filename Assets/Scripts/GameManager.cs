@@ -62,7 +62,7 @@ public class GameManager : MonoBehaviour
         //Area1();
         //Starting Cutscene
         //StartCoroutine(OpeningSeconds());
-        playerScript.Cutscenes();
+        //playerScript.Cutscenes();
         //Time.timeScale = 0;
         StartCoroutine(TheStoryScroll());
     }
@@ -154,8 +154,8 @@ public class GameManager : MonoBehaviour
         //mainCam.SetActive(true);
         //cutsceneCam.SetActive(false);
         startingCutscene = false;
-        playerScript.CutsceneOff();
-        playerScript.RunAnimationOff();
+        //playerScript.CutsceneOff();
+        //playerScript.RunAnimationOff();
         barrier.SetActive(true);
         //Area1();
         TutorialLevel();
