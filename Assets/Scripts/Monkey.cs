@@ -164,7 +164,7 @@ public class Monkey : MonoBehaviour
         //Necessary because there's enough time for the Monkey to repeat an attack on the bird
         //May not be necessary after my edit to the collider
         enemyScript.SetAttackDirection(followDirection);
-        enemyScript.SetForce(2);
+        enemyScript.SetForce(0);
         //lookRotation = Quaternion.LookRotation(player.transform.position - transform.position);
         //monkeyRb.AddForce(followDirection * speed);
         transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, 5); //For extra right target turning
@@ -233,7 +233,7 @@ public class Monkey : MonoBehaviour
         followDirection = (player.transform.position - transform.position).normalized;
         //enemyScript.SetAttackEffect(attackEffect);
         enemyScript.SetAttackDirection(followDirection);
-        enemyScript.SetForce(4);
+        enemyScript.SetForce(2);
         //monkeyRb.AddForce(followDirection * (jumpForce/2), ForceMode.Impulse);
         monkeyRb.AddForce(Vector3.up * 5, ForceMode.Impulse); //For jumping, may need to modify gravity
         //animation.Play("Attack");

@@ -112,6 +112,7 @@ public class PlayerController : MonoBehaviour
     private bool birdFlinch = false;
     private bool birdKnockedBack = false;
     public bool invincible = false;
+    private bool damageStun = false;
 
     //Sound
     private AudioSource playerAudio;
@@ -1159,6 +1160,17 @@ public class PlayerController : MonoBehaviour
         birdKnockedBack = true;
         StartCoroutine(StunDuration());
     }
+    //The main difference between DamageStunStart() and StunDuration() is that StunDuration() provides stunnedInvincibility
+    //while DamageStunStart() doesn't. I may make DamageStunStart take up less time than StunDuration(
+    IEnumerator DamageStunStart()
+    { //Was going to place this in LateUpdate, but I realized it isn't necessary
+        damageStun = true;
+        cantMove = true;
+        playerRb.constraints = RigidbodyConstraints.FreezeRotation;
+        yield return new WaitForSeconds(1.4f);
+        damageStun = false;
+        cantMove = false;
+    }
     //Turn this into StunInvincibilityDuration() because that is the main purpose of
     IEnumerator StunDuration()
     {
@@ -1399,6 +1411,7 @@ public class PlayerController : MonoBehaviour
             //}
             LoseHP(enemyScript.damage, enemyScript.hitNumber);
             StartCoroutine(DamageDisplayed());
+            StartCoroutine(DamageStunStart());
             //enemyScript.PlayAttackEffect();
             if (enemyScript.comboAttack == true && enemyScript.comboFinisher == true)
             {
