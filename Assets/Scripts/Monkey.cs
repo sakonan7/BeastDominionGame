@@ -39,6 +39,9 @@ public class Monkey : MonoBehaviour
     public ParticleSystem attackEffect;
     private AudioSource audio;
     public AudioClip monkeyAttack;
+    private float attackVol;
+    private float firstAttackVol = 0.1f;
+    private float secondAttackVol = 0.3f;
     private bool playOnce = true;
     public bool isOnGround = false;
     private bool attackFinished = false;
@@ -48,7 +51,7 @@ public class Monkey : MonoBehaviour
 
     private GameManager gameManager;
     public int HP = 5;
-    private bool testingStun = false;
+    private bool testingStun = true;
     // Start is called before the first frame update
     void Start()
     {
@@ -145,7 +148,7 @@ public class Monkey : MonoBehaviour
         {
             playOnce = false;
             attackEffect.Play();
-            audio.PlayOneShot(monkeyAttack, 0.1f);
+            audio.PlayOneShot(monkeyAttack, attackVol);
         }
     }
     //Change code. Monkey will start by running at the character and then within range, attack. Afterwards, the monkey will wait 4 seconds
@@ -197,7 +200,7 @@ public class Monkey : MonoBehaviour
         //PlayAttackEffect();
         //}
         monkeyRb.constraints = RigidbodyConstraints.FreezeRotation;
-
+        attackVol = firstAttackVol;
         yield return new WaitForSeconds(1.5f);
         animator.SetBool("Attack 1", false);
         attack = false;
@@ -234,7 +237,7 @@ public class Monkey : MonoBehaviour
         //enemyScript.SetAttackEffect(attackEffect);
         enemyScript.SetAttackDirection(followDirection);
         enemyScript.SetForce(2);
-        //monkeyRb.AddForce(followDirection * (jumpForce/2), ForceMode.Impulse);
+        monkeyRb.AddForce(followDirection * (jumpForce/2), ForceMode.Impulse);
         monkeyRb.AddForce(Vector3.up * 5, ForceMode.Impulse); //For jumping, may need to modify gravity
         //animation.Play("Attack");
         animator.SetBool("Attack 2", true);
@@ -243,6 +246,7 @@ public class Monkey : MonoBehaviour
         enemyScript.SetComboFinisher();
 
         monkeyRb.constraints = RigidbodyConstraints.FreezeRotation;
+        attackVol = secondAttackVol;
         yield return new WaitForSeconds(1f);
         animator.SetBool("Attack 2", false);
         //StartCoroutine(StartCoolDown());

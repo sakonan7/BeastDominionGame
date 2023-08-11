@@ -34,10 +34,12 @@ public class GameManager : MonoBehaviour
     private string battleMusic = "Field Battle By Manaka Kataoka";
     private string explorationMusic = "Uncharted Island By Greg Edmonson";
     private string victoryMusic = "Victory Fanfare By Hitoshi Sakimoto";
-    private bool storyScroll = true;
+    public TextMeshProUGUI continueMessage;
+    private bool storyScroll = false;
     public TextMeshProUGUI storyScrollObject;
     private bool tutorialMessage = false;
     public TextMeshProUGUI tutorialMessageObject;
+    private bool tutorialMessage2 = false;
     public TextMeshProUGUI tutorialMessageObject2;
     public GameObject battleCommandsObject;
     public GameObject battleCommands2Object;
@@ -64,7 +66,10 @@ public class GameManager : MonoBehaviour
         //StartCoroutine(OpeningSeconds());
         //playerScript.Cutscenes();
         //Time.timeScale = 0;
-        StartCoroutine(TheStoryScroll());
+        //StartCoroutine(TheStoryScroll());
+        storyScroll = true;
+        storyScrollObject.gameObject.SetActive(true);
+        continueMessage.gameObject.SetActive(true);
     }
 
     // Update is called once per frame
@@ -85,6 +90,33 @@ public class GameManager : MonoBehaviour
         //TheTutorialMessage();
         //}
         //Need to make player unable to move until storyScroll and startingRun are 
+        if (Input.GetMouseButtonDown(0) && storyScroll == true)
+        {
+            storyScroll = false;
+            storyScrollObject.gameObject.SetActive(false);
+            tutorialMessageObject.gameObject.SetActive(true);
+            tutorialMessage = true;
+        }
+        else if (Input.GetMouseButtonDown(0) && tutorialMessage == true)
+        {
+            tutorialMessage = false;
+            tutorialMessageObject.gameObject.SetActive(false);
+            tutorialMessageObject2.gameObject.SetActive(true);
+            tutorialMessage2 = true;
+        }
+        else if (Input.GetMouseButtonDown(0) && tutorialMessage2 == true)
+        {
+            tutorialMessage2 = false;
+            tutorialMessageObject2.gameObject.SetActive(false);
+            continueMessage.gameObject.SetActive(false);
+            startingCutscene = true;
+            startGame = true;
+            UIAppear();
+        }
+        if (Input.GetMouseButtonDown(0) && gameOver == true)
+        {
+            SceneManager.LoadScene("Level 1");
+        }
         ///Need to turn this into a meth
         if (numOfEnemies == 0)
         {
@@ -92,6 +124,10 @@ public class GameManager : MonoBehaviour
             congratulationsMessage.gameObject.SetActive(true);
             //Time.timeScale = 0;
             VictoryMusicOn();
+        }
+        if (Input.GetMouseButtonDown(0) && gameEnd == true)
+        {
+            SceneManager.LoadScene("Level 1");
         }
     }
 
@@ -174,17 +210,19 @@ public class GameManager : MonoBehaviour
         //May not work when switching music from exploration mus
         music.text = "Music: " + victoryMusic;
         music.transform.Translate(0, 0, 0);
+        continueMessage.gameObject.SetActive(true);
     }
     public void GameOver()
     {
-        SceneManager.LoadScene("Level 1");
+        gameOver = true;
+        continueMessage.gameObject.SetActive(true);
     }
     public void TutorialLevel()
     {
         Vector3 wolfLocation = enemies[0].transform.position;
         Instantiate(enemies[1], new Vector3(wolfLocation.x + 4, wolfLocation.y, wolfLocation.z - 6), enemies[0].transform.rotation);
-        //Instantiate(enemies[1], new Vector3(wolfLocation.x + 8, wolfLocation.y, wolfLocation.z - 15), enemies[0].transform.rotation);
-        //Instantiate(enemies[1], new Vector3(wolfLocation.x + 14.5f, wolfLocation.y, wolfLocation.z - 8), enemies[0].transform.rotation);
+        Instantiate(enemies[1], new Vector3(wolfLocation.x + 8, wolfLocation.y, wolfLocation.z - 15), enemies[0].transform.rotation);
+        Instantiate(enemies[1], new Vector3(wolfLocation.x + 14.5f, wolfLocation.y, wolfLocation.z - 8), enemies[0].transform.rotation);
         numOfEnemies = 3;
     }
     public void Area1()
