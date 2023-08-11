@@ -526,7 +526,7 @@ public class PlayerController : MonoBehaviour
             if (enemyScript.GetHP() <= 0)
             {
                 lockedOn = false;
-                Debug.Log("Can Lock On again"); //I think this should work because target gameObject is not part of
+                //Debug.Log("Can Lock On again"); //I think this should work because target gameObject is not part of
                                                 //The enemy and is only sent to the enemies' location. So I think the main issue was the target disappears
                                                 //because the enemy's position disappears
                                                 //I thought the main problem was that target was getting destroyed
@@ -582,7 +582,7 @@ public class PlayerController : MonoBehaviour
         }
         if (distance < 3 && closeTheDistance == true)
         {
-            Debug.Log("Distance met For Regul");
+            //Debug.Log("Distance met For Regul");
             closeTheDistance = false;
             attackTimeLength = distanceCloserTigerAttackLength;
             StartCoroutine(AttackDuration());
@@ -593,11 +593,11 @@ public class PlayerController : MonoBehaviour
         if (closeTheDistance == true && cantMove == true)
         {
             closeTheDistance = false;
-            Debug.Log("I don't want to do it, but, closeTheDistance = " + closeTheDistance);
+            //Debug.Log("I don't want to do it, but, closeTheDistance = " + closeTheDistance);
         }
         if (distance < 8 && specialCloseTheDistance)
         {
-            Debug.Log("Distance Met At " + distance);
+            //Debug.Log("Distance Met At " + distance);
             //This will work because specialInvincibility is on and TigerSpecialDuration() cancels
             animation.Play("Attack 1 & 2");
             StartCoroutine(TigerSpecialDuration());
@@ -711,7 +711,7 @@ public class PlayerController : MonoBehaviour
         else
         {
             attackLanded = false;
-            Debug.Log("Combo Attack");
+            //Debug.Log("Combo Attack");
             StartCoroutine(ComboAttack());
         }
     }
@@ -753,7 +753,7 @@ public class PlayerController : MonoBehaviour
         canCombo = true;
         yield return new WaitForSeconds(2f); //1.3f instead of 0.1f, so lag can't take effect. Temporary?
         canCombo = false;
-        Debug.Log("May have Lost The Combo Opportunity"); //Can test for this by checking if canCombo is false after this IEnumerator finish
+        //Debug.Log("May have Lost The Combo Opportunity"); //Can test for this by checking if canCombo is false after this IEnumerator finish
     }
     //IEnumerator for charging up Blade of light
     //Blade of light also increases into its full size
@@ -873,7 +873,7 @@ public class PlayerController : MonoBehaviour
             playerRb.velocity = attackDirection * (attackForce + 14);
             animation.Play("Attack 1 & 2");
             playerAudio.PlayOneShot(tigerSwing, 0.05f);
-            Debug.Log("Non Distance Closer");
+            //Debug.Log("Non Distance Closer");
             playerRb.constraints = RigidbodyConstraints.FreezeRotation;
         }
         //Want DistanceCloser only to play when the tiger isn't close enough. Was originally going to have a distance > 10 || distance <=3
@@ -901,7 +901,7 @@ public class PlayerController : MonoBehaviour
             playerRb.AddForce(attackDirection * (attackForce + 14), ForceMode.Impulse);//Changed from 8 to 12
             animation.Play("Attack 1 & 2");
             playerAudio.PlayOneShot(tigerSwing, 0.05f);
-            Debug.Log("Short Ranged Att");
+            //Debug.Log("Short Ranged Att");
             playerRb.constraints = RigidbodyConstraints.FreezeRotation;
         }
     }
@@ -987,7 +987,7 @@ public class PlayerController : MonoBehaviour
     }
     IEnumerator DodgeLag()
     {
-        Debug.Log("Dodge Lag");
+        //Debug.Log("Dodge Lag");
         yield return new WaitForSeconds(0.2f);
         cantMove = false;
     }
@@ -1265,7 +1265,7 @@ public class PlayerController : MonoBehaviour
             //Destroy(gameObject);
             //gameObject.SetActive(false);
             //Time.timeScale = 0;
-            Debug.Log("Game O");
+            //Debug.Log("Game O");
             StartCoroutine(GameOverSlowDown());
         }
     }

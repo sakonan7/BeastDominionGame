@@ -138,6 +138,15 @@ public class Monkey : MonoBehaviour
             //HPBar.transform.LookAt(HPBar.transform.position - (cameraRef.transform.position - HPBar.transform.position));
 
     }
+    private void LateUpdate()
+    {
+        if (enemyScript.hitLanded == true)
+        {
+            playOnce = false;
+            attackEffect.Play();
+            audio.PlayOneShot(monkeyAttack, 0.1f);
+        }
+    }
     //Change code. Monkey will start by running at the character and then within range, attack. Afterwards, the monkey will wait 4 seconds
     //Before attacking again
     IEnumerator FirstClaw()
@@ -154,7 +163,7 @@ public class Monkey : MonoBehaviour
         //Necessary because there's enough time for the Monkey to repeat an attack on the bird
         //May not be necessary after my edit to the collider
         enemyScript.SetAttackDirection(followDirection);
-        enemyScript.SetForce(4);
+        enemyScript.SetForce(2);
         //lookRotation = Quaternion.LookRotation(player.transform.position - transform.position);
         //monkeyRb.AddForce(followDirection * speed);
         transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, 5); //For extra right target turning
@@ -205,10 +214,7 @@ public class Monkey : MonoBehaviour
             attackFinished = true;
             //playerStunned = false; //Because a second atack will not be made on the bird
         }
-        if (enemyScript.hitLanded == true)
-        {
-            attackEffect.Play();
-        }
+
         enemyScript.ResetHitLanded();
         Debug.Log("First Hit");
     }
@@ -235,10 +241,6 @@ public class Monkey : MonoBehaviour
         enemyScript.SetComboFinisher();
 
         monkeyRb.constraints = RigidbodyConstraints.FreezeRotation;
-        if (enemyScript.hitLanded == true)
-        {
-            attackEffect.Play();
-        }
         yield return new WaitForSeconds(1f);
         animator.SetBool("Attack 2", false);
         //StartCoroutine(StartCoolDown());

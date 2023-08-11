@@ -117,6 +117,7 @@ public class Enemy : MonoBehaviour
         //I use a long combo
         hitNumber++;
         //PlayAttackEffect(whichEffect);
+        Debug.Log("Hit Landed is " + hitLanded);
     }
     public void ResetHitLanded()
     {
