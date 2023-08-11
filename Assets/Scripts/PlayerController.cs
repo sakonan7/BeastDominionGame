@@ -1392,7 +1392,7 @@ public class PlayerController : MonoBehaviour
             //wolfScript.PlayAttackEffect();
 
             //Attack Force will have to be fed to Enemy
-            playerRb.AddForce(enemyScript.attackDirection * enemyScript.attackForce, ForceMode.Impulse);
+            playerRb.AddForce(-orientation.forward * enemyScript.attackForce, ForceMode.Impulse);
             enemyScript.AttackLanded(0);
             //playerRb.AddForce(Vector3.back * 12, ForceMode.Impulse); //I don't know why I have this
             //playerScript.AttackLandedTrue();

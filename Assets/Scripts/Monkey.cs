@@ -39,6 +39,7 @@ public class Monkey : MonoBehaviour
     public ParticleSystem attackEffect;
     private AudioSource audio;
     public AudioClip monkeyAttack;
+    private bool playOnce = true;
     public bool isOnGround = false;
     private bool attackFinished = false;
     private float distance;
@@ -140,7 +141,7 @@ public class Monkey : MonoBehaviour
     }
     private void LateUpdate()
     {
-        if (enemyScript.hitLanded == true)
+        if (enemyScript.hitLanded == true && playOnce == true)
         {
             playOnce = false;
             attackEffect.Play();
@@ -216,7 +217,8 @@ public class Monkey : MonoBehaviour
         }
 
         enemyScript.ResetHitLanded();
-        Debug.Log("First Hit");
+        //Debug.Log("First Hit");
+        playOnce = true;
     }
 
     //Combos will be complicated because I need the combo finisher to trigger stunInvincibility, but also, it needs to land
@@ -231,7 +233,7 @@ public class Monkey : MonoBehaviour
         followDirection = (player.transform.position - transform.position).normalized;
         //enemyScript.SetAttackEffect(attackEffect);
         enemyScript.SetAttackDirection(followDirection);
-        enemyScript.SetForce(9);
+        enemyScript.SetForce(4);
         //monkeyRb.AddForce(followDirection * (jumpForce/2), ForceMode.Impulse);
         monkeyRb.AddForce(Vector3.up * 5, ForceMode.Impulse); //For jumping, may need to modify gravity
         //animation.Play("Attack");
@@ -255,8 +257,9 @@ public class Monkey : MonoBehaviour
         enemyScript.SetComboFinisher();
 
         //hitLanded = false;
-        Debug.Log("Second Hit");
+        //Debug.Log("Second Hit");
         //Debug.Log("Combo Finisher is " + enemyScript.comboFinisher);
+        playOnce = true;
     }
     //public void PlayAttackEffect()
     //{
@@ -313,7 +316,7 @@ public class Monkey : MonoBehaviour
         animator.SetBool("Idle", false);
         animator.SetBool("Chase", true);
         //playerScript.monkeyRange.SetActive(true);
-        Debug.Log("Cooldown finished");
+        //Debug.Log("Cooldown finished");
     }
     //IEnumerator Fall()
    // {
