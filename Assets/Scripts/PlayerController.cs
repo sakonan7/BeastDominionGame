@@ -523,6 +523,7 @@ public class PlayerController : MonoBehaviour
                                                                                                    //I need this here
                                                                                                    //to keep calculating the distance between foe
                                                                                                    //and player
+                attackRotation = Quaternion.LookRotation(targetedEnemy.transform.position - transform.position);
             }
             //I may want to change this because I can trigger an error by trying to access enemyScript when targetEnemy has been killed
             if (enemyScript.GetHP() <= 0)
@@ -625,7 +626,9 @@ public class PlayerController : MonoBehaviour
 
                 attackRotation = Quaternion.LookRotation(targetedEnemy.transform.position - transform.position);
                 transform.rotation = Quaternion.Slerp(transform.rotation, attackRotation, 10); //Moved this from Strike() to
-                //see if I can immediately turn my character towards an ene
+                                                                                               //see if I can immediately turn my character towards an ene
+                
+                StartCoroutine(Turner());
 
                 //attackDirection isn't changing directions because it's using the empty Player object as the reference and the Player
                 //object doesn't move
@@ -675,7 +678,11 @@ public class PlayerController : MonoBehaviour
         }
  
     }
+    IEnumerator Turner()
+    {
 
+        yield return new WaitForSeconds(5);
+    }
     IEnumerator AttackDuration()
     {
         attack = true;
@@ -782,7 +789,7 @@ public class PlayerController : MonoBehaviour
             {
                 animation.Play("Distance Closer");
                 //I would prefer to use nonImpulse, but it is too slow and using Impulse is unexpectedly cool
-                playerRb.AddForce(attackDirection * (attackForce + 10), ForceMode.Impulse);
+                //playerRb.AddForce(attackDirection * (attackForce + 10), ForceMode.Impulse);
                 animation.Play("Attack 1 & 2");
                 StartCoroutine(TigerSpecialDuration());
                 TigerSpecial();
@@ -1077,6 +1084,7 @@ public class PlayerController : MonoBehaviour
     public void LockOff()
     {
         lockedOn = false;
+        enemyScript.LockOff();
     }
     IEnumerator TransformCountdown()
     {
@@ -1344,11 +1352,11 @@ public class PlayerController : MonoBehaviour
     }
     IEnumerator GameOverSlowDown()
     {
-        Time.timeScale = 0.2f;
+        //Time.timeScale = 0.2f;
         gameOverMessage.gameObject.SetActive(true);
         yield return new WaitForSeconds(0.8f);
         //Time.timeScale = 0;
-        Time.timeScale = 1; //The interesting thingis that is that the timeScale doesn't set back to . gameOverMessage does setback, 
+        //Time.timeScale = 1; //The interesting thingis that is that the timeScale doesn't set back to . gameOverMessage does setback, 
         gameManagerScript.GameOver();
     }
     public void OnCollisionEnter(Collision collision)

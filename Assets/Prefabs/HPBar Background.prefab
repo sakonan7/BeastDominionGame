@@ -135,7 +135,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4439932719559539862}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 28.078497, y: 1.9845004, z: 7.837643}
+  m_LocalPosition: {x: 16.099009, y: 2.0738583, z: -23.82328}
   m_LocalScale: {x: 0.061528, y: 1.13, z: 0.01243}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -229,6 +229,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HP: {fileID: 4159606516230537545}
+  HPBar: {fileID: 0}
 --- !u!227 &-6285939518355185115
 BillboardRenderer:
   m_ObjectHideFlags: 0

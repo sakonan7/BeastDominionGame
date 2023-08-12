@@ -113,6 +113,17 @@ public class GameManager : MonoBehaviour
             startGame = true;
             UIAppear();
         }
+
+        if (Input.GetKeyDown(KeyCode.V) && storyScroll == true)
+        {
+            storyScroll = false;
+            storyScrollObject.gameObject.SetActive(false);
+            continueMessage.gameObject.SetActive(false);
+            startingCutscene = true;
+            startGame = true;
+            UIAppear();
+        }
+
         if (Input.GetMouseButtonDown(0) && gameOver == true)
         {
             SceneManager.LoadScene("Level 1");

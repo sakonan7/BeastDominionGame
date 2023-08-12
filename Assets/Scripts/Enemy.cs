@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
+using UnityEngine.UI;
 
 public class Enemy : MonoBehaviour
 {
@@ -19,6 +21,7 @@ public class Enemy : MonoBehaviour
     //I need to set Vector3 attackDirection here, because I need it for playerControll
     private int HP;
     private float originalHP;
+    private Image enemyHPBarPosition;
     public int damage = 0;
     public ParticleSystem [] attackEffect = new ParticleSystem [3];
     public GameObject HPBar;
@@ -57,6 +60,7 @@ public class Enemy : MonoBehaviour
         originalHP = HP;
         HPBarScript = HPBar.GetComponent<EnemyHPBar>();
         //enemyForce = GetComponent<ConstantForce>();
+        //enemyHPBarPosition = GameObject.Find("Enemy HP Bar");
     }
 
     // Update is called once per frame
@@ -81,6 +85,7 @@ public class Enemy : MonoBehaviour
             target = GameObject.Find("Target");
             HPBar.SetActive(true);
             HPBar.transform.position = new Vector3(target.transform.position.x, target.transform.position.y + 2.5f, target.transform.position.z);
+            //HPBar.transform.position = new Vector3(0, 100, 0);
         }
         else if (lockedOn == false)
         { 
@@ -159,7 +164,7 @@ public class Enemy : MonoBehaviour
     public void LockOff()
     {
         lockedOn = false;
-        Debug.Log("Enemy is Locked Off");
+        //Debug.Log("Enemy is Locked Off");
     }
 
     public void OnCollisionEnter(Collision collision)

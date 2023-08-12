@@ -6,7 +6,7 @@ public class Monkey : MonoBehaviour
 {
     //private new Animation animation;
     private Animator animator;
-    public GameObject HPBar;
+    //public GameObject HPBar;
     private GameObject cameraRef;
     private GameObject player;
     private PlayerController playerScript;
@@ -51,7 +51,7 @@ public class Monkey : MonoBehaviour
 
     private GameManager gameManager;
     public int HP = 5;
-    private bool testingStun = true;
+    private bool testingStun = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -94,7 +94,7 @@ public class Monkey : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        HPBar.transform.position = new Vector3(transform.position.x, transform.position.y + 1.9f, transform.position.z + 0.1f);
+        //HPBar.transform.position = new Vector3(transform.position.x, transform.position.y + 1.9f, transform.position.z + 0.1f);
         //Monkey will only do it's chase while it's on the ground to avoid antigravity business
         if (testingStun == false)
         {
@@ -129,6 +129,14 @@ public class Monkey : MonoBehaviour
                 {
                     animator.SetBool("Chase", false);
                     chase = false;
+                    jumpForce = 80;
+                    StartCoroutine(FirstClaw());
+                }
+                else if (distance <= 3)
+                {
+                    animator.SetBool("Chase", false);
+                    chase = false;
+                    jumpForce = 20;
                     StartCoroutine(FirstClaw());
                 }
             }
@@ -306,7 +314,7 @@ public class Monkey : MonoBehaviour
         //{
         else
         {
-            yield return new WaitForSeconds(3);
+            yield return new WaitForSeconds(6);
         }
         //}
         //else if (playerScript.birdActive == true)
@@ -413,5 +421,6 @@ public class Monkey : MonoBehaviour
         //animation.Play("Damage Monkey");
         yield return new WaitForSeconds(1.5f);
         stunned = false;
+        StartCoroutine(IdleAnimation());
     }
 }

@@ -60,8 +60,8 @@ public class ThirdPersonCamera : MonoBehaviour
         if (gameManager.startGame == true)
         {
             //Debug.Log("Game Has Start");
-            cinemachineFL.m_XAxis.m_MaxSpeed = 200f;
-            cinemachineFL.m_YAxis.m_MaxSpeed = 0.5f;
+            cinemachineFL.m_XAxis.m_MaxSpeed = 100f;
+            cinemachineFL.m_YAxis.m_MaxSpeed = 0.1f;
             cinemachineFL.gameObject.SetActive(true);
         }
         if (inputDir != Vector3.zero && gameManager.startGame == true)

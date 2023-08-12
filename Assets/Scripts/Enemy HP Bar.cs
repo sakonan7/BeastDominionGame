@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
+using UnityEngine.UI;
 
 public class EnemyHPBar : MonoBehaviour
 {
@@ -10,15 +12,20 @@ public class EnemyHPBar : MonoBehaviour
     private GameObject target;
     public GameObject HP;
     private float originalHPLength;
+
+    public Image HPBar;
+    float maxHPBarFill;
+    
     //Need to reference Target here so i can put HP Bar relative to Tar
 
     // Start is called before the first frame update
     void Start()
     {
-        cameraRef = GameObject.Find("Main Camera");
+        //cameraRef = GameObject.Find("Main Camera");
         enemyScript = GetComponentInParent<Enemy>();
         
-        originalHPLength = HP.transform.localScale.x;
+        //originalHPLength = HP.transform.localScale.x;
+        maxHPBarFill = 1;
     }
 
     // Update is called once per frame
@@ -33,14 +40,14 @@ public class EnemyHPBar : MonoBehaviour
         //transform.rotation = target.transform.rotation;
         
         
-        if (enemyScript.lockedOn == true)
-        {
-            target = GameObject.Find("Target");
+        //if (enemyScript.lockedOn == true)
+        //{
+            //target = GameObject.Find("Target");
             //gameObject.SetActive(true);
             //transform.position = new Vector3(target.transform.position.x, target.transform.position.y + 2.5f, target.transform.position.z);
             //transform.rotation = new Quaternion(transform.rotation.x, target.transform.rotation.y, target.transform.rotation.z, 0);
             //transform.forward = target.transform.forward;
-        }
+        //}
         //else if (enemyScript.lockedOn == false)
         //{
             //gameObject.SetActive(false);
@@ -52,6 +59,7 @@ public class EnemyHPBar : MonoBehaviour
         //HP.transform.localScale -= new Vector3(damage, 0, 0);
         //HP.transform.position -= new Vector3(damage/2, 0, 0);
         //Debug.Log("Damage Dealt Is " +damage);
+        HPBar.fillAmount = (maxHPBarFill / originalHP) * (originalHP - newDamage);
     }
     void LateUpdate()
     {
