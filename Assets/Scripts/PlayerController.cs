@@ -63,8 +63,8 @@ public class PlayerController : MonoBehaviour
     private bool closeTheDistance = false;
     private bool specialCloseTheDistance = false;
     private float attackTimeLength;
-    private float normalTigerAttacklength = 0.3f;
-    private float distanceCloserTigerAttackLength = 0.1f;
+    private float normalTigerAttacklength = 0.5f;
+    private float distanceCloserTigerAttackLength = 0.3f;
     private Quaternion attackRotation;
     //private float distance;
 
@@ -421,6 +421,12 @@ public class PlayerController : MonoBehaviour
         //Also, players can't do anything while the character is closing the distance
         //Put it out of the conditional because it's not an action
         ///Keeping this here even though I moved the code from this to the IEnumerator to play the animation
+        ///
+
+        //Turner for close range and too far att
+        //It seems that the turning works for closeTheDist
+
+
         if (closeTheDistance == true && cantMove == false)
         {
             animation.Play("Distance Closer");
@@ -524,7 +530,7 @@ public class PlayerController : MonoBehaviour
                                                                                                    //to keep calculating the distance between foe
                                                                                                    //and player
                 attackRotation = Quaternion.LookRotation(targetedEnemy.transform.position - transform.position);
-                StartCoroutine(TellDistance());
+                //StartCoroutine(TellDistance());
             }
             //I may want to change this because I can trigger an error by trying to access enemyScript when targetEnemy has been killed
             if (enemyScript.GetHP() <= 0)
@@ -629,7 +635,7 @@ public class PlayerController : MonoBehaviour
                 transform.rotation = Quaternion.Slerp(transform.rotation, attackRotation, 10); //Moved this from Strike() to
                                                                                                //see if I can immediately turn my character towards an ene
                 
-                StartCoroutine(Turner());
+                //StartCoroutine(Turner());
 
                 //attackDirection isn't changing directions because it's using the empty Player object as the reference and the Player
                 //object doesn't move
@@ -934,7 +940,7 @@ public class PlayerController : MonoBehaviour
         //Atm after all attacks. The player can't do anything, even walk or dodge
         cantMove = true;
         //Debug.Log("Attack Lag");
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSeconds(0.8f);
         cantMove = false;
     }
     public void TigerSpecial()

@@ -73,9 +73,12 @@ public class ThirdPersonCamera : MonoBehaviour
             //horizontalInput = 0;
             //verticalInput = 0;
             //viewDir = new Vector3(0,0,0);
-            Debug.Log("Recentered");
-            transform.position = originalPosition;
-            transform.rotation = originalRotation;
+            //Debug.Log("Recentered");
+            //transform.position = originalPosition;
+            //transform.rotation = originalRotation;
+            cinemachineFL.m_RecenterToTargetHeading.m_enabled = true;
+            cinemachineFL.m_YAxisRecentering.m_enabled = true;
+            StartCoroutine(TurnOffRecenter());
         }
         //if (gameManager.battleStart == true)
         //{
@@ -96,5 +99,11 @@ public class ThirdPersonCamera : MonoBehaviour
     {
         musicSource.clip = victory;
         musicSource.Play();
+    }
+    IEnumerator TurnOffRecenter()
+    {
+        yield return new WaitForSeconds(0.1f);
+        cinemachineFL.m_RecenterToTargetHeading.m_enabled = false;
+        cinemachineFL.m_YAxisRecentering.m_enabled = false;
     }
 }
