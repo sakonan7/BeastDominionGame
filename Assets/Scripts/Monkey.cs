@@ -18,7 +18,7 @@ public class Monkey : MonoBehaviour
     private Vector3 followDirection;
     private Vector3 attackDirection;
     private Quaternion lookRotation;
-    private float jumpForce = 80; //Slight jump before attack
+    private float jumpForce = 70; //Slight jump before attack
     private float attackForce = 1; //May remove attackForce because Monkey doesn't knock chaarcter back a
     private bool attack = false;
     private bool beginningIdle = true;
@@ -132,14 +132,14 @@ public class Monkey : MonoBehaviour
                 {
                     animator.SetBool("Chase", false);
                     chase = false;
-                    jumpForce = 80;
+                    jumpForce = 60; //Went from 50 to 60 because I want some knockback force from the first att
                     StartCoroutine(FirstClaw());
                 }
                 else if (distance <= 3)
                 {
                     animator.SetBool("Chase", false);
                     chase = false;
-                    jumpForce = 20;
+                    jumpForce = 3;
                     StartCoroutine(FirstClaw());
                 }
             }
@@ -248,7 +248,7 @@ public class Monkey : MonoBehaviour
         followDirection = (player.transform.position - transform.position).normalized;
         //enemyScript.SetAttackEffect(attackEffect);
         enemyScript.SetAttackDirection(followDirection);
-        enemyScript.SetForce(2);
+        enemyScript.SetForce(4);
         monkeyRb.AddForce(followDirection * (jumpForce/2), ForceMode.Impulse);
         monkeyRb.AddForce(Vector3.up * 5, ForceMode.Impulse); //For jumping, may need to modify gravity
         //animation.Play("Attack");
@@ -423,7 +423,9 @@ public class Monkey : MonoBehaviour
     {
         stunned = true;
         //animation.Play("Damage Monkey");
+        animator.SetBool("Damaged", true);
         yield return new WaitForSeconds(1.5f);
+        animator.SetBool("Damaged", false);
         stunned = false;
         idleTime = damageIdleTime;
         StartCoroutine(IdleAnimation());

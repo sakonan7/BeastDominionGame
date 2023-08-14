@@ -407,8 +407,8 @@ public class PlayerController : MonoBehaviour
 
         //These are for things outside of controls such as attack effects and things that will not be affected by anything that are related
         //to stuns such as locking on
-
-        if (running == true)
+        //For some reason, || makes more sense than && to me, but I think logically, it should be 
+        if (running == true && (damageStun == false && stunnedInvincibility == false))
         {
             animation.Play("Run Tweak");
             //tigerAnimator.SetTrigger("Run");
@@ -524,6 +524,7 @@ public class PlayerController : MonoBehaviour
                                                                                                    //to keep calculating the distance between foe
                                                                                                    //and player
                 attackRotation = Quaternion.LookRotation(targetedEnemy.transform.position - transform.position);
+                StartCoroutine(TellDistance());
             }
             //I may want to change this because I can trigger an error by trying to access enemyScript when targetEnemy has been killed
             if (enemyScript.GetHP() <= 0)
@@ -556,11 +557,11 @@ public class PlayerController : MonoBehaviour
 
         //Code to ensure the flinching animations will play and interupt any other animation
         //Players are cautioned to not attack with abandon as a result
-        if (tigerFlinch == true || tigerFlinch2 == true || birdFlinch == true)
-        {
-            attack = false;
-            dodge = false;
-        }
+        //if (tigerFlinch == true || tigerFlinch2 == true || birdFlinch == true)
+        //{
+            //attack = false;
+            //dodge = false;
+        //}
 
         //Cutscenes
         if (gameManagerScript.startingCutscene == true)
@@ -677,6 +678,11 @@ public class PlayerController : MonoBehaviour
             }
         }
  
+    }
+    IEnumerator TellDistance ()
+    {
+        yield return new WaitForSeconds(2);
+        Debug.Log("Distance between player and enemy is " + distance);
     }
     IEnumerator Turner()
     {
@@ -1176,6 +1182,12 @@ public class PlayerController : MonoBehaviour
         damageStun = true;
         cantMove = true;
         playerRb.constraints = RigidbodyConstraints.FreezeRotation;
+        //I thought it would be enough if I used running == true and damageStun and stunnedInvincibility in Update,
+        //but I think it'snot enough
+        if (running == true)
+        {
+            running = false;
+        }
         yield return new WaitForSeconds(1.4f);
         damageStun = false;
         cantMove = false;
@@ -1190,7 +1202,10 @@ public class PlayerController : MonoBehaviour
 
         //The display code works because of the camera. Because of the camera, the player character is always at the center of it, where
         //The text also is
-
+        if (running == true)
+        {
+            running = false;
+        }
         yield return new WaitForSeconds(1.4f);
         if (tigerKnockedBack == true)
         {
@@ -1416,7 +1431,10 @@ public class PlayerController : MonoBehaviour
             //wolfScript.PlayAttackEffect();
 
             //Attack Force will have to be fed to Enemy
-            //playerRb.AddForce(-orientation.forward * enemyScript.attackForce, ForceMode.Impulse);
+
+            //Need to put a boolean on a foe's individual script to tell if an attack has knockback and then use an if to apply
+            //the knockbackforce
+            playerRb.AddForce(-orientation.forward * enemyScript.attackForce, ForceMode.Impulse);
             enemyScript.AttackLanded(0);
             //playerRb.AddForce(Vector3.back * 12, ForceMode.Impulse); //I don't know why I have this
             //playerScript.AttackLandedTrue();
@@ -1428,7 +1446,7 @@ public class PlayerController : MonoBehaviour
             if (enemyScript.comboAttack == true && enemyScript.comboFinisher == true)
             {
                 StartCoroutine(StunDuration());
-                //playerRb.AddForce(-orientation.forward * enemyScript.attackForce, ForceMode.Impulse);
+                playerRb.AddForce(-orientation.forward * enemyScript.attackForce, ForceMode.Impulse);
             }
         }
     }

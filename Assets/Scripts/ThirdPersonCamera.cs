@@ -35,8 +35,8 @@ public class ThirdPersonCamera : MonoBehaviour
         cinemachineFL.m_YAxis.m_MaxSpeed = 0.0f;
         cinemachineFL.gameObject.SetActive(false);
         musicSource = GetComponent<AudioSource>();
-        musicSource.clip = battle;
-        musicSource.Play();
+        //musicSource.clip = battle;
+        //musicSource.Play();
     }
 
     // Update is called once per frame
