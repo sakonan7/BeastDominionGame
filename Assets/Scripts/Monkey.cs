@@ -48,9 +48,12 @@ public class Monkey : MonoBehaviour
     private float distance;
     
     private bool stunned = false; //Freeze Monkey when i don't want it to move and when the Monkey is being stunlocked by att
+    private float idleTime;
+    private float usualIdleTime = 9;
+    private float damageIdleTime = 6;
 
     private GameManager gameManager;
-    public int HP = 5;
+    private int HP = 5;
     private bool testingStun = false;
     // Start is called before the first frame update
     void Start()
@@ -143,6 +146,7 @@ public class Monkey : MonoBehaviour
             if (attackFinished == true && isOnGround == true)
             {
                 attackFinished = false;
+                idleTime = usualIdleTime;
                 StartCoroutine(IdleAnimation());
             }
         }
@@ -223,7 +227,7 @@ public class Monkey : MonoBehaviour
         }
         else
         {
-            attackFinished = true;
+            attackFinished = true; //IdleAnimation() is not played here because it plays in Update when the Monkey has returned to the 
             //playerStunned = false; //Because a second atack will not be made on the bird
         }
 
@@ -308,13 +312,13 @@ public class Monkey : MonoBehaviour
         //playerScript.monkeyRange.SetActive(false);
         if (beginningIdle == true)
         {
-            yield return new WaitForSeconds(Random.Range(3, 7));
+            yield return new WaitForSeconds(Random.Range(6, 12));
         }
         //if (playerScript.tigerActive == true)
         //{
         else
         {
-            yield return new WaitForSeconds(6);
+            yield return new WaitForSeconds(idleTime);
         }
         //}
         //else if (playerScript.birdActive == true)
@@ -421,6 +425,7 @@ public class Monkey : MonoBehaviour
         //animation.Play("Damage Monkey");
         yield return new WaitForSeconds(1.5f);
         stunned = false;
+        idleTime = damageIdleTime;
         StartCoroutine(IdleAnimation());
     }
 }
