@@ -772,7 +772,7 @@ public class PlayerController : MonoBehaviour
     IEnumerator ComboAttack()
     {
         canCombo = true;
-        yield return new WaitForSeconds(2f); //1.3f instead of 0.1f, so lag can't take effect. Temporary?
+        yield return new WaitForSeconds(3f); //1.3f instead of 0.1f, so lag can't take effect. Temporary?
         canCombo = false;
         //Debug.Log("May have Lost The Combo Opportunity"); //Can test for this by checking if canCombo is false after this IEnumerator finish
     }
@@ -870,6 +870,7 @@ public class PlayerController : MonoBehaviour
         //Why did I think of lockedOn == false, I think I thought of it in the case you aren't locked
         //I think I will create a case where lockedOn == false and for now, I want to make the distance smaller for
         //Debug.Log(playerRb.velocity);
+        canCombo = false;
         if (lockedOn == false)
         {
             attackTimeLength = normalTigerAttacklength;
