@@ -11,9 +11,10 @@ public class ThirdPersonCamera : MonoBehaviour
     public Transform playerObj;
     public Transform player;
     public Transform orientation;
+
     private GameObject tiger;
     private GameObject bird;
-    private float speed = 5;
+    private float speed = 4;
     public Rigidbody playerRb;
     private GameManager gameManager;
     private Vector3 originalPosition;
@@ -51,8 +52,8 @@ public class ThirdPersonCamera : MonoBehaviour
         ///Doing this actually didn't change anything, probably because the tiger faces the same direction as the player ob
         Vector3 viewDir = player.position - new Vector3(transform.position.x, player.position.y, transform.position.z);
         orientation.forward = viewDir.normalized;
-        float horizontalInput = Input.GetAxisRaw("Horizontal");
-        float verticalInput = Input.GetAxisRaw("Vertical");
+        float horizontalInput = Input.GetAxis("Horizontal");
+        float verticalInput = Input.GetAxis("Vertical");
         Vector3 inputDir = orientation.forward * verticalInput + orientation.right * horizontalInput;
 
         //Trying to make it so that the camera can't move in certain parts like the opening run as well as cutscenes

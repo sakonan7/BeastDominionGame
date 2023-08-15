@@ -711,11 +711,15 @@ public class PlayerController : MonoBehaviour
             //tigerCollider.center = new Vector3(tigerCollider.center.x, tigerCollider.center.y, tigerCollider.center.z + 1.25f);
             tigerAttackEffect.SetActive(true);
         }
-
+        playerRb.constraints = RigidbodyConstraints.FreezeRotation;
         yield return new WaitForSeconds(attackTimeLength);
         attack = false;
         cantMove = false;
         attackTurner = false;
+        playerRb.constraints = RigidbodyConstraints.None;
+        playerRb.constraints = RigidbodyConstraints.FreezePositionY;
+        playerRb.constraints = RigidbodyConstraints.FreezeRotationX;
+        playerRb.constraints = RigidbodyConstraints.FreezeRotationZ;
         //Debug.Log("Attack");
         if (birdActive == true)
         {
