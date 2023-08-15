@@ -66,6 +66,7 @@ public class PlayerController : MonoBehaviour
     private float normalTigerAttacklength = 0.5f;
     private float distanceCloserTigerAttackLength = 0.3f;
     private Quaternion attackRotation;
+    private bool attackTurner = false;
     //private float distance;
 
     private Rigidbody playerRb;
@@ -425,6 +426,10 @@ public class PlayerController : MonoBehaviour
 
         //Turner for close range and too far att
         //It seems that the turning works for closeTheDist
+        if (attackTurner == true && attack == true)
+        {
+            transform.rotation = Quaternion.Slerp(transform.rotation, attackRotation, 5);
+        }
 
 
         if (closeTheDistance == true && cantMove == false)
@@ -451,6 +456,7 @@ public class PlayerController : MonoBehaviour
             //For some reason I commented out the code for the distance closing lo
             animation.Play("Distance Closer");
             //I would prefer to use nonImpulse, but it is too slow and using Impulse is unexpectedly cool
+            ///For some reason, I made specialdistancecloserslower than regular distance clos
             playerRb.AddForce(attackDirection * 5, ForceMode.Impulse); //attack force wasn't enough //Also, it isn't enough here //Try impulse
                                                                        //ForceMode Impulse is amazing. Needed to go from speed to 5 becaue of how fast and far it went
             transform.rotation = Quaternion.Slerp(transform.rotation, attackRotation, 5);
@@ -597,7 +603,7 @@ public class PlayerController : MonoBehaviour
             attackTimeLength = distanceCloserTigerAttackLength;
             StartCoroutine(AttackDuration());
             animation.Play("Attack 1 & 2");
-            playerRb.constraints = RigidbodyConstraints.FreezeRotation;
+            //playerRb.constraints = RigidbodyConstraints.FreezeRotation;
             playerAudio.PlayOneShot(tigerSwing, 0.05f);
         }
         if (closeTheDistance == true && cantMove == true)
@@ -709,6 +715,7 @@ public class PlayerController : MonoBehaviour
         yield return new WaitForSeconds(attackTimeLength);
         attack = false;
         cantMove = false;
+        attackTurner = false;
         //Debug.Log("Attack");
         if (birdActive == true)
         {
@@ -802,6 +809,7 @@ public class PlayerController : MonoBehaviour
                 animation.Play("Distance Closer");
                 //I would prefer to use nonImpulse, but it is too slow and using Impulse is unexpectedly cool
                 //playerRb.AddForce(attackDirection * (attackForce + 10), ForceMode.Impulse);
+                playerAudio.transform.Translate(attackDirection * (attackForce + 10) * Time.deltaTime);
                 animation.Play("Attack 1 & 2");
                 StartCoroutine(TigerSpecialDuration());
                 TigerSpecial();
@@ -896,7 +904,8 @@ public class PlayerController : MonoBehaviour
             animation.Play("Attack 1 & 2");
             playerAudio.PlayOneShot(tigerSwing, 0.05f);
             //Debug.Log("Non Distance Closer");
-            playerRb.constraints = RigidbodyConstraints.FreezeRotation;
+            //playerRb.constraints = RigidbodyConstraints.FreezeRotation;
+            attackTurner = true;
         }
         //Want DistanceCloser only to play when the tiger isn't close enough. Was originally going to have a distance > 10 || distance <=3
         //above,but I realized that the below will cover it. Maybe, let's keep testing it out
@@ -924,7 +933,7 @@ public class PlayerController : MonoBehaviour
             animation.Play("Attack 1 & 2");
             playerAudio.PlayOneShot(tigerSwing, 0.05f);
             //Debug.Log("Short Ranged Att");
-            playerRb.constraints = RigidbodyConstraints.FreezeRotation;
+            //playerRb.constraints = RigidbodyConstraints.FreezeRotation;
         }
     }
 
@@ -1196,6 +1205,12 @@ public class PlayerController : MonoBehaviour
             running = false;
         }
         yield return new WaitForSeconds(1.4f);
+        playerRb.constraints = RigidbodyConstraints.None;
+        playerRb.constraints = RigidbodyConstraints.FreezePositionY;
+        playerRb.constraints = RigidbodyConstraints.FreezeRotationX;
+        playerRb.constraints = RigidbodyConstraints.FreezeRotationZ;
+        //It doesn't seem like the constraint lasts after the IEnumerator
+        //But I'm going to place this here just incase
         damageStun = false;
         cantMove = false;
     }
