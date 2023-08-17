@@ -38,6 +38,8 @@ public class PlayerController : MonoBehaviour
     public ParticleSystem regularHitEffect;
     public GameObject tigerAttackEffect;
     public Transform transformEffect;
+    public Light blackoutLight;
+    private Color originalColor;
     public AudioClip tigerSpecial;
     public AudioClip tigerSpecialStrike;
     public ParticleSystem specialHitEffect;
@@ -198,6 +200,7 @@ public class PlayerController : MonoBehaviour
         staffLight = GameObject.Find("Staff").GetComponent<Light>();
         damageDisplay.color = new Color(1, 1, 1, 1);
         comboCounter.text = "x " + hitNumber;
+        originalColor = blackoutLight.color;
     }
 
     // Update is called once per frame
@@ -375,7 +378,7 @@ public class PlayerController : MonoBehaviour
             }
             if (Input.GetKeyDown(KeyCode.E))
             {
-                Transform();
+                //Transform();
                 //Debug.Log("Transform");
                 StartCoroutine(TransformCountdown());
                 if (running == true)
@@ -1111,15 +1114,18 @@ public class PlayerController : MonoBehaviour
     {
         transforming = true;
         cantMove = true;
-        //transformEffect.SetActive(true);
-        //Instantiate(transformEffect, transform.position, Quaternion.identity);
         transformEffect.gameObject.SetActive(true);
+        //GameObject dummyTransformObject = transformEffect.gameObject;
+        //Instantiate(transformEffect, transform.position, Quaternion.identity);
+        //transformEffect.gameObject.SetActive(true);
+        blackoutLight.color = new Color(0, 0, 0);
         yield return new WaitForSeconds(1.5f);
         Transform();
         transformEffect.gameObject.SetActive(false);
-        //Destroy(transformEffect);
+        //Destroy(dummyTransformObject);
 
         cantMove = false;
+        blackoutLight.color = originalColor;
     }
     public void Transform()
     {
