@@ -267,7 +267,7 @@ public class PlayerController : MonoBehaviour
             }
             if (dodge == false && attack == false && birdActive == true && cantMove == false)
             {
-                birdAnimation.Play("Idle");
+                //birdAnimation.Play("Idle");
             }
 
         //Movement
@@ -373,16 +373,16 @@ public class PlayerController : MonoBehaviour
 
                 StartCoroutine(Dodge());
             }
-            //if (Input.GetKeyDown(KeyCode.E))
-            //{
-                //Transform();
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                Transform();
                 //Debug.Log("Transform");
-                //StartCoroutine(TransformCountdown());
-                //if (running == true)
-                //{
-                    //running = false;
-                //}
-            //}
+                StartCoroutine(TransformCountdown());
+                if (running == true)
+                {
+                    running = false;
+                }
+            }
 
             //Special Attack
             //Changed it so that ChargeUp will determine what direction Tiger will go
@@ -695,11 +695,6 @@ public class PlayerController : MonoBehaviour
     {
         yield return new WaitForSeconds(2);
         Debug.Log("Distance between player and enemy is " + distance);
-    }
-    IEnumerator Turner()
-    {
-
-        yield return new WaitForSeconds(5);
     }
     IEnumerator AttackDuration()
     {
@@ -1117,13 +1112,13 @@ public class PlayerController : MonoBehaviour
         transforming = true;
         cantMove = true;
         //transformEffect.SetActive(true);
-        Instantiate(transformEffect, transform.position, Quaternion.identity);
-        //transformEffect.gameObject.SetActive(true);
+        //Instantiate(transformEffect, transform.position, Quaternion.identity);
+        transformEffect.gameObject.SetActive(true);
         yield return new WaitForSeconds(1.5f);
         Transform();
-        //transformEffect.gameObject.SetActive(false);
+        transformEffect.gameObject.SetActive(false);
         //Destroy(transformEffect);
-        transforming = false;
+
         cantMove = false;
     }
     public void Transform()
@@ -1134,7 +1129,7 @@ public class PlayerController : MonoBehaviour
         if (birdActive == true)
         {
             //tiger.transform.Translate(bird.transform.position.x - 6.6f, 0, bird.transform.position.z + 14.5f);
-            tiger.transform.Translate(bird.transform.position.x - 14.18f, 0, bird.transform.position.z + 12.8f);
+            //tiger.transform.Translate(bird.transform.position.x - 14.18f, 0, bird.transform.position.z + 12.8f);
             tiger.SetActive(true);
             //transform.position = new Vector3(tiger.transform.position.x, transform.position.y, tiger.transform.position.z);
 
@@ -1146,7 +1141,7 @@ public class PlayerController : MonoBehaviour
             tigerActive = true;
             birdActive = false;
             //tigerSensor.SetActive(true);
-            playerMugshot.texture = tigerMugshot;
+            //playerMugshot.texture = tigerMugshot;
         }
         else if (tigerActive == true)
         {
@@ -1154,15 +1149,16 @@ public class PlayerController : MonoBehaviour
             //Instantiate(bird);
             //bird.transform.position = new Vector3(tiger.transform.position.x, 2.93f, tiger.transform.position.z);
             //bird.transform.Translate(tiger.transform.position.x - 6.6f, 0, tiger.transform.position.z + 14.5f);
-            bird.transform.Translate(tiger.transform.position.x - 14.8f, 0, tiger.transform.position.z + 12.8f);
+            //bird.transform.Translate(tiger.transform.position.x - 14.8f, 0, tiger.transform.position.z + 12.8f);
             //Destroy(tiger);
             bird.SetActive(true);
             //transform.position = new Vector3(bird.transform.position.x, transform.position.y, bird.transform.position.z);
             tigerActive = false;
             birdActive = true;
             //birdSensor.SetActive(true);
-            playerMugshot.texture = birdMugshot;
+            //playerMugshot.texture = birdMugshot;
         }
+        transforming = false;
     }
     //Taking damage anima
     public void TigerFlinching()
