@@ -84,7 +84,7 @@ public class PlayerController : MonoBehaviour
     public bool attack = false;
     public bool swoopLag = false;
     public bool attackLanded = false;
-    public bool canCombo = true;
+    private bool canCombo = false;
     //I can either make the distance closers stop movement or use stuned/damaged to do the 
     private bool cantMove = false;
 
@@ -389,7 +389,8 @@ public class PlayerController : MonoBehaviour
 
             //Special Attack
             //Changed it so that ChargeUp will determine what direction Tiger will go
-            if (Input.GetKeyDown(KeyCode.Z) && tigerSpecialUnlocked == true)
+            // && tigerSpecialUnlocked == true
+            if (Input.GetKeyDown(KeyCode.Z))
             {
                 //StartCoroutine(TigerSpecialDuration());
                 StartCoroutine(ChargeUp());
@@ -714,10 +715,10 @@ public class PlayerController : MonoBehaviour
         attack = false;
         cantMove = false;
         attackTurner = false;
-        playerRb.constraints = RigidbodyConstraints.None;
-        playerRb.constraints = RigidbodyConstraints.FreezePositionY;
-        playerRb.constraints = RigidbodyConstraints.FreezeRotationX;
-        playerRb.constraints = RigidbodyConstraints.FreezeRotationZ;
+        //playerRb.constraints = RigidbodyConstraints.None;
+        //playerRb.constraints = RigidbodyConstraints.FreezePositionY;
+        //playerRb.constraints = RigidbodyConstraints.FreezeRotationX;
+        //playerRb.constraints = RigidbodyConstraints.FreezeRotationZ;
         //Debug.Log("Attack");
         if (birdActive == true)
         {
@@ -924,7 +925,7 @@ public class PlayerController : MonoBehaviour
             closeTheDistance = true;
             //StartCoroutine(DistanceCloser());
             //tigerRB.AddForce(attackDirection * (attackForce + 16), ForceMode.Impulse);
-            canCombo = false;
+            //canCombo = false;
         }
         else if (distance < 4 && lockedOn)
         {
@@ -944,7 +945,7 @@ public class PlayerController : MonoBehaviour
     public void PlayTigerRegularStrike(Vector3 strikeArea)
     {
         playerAudio.PlayOneShot(tigerRegularStrike, 0.5f);
-        regularHitEffect.transform.position = strikeArea;
+        regularHitEffect.transform.position = new Vector3(strikeArea.x, strikeArea.y + 1, strikeArea.z);
         regularHitEffect.Play();
     }
     IEnumerator StrikeLag()
@@ -1000,7 +1001,7 @@ public class PlayerController : MonoBehaviour
     public void PlayTigerSpecialStrike(Vector3 strikeArea)
     {
         playerAudio.PlayOneShot(tigerSpecialStrike, 0.5f);
-        specialHitEffect.transform.position = strikeArea;
+        specialHitEffect.transform.position = new Vector3(strikeArea.x, strikeArea.y + 1, strikeArea.z);
         specialHitEffect.Play();
     }
     IEnumerator Dodge()

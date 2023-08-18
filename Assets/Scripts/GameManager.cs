@@ -271,7 +271,11 @@ public class GameManager : MonoBehaviour
         if (enemyJustDefeated == false)
         {
             enemyJustDefeated = true;
-            StartCoroutine(SlowDown());
+            if (playerScript.specialInvincibility == false)
+            {
+                StartCoroutine(SlowDown());
+            }
+            
         }
         numOfEnemies--;
     }
