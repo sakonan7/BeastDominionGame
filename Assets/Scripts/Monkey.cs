@@ -128,17 +128,17 @@ public class Monkey : MonoBehaviour
                 monkeyRb.AddForce(followDirection * speed);
                 transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, 3); //Turned from 5 to 3 for smooth
                                                                                             //StartCoroutine(AttackCountdown());
-                if (distance <= 6)
+                if (distance <= 1.8)
                 {
                     animator.SetBool("Chase", false);
                     chase = false;
-                    jumpForce = 60; //Went from 50 to 60 because I want some knockback force from the first att
-                    StartCoroutine(FirstClaw());
-                }
-                else if (distance <= 3)
-                {
-                    animator.SetBool("Chase", false);
-                    chase = false;
+                    //jumpForce = 60; //Went from 50 to 60 because I want some knockback force from the first att
+                    //StartCoroutine(FirstClaw());
+                //}
+                //else if (distance <= 3)
+                //{
+                    //animator.SetBool("Chase", false);
+                    //chase = false;
                     jumpForce = 3;
                     StartCoroutine(FirstClaw());
                 }

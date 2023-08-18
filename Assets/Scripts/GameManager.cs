@@ -55,6 +55,7 @@ public class GameManager : MonoBehaviour
 
     public bool foeStruck = false;
     public ParticleSystem dyingEffect;
+    public ParticleSystem specialHitEffect;
     // Start is called before the first frame update
     void Start()
     {
@@ -284,7 +285,9 @@ public class GameManager : MonoBehaviour
     }
     public void HitByTigerSpecial(Vector3 strikeArea)
     {
-        playerScript.PlayTigerSpecialStrike(strikeArea);
+        //playerScript.PlayTigerSpecialStrike(strikeArea);
+        specialHitEffect.transform.position = new Vector3(strikeArea.x, strikeArea.y + 1, strikeArea.z);
+        specialHitEffect.Play();
     }
     IEnumerator SlowDown()
     {

@@ -1021,9 +1021,9 @@ public class PlayerController : MonoBehaviour
     }
     public void PlayTigerSpecialStrike(Vector3 strikeArea)
     {
-        //playerAudio.PlayOneShot(tigerSpecialStrike, 0.5f);
-        specialHitEffect.transform.position = new Vector3(strikeArea.x, strikeArea.y + 1, strikeArea.z);
-        specialHitEffect.Play();
+        playerAudio.PlayOneShot(tigerSpecialStrike, 0.5f);
+        //specialHitEffect.transform.position = new Vector3(strikeArea.x, strikeArea.y + 1, strikeArea.z);
+        //specialHitEffect.Play();
     }
     IEnumerator Dodge()
     {

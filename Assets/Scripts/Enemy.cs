@@ -78,7 +78,7 @@ public class Enemy : MonoBehaviour
             //Debug.Log("Wolf Dies");
             gameManager.EnemyDefeated(transform.position);
             lockedOn = false;
-            Destroy(gameObject);
+            //Destroy(gameObject);
         }
         if (lockedOn == true && HP > 0)
         {
@@ -235,7 +235,7 @@ public class Enemy : MonoBehaviour
         //enemyForce.relativeForce = new Vector3(0, 0, 0);
         gameManager.HitByTigerSpecial(transform.position);
         StartCoroutine(DamageDisplayDuration(4));
-        //playerScript.PlayTigerSpecialStrike(transform.position);
+        playerScript.PlayTigerSpecialStrike(transform.position);
     }
     //I may want to do all damage display on 
     IEnumerator DamageDisplayDuration(int damage)
@@ -305,7 +305,7 @@ public class Enemy : MonoBehaviour
             HP -= 3;
             HPBarScript.HPDecrease(3, originalHP);
             //Damaged();
-            //playerScript.PlayTigerSpecialStrike(transform.position);
+            playerScript.PlayTigerSpecialStrike(transform.position);
             gameManager.HitByTigerSpecial(transform.position);
             //Vector3 knockbackDirection = (transform.position - tiger.transform.position).normalized;
             //knockback force is inconsistent. Sometimes it doesn't knockback at all. Sometimes it knocks back too much
