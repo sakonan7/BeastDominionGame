@@ -79,6 +79,8 @@ public class Enemy : MonoBehaviour
             gameManager.EnemyDefeated(transform.position);
             lockedOn = false;
             //Destroy(gameObject);
+            gameObject.SetActive(false); //I'm doing this instead because I think destroying the object causes problems by making
+            //me unable to access the object's transform.posi
         }
         if (lockedOn == true && HP > 0)
         {
@@ -229,6 +231,8 @@ public class Enemy : MonoBehaviour
         
         yield return new WaitForSeconds(1f);
         attacked = false;
+        HP -= 4;
+        HPBarScript.HPDecrease(4, originalHP);
         //damageDisplay.gameObject.SetActive(false);
         //float distance = Vector3.Distance(player.transform.position, transform.position);
         //Debug.Log("Distance is equal to " + distance);
@@ -320,8 +324,7 @@ public class Enemy : MonoBehaviour
             StartCoroutine(DamageDisplayDuration(3));
             if (HP > 0)
             {
-                HP -= 4;
-                HPBarScript.HPDecrease(4, originalHP);
+
                 StartCoroutine(SecondHit());
                 
             }

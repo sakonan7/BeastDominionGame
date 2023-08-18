@@ -6,6 +6,7 @@ using Cinemachine;
 public class ThirdPersonCamera : MonoBehaviour
 {
     private AudioSource musicSource;
+    public AudioClip title;
     public AudioClip battle;
     public AudioClip victory;
     public Transform playerObj;
@@ -36,8 +37,8 @@ public class ThirdPersonCamera : MonoBehaviour
         cinemachineFL.m_YAxis.m_MaxSpeed = 0.0f;
         cinemachineFL.gameObject.SetActive(false);
         musicSource = GetComponent<AudioSource>();
-        //musicSource.clip = battle;
-        //musicSource.Play();
+        musicSource.clip = title;
+        musicSource.Play();
     }
 
     // Update is called once per frame
@@ -61,7 +62,7 @@ public class ThirdPersonCamera : MonoBehaviour
         if (gameManager.startGame == true)
         {
             //Debug.Log("Game Has Start");
-            cinemachineFL.m_XAxis.m_MaxSpeed = 100f;
+            cinemachineFL.m_XAxis.m_MaxSpeed = 120f;
             cinemachineFL.m_YAxis.m_MaxSpeed = 0.1f;
             cinemachineFL.gameObject.SetActive(true);
         }
@@ -85,15 +86,20 @@ public class ThirdPersonCamera : MonoBehaviour
         //{
             //PlayBattleMusic();
         //}
-        if (gameManager.gameEnd == true)
+        if (gameManager.gameEnd == true && evokeOnce == true)
         {
             PlayVictoryMusic();
             Debug.Log("Change the music..");
+            evokeOnce = false;
         }
+    }
+    public void ChangeMusic()
+    {
+        evokeOnce = true;
     }
     public void PlayBattleMusic()
     {
-        musicSource.clip = battle;
+        musicSource.clip = title;
         musicSource.Play();
     }
     public void PlayVictoryMusic()

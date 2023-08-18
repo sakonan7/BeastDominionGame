@@ -8,6 +8,7 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour
 {
     public GameObject mainCam;
+    private ThirdPersonCamera camScript;
     public GameObject cutsceneCam;
 
     private bool gameOver = false;
@@ -61,6 +62,7 @@ public class GameManager : MonoBehaviour
     {
         //player = GameObject.Find("Player");
         playerScript = player.GetComponent<PlayerController>();
+        camScript = mainCam.GetComponent<ThirdPersonCamera>();
         //musicSource = GameObject.Find("Main Camera").GetComponent<AudioSource>();
         //StartGame();
         //Area1();
@@ -137,6 +139,7 @@ public class GameManager : MonoBehaviour
             congratulationsMessage.gameObject.SetActive(true);
             //Time.timeScale = 0;
             VictoryMusicOn();
+            camScript.ChangeMusic();
         }
         if (Input.GetMouseButtonDown(0) && gameEnd == true)
         {
@@ -270,11 +273,13 @@ public class GameManager : MonoBehaviour
     //So the slowdown after defeating a foe doesn't get stacked if another foe gets defeated around the same 
     public void EnemyDefeated(Vector3 strikeArea)
     {
+        dyingEffect.transform.position = new Vector3(strikeArea.x, strikeArea.y + 1.2f, strikeArea.z); ;
+        dyingEffect.Play();
+        Debug.Log("Dying Efect");
         if (enemyJustDefeated == false)
         {
             enemyJustDefeated = true;
-            dyingEffect.transform.position = new Vector3(strikeArea.x, strikeArea.y + 1.2f, strikeArea.z); ;
-            dyingEffect.Play();
+
             if (playerScript.specialInvincibility == false)
             {
                 StartCoroutine(SlowDown());
