@@ -145,9 +145,7 @@ public class PlayerController : MonoBehaviour
     //RectTransform newTargetRect;
     //public GameObject newTarget;
     public GameObject comboCounterHolder;
-    public TextMeshProUGUI comboCounter; //Make it slightly increase in size and become yellow which each. When it reaches 3, make it
-    //yellow orange, then a yellower orange for hits after 3, then light blue for 6 hits and the special attack pops
-    //Then a tiger roar
+    public TextMeshProUGUI comboCounter;
     public RawImage tigerComboIcon;
     public RawImage tigerSpecialCommand;
     public RawImage tigerSpecialLightUp;
@@ -389,8 +387,8 @@ public class PlayerController : MonoBehaviour
 
             //Special Attack
             //Changed it so that ChargeUp will determine what direction Tiger will go
-            // && tigerSpecialUnlocked == true
-            if (Input.GetKeyDown(KeyCode.Z))
+            // 
+            if (Input.GetKeyDown(KeyCode.Z) && tigerSpecialUnlocked == true)
             {
                 //StartCoroutine(TigerSpecialDuration());
                 StartCoroutine(ChargeUp());
@@ -620,8 +618,9 @@ public class PlayerController : MonoBehaviour
             //Debug.Log("Distance Met At " + distance);
             //This will work because specialInvincibility is on and TigerSpecialDuration() cancels
             animation.Play("Attack 1 & 2");
-            StartCoroutine(TigerSpecialDuration());
             TigerSpecial();
+            StartCoroutine(TigerSpecialDuration());
+            
             specialCloseTheDistance = false;
         }
         //Setting this here because I want to make more space in Update and because this will happen after certainn actions
@@ -630,6 +629,7 @@ public class PlayerController : MonoBehaviour
         {
             comboCounterHolder.gameObject.SetActive(false);
             hitNumber = 0;
+            comboCounter.color = new Color(1, 1, 1, 1);
         }
         //Attacking
         ///Small note, I accidentally used & instead of && for lockedOn. It seems like it didn't affect the code
@@ -764,11 +764,31 @@ public class PlayerController : MonoBehaviour
         }
         hitNumber++;
         comboCounter.text = "x " + hitNumber;
-        if (hitNumber > 3)
+        
+        if (hitNumber > 2 && hitNumber < 5)
         {
+            //comboCounter.color = new Color(255, 191, 76, 255);
+            //comboCounter.color = Color.yellow;
+            comboCounter.color = new Color(1, 0.749f, 0.2962f, 1);
+        }
+        if (hitNumber >= 5)
+        {
+            //new Color(179, 255, 253, 255)
+            //comboCounter.color = Color.cyan;
+            comboCounter.color = new Color(0.5603f, 1, 0.965f, 1);
             tigerSpecialUnlocked = true;
             tigerSpecialCommand.gameObject.SetActive(true);
         }
+        StartCoroutine(ComboMeterAnimation());
+    }
+    //Make it slightly increase in size and become yellow which each. When it reaches 3, make it
+    //yellow orange, then a yellower orange for hits after 3, then light blue for 6 hits and the special attack pops
+    //Then a tiger roar
+    IEnumerator ComboMeterAnimation()
+    {
+        comboCounter.fontSize = 32;
+        yield return new WaitForSeconds(0.5f);
+        comboCounter.fontSize = 28.8f;
     }
     public void StartCombo()
     {
@@ -814,8 +834,9 @@ public class PlayerController : MonoBehaviour
                 //playerRb.AddForce(attackDirection * (attackForce + 10), ForceMode.Impulse);
                 playerAudio.transform.Translate(attackDirection * (attackForce + 10) * Time.deltaTime);
                 animation.Play("Attack 1 & 2");
-                StartCoroutine(TigerSpecialDuration());
                 TigerSpecial();
+                StartCoroutine(TigerSpecialDuration());
+                
             }
             else
             {
@@ -1000,7 +1021,7 @@ public class PlayerController : MonoBehaviour
     }
     public void PlayTigerSpecialStrike(Vector3 strikeArea)
     {
-        playerAudio.PlayOneShot(tigerSpecialStrike, 0.5f);
+        //playerAudio.PlayOneShot(tigerSpecialStrike, 0.5f);
         specialHitEffect.transform.position = new Vector3(strikeArea.x, strikeArea.y + 1, strikeArea.z);
         specialHitEffect.Play();
     }

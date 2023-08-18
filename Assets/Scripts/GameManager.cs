@@ -54,6 +54,7 @@ public class GameManager : MonoBehaviour
     public bool enemyJustDefeated = false;
 
     public bool foeStruck = false;
+    public ParticleSystem dyingEffect;
     // Start is called before the first frame update
     void Start()
     {
@@ -266,11 +267,13 @@ public class GameManager : MonoBehaviour
         foeHPBar.transform.position = new Vector3(enemies[0].transform.position.x, enemies[0].transform.position.y + 5, 0);
     }
     //So the slowdown after defeating a foe doesn't get stacked if another foe gets defeated around the same 
-    public void EnemyDefeated()
+    public void EnemyDefeated(Vector3 strikeArea)
     {
         if (enemyJustDefeated == false)
         {
             enemyJustDefeated = true;
+            dyingEffect.transform.position = new Vector3(strikeArea.x, strikeArea.y + 1.2f, strikeArea.z); ;
+            dyingEffect.Play();
             if (playerScript.specialInvincibility == false)
             {
                 StartCoroutine(SlowDown());
@@ -278,6 +281,10 @@ public class GameManager : MonoBehaviour
             
         }
         numOfEnemies--;
+    }
+    public void HitByTigerSpecial(Vector3 strikeArea)
+    {
+        playerScript.PlayTigerSpecialStrike(strikeArea);
     }
     IEnumerator SlowDown()
     {

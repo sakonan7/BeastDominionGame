@@ -71,12 +71,14 @@ public class Enemy : MonoBehaviour
         //Was originally going to place this under each conditional, but it looks like this conditional works on its own
         if (HP <= 0)
         {
-            dyingEffect.Play();
-            lockedOn = false;
-            Destroy(gameObject);
+            //dyingEffect.Play();
+            
+            
             //playerScript.LockOff(); I didn't realize this was here. And it was being used the whole time
             //Debug.Log("Wolf Dies");
-            gameManager.EnemyDefeated();
+            gameManager.EnemyDefeated(transform.position);
+            lockedOn = false;
+            Destroy(gameObject);
         }
         if (lockedOn == true && HP > 0)
         {
@@ -224,19 +226,22 @@ public class Enemy : MonoBehaviour
         //enemyRb.velocity = new Vector3(limitedVel.x, 0, limitedVel.z);
         //}
         //enemyForce.relativeForce = -playerScript.attackDirection * attackForce;
+        
         yield return new WaitForSeconds(1f);
         attacked = false;
         //damageDisplay.gameObject.SetActive(false);
         //float distance = Vector3.Distance(player.transform.position, transform.position);
         //Debug.Log("Distance is equal to " + distance);
         //enemyForce.relativeForce = new Vector3(0, 0, 0);
+        gameManager.HitByTigerSpecial(transform.position);
         StartCoroutine(DamageDisplayDuration(4));
+        //playerScript.PlayTigerSpecialStrike(transform.position);
     }
     //I may want to do all damage display on 
     IEnumerator DamageDisplayDuration(int damage)
     {
         damageDisplay.gameObject.SetActive(true);
-        damageDisplay.transform.position = new Vector3(HPBar.transform.position.x, HPBar.transform.position.y + 1.5f, HPBar.transform.position.z);
+        damageDisplay.transform.position = new Vector3(HPBar.transform.position.x, HPBar.transform.position.y + 1f, HPBar.transform.position.z);
         damageDisplay.text = "" + damage;
         yield return new WaitForSeconds(0.5f);
         damageDisplay.gameObject.SetActive(false);
@@ -260,7 +265,7 @@ public class Enemy : MonoBehaviour
             {
                 //For now, just trigger stun. I will use both of their directions to perform the knockback
                 //TakeDamage();
-                Debug.Log(HP + " left");
+                //Debug.Log(HP + " left");
                 HP -= 2;
                 HPBarScript.HPDecrease(2, originalHP);
                 //Damaged();
@@ -292,7 +297,7 @@ public class Enemy : MonoBehaviour
                 StartCoroutine(DamageDisplayDuration(2));
             }
         }
-        if (other.CompareTag("Tiger Special"))
+        else if (other.CompareTag("Tiger Special"))
         {
             //For now, just trigger stun. I will use both of their directions to perform the knockback
             //TakeDamage();
@@ -300,7 +305,8 @@ public class Enemy : MonoBehaviour
             HP -= 3;
             HPBarScript.HPDecrease(3, originalHP);
             //Damaged();
-            playerScript.PlayTigerSpecialStrike(transform.position);
+            //playerScript.PlayTigerSpecialStrike(transform.position);
+            gameManager.HitByTigerSpecial(transform.position);
             //Vector3 knockbackDirection = (transform.position - tiger.transform.position).normalized;
             //knockback force is inconsistent. Sometimes it doesn't knockback at all. Sometimes it knocks back too much
             //It doesn't matter what the value is.
@@ -317,7 +323,7 @@ public class Enemy : MonoBehaviour
                 HP -= 4;
                 HPBarScript.HPDecrease(4, originalHP);
                 StartCoroutine(SecondHit());
-                playerScript.PlayTigerSpecialStrike(transform.position);
+                
             }
         }
     }
