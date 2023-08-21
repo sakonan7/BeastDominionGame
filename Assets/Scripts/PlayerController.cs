@@ -70,6 +70,8 @@ public class PlayerController : MonoBehaviour
     private float distanceCloserTigerAttackLength = 0.3f;
     private Quaternion attackRotation;
     private bool attackTurner = false;
+
+    private float turnSpeed = 1;
     //private float distance;
 
     private Rigidbody playerRb;
@@ -438,11 +440,12 @@ public class PlayerController : MonoBehaviour
 
         if (closeTheDistance == true && cantMove == false)
         {
+            //float time = 0;
             animation.Play("Distance Closer");
                 //I would prefer to use nonImpulse, but it is too slow and using Impulse is unexpectedly cool
                 playerRb.AddForce(attackDirection * 10, ForceMode.Impulse); //attack force wasn't enough //Also, it isn't enough here //Try impulse
                 //ForceMode Impulse is amazing. Needed to go from speed to 5 becaue of how fast and far it went
-                transform.rotation = Quaternion.Slerp(transform.rotation, attackRotation, 5);
+                
             //playerRb.velocity = attackDirection * 10;
             //speed control
             Vector3 dashVel = new Vector3(playerRb.velocity.x, 0, playerRb.velocity.z);
@@ -453,6 +456,9 @@ public class PlayerController : MonoBehaviour
                 Vector3 limitedDashVel = dashVel.normalized * speed;
                 playerRb.velocity = new Vector3(limitedDashVel.x, 0, limitedDashVel.z);
             }
+            //time += Time.deltaTime * turnSpeed;
+            transform.rotation = Quaternion.Slerp(transform.rotation, attackRotation, 5);
+            
 
         }
         if (specialCloseTheDistance == true)
@@ -540,7 +546,7 @@ public class PlayerController : MonoBehaviour
                                                                                                    //I need this here
                                                                                                    //to keep calculating the distance between foe
                                                                                                    //and player
-                attackRotation = Quaternion.LookRotation(targetedEnemy.transform.position - transform.position);
+                attackRotation = Quaternion.LookRotation(targetedEnemy.transform.position - orientation.transform.position);
                 //StartCoroutine(TellDistance());
             }
             //I may want to change this because I can trigger an error by trying to access enemyScript when targetEnemy has been killed
@@ -658,8 +664,16 @@ public class PlayerController : MonoBehaviour
                 }
                 else if (tigerActive == true)
                 {
-
-                    Strike();
+                    //StartCoroutine(Turning());
+                    //Strike();
+                    if (canCombo == false)
+                    {
+                        StartCoroutine(Turning());
+                    }
+                    else
+                    {
+                        Strike();
+                    }
                 }
                 if (running == true)
                 {
@@ -702,6 +716,13 @@ public class PlayerController : MonoBehaviour
     {
         yield return new WaitForSeconds(2);
         Debug.Log("Distance between player and enemy is " + distance);
+    }
+    IEnumerator Turning()
+    {
+        transform.rotation = Quaternion.Slerp(transform.rotation, attackRotation, 5);
+        //cantMove = true;
+        yield return new WaitForSeconds(0.3f);
+        Strike();
     }
     IEnumerator AttackDuration()
     {
