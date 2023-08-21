@@ -116,4 +116,19 @@ public class ThirdPersonCamera : MonoBehaviour
         cinemachineFL.m_RecenterToTargetHeading.m_enabled = false;
         cinemachineFL.m_YAxisRecentering.m_enabled = false;
     }
+    public void TurnToTarget(Transform target)
+    {
+        //transform.LookAt(target);
+        cinemachineFL.m_LookAt = target;
+        //StartCoroutine(BackToPlayer());
+    }
+    public void LockOff()
+    {
+        cinemachineFL.m_LookAt = player.transform;
+    }
+    IEnumerator BackToPlayer()
+    {
+        yield return new WaitForSeconds(0.5f);
+        cinemachineFL.m_LookAt = player.transform;
+    }
 }

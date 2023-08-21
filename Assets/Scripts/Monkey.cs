@@ -248,7 +248,7 @@ public class Monkey : MonoBehaviour
         followDirection = (player.transform.position - transform.position).normalized;
         //enemyScript.SetAttackEffect(attackEffect);
         enemyScript.SetAttackDirection(followDirection);
-        enemyScript.SetForce(4);
+        enemyScript.SetForce(6);
         monkeyRb.AddForce(followDirection * (jumpForce/2), ForceMode.Impulse);
         monkeyRb.AddForce(Vector3.up * 5, ForceMode.Impulse); //For jumping, may need to modify gravity
         //animation.Play("Attack");

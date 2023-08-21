@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     //public Transform cam;
     public GameObject cameraRef;
+    private ThirdPersonCamera camScript;
     public GameObject orientationObject;
     public Transform orientation;
 
@@ -170,6 +171,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         //cam = cameraRef.transform;
+        camScript = cameraRef.GetComponent<ThirdPersonCamera>();
         Cutscenes();
         playerRb = GetComponent<Rigidbody>();
         
@@ -527,6 +529,7 @@ public class PlayerController : MonoBehaviour
                 //Code to make lockedOn symbol face camera
                 //The original simple LookAt(cameraRef.transform) didn't work because it showed the clear backside of the plane/quad instead
                 target.transform.LookAt(target.transform.position - (cameraRef.transform.position - target.transform.position));
+                
                 
 
                 //Code to turn camera towards target
@@ -958,6 +961,7 @@ public class PlayerController : MonoBehaviour
             playerAudio.PlayOneShot(tigerSwing, 0.05f);
             //Debug.Log("Short Ranged Att");
             //playerRb.constraints = RigidbodyConstraints.FreezeRotation;
+            attackTurner = true;
         }
     }
 
@@ -1111,12 +1115,12 @@ public class PlayerController : MonoBehaviour
                     }
                     j++;
                 }
-                //if (targetedEnemy == null)
-                //{
-                //Debug.Log("Targeted Enemy is null");
-                //}
-                
-                lockedOn = true;
+            //if (targetedEnemy == null)
+            //{
+            //Debug.Log("Targeted Enemy is null");
+            //}
+            camScript.TurnToTarget(targetedEnemy.transform);
+            lockedOn = true;
             //I was going to get rid of this because it looked like this code was for shifting the target
             //But it's actually if the lockOn function isn't even on
         }
@@ -1131,6 +1135,7 @@ public class PlayerController : MonoBehaviour
     {
         lockedOn = false;
         enemyScript.LockOff();
+        camScript.LockOff();
     }
     IEnumerator TransformCountdown()
     {
