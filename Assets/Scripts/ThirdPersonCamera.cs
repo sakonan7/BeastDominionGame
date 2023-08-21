@@ -86,12 +86,13 @@ public class ThirdPersonCamera : MonoBehaviour
         //{
             //PlayBattleMusic();
         //}
-        if (gameManager.gameEnd == true && evokeOnce == true)
-        {
-            PlayVictoryMusic();
-            Debug.Log("Change the music..");
-            evokeOnce = false;
-        }
+        //if (gameManager.gameEnd == true && evokeOnce == true)
+        //{
+            //musicSource.Stop();
+            //PlayVictoryMusic();
+            //Debug.Log("Change the music..");
+            //evokeOnce = false;
+        //}
     }
     public void ChangeMusic()
     {
@@ -99,11 +100,13 @@ public class ThirdPersonCamera : MonoBehaviour
     }
     public void PlayBattleMusic()
     {
-        musicSource.clip = title;
+        musicSource.Stop();
+        musicSource.clip = battle;
         musicSource.Play();
     }
     public void PlayVictoryMusic()
     {
+        musicSource.Stop();
         musicSource.clip = victory;
         musicSource.Play();
     }

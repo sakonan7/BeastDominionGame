@@ -126,6 +126,7 @@ public class GameManager : MonoBehaviour
             startingCutscene = true;
             startGame = true;
             UIAppear();
+            camScript.PlayBattleMusic();
         }
 
         if (Input.GetMouseButtonDown(0) && gameOver == true)
@@ -139,11 +140,17 @@ public class GameManager : MonoBehaviour
             congratulationsMessage.gameObject.SetActive(true);
             //Time.timeScale = 0;
             VictoryMusicOn();
-            camScript.ChangeMusic();
+            //camScript.ChangeMusic();
+            UIDisappear();
+            
         }
         if (Input.GetMouseButtonDown(0) && gameEnd == true)
         {
             SceneManager.LoadScene("Level 1");
+        }
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            camScript.PlayVictoryMusic();
         }
     }
 
@@ -201,6 +208,13 @@ public class GameManager : MonoBehaviour
         HPDisplay.SetActive(true);
         currentForm.SetActive(true);
 }
+    public void UIDisappear()
+    {
+        battleCommandsObject.SetActive(false);
+        battleCommands2Object.SetActive(false);
+        HPDisplay.SetActive(false);
+        currentForm.SetActive(false);
+    }
     public void StartGameMethod()
     {
         //mainCam.SetActive(true);
@@ -227,6 +241,7 @@ public class GameManager : MonoBehaviour
         music.text = "Music: " + victoryMusic;
         music.transform.Translate(0, 0, 0);
         continueMessage.gameObject.SetActive(true);
+        camScript.PlayVictoryMusic();
     }
     public void GameOver()
     {
@@ -237,9 +252,9 @@ public class GameManager : MonoBehaviour
     {
         Vector3 wolfLocation = enemies[0].transform.position;
         Instantiate(enemies[1], new Vector3(wolfLocation.x + 4, wolfLocation.y, wolfLocation.z - 6), enemies[0].transform.rotation);
-        Instantiate(enemies[1], new Vector3(wolfLocation.x + 8, wolfLocation.y, wolfLocation.z - 15), enemies[0].transform.rotation);
-        Instantiate(enemies[1], new Vector3(wolfLocation.x + 14.5f, wolfLocation.y, wolfLocation.z - 8), enemies[0].transform.rotation);
-        numOfEnemies = 3;
+        //Instantiate(enemies[1], new Vector3(wolfLocation.x + 8, wolfLocation.y, wolfLocation.z - 15), enemies[0].transform.rotation);
+        //Instantiate(enemies[1], new Vector3(wolfLocation.x + 14.5f, wolfLocation.y, wolfLocation.z - 8), enemies[0].transform.rotation);
+        numOfEnemies = 1;
     }
     public void Area1()
     {

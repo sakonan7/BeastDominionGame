@@ -41,7 +41,7 @@ public class NewWolf : MonoBehaviour
     private float startIdleTime;
     public float idleTime = 3;
     private Quaternion lookRotation;
-    public int HP = 6;
+    private int HP = 6;
     private bool idle = true;
     private bool chase = false;
     //private bool attack = false;
@@ -79,7 +79,7 @@ public class NewWolf : MonoBehaviour
 
     //Miscellaneous
     private GameManager gameManager;
-    private bool testingStun = true;
+    private bool testingStun = false;
     private GameObject cameraRef;
     // Start is called before the first frame update
     void Start()
@@ -121,6 +121,7 @@ public class NewWolf : MonoBehaviour
 
         enemyScript = GetComponent<Enemy>();
         //HPBar.Instantiate();
+        enemyScript.SetHP(HP);
     }
 
     // Update is called once per frame
