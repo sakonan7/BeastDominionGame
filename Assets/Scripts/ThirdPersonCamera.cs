@@ -23,6 +23,10 @@ public class ThirdPersonCamera : MonoBehaviour
     private Quaternion originalRotation;
     public CinemachineFreeLook cinemachineFL;
 
+    private float tigerPosition;
+    private float birdPosition;
+    private Vector3 viewDir;
+
     private bool evokeOnce = false;
     // Start is called before the first frame update
     void Start()
@@ -41,6 +45,10 @@ public class ThirdPersonCamera : MonoBehaviour
         musicSource = GetComponent<AudioSource>();
         musicSource.clip = title;
         musicSource.Play();
+
+        tigerPosition = player.position.y;
+        birdPosition = player.position.y + 1;
+       
     }
 
     // Update is called once per frame
@@ -53,7 +61,7 @@ public class ThirdPersonCamera : MonoBehaviour
         ///I just caught a mistake where I'm still using tiger.transform, but it doesn't look like
         ///using tiger.transform caused any problems. It probably will cause problems when I use bird
         ///Doing this actually didn't change anything, probably because the tiger faces the same direction as the player ob
-        Vector3 viewDir = player.position - new Vector3(transform.position.x, player.position.y, transform.position.z);
+        viewDir = player.position - new Vector3(transform.position.x, tigerPosition, transform.position.z);
         orientation.forward = viewDir.normalized;
         float horizontalInput = Input.GetAxis("Horizontal");
         float verticalInput = Input.GetAxis("Vertical");
@@ -101,10 +109,12 @@ public class ThirdPersonCamera : MonoBehaviour
         if (playerScript.tigerActive == true)
         {
             playerObj = bird.transform;
+            //viewDir = player.position - new Vector3(transform.position.x, birdPosition, transform.position.z);
         }
         if (playerScript.birdActive == true)
         {
             playerObj = tiger.transform;
+            //viewDir = player.position - new Vector3(transform.position.x, tigerPosition, transform.position.z);
         }
     }
     public void ChangeMusic()
