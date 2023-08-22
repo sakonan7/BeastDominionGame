@@ -53,7 +53,7 @@ public class Monkey : MonoBehaviour
     private float damageIdleTime = 6;
 
     private GameManager gameManager;
-    private int HP = 5;
+    private int HP = 7;
     private bool testingStun = true;
     // Start is called before the first frame update
     void Start()

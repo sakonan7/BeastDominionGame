@@ -739,6 +739,15 @@ public class PlayerController : MonoBehaviour
         yield return new WaitForSeconds(0.3f);
         Strike();
     }
+    //Turn into an IEnumerator
+    public void FreezeRotations()
+    {
+
+    }
+    public void UnfreezeRotations()
+    {
+
+    }
     IEnumerator AttackDuration()
     {
         attack = true;
@@ -1507,9 +1516,11 @@ public class PlayerController : MonoBehaviour
             if (cantTransform == false)
             {
                 StartCoroutine(TransformCountdown());
+                //I think I will have tags designated for Walls to fly over
+                transform.position = new Vector3(transform.position.x, transform.position.y + 2.2f, transform.position.z);
             }
             cantTransform = true;
-            Debug.Log("Triggered?");
+            //Debug.Log("Triggered?");
         }
         else
         {

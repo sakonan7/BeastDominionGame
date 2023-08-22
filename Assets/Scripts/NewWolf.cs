@@ -41,7 +41,7 @@ public class NewWolf : MonoBehaviour
     private float startIdleTime;
     public float idleTime = 3;
     private Quaternion lookRotation;
-    private int HP = 6;
+    private int HP = 8;
     private bool idle = true;
     private bool chase = false;
     //private bool attack = false;
