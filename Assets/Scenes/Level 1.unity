@@ -784,7 +784,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1269062167}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 14.2, y: 1.16, z: -27.65}
+  m_LocalPosition: {x: 14.2, y: 2.3, z: -27.65}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -824,7 +824,6 @@ GameObject:
   - component: {fileID: 1297755660}
   - component: {fileID: 1297755659}
   - component: {fileID: 1297755658}
-  - component: {fileID: 1297755663}
   - component: {fileID: 1297755666}
   - component: {fileID: 1297755667}
   - component: {fileID: 1297755668}
@@ -1058,31 +1057,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1297755657}
   m_LocalRotation: {x: 0.078835115, y: 0.0000039294036, z: -0.00000031074214, w: 0.9968877}
-  m_LocalPosition: {x: -0.000012397766, y: 0.24800873, z: -0.63609314}
+  m_LocalPosition: {x: -0.000012397766, y: -0.89199126, z: -0.63609314}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1269062168}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 7.675, y: 0, z: 0}
---- !u!114 &1297755663
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1297755657}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a54bd1e5ae3fcdc45a24bee2cee6f898, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  player: {fileID: 1447893419}
-  tiger: {fileID: 1606392748}
-  bird: {fileID: 266267319}
-  sensX: 3
-  sensY: 3
-  orientation: {fileID: 0}
 --- !u!114 &1297755666
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1101,6 +1082,8 @@ MonoBehaviour:
   playerObj: {fileID: 4010593549892150240}
   player: {fileID: 1447893420}
   orientation: {fileID: 23484207}
+  tiger: {fileID: 1606392748}
+  bird: {fileID: 266267319}
   playerRb: {fileID: 1447893423}
   cinemachineFL: {fileID: 1355312651}
 --- !u!114 &1297755667
@@ -1471,6 +1454,8 @@ MonoBehaviour:
   playerObj: {fileID: 1447893420}
   player: {fileID: 0}
   orientation: {fileID: 23484207}
+  tiger: {fileID: 0}
+  bird: {fileID: 0}
   playerRb: {fileID: 0}
   cinemachineFL: {fileID: 0}
 --- !u!114 &1529579528
@@ -2330,10 +2315,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1202251510, guid: cc5d1e7149cb79549b8d52ad54f5c8e3, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 1550653510, guid: cc5d1e7149cb79549b8d52ad54f5c8e3, type: 3}
       propertyPath: HPBar
       value: 
@@ -2390,22 +2371,6 @@ PrefabInstance:
       propertyPath: tigerSpecialLightUp
       value: 
       objectReference: {fileID: 1450263295}
-    - target: {fileID: 110010077958864354, guid: cc5d1e7149cb79549b8d52ad54f5c8e3, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0.07
-      objectReference: {fileID: 0}
-    - target: {fileID: 110010077958864354, guid: cc5d1e7149cb79549b8d52ad54f5c8e3, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 2.23
-      objectReference: {fileID: 0}
-    - target: {fileID: 1839965071520540575, guid: cc5d1e7149cb79549b8d52ad54f5c8e3, type: 3}
-      propertyPath: stopAction
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1839965071520540575, guid: cc5d1e7149cb79549b8d52ad54f5c8e3, type: 3}
-      propertyPath: playOnAwake
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 4010593551167423253, guid: cc5d1e7149cb79549b8d52ad54f5c8e3, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -2453,22 +2418,6 @@ PrefabInstance:
     - target: {fileID: 4010593551167423254, guid: cc5d1e7149cb79549b8d52ad54f5c8e3, type: 3}
       propertyPath: m_Name
       value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 4750349962689270411, guid: cc5d1e7149cb79549b8d52ad54f5c8e3, type: 3}
-      propertyPath: playOnAwake
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4805130634314447312, guid: cc5d1e7149cb79549b8d52ad54f5c8e3, type: 3}
-      propertyPath: playOnAwake
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6662369850117777052, guid: cc5d1e7149cb79549b8d52ad54f5c8e3, type: 3}
-      propertyPath: playOnAwake
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9088157771328869836, guid: cc5d1e7149cb79549b8d52ad54f5c8e3, type: 3}
-      propertyPath: playOnAwake
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

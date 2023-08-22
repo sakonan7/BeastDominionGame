@@ -50,7 +50,8 @@ public class PlayerController : MonoBehaviour
     //Rigidbody. Rigidbody would just give a more realistic anima
 
     private float speed = 36; //Changed from 30 because now I'm using charactercontroller
-    private float birdSpeed = 40;
+    private float tigerSpeed = 36;
+    private float birdSpeed = 54;
     private float dodgeForce = 35; //90 barely jumps
     private float attackForce = 20;
     private float forwardInput;
@@ -1198,6 +1199,7 @@ public class PlayerController : MonoBehaviour
             birdActive = false;
             //tigerSensor.SetActive(true);
             //playerMugshot.texture = tigerMugshot;
+            speed = tigerSpeed;
         }
         else if (tigerActive == true)
         {
@@ -1213,6 +1215,7 @@ public class PlayerController : MonoBehaviour
             birdActive = true;
             //birdSensor.SetActive(true);
             //playerMugshot.texture = birdMugshot;
+            speed = birdSpeed;
         }
         transforming = false;
     }
@@ -1486,7 +1489,7 @@ public class PlayerController : MonoBehaviour
             //RunAnimationOff(); //For some reason,now it doesn't work in Game Mana
             //Debug.Log("Game Start");
         }
-        if (other.CompareTag("NoTransformation"))
+        if (other.gameObject.name == "End Transformation")
         {
             StartCoroutine(TransformCountdown());
             cantTransform = true;

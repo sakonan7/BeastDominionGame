@@ -29,6 +29,7 @@ public class ThirdPersonCamera : MonoBehaviour
     {
         //tiger = GameObject.Find("Tiger");
         //bird = GameObject.Find("Bird");
+        playerScript = player.gameObject.GetComponent<PlayerController>();
         gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
