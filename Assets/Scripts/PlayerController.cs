@@ -22,6 +22,7 @@ public class PlayerController : MonoBehaviour
 
     public GameObject tiger;
     public GameObject bird;
+    public GameObject birdSeparater;
 
     [Header("Combo Meter")]
     public int hitNumber = 0;
@@ -71,6 +72,9 @@ public class PlayerController : MonoBehaviour
     private float distanceCloserTigerAttackLength = 0.5f;
     private Quaternion attackRotation;
     private bool attackTurner = false;
+
+    //Testing Out Tiger's Rotating Towards Monkey
+    //Having LockOn( On should be making Tiger's rotation always towards Monkey though..
 
     private float turnSpeed = 1;
     //private float distance;
@@ -254,6 +258,15 @@ public class PlayerController : MonoBehaviour
             //dodgeEffect.transform.position = new Vector3(tiger.transform.position.x, 0.45f, tiger.transform.position.z - 0.1f);
             //orientationObject.transform.position = new Vector3(tiger.transform.position.x, tiger.transform.position.y + 0.77f, tiger.transform.position.z + 0.82f);
             //orientationObject.transform.rotation = tiger.transform.rotation;
+        }
+
+        if (gameManagerScript.stageCleared == true)
+        {
+            birdSeparater.SetActive(false);
+        }
+        else if (gameManagerScript.stageCleared == false)
+        {
+            birdSeparater.SetActive(true);
         }
 
         //movement
@@ -1489,9 +1502,12 @@ public class PlayerController : MonoBehaviour
             //RunAnimationOff(); //For some reason,now it doesn't work in Game Mana
             //Debug.Log("Game Start");
         }
-        if (other.gameObject.name == "End Transformation")
+        if (other.gameObject.name == "End Transformation" && gameManagerScript.stageCleared == true)
         {
-            StartCoroutine(TransformCountdown());
+            if (cantTransform == false)
+            {
+                StartCoroutine(TransformCountdown());
+            }
             cantTransform = true;
             Debug.Log("Triggered?");
         }

@@ -44,7 +44,7 @@ public class ThirdPersonCamera : MonoBehaviour
         cinemachineFL.gameObject.SetActive(false);
         musicSource = GetComponent<AudioSource>();
         musicSource.clip = title;
-        musicSource.Play();
+        //musicSource.Play();
 
         tigerPosition = player.position.y;
         birdPosition = player.position.y + 1;

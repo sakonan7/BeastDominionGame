@@ -127,7 +127,7 @@ public class GameManager : MonoBehaviour
             startingCutscene = true;
             startGame = true;
             UIAppear();
-            camScript.PlayBattleMusic();
+            //camScript.PlayBattleMusic();
         }
 
         if (Input.GetMouseButtonDown(0) && gameOver == true)

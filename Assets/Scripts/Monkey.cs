@@ -101,6 +101,10 @@ public class Monkey : MonoBehaviour
         //Monkey will only do it's chase while it's on the ground to avoid antigravity business
         if (testingStun == false)
         {
+            //if (testingBehaviors == true)
+            //{
+                //Maybe Use A Button Press To Make Monkey Change Movement Directions And See If Tiger Keeps FollowingIt.
+            //}
             if (idle == false && chase == true && stunned == false)
             {
                 //animation.Play("Run");
