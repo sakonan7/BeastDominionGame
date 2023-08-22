@@ -11,10 +11,11 @@ public class ThirdPersonCamera : MonoBehaviour
     public AudioClip victory;
     public Transform playerObj;
     public Transform player;
+    private PlayerController playerScript;
     public Transform orientation;
 
-    private GameObject tiger;
-    private GameObject bird;
+    public GameObject tiger;
+    public GameObject bird;
     private float speed = 4;
     public Rigidbody playerRb;
     private GameManager gameManager;
@@ -26,8 +27,8 @@ public class ThirdPersonCamera : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        tiger = GameObject.Find("Tiger");
-        bird = GameObject.Find("Bird");
+        //tiger = GameObject.Find("Tiger");
+        //bird = GameObject.Find("Bird");
         gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
@@ -93,6 +94,17 @@ public class ThirdPersonCamera : MonoBehaviour
             //Debug.Log("Change the music..");
             //evokeOnce = false;
         //}
+    }
+    public void ChangeForms()
+    {
+        if (playerScript.tigerActive == true)
+        {
+            playerObj = bird.transform;
+        }
+        if (playerScript.birdActive == true)
+        {
+            playerObj = tiger.transform;
+        }
     }
     public void ChangeMusic()
     {

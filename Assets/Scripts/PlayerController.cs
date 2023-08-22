@@ -92,6 +92,7 @@ public class PlayerController : MonoBehaviour
     private bool cantMove = false;
 
     private bool transforming = false;
+    private bool cantTransform = false;
     public bool stunnedInvincibility;
     private float invincibleFrame;
 
@@ -378,7 +379,7 @@ public class PlayerController : MonoBehaviour
 
                 StartCoroutine(Dodge());
             }
-            if (Input.GetKeyDown(KeyCode.E))
+            if (Input.GetKeyDown(KeyCode.E) && cantTransform == false)
             {
                 //Transform();
                 //Debug.Log("Transform");
@@ -1180,6 +1181,7 @@ public class PlayerController : MonoBehaviour
         //The problem was that for some reason E was triggering both if cases at the same time, so I made tiger transformation
         //into an else if
         //First is transforming into Tiger
+        camScript.ChangeForms();
         if (birdActive == true)
         {
             //tiger.transform.Translate(bird.transform.position.x - 6.6f, 0, bird.transform.position.z + 14.5f);
@@ -1483,6 +1485,16 @@ public class PlayerController : MonoBehaviour
             Destroy(other);
             //RunAnimationOff(); //For some reason,now it doesn't work in Game Mana
             //Debug.Log("Game Start");
+        }
+        if (other.CompareTag("NoTransformation"))
+        {
+            StartCoroutine(TransformCountdown());
+            cantTransform = true;
+            Debug.Log("Triggered?");
+        }
+        else
+        {
+            cantTransform = false;
         }
 
         //Play attack effect in Enemy and load the effect in the individual script. IE, if Xemnas is using his ethereal blades,

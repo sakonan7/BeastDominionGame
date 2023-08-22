@@ -22,6 +22,7 @@ public class GameManager : MonoBehaviour
     private int numOfEnemies = 1;
     public bool battleStart = false;
     public bool gameEnd = false;
+    public bool stageCleared = false;
 
     //Canvas
     public Canvas areaCanvas;
@@ -139,16 +140,19 @@ public class GameManager : MonoBehaviour
         //and over again. This might be the case because the method I wrote in ThirdPersonCamera stops the music player before
         //changing the track and playing .
         //Maybe I should evoke the method the minute the last foe is defeated in EnemeyDefeated(
-        //if (numOfEnemies == 0)
-        //{
-            //playerScript.Cutscenes();
-            //congratulationsMessage.gameObject.SetActive(true);
+        //The weird thing is that i'm very damn sure I tried changing the music with the button press methods yesterday after this
+        //conditional, but it worked the day aft
+        if (numOfEnemies == 0)
+        {
+            playerScript.Cutscenes();
+            congratulationsMessage.gameObject.SetActive(true);
             //Time.timeScale = 0;
             //VictoryMusicOn();
             //camScript.ChangeMusic();
-            //UIDisappear();
-            
-        //}
+            UIDisappear();
+            stageCleared = true;
+            Destroy(barrier);
+        }
         if (Input.GetMouseButtonDown(0) && gameEnd == true)
         {
             SceneManager.LoadScene("Level 1");
@@ -265,6 +269,11 @@ public class GameManager : MonoBehaviour
         //Instantiate(enemies[1], new Vector3(wolfLocation.x + 14.5f, wolfLocation.y, wolfLocation.z - 8), enemies[0].transform.rotation);
         numOfEnemies = 1;
     }
+
+    //not sure how I will do this in Update because Update will keep evoking this. if it keeps invoking, it will keep instantiating
+    //the enemies
+    //Especially for sic. I just thought of it though, I will
+    //only be evoking stages by using colliders. That means that it will only invoke the method once.
     public void Area1()
     {
         //startMenu.SetActive(false);

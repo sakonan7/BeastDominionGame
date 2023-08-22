@@ -15,6 +15,7 @@ TagManager:
   - Tiger Special
   - Enemy Attack Range
   - Continue
+  - NoTransformation
   layers:
   - Default
   - TransparentFX
