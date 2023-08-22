@@ -134,16 +134,21 @@ public class GameManager : MonoBehaviour
             SceneManager.LoadScene("Level 1");
         }
         ///Need to turn this into a meth
-        if (numOfEnemies == 0)
-        {
-            playerScript.Cutscenes();
-            congratulationsMessage.gameObject.SetActive(true);
+        
+        //The only thing I can think of that's causing a problem is that the Update mthod is causing this piece of code to keep repeating over
+        //and over again. This might be the case because the method I wrote in ThirdPersonCamera stops the music player before
+        //changing the track and playing .
+        //Maybe I should evoke the method the minute the last foe is defeated in EnemeyDefeated(
+        //if (numOfEnemies == 0)
+        //{
+            //playerScript.Cutscenes();
+            //congratulationsMessage.gameObject.SetActive(true);
             //Time.timeScale = 0;
-            VictoryMusicOn();
+            //VictoryMusicOn();
             //camScript.ChangeMusic();
-            UIDisappear();
+            //UIDisappear();
             
-        }
+        //}
         if (Input.GetMouseButtonDown(0) && gameEnd == true)
         {
             SceneManager.LoadScene("Level 1");
@@ -151,6 +156,10 @@ public class GameManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.R))
         {
             camScript.PlayVictoryMusic();
+        }
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            camScript.PlayBattleMusic();
         }
     }
 
@@ -294,7 +303,7 @@ public class GameManager : MonoBehaviour
         if (enemyJustDefeated == false)
         {
             enemyJustDefeated = true;
-
+            camScript.LockOff();
             if (playerScript.specialInvincibility == false)
             {
                 StartCoroutine(SlowDown());

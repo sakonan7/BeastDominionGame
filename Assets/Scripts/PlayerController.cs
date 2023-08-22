@@ -67,7 +67,7 @@ public class PlayerController : MonoBehaviour
     private bool specialCloseTheDistance = false;
     private float attackTimeLength;
     private float normalTigerAttacklength = 0.5f;
-    private float distanceCloserTigerAttackLength = 0.3f;
+    private float distanceCloserTigerAttackLength = 0.5f;
     private Quaternion attackRotation;
     private bool attackTurner = false;
 
@@ -434,7 +434,7 @@ public class PlayerController : MonoBehaviour
         //It seems that the turning works for closeTheDist
         if (attackTurner == true && attack == true)
         {
-            transform.rotation = Quaternion.Slerp(transform.rotation, attackRotation, 5);
+            transform.rotation = Quaternion.Slerp(transform.rotation, attackRotation, 5 * Time.deltaTime);
         }
 
 
@@ -457,7 +457,7 @@ public class PlayerController : MonoBehaviour
                 playerRb.velocity = new Vector3(limitedDashVel.x, 0, limitedDashVel.z);
             }
             //time += Time.deltaTime * turnSpeed;
-            transform.rotation = Quaternion.Slerp(transform.rotation, attackRotation, 5);
+            transform.rotation = Quaternion.Slerp(transform.rotation, attackRotation, 5 * Time.deltaTime);
             
 
         }
@@ -469,7 +469,7 @@ public class PlayerController : MonoBehaviour
             ///For some reason, I made specialdistancecloserslower than regular distance clos
             playerRb.AddForce(attackDirection * 5, ForceMode.Impulse); //attack force wasn't enough //Also, it isn't enough here //Try impulse
                                                                        //ForceMode Impulse is amazing. Needed to go from speed to 5 becaue of how fast and far it went
-            transform.rotation = Quaternion.Slerp(transform.rotation, attackRotation, 5);
+            transform.rotation = Quaternion.Slerp(transform.rotation, attackRotation, 5 * Time.deltaTime);
             //Put the closeTheDistance code in here
             Vector3 specVel = new Vector3(playerRb.velocity.x, 0, playerRb.velocity.z);
 
@@ -651,7 +651,7 @@ public class PlayerController : MonoBehaviour
                 attackDirection = (targetedEnemy.transform.position - transform.position).normalized;
 
                 attackRotation = Quaternion.LookRotation(targetedEnemy.transform.position - transform.position);
-                transform.rotation = Quaternion.Slerp(transform.rotation, attackRotation, 10); //Moved this from Strike() to
+                transform.rotation = Quaternion.Slerp(transform.rotation, attackRotation, 10 * Time.deltaTime); //Moved this from Strike() to
                                                                                                //see if I can immediately turn my character towards an ene
                 
                 //StartCoroutine(Turner());
@@ -666,14 +666,14 @@ public class PlayerController : MonoBehaviour
                 {
                     //StartCoroutine(Turning());
                     //Strike();
-                    if (canCombo == false)
-                    {
-                        StartCoroutine(Turning());
-                    }
-                    else
-                    {
+                    //if (canCombo == false)
+                    //{
+                        //StartCoroutine(Turning());
+                    //}
+                    //else
+                    //{
                         Strike();
-                    }
+                    //}
                 }
                 if (running == true)
                 {
@@ -719,7 +719,7 @@ public class PlayerController : MonoBehaviour
     }
     IEnumerator Turning()
     {
-        transform.rotation = Quaternion.Slerp(transform.rotation, attackRotation, 5);
+        transform.rotation = Quaternion.Lerp(transform.rotation, attackRotation, 5 * Time.deltaTime);
         //cantMove = true;
         yield return new WaitForSeconds(0.3f);
         Strike();
@@ -734,7 +734,7 @@ public class PlayerController : MonoBehaviour
             //tigerCollider.center = new Vector3(tigerCollider.center.x, tigerCollider.center.y, tigerCollider.center.z + 1.25f);
             tigerAttackEffect.SetActive(true);
         }
-        playerRb.constraints = RigidbodyConstraints.FreezeRotation;
+        //playerRb.constraints = RigidbodyConstraints.FreezeRotation;
         yield return new WaitForSeconds(attackTimeLength);
         attack = false;
         cantMove = false;
@@ -849,7 +849,7 @@ public class PlayerController : MonoBehaviour
         if (lockedOn == true)
         {
             attackDirection = (targetedEnemy.transform.position - transform.position).normalized;
-            transform.rotation = Quaternion.Slerp(transform.rotation, attackRotation, 5);
+            transform.rotation = Quaternion.Slerp(transform.rotation, attackRotation, 5 * Time.deltaTime);
             attackRotation = Quaternion.LookRotation(targetedEnemy.transform.position - transform.position);
             if (distance <= 5)
             {
@@ -966,7 +966,7 @@ public class PlayerController : MonoBehaviour
             //Gonna need a method like DistanceCloser
             ///At first, I was wondering if the attack duration plays long enough for distance closer, but it looks like it does
             //Debug.Log("Distance Closer");
-            transform.rotation = Quaternion.Slerp(transform.rotation, attackRotation, 10);
+            transform.rotation = Quaternion.Slerp(transform.rotation, attackRotation, 10 * Time.deltaTime);
             closeTheDistance = true;
             //StartCoroutine(DistanceCloser());
             //tigerRB.AddForce(attackDirection * (attackForce + 16), ForceMode.Impulse);
@@ -974,7 +974,7 @@ public class PlayerController : MonoBehaviour
         }
         else if (distance < 4 && lockedOn)
         {
-            transform.rotation = Quaternion.Slerp(transform.rotation, attackRotation, 10);
+            transform.rotation = Quaternion.Slerp(transform.rotation, attackRotation, 10 * Time.deltaTime);
             attackTimeLength = normalTigerAttacklength;
             StartCoroutine(AttackDuration());
             playerRb.AddForce(attackDirection * (attackForce + 14), ForceMode.Impulse);//Changed from 8 to 12
@@ -1008,7 +1008,7 @@ public class PlayerController : MonoBehaviour
         playerAudio.PlayOneShot(tigerSwing, 0.05f);
         
         attackRotation = Quaternion.LookRotation(targetedEnemy.transform.position - transform.position);
-        transform.rotation = Quaternion.Slerp(transform.rotation, attackRotation, 10); //Am using all the attack rotations
+        transform.rotation = Quaternion.Slerp(transform.rotation, attackRotation, 10 * Time.deltaTime); //Am using all the attack rotations
         //here because there is a charge up before Tiger Special Attack
         //playerRb.AddRelativeTorque(Vector3.down * 5, ForceMode.Impulse);
         //transform.rotation = new Quaternion(0, 360, 0, 0);
