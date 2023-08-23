@@ -16,6 +16,7 @@ TagManager:
   - Enemy Attack Range
   - Continue
   - NoTransformation
+  - Bird Attack Range
   layers:
   - Default
   - TransparentFX

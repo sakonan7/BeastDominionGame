@@ -39,6 +39,7 @@ public class PlayerController : MonoBehaviour
     public AudioClip tigerRegularStrike;
     public ParticleSystem regularHitEffect;
     public GameObject tigerAttackEffect;
+    public GameObject birdAttackEffect;
     public Transform transformEffect;
     public Light blackoutLight;
     private Color originalColor;
@@ -87,6 +88,9 @@ public class PlayerController : MonoBehaviour
 
     //These bools are necessary because they are important outside of making the player unable to 
     public bool dodge = false;
+    private float dodgeTime;
+    private float tigerDodge = 0.8f;
+    private float birdDodge = 1.2f;
     //public bool lag = false;
     public bool attack = false;
     public bool swoopLag = false;
@@ -195,6 +199,8 @@ public class PlayerController : MonoBehaviour
         //tigerSensor.SetActive(true);
         birdActive = false;
         bird.SetActive(false);
+
+        dodgeTime = tigerDodge;
 
         playerAudio = GetComponent<AudioSource>();
         //playerUI = GameObject.Find("Canvas");
@@ -345,7 +351,7 @@ public class PlayerController : MonoBehaviour
                         //bird.transform.Rotate(Vector3.back * 300 * Time.deltaTime); //Doesn't work most likely because I need to use Time.deltaTime but
                         //something that counts milliseconds, so that bird can spin a full 360 in one second
                         //Use torque
-                        birdRB.AddTorque(Vector3.back, ForceMode.Impulse);
+                        //birdRB.AddTorque(Vector3.back, ForceMode.Impulse);
                         //Quick fix, but it actually worked. Running animation 
                         //I tried putting a big case above all the controls, but it doesn't
                         //For some reason, this is necessary in the code for the actions
@@ -727,6 +733,8 @@ public class PlayerController : MonoBehaviour
         //playerRb.constraints = RigidbodyConstraints.FreezeRotationX;
         //playerRb.constraints = RigidbodyConstraints.FreezeRotationZ;
         playerRb.constraints &= RigidbodyConstraints.FreezeRotationY;
+        playerRb.constraints = RigidbodyConstraints.FreezeRotationZ;
+        playerRb.constraints = RigidbodyConstraints.FreezeRotationX;
     }
     IEnumerator AttackDuration()
     {
@@ -738,19 +746,26 @@ public class PlayerController : MonoBehaviour
             //tigerCollider.center = new Vector3(tigerCollider.center.x, tigerCollider.center.y, tigerCollider.center.z + 1.25f);
             tigerAttackEffect.SetActive(true);
         }
+        if (birdActive == true)
+        {
+            birdAttackEffect.SetActive(true);
+            bird.transform.Translate(0, -1.5f, 0);
+            birdSeparater.SetActive(false);
+        }
         //playerRb.constraints = RigidbodyConstraints.FreezeRotation;
         yield return new WaitForSeconds(attackTimeLength);
         attack = false;
         cantMove = false;
-        UnfreezeRotations();
+        //UnfreezeRotations();
         //Debug.Log("Attack");
         if (birdActive == true)
         {
-            //Return to the same position in the air
-            //Change: Make it so that bird only returns to y position in the air, meaning that like tiger strike,
-            //the bird will advance with each attack. Did it by commenting out = reset
-            birdRB.AddForce(Vector3.up * 5, ForceMode.Impulse);
-            //bird.transform.position = resetY;
+            if (birdActive == true)
+            {
+                birdAttackEffect.SetActive(false);
+                bird.transform.Translate(0, 1.5f, 0);
+                birdSeparater.SetActive(true);
+            }
         }
         if (tigerActive == true)
         {
@@ -903,11 +918,12 @@ public class PlayerController : MonoBehaviour
         //attackDirection = (target.transform.position - transform.position).normalized;
         //Try using downward and upward forces instead
         //bird.transform.Translate(bird.transform.position.x, 0.8f, bird.transform.position.z);
-        birdRB.AddForce(Vector3.down * 5, ForceMode.Impulse);
+        //birdRB.AddForce(Vector3.down * 5, ForceMode.Impulse);
         birdRB.AddForce(attackDirection * attackForce, ForceMode.Impulse);
-        birdAnimation.Play("Attack");
-        resetY = new Vector3(bird.transform.position.x, 0.6f, bird.transform.position.z);
-        StartCoroutine(SwoopLag());
+        //birdAnimation.Play("Attack");
+        //resetY = new Vector3(bird.transform.position.x, 0.6f, bird.transform.position.z);
+        //StartCoroutine(SwoopLag());
+        StartCoroutine(AttackDuration());
     }
     public void Strike()
     {
@@ -1042,11 +1058,17 @@ public class PlayerController : MonoBehaviour
         cantMove = true;
         canCombo = false;
         //dodgeEffect.SetActive(true);
-        yield return new WaitForSeconds(0.8f);
-        if (birdActive == true)
-        {
-            bird.transform.Rotate(0, bird.transform.rotation.y, 39.5f);
-        }
+        //if (birdActive == true)
+        //{
+            //bird.transform.rotation = new Quaternion(0, 0, 180, 0);
+        //}
+        
+        yield return new WaitForSeconds(dodgeTime);
+        //if (birdActive == true)
+        //{
+            //bird.transform.Rotate(0, bird.transform.rotation.y, 39.5f);
+            //bird.transform.rotation = new Quaternion(0, 0, 300, 0);
+        //}
         dodge = false;
         //dodgeEffect.SetActive(false);
         StartCoroutine(DodgeLag());
@@ -1173,6 +1195,7 @@ public class PlayerController : MonoBehaviour
             //tigerSensor.SetActive(true);
             //playerMugshot.texture = tigerMugshot;
             speed = tigerSpeed;
+            dodgeTime = tigerDodge;
             //playerRb.constraints &= ~RigidbodyConstraints.FreezePositionY;
             //playerRb.constraints = RigidbodyConstraints.FreezeRotationX;
             //playerRb.constraints = RigidbodyConstraints.FreezeRotationZ;
@@ -1192,7 +1215,7 @@ public class PlayerController : MonoBehaviour
             //birdSensor.SetActive(true);
             //playerMugshot.texture = birdMugshot;
             speed = birdSpeed;
-            
+            dodgeTime = birdDodge;
             //playerRb.constraints = RigidbodyConstraints.FreezePositionY;
         }
         transforming = false;
