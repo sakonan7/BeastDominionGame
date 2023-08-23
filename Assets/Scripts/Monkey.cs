@@ -55,6 +55,9 @@ public class Monkey : MonoBehaviour
     private GameManager gameManager;
     private int HP = 7;
     private bool testingStun = true;
+    private bool testingBehaviors = true;
+    private bool moveLeft = false;
+    private bool moveRight = true;
     // Start is called before the first frame update
     void Start()
     {
@@ -99,12 +102,26 @@ public class Monkey : MonoBehaviour
     {
         //HPBar.transform.position = new Vector3(transform.position.x, transform.position.y + 1.9f, transform.position.z + 0.1f);
         //Monkey will only do it's chase while it's on the ground to avoid antigravity business
+        if (testingBehaviors == true)
+        {
+            //Maybe Use A Button Press To Make Monkey Change Movement Directions And See If Tiger Keeps FollowingIt.
+            if (moveLeft ==  true)
+            {
+                monkeyRb.AddForce(Vector3.left * speed / 2);
+            }
+            else if (moveRight == true)
+            {
+                monkeyRb.AddForce(Vector3.right * speed / 2);
+            }
+            if (Input.GetKeyDown(KeyCode.Tab))
+            {
+                moveLeft = !moveLeft;
+                moveRight = !moveRight;
+            }
+        }
         if (testingStun == false)
         {
-            //if (testingBehaviors == true)
-            //{
-                //Maybe Use A Button Press To Make Monkey Change Movement Directions And See If Tiger Keeps FollowingIt.
-            //}
+
             if (idle == false && chase == true && stunned == false)
             {
                 //animation.Play("Run");

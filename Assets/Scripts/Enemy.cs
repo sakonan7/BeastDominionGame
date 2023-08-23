@@ -189,7 +189,7 @@ public class Enemy : MonoBehaviour
     IEnumerator FoeAttacked()
     {
         attacked = true;
-        float playerAttackForce = 150;
+        float playerAttackForce = 120;
         //enemyRb.AddForce(playerScript.attackDirection * attackForce, ForceMode.Force);
         enemyRb.velocity = new Vector3(playerScript.attackDirection.x * playerAttackForce, 0, playerScript.attackDirection.z * playerAttackForce);
         //enemyRb.maxLinearVelocity = attackForce;
@@ -208,7 +208,7 @@ public class Enemy : MonoBehaviour
         attacked = false;
         //damageDisplay.gameObject.SetActive(false);
         float distance = Vector3.Distance(player.transform.position, transform.position);
-        Debug.Log("Distance is equal to " + distance);
+        //Debug.Log("Distance is equal to " + distance);
         //enemyForce.relativeForce = new Vector3(0,0,0);
     }
     //This will be helpful for combo att
@@ -217,7 +217,7 @@ public class Enemy : MonoBehaviour
         attacked = true;
         float playerAttackForce = 280;
         //enemyRb.AddForce(playerScript.attackDirection * attackForce, ForceMode.Force);
-        //enemyRb.velocity = new Vector3(playerScript.attackDirection.x * attackForce, 0, playerScript.attackDirection.z * attackForce);
+        enemyRb.velocity = new Vector3(playerScript.attackDirection.x * attackForce, 0, playerScript.attackDirection.z * attackForce);
 
         //Vector3 consistentVel = new Vector3(enemyRb.velocity.x, 0, enemyRb.velocity.z);
 

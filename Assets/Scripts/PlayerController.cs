@@ -562,6 +562,7 @@ public class PlayerController : MonoBehaviour
                                                                                                    //to keep calculating the distance between foe
                                                                                                    //and player
                 attackRotation = Quaternion.LookRotation(targetedEnemy.transform.position - orientation.transform.position);
+                //transform.rotation = Quaternion.Lerp(transform.rotation, attackRotation, 10 * Time.deltaTime);
                 //StartCoroutine(TellDistance());
             }
             //I may want to change this because I can trigger an error by trying to access enemyScript when targetEnemy has been killed
@@ -725,7 +726,10 @@ public class PlayerController : MonoBehaviour
                 }
             }
         }
- 
+        if (Input.GetKeyDown(KeyCode.N))
+        {
+            transform.Rotate(0, transform.rotation.y + 180, 0, 0);
+        }
     }
     IEnumerator TellDistance ()
     {
