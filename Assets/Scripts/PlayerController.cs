@@ -607,6 +607,10 @@ public class PlayerController : MonoBehaviour
         {
             OpeningRun();
         }
+        if (Input.GetKeyDown(KeyCode.N))
+        {
+            transform.Rotate(0, transform.rotation.y + 180, 0, 0);
+        }
     }
     public void LateUpdate()
     {
@@ -726,10 +730,7 @@ public class PlayerController : MonoBehaviour
                 }
             }
         }
-        if (Input.GetKeyDown(KeyCode.N))
-        {
-            transform.Rotate(0, transform.rotation.y + 180, 0, 0);
-        }
+
     }
     IEnumerator TellDistance ()
     {
@@ -744,13 +745,17 @@ public class PlayerController : MonoBehaviour
         Strike();
     }
     //Turn into an IEnumerator
-    public void FreezeRotations()
+    IEnumerator FreezeRotations()
     {
-
+        yield return new WaitForSeconds(0.5f);
+        playerRb.constraints = RigidbodyConstraints.FreezeRotationY;
     }
     public void UnfreezeRotations()
     {
-
+        playerRb.constraints = RigidbodyConstraints.None;
+        playerRb.constraints = RigidbodyConstraints.FreezePositionY;
+        playerRb.constraints = RigidbodyConstraints.FreezeRotationX;
+        playerRb.constraints = RigidbodyConstraints.FreezeRotationZ;
     }
     IEnumerator AttackDuration()
     {
@@ -767,10 +772,7 @@ public class PlayerController : MonoBehaviour
         attack = false;
         cantMove = false;
         attackTurner = false;
-        //playerRb.constraints = RigidbodyConstraints.None;
-        //playerRb.constraints = RigidbodyConstraints.FreezePositionY;
-        //playerRb.constraints = RigidbodyConstraints.FreezeRotationX;
-        //playerRb.constraints = RigidbodyConstraints.FreezeRotationZ;
+        //UnfreezeRotations();
         //Debug.Log("Attack");
         if (birdActive == true)
         {
@@ -963,6 +965,7 @@ public class PlayerController : MonoBehaviour
             //playerRb.velocity = attackDirection * (attackForce + 10);
             animation.Play("Attack 1 & 2");
             playerAudio.PlayOneShot(tigerSwing, 0.05f);
+            StartCoroutine(FreezeRotations());
         }
         //I guestimated from gameplay that the distance needs to be at least 15
         //I think I may want to rewrite this because I don't think this works
@@ -1011,6 +1014,7 @@ public class PlayerController : MonoBehaviour
             //Debug.Log("Short Ranged Att");
             //playerRb.constraints = RigidbodyConstraints.FreezeRotation;
             attackTurner = true;
+            StartCoroutine(FreezeRotations());
         }
     }
 
