@@ -1517,7 +1517,8 @@ public class PlayerController : MonoBehaviour
             {
                 StartCoroutine(TransformCountdown());
                 //I think I will have tags designated for Walls to fly over
-                transform.position = new Vector3(transform.position.x, transform.position.y + 2.2f, transform.position.z);
+                //Surprisingly, bird.transform.y worked the same way as transform.position.y + 2.2f
+                transform.position = new Vector3(transform.position.x, bird.transform.position.y - 0.2f, transform.position.z);
             }
             cantTransform = true;
             //Debug.Log("Triggered?");
