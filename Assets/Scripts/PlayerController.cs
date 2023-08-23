@@ -71,6 +71,7 @@ public class PlayerController : MonoBehaviour
     private float attackTimeLength;
     private float normalTigerAttacklength = 0.5f;
     private float distanceCloserTigerAttackLength = 0.5f;
+    private float birdAttackLength = 0.2f;
     private Quaternion attackRotation;
 
     //Testing Out Tiger's Rotating Towards Monkey
@@ -595,7 +596,7 @@ public class PlayerController : MonoBehaviour
         {
             //Debug.Log("Distance met For Regul");
             closeTheDistance = false;
-            StartCoroutine(FreezeRotations());
+            //StartCoroutine(FreezeRotations());
             attackTimeLength = distanceCloserTigerAttackLength;
             StartCoroutine(AttackDuration());
             animation.Play("Attack 1 & 2");
@@ -919,11 +920,62 @@ public class PlayerController : MonoBehaviour
         //Try using downward and upward forces instead
         //bird.transform.Translate(bird.transform.position.x, 0.8f, bird.transform.position.z);
         //birdRB.AddForce(Vector3.down * 5, ForceMode.Impulse);
-        birdRB.AddForce(attackDirection * attackForce, ForceMode.Impulse);
+        //birdRB.AddForce(attackDirection * attackForce, ForceMode.Impulse);
         //birdAnimation.Play("Attack");
         //resetY = new Vector3(bird.transform.position.x, 0.6f, bird.transform.position.z);
         //StartCoroutine(SwoopLag());
-        StartCoroutine(AttackDuration());
+        //StartCoroutine(AttackDuration());
+
+        canCombo = false;
+        attackTimeLength = birdAttackLength;
+        if (lockedOn == false)
+        {
+            
+            StartCoroutine(AttackDuration());
+            playerRb.AddForce(attackDirection * (attackForce + 10), ForceMode.Impulse);
+            //StartCoroutine(FreezeRotations());
+        }
+        //I guestimated from gameplay that the distance needs to be at least 15
+        //I think I may want to rewrite this because I don't think this works
+        //if (lockedOn == true)
+        //{
+            //Debug.Log(distance);
+        //}
+        if (lockedOn == true)
+        {
+            //StartCoroutine(TellAngle());
+        }
+        if (distance > 15 && lockedOn)
+        {
+            
+            StartCoroutine(AttackDuration());
+            playerRb.velocity = attackDirection * (attackForce + 14);
+            //StartCoroutine(FreezeRotations());
+        }
+        //Want DistanceCloser only to play when the tiger isn't close enough. Was originally going to have a distance > 10 || distance <=3
+        //above,but I realized that the below will cover it. Maybe, let's keep testing it out
+        else if (((distance < 15 && distance > 4) || canCombo == true) && lockedOn)
+        {
+            //I need some way to stop this
+            //Maybe like the wolf, once the tiger reaches the necessary distance, just perform the regular attack
+            //I could either have a non impulse movement to close the distance, or an impulse that will definitely get me close
+            //enough to the target. I partially want to do the latter, but I think the former is better because the impulse is not consistent
+            //Gonna need a method like DistanceCloser
+            ///At first, I was wondering if the attack duration plays long enough for distance closer, but it looks like it does
+            //Debug.Log("Distance Closer");
+            transform.rotation = Quaternion.Slerp(transform.rotation, attackRotation, 10 * Time.deltaTime);
+            closeTheDistance = true;
+            //StartCoroutine(DistanceCloser());
+            //tigerRB.AddForce(attackDirection * (attackForce + 16), ForceMode.Impulse);
+            //canCombo = false;
+        }
+        else if (distance < 4 && lockedOn)
+        {
+            transform.rotation = Quaternion.Slerp(transform.rotation, attackRotation, 10 * Time.deltaTime);
+            StartCoroutine(AttackDuration());
+            playerRb.AddForce(attackDirection * (attackForce + 14), ForceMode.Impulse);//Changed from 8 to 12
+            //StartCoroutine(FreezeRotations());
+        }
     }
     public void Strike()
     {
@@ -940,7 +992,7 @@ public class PlayerController : MonoBehaviour
             //playerRb.velocity = attackDirection * (attackForce + 10);
             animation.Play("Attack 1 & 2");
             playerAudio.PlayOneShot(tigerSwing, 0.05f);
-            StartCoroutine(FreezeRotations());
+            //StartCoroutine(FreezeRotations());
         }
         //I guestimated from gameplay that the distance needs to be at least 15
         //I think I may want to rewrite this because I don't think this works
@@ -961,7 +1013,7 @@ public class PlayerController : MonoBehaviour
             playerRb.velocity = attackDirection * (attackForce + 14);
             animation.Play("Attack 1 & 2");
             playerAudio.PlayOneShot(tigerSwing, 0.05f);
-            StartCoroutine(FreezeRotations());
+            //StartCoroutine(FreezeRotations());
         }
         //Want DistanceCloser only to play when the tiger isn't close enough. Was originally going to have a distance > 10 || distance <=3
         //above,but I realized that the below will cover it. Maybe, let's keep testing it out
@@ -988,7 +1040,7 @@ public class PlayerController : MonoBehaviour
             playerRb.AddForce(attackDirection * (attackForce + 14), ForceMode.Impulse);//Changed from 8 to 12
             animation.Play("Attack 1 & 2");
             playerAudio.PlayOneShot(tigerSwing, 0.05f);
-            StartCoroutine(FreezeRotations());
+            //StartCoroutine(FreezeRotations());
         }
     }
 
@@ -997,6 +1049,12 @@ public class PlayerController : MonoBehaviour
     public void PlayTigerRegularStrike(Vector3 strikeArea)
     {
         playerAudio.PlayOneShot(tigerRegularStrike, 0.5f);
+        regularHitEffect.transform.position = new Vector3(strikeArea.x, strikeArea.y + 1, strikeArea.z);
+        regularHitEffect.Play();
+    }
+    public void PlayBirdRegularStrike(Vector3 strikeArea)
+    {
+        playerAudio.PlayOneShot(tigerRegularStrike, 0.2f);
         regularHitEffect.transform.position = new Vector3(strikeArea.x, strikeArea.y + 1, strikeArea.z);
         regularHitEffect.Play();
     }

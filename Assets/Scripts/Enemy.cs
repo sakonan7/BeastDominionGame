@@ -186,10 +186,10 @@ public class Enemy : MonoBehaviour
             //Debug.Log("Player Pushed Back");
         //}
     }
-    IEnumerator FoeAttacked()
+    IEnumerator FoeAttacked(float enterAttackForce)
     {
         attacked = true;
-        float playerAttackForce = 120;
+        float playerAttackForce = enterAttackForce;
         //enemyRb.AddForce(playerScript.attackDirection * attackForce, ForceMode.Force);
         enemyRb.velocity = new Vector3(playerScript.attackDirection.x * playerAttackForce, 0, playerScript.attackDirection.z * playerAttackForce);
         //enemyRb.maxLinearVelocity = attackForce;
@@ -297,11 +297,28 @@ public class Enemy : MonoBehaviour
 
                 playerScript.AttackLandedTrue();
                 //Debug.Log(distance + " " + enemyRb.velocity);
-                StartCoroutine(FoeAttacked());
+                StartCoroutine(FoeAttacked(120));
                 StartCoroutine(DamageDisplayDuration(2));
             }
         }
-        else if (other.CompareTag("Tiger Special"))
+        if (other.CompareTag("Bird Attack Range"))
+        {
+            Debug.Log("Hit By Bird");
+            if (playerScript.attackLanded == false)
+            {
+                HP -= 1;
+                HPBarScript.HPDecrease(1, originalHP);
+                //Damaged();
+                playerScript.PlayBirdRegularStrike(transform.position);
+
+
+                playerScript.AttackLandedTrue();
+                //Debug.Log(distance + " " + enemyRb.velocity);
+                StartCoroutine(FoeAttacked(50));
+                StartCoroutine(DamageDisplayDuration(1));
+            }
+        }
+        if (other.CompareTag("Tiger Special"))
         {
             //For now, just trigger stun. I will use both of their directions to perform the knockback
             //TakeDamage();
