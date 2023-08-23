@@ -71,12 +71,10 @@ public class PlayerController : MonoBehaviour
     private float normalTigerAttacklength = 0.5f;
     private float distanceCloserTigerAttackLength = 0.5f;
     private Quaternion attackRotation;
-    private bool attackTurner = false;
 
     //Testing Out Tiger's Rotating Towards Monkey
     //Having LockOn( On should be making Tiger's rotation always towards Monkey though..
-
-    private float turnSpeed = 1;
+    
     private float angleBetween;
     //private float distance;
 
@@ -227,20 +225,6 @@ public class PlayerController : MonoBehaviour
     //I tried putting everything in regular Update(), but it makes everything a lot slower
     void FixedUpdate()
     {
-        //Debug.Log(distance);
-
-        if (Input.GetKeyDown(KeyCode.B))
-        {
-            //Instantiate(ball, new Vector3(tiger.transform.position.x - 1, tiger.transform.position.y + 3f, tiger.transform.position.z), ball.transform.rotation);
-            //Instantiate(ball, new Vector3(tiger.transform.position.x - 2, tiger.transform.position.y + 2f, tiger.transform.position.z), ball.transform.rotation);
-            //Instantiate(ball, new Vector3(tiger.transform.position.x - 3, tiger.transform.position.y + 1f, tiger.transform.position.z), ball.transform.rotation);
-            //Instantiate(ball, new Vector3(tiger.transform.position.x + 1, tiger.transform.position.y + 2.5f, tiger.transform.position.z), ball.transform.rotation);
-            //Instantiate(ball, new Vector3(tiger.transform.position.x + 2, tiger.transform.position.y + 1.5f, tiger.transform.position.z), ball.transform.rotation);
-            //Instantiate(ball, new Vector3(tiger.transform.position.x + 1, tiger.transform.position.y + 3f, tiger.transform.position.z), ball.transform.rotation);
-            //Instantiate(ball, new Vector3(tiger.transform.position.x + 2, tiger.transform.position.y + 2f, tiger.transform.position.z), ball.transform.rotation);
-            //Instantiate(ball, new Vector3(tiger.transform.position.x + 3, tiger.transform.position.y + 1f, tiger.transform.position.z), ball.transform.rotation);
-            //ballRB.AddForce(Vector3.fwd * 30, ForceMode.Impulse);
-        }
         
 
         //This code is for anything that needs to follow the player
@@ -297,17 +281,6 @@ public class PlayerController : MonoBehaviour
         ///This is so Players can't repeat an action while the action is happen
         if (cantMove == false && closeTheDistance == false && specialCloseTheDistance == false)
         {
-            //I can still perform attack while running, so I will need to make sure I can't run while attacking. Just checked,
-            //the same happens when I use a dodge
-            //I already checked, I can't move while having an attack or dodge lag
-            ///The current conditions I have put in haven't solved anything yet, so I will have to try something
-            ///maybe try a running boolean
-            ///this isn't a problem for attack, but it's a problem for dodging
-            ///I think that the problem is that the animation keeps going, not that the action gets interrupt
-            ///
-            //tigerAnimator.SetBool("Idle", false);
-
-            //May remove this
             if (attack == false && dodge == false)
             {
                 moveDirection = orientation.forward * forwardInput + orientation.right * sideInput;
@@ -446,13 +419,6 @@ public class PlayerController : MonoBehaviour
         ///Keeping this here even though I moved the code from this to the IEnumerator to play the animation
         ///
 
-        //Turner for close range and too far att
-        //It seems that the turning works for closeTheDist
-        if (attackTurner == true && attack == true)
-        {
-            transform.rotation = Quaternion.Slerp(transform.rotation, attackRotation, 5 * Time.deltaTime);
-        }
-
 
         if (closeTheDistance == true && cantMove == false)
         {
@@ -590,27 +556,17 @@ public class PlayerController : MonoBehaviour
             //If birdActive == true, have it tilt all the way up and tilt it back down after the IEnumerator is
         }
         //}
-
-
-        //if (tigerFlinch == true)
-        //{
-        //animation.Play("Flinch 1");
-        //}
-
-        //Code to ensure the flinching animations will play and interupt any other animation
-        //Players are cautioned to not attack with abandon as a result
-        //if (tigerFlinch == true || tigerFlinch2 == true || birdFlinch == true)
-        //{
-            //attack = false;
-            //dodge = false;
-        //}
+        
 
         //Cutscenes
         if (gameManagerScript.startingCutscene == true)
         {
             OpeningRun();
         }
-
+        if (Input.GetKeyDown(KeyCode.N))
+        {
+            transform.Rotate(0, transform.rotation.y + 180, 0, 0);
+        }
     }
     public void LateUpdate()
     {
@@ -627,11 +583,6 @@ public class PlayerController : MonoBehaviour
         {
             LockOff();
         }
-        if (Input.GetKeyDown(KeyCode.N))
-        {
-            transform.Rotate(0, 180, 0, 0);
-        }
-
         if (distance < 3 && closeTheDistance == true)
         {
             //Debug.Log("Distance met For Regul");
@@ -786,7 +737,6 @@ public class PlayerController : MonoBehaviour
         yield return new WaitForSeconds(attackTimeLength);
         attack = false;
         cantMove = false;
-        attackTurner = false;
         //UnfreezeRotations();
         //Debug.Log("Attack");
         if (birdActive == true)
@@ -956,17 +906,6 @@ public class PlayerController : MonoBehaviour
     }
     public void Strike()
     {
-        //float distance = Vector3.Distance(target.transform.position, tiger.transform.position); //I already had a distance calculator
-        //from lock on
-        //attackDirection = (target.transform.position - transform.position).normalized;
-        //My problems with distance not being calculated again is because I didn't recaculate it with each Strike(). Before
-        //I moved Debug.Log(distance) to update, I removed the bottom. This is also why Distance Closer won't recalcul
-        //I think I need to calculate it constantly in update instead. I calculated it in lockOn because i need to check to see which enemy
-        //Is closest to to the player
-        //distance = Vector3.Distance(targetedEnemy.transform.position, tiger.transform.position);
-        //Debug.Log("Attacking from " + distance);
-
-
         //playerAudio.PlayOneShot(tigerRoar, 0.2f);
         //Why did I think of lockedOn == false, I think I thought of it in the case you aren't locked
         //I think I will create a case where lockedOn == false and for now, I want to make the distance smaller for
@@ -1030,9 +969,6 @@ public class PlayerController : MonoBehaviour
             playerRb.AddForce(attackDirection * (attackForce + 14), ForceMode.Impulse);//Changed from 8 to 12
             animation.Play("Attack 1 & 2");
             playerAudio.PlayOneShot(tigerSwing, 0.05f);
-            //Debug.Log("Short Ranged Att");
-            //playerRb.constraints = RigidbodyConstraints.FreezeRotation;
-            attackTurner = true;
             StartCoroutine(FreezeRotations());
         }
     }
@@ -1086,10 +1022,6 @@ public class PlayerController : MonoBehaviour
     public void TigerSpecialSecondStrike()
     {
         playerAudio.PlayOneShot(tigerSwing, 0.05f);
-        //tigerRB.AddForce(attackDirection * (attackForce + 14), ForceMode.Impulse); //+ 8 normally, but try + 12 for blade of
-        //attackRotation = Quaternion.LookRotation(target.transform.position - tiger.transform.position);
-        //tiger.transform.rotation = Quaternion.Slerp(tiger.transform.rotation, attackRotation, 5); //Am using all the attack rotations
-        //here because there is a charge up before Tiger Special Attack
         playerRb.AddRelativeTorque(Vector3.down * 5, ForceMode.Impulse);
         animation.Play("Attack 1 & 2");
 
@@ -1148,18 +1080,6 @@ public class PlayerController : MonoBehaviour
             //int newMinIndex = 0;
             bool smallestDistanceFound = false;
             int j = 0;
-
-            //Doing this in case there's already a foe that's been locked
-            //if (lockedOn == true)
-            //{
-                //enemyScript.LockOff();
-            //}
-            //I think I may need to rewrite this because targetedEnemy is not always going to be the same
-            //AND it will be determined in this loop
-                //attackRange.transform.position = tiger.transform.position;
-                //I think the method always goes (target, own position)
-                //distance = Vector3.Distance(targetedEnemy.transform.position, tiger.transform.position);
-                //Create a loop that keeps making a new minimum
                 for(int i = 0; i < enemies.Length; i++)
                 {
                     distanceList[i] = Vector3.Distance(enemies[i].transform.position, transform.position);
@@ -1305,7 +1225,6 @@ public class PlayerController : MonoBehaviour
     { //Was going to place this in LateUpdate, but I realized it isn't necessary
         damageStun = true;
         cantMove = true;
-        playerRb.constraints = RigidbodyConstraints.FreezeRotation;
         //I thought it would be enough if I used running == true and damageStun and stunnedInvincibility in Update,
         //but I think it'snot enough
         if (running == true)
@@ -1313,12 +1232,6 @@ public class PlayerController : MonoBehaviour
             running = false;
         }
         yield return new WaitForSeconds(1.4f);
-        playerRb.constraints = RigidbodyConstraints.None;
-        playerRb.constraints = RigidbodyConstraints.FreezePositionY;
-        playerRb.constraints = RigidbodyConstraints.FreezeRotationX;
-        playerRb.constraints = RigidbodyConstraints.FreezeRotationZ;
-        //It doesn't seem like the constraint lasts after the IEnumerator
-        //But I'm going to place this here just incase
         damageStun = false;
         cantMove = false;
     }
