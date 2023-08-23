@@ -77,6 +77,7 @@ public class PlayerController : MonoBehaviour
     //Having LockOn( On should be making Tiger's rotation always towards Monkey though..
 
     private float turnSpeed = 1;
+    private float angleBetween;
     //private float distance;
 
     private Rigidbody playerRb;
@@ -562,8 +563,10 @@ public class PlayerController : MonoBehaviour
                                                                                                    //to keep calculating the distance between foe
                                                                                                    //and player
                 attackRotation = Quaternion.LookRotation(targetedEnemy.transform.position - orientation.transform.position);
+                //angleBetween = Vector3.Angle(orientation.forward, targetedEnemy.transform.position - orientation.position);
+                angleBetween = Vector3.Angle(targetedEnemy.transform.position, orientation.forward - targetedEnemy.transform.position);
                 //transform.rotation = Quaternion.Lerp(transform.rotation, attackRotation, 10 * Time.deltaTime);
-                //StartCoroutine(TellDistance());
+                
             }
             //I may want to change this because I can trigger an error by trying to access enemyScript when targetEnemy has been killed
             if (enemyScript.GetHP() <= 0)
@@ -607,10 +610,7 @@ public class PlayerController : MonoBehaviour
         {
             OpeningRun();
         }
-        if (Input.GetKeyDown(KeyCode.N))
-        {
-            transform.Rotate(0, transform.rotation.y + 180, 0, 0);
-        }
+
     }
     public void LateUpdate()
     {
@@ -627,6 +627,11 @@ public class PlayerController : MonoBehaviour
         {
             LockOff();
         }
+        if (Input.GetKeyDown(KeyCode.N))
+        {
+            transform.Rotate(0, 180, 0, 0);
+        }
+
         if (distance < 3 && closeTheDistance == true)
         {
             //Debug.Log("Distance met For Regul");
@@ -671,10 +676,14 @@ public class PlayerController : MonoBehaviour
                 attackDirection = (targetedEnemy.transform.position - transform.position).normalized;
 
                 attackRotation = Quaternion.LookRotation(targetedEnemy.transform.position - transform.position);
-                transform.rotation = Quaternion.Slerp(transform.rotation, attackRotation, 10 * Time.deltaTime); //Moved this from Strike() to
+                transform.rotation = Quaternion.Lerp(transform.rotation, attackRotation, 10 * Time.deltaTime); //Moved this from Strike() to
                                                                                                //see if I can immediately turn my character towards an ene
                 
                 //StartCoroutine(Turner());
+                if (angleBetween > 170 && angleBetween < 180)
+                {
+                    transform.Rotate(0, transform.rotation.y + 180, 0, 0);
+                }
 
                 //attackDirection isn't changing directions because it's using the empty Player object as the reference and the Player
                 //object doesn't move
@@ -694,6 +703,7 @@ public class PlayerController : MonoBehaviour
                     //{
                         Strike();
                     //}
+                    StartCoroutine(TellAngle());
                 }
                 if (running == true)
                 {
@@ -736,6 +746,11 @@ public class PlayerController : MonoBehaviour
     {
         yield return new WaitForSeconds(2);
         Debug.Log("Distance between player and enemy is " + distance);
+    }
+    IEnumerator TellAngle ()
+    {
+        yield return new WaitForSeconds(1);
+        Debug.Log("Angle is " + angleBetween);
     }
     IEnumerator Turning()
     {
@@ -973,6 +988,10 @@ public class PlayerController : MonoBehaviour
         //{
             //Debug.Log(distance);
         //}
+        if (lockedOn == true)
+        {
+            //StartCoroutine(TellAngle());
+        }
         if (distance > 15 && lockedOn)
         {
             

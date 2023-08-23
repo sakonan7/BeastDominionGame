@@ -264,7 +264,8 @@ public class GameManager : MonoBehaviour
     public void TutorialLevel()
     {
         Vector3 wolfLocation = enemies[0].transform.position;
-        Instantiate(enemies[1], new Vector3(wolfLocation.x + 4, wolfLocation.y, wolfLocation.z - 6), enemies[0].transform.rotation);
+        //wolfLocation.x + 4
+        Instantiate(enemies[1], new Vector3(player.transform.position.x - 1, wolfLocation.y, wolfLocation.z - 6), enemies[0].transform.rotation);
         //Instantiate(enemies[1], new Vector3(wolfLocation.x + 8, wolfLocation.y, wolfLocation.z - 15), enemies[0].transform.rotation);
         //Instantiate(enemies[1], new Vector3(wolfLocation.x + 14.5f, wolfLocation.y, wolfLocation.z - 8), enemies[0].transform.rotation);
         numOfEnemies = 1;
