@@ -53,7 +53,7 @@ public class Monkey : MonoBehaviour
     private float damageIdleTime = 6;
 
     private GameManager gameManager;
-    private int HP = 7;
+    private int HP = 2; //7
     private bool testingStun = true;
     private bool testingBehaviors = false;
     private bool moveLeft = false;

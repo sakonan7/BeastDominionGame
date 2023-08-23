@@ -530,7 +530,8 @@ public class PlayerController : MonoBehaviour
                                                                                                    //and player
                 attackRotation = Quaternion.LookRotation(targetedEnemy.transform.position - orientation.transform.position);
                 //angleBetween = Vector3.Angle(orientation.forward, targetedEnemy.transform.position - orientation.position);
-                angleBetween = Vector3.Angle(targetedEnemy.transform.position, orientation.forward - targetedEnemy.transform.position);
+                //angleBetween = Vector3.Angle(targetedEnemy.transform.position, orientation.forward - targetedEnemy.transform.position);
+                angleBetween = Vector3.Angle(attackDirection, targetedEnemy.transform.position - orientation.forward);
                 //transform.rotation = Quaternion.Lerp(transform.rotation, attackRotation, 10 * Time.deltaTime);
                 
             }
@@ -563,6 +564,7 @@ public class PlayerController : MonoBehaviour
         {
             OpeningRun();
         }
+        //For some reason this only works here, in FixedUpdate, everywhereelse rerotates right a
         if (Input.GetKeyDown(KeyCode.N))
         {
             transform.Rotate(0, transform.rotation.y + 180, 0, 0);
@@ -587,6 +589,7 @@ public class PlayerController : MonoBehaviour
         {
             //Debug.Log("Distance met For Regul");
             closeTheDistance = false;
+            StartCoroutine(FreezeRotations());
             attackTimeLength = distanceCloserTigerAttackLength;
             StartCoroutine(AttackDuration());
             animation.Play("Attack 1 & 2");
@@ -602,6 +605,7 @@ public class PlayerController : MonoBehaviour
         {
             //Debug.Log("Distance Met At " + distance);
             //This will work because specialInvincibility is on and TigerSpecialDuration() cancels
+
             animation.Play("Attack 1 & 2");
             TigerSpecial();
             StartCoroutine(TigerSpecialDuration());
@@ -654,7 +658,7 @@ public class PlayerController : MonoBehaviour
                     //{
                         Strike();
                     //}
-                    StartCoroutine(TellAngle());
+                    
                 }
                 if (running == true)
                 {
@@ -718,10 +722,11 @@ public class PlayerController : MonoBehaviour
     }
     public void UnfreezeRotations()
     {
-        playerRb.constraints = RigidbodyConstraints.None;
-        playerRb.constraints = RigidbodyConstraints.FreezePositionY;
-        playerRb.constraints = RigidbodyConstraints.FreezeRotationX;
-        playerRb.constraints = RigidbodyConstraints.FreezeRotationZ;
+        //playerRb.constraints = RigidbodyConstraints.None;
+        //playerRb.constraints = RigidbodyConstraints.FreezePositionY;
+        //playerRb.constraints = RigidbodyConstraints.FreezeRotationX;
+        //playerRb.constraints = RigidbodyConstraints.FreezeRotationZ;
+        playerRb.constraints &= RigidbodyConstraints.FreezeRotationY;
     }
     IEnumerator AttackDuration()
     {
@@ -737,7 +742,7 @@ public class PlayerController : MonoBehaviour
         yield return new WaitForSeconds(attackTimeLength);
         attack = false;
         cantMove = false;
-        //UnfreezeRotations();
+        UnfreezeRotations();
         //Debug.Log("Attack");
         if (birdActive == true)
         {
@@ -940,9 +945,7 @@ public class PlayerController : MonoBehaviour
             playerRb.velocity = attackDirection * (attackForce + 14);
             animation.Play("Attack 1 & 2");
             playerAudio.PlayOneShot(tigerSwing, 0.05f);
-            //Debug.Log("Non Distance Closer");
-            //playerRb.constraints = RigidbodyConstraints.FreezeRotation;
-            attackTurner = true;
+            StartCoroutine(FreezeRotations());
         }
         //Want DistanceCloser only to play when the tiger isn't close enough. Was originally going to have a distance > 10 || distance <=3
         //above,but I realized that the below will cover it. Maybe, let's keep testing it out
@@ -1094,10 +1097,10 @@ public class PlayerController : MonoBehaviour
                         targetedEnemy = enemies[j];//This code will avoid problems of two foes having the same distance from
                                                    //the player
                                                    //Doing this in case there's already a foe that's been locked
-                                                   if (lockedOn == true)
-                                                   {
-                                                   enemyScript.LockOff();
-                                                   }
+                       if (lockedOn == true)
+                      {
+                          enemyScript.LockOff();
+                        }
                     enemyScript = targetedEnemy.GetComponent<Enemy>();
                     //if (enemyScript.lockedOn == false)
                     //{
@@ -1112,6 +1115,7 @@ public class PlayerController : MonoBehaviour
             //Debug.Log("Targeted Enemy is null");
             //}
             camScript.TurnToTarget(targetedEnemy.transform);
+            StartCoroutine(TellAngle());
             lockedOn = true;
             //I was going to get rid of this because it looked like this code was for shifting the target
             //But it's actually if the lockOn function isn't even on
@@ -1169,6 +1173,9 @@ public class PlayerController : MonoBehaviour
             //tigerSensor.SetActive(true);
             //playerMugshot.texture = tigerMugshot;
             speed = tigerSpeed;
+            //playerRb.constraints &= ~RigidbodyConstraints.FreezePositionY;
+            //playerRb.constraints = RigidbodyConstraints.FreezeRotationX;
+            //playerRb.constraints = RigidbodyConstraints.FreezeRotationZ;
         }
         else if (tigerActive == true)
         {
@@ -1185,6 +1192,8 @@ public class PlayerController : MonoBehaviour
             //birdSensor.SetActive(true);
             //playerMugshot.texture = birdMugshot;
             speed = birdSpeed;
+            
+            //playerRb.constraints = RigidbodyConstraints.FreezePositionY;
         }
         transforming = false;
     }
@@ -1458,7 +1467,7 @@ public class PlayerController : MonoBehaviour
                 StartCoroutine(TransformCountdown());
                 //I think I will have tags designated for Walls to fly over
                 //Surprisingly, bird.transform.y worked the same way as transform.position.y + 2.2f
-                transform.position = new Vector3(transform.position.x, bird.transform.position.y - 0.2f, transform.position.z);
+                transform.position = new Vector3(transform.position.x, bird.transform.position.y - 0.1f, transform.position.z);
             }
             cantTransform = true;
             //Debug.Log("Triggered?");
