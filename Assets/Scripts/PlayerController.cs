@@ -38,6 +38,7 @@ public class PlayerController : MonoBehaviour
     [Header("Place tiger and bird sound and effects here")]
     public AudioClip tigerRegularStrike;
     public ParticleSystem regularHitEffect;
+    public ParticleSystem birdHitEffect;
     public GameObject tigerAttackEffect;
     public GameObject birdAttackEffect;
     public Transform transformEffect;
@@ -55,6 +56,7 @@ public class PlayerController : MonoBehaviour
     private float tigerSpeed = 36;
     private float birdSpeed = 54;
     private float dodgeForce = 35; //90 barely jumps
+    public GameObject dodgeEffect;
     private float attackForce = 20;
     private float forwardInput;
     private Vector3 direction;
@@ -1058,8 +1060,8 @@ public class PlayerController : MonoBehaviour
     public void PlayBirdRegularStrike(Vector3 strikeArea)
     {
         playerAudio.PlayOneShot(tigerRegularStrike, 0.2f);
-        regularHitEffect.transform.position = new Vector3(strikeArea.x, strikeArea.y + 1, strikeArea.z);
-        regularHitEffect.Play();
+        regularHitEffect.transform.position = new Vector3(strikeArea.x, strikeArea.y - 2, strikeArea.z);
+        birdHitEffect.Play();
     }
     IEnumerator StrikeLag()
     {
@@ -1118,18 +1120,20 @@ public class PlayerController : MonoBehaviour
         dodge = true;
         cantMove = true;
         canCombo = false;
-        //dodgeEffect.SetActive(true);
-        //if (birdActive == true)
-        //{
+        //
+        if (birdActive == true)
+        {
             //bird.transform.rotation = new Quaternion(0, 0, 180, 0);
-        //}
+            dodgeEffect.SetActive(true);
+        }
         
         yield return new WaitForSeconds(dodgeTime);
-        //if (birdActive == true)
-        //{
+        if (birdActive == true)
+        {
             //bird.transform.Rotate(0, bird.transform.rotation.y, 39.5f);
             //bird.transform.rotation = new Quaternion(0, 0, 300, 0);
-        //}
+            dodgeEffect.SetActive(false);
+        }
         dodge = false;
         //dodgeEffect.SetActive(false);
         StartCoroutine(DodgeLag());
