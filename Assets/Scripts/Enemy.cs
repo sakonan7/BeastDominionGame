@@ -21,11 +21,13 @@ public class Enemy : MonoBehaviour
     //I need to set Vector3 attackDirection here, because I need it for playerControll
     private int HP;
     private float originalHP;
-    private Image enemyHPBarPosition;
+    public GameObject HPBarHolder;
+    public Image HPBar;
+    private float maxHPBarFill;
     public int damage = 0;
     public ParticleSystem [] attackEffect = new ParticleSystem [3];
-    public GameObject HPBar;
-    private EnemyHPBar HPBarScript;
+    //public GameObject HPBar;
+    //private EnemyHPBar HPBarScript;
     public TextMesh damageDisplay;
     public Vector3 attackDirection;
     public float attackForce;
@@ -57,10 +59,11 @@ public class Enemy : MonoBehaviour
         gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
         enemyAudio = GetComponent<AudioSource>();
         //HPBar.SetActive(false);
-        originalHP = HP;
-        HPBarScript = HPBar.GetComponent<EnemyHPBar>();
+        
+        //HPBarScript = HPBar.GetComponent<EnemyHPBar>();
         //enemyForce = GetComponent<ConstantForce>();
         //enemyHPBarPosition = GameObject.Find("Enemy HP Bar");
+        maxHPBarFill = 1;
     }
 
     // Update is called once per frame
@@ -87,18 +90,19 @@ public class Enemy : MonoBehaviour
             //Debug.Log("HP Bar Out");
             //I guess I guess I need to do this code in here. I guess it's like the code with Target.
             target = GameObject.Find("Target");
-            HPBar.SetActive(true);
-            HPBar.transform.position = new Vector3(target.transform.position.x, target.transform.position.y + 2.5f, target.transform.position.z);
+            HPBarHolder.SetActive(true);
+            //HPBar.transform.position = new Vector3(target.transform.position.x, target.transform.position.y + 2.5f, target.transform.position.z);
             //HPBar.transform.position = new Vector3(0, 100, 0);
         }
         else if (lockedOn == false)
         { 
-            HPBar.SetActive(false);
+            HPBarHolder.SetActive(false);
         }
     }
     public void SetHP(int newHP)
     {
         HP = newHP;
+        originalHP = HP;
     }
     public int GetHP()
     {
@@ -232,7 +236,7 @@ public class Enemy : MonoBehaviour
         yield return new WaitForSeconds(1f);
         attacked = false;
         HP -= 4;
-        HPBarScript.HPDecrease(4, originalHP);
+        //HPBarScript.HPDecrease(4, originalHP);
         //damageDisplay.gameObject.SetActive(false);
         //float distance = Vector3.Distance(player.transform.position, transform.position);
         //Debug.Log("Distance is equal to " + distance);
@@ -240,11 +244,18 @@ public class Enemy : MonoBehaviour
         gameManager.HitByTigerSpecial(transform.position);
         StartCoroutine(DamageDisplayDuration(4));
         playerScript.PlayTigerSpecialStrike(transform.position);
+
+        HPBarDecrease(4);
+    }
+    public void HPBarDecrease(int newDamage)
+    {
+        HPBar.fillAmount = (maxHPBarFill / originalHP) * (HP - newDamage);
     }
     //I may want to do all damage display on 
     IEnumerator DamageDisplayDuration(int damage)
     {
         damageDisplay.gameObject.SetActive(true);
+        //Above HPBar instead of Target because non targeted enemies canget hit too
         damageDisplay.transform.position = new Vector3(HPBar.transform.position.x, HPBar.transform.position.y + 1f, HPBar.transform.position.z);
         damageDisplay.text = "" + damage;
         yield return new WaitForSeconds(0.5f);
@@ -271,7 +282,7 @@ public class Enemy : MonoBehaviour
                 //TakeDamage();
                 //Debug.Log(HP + " left");
                 HP -= 2;
-                HPBarScript.HPDecrease(2, originalHP);
+                //HPBarScript.HPDecrease(2, originalHP);
                 //Damaged();
                 playerScript.PlayTigerRegularStrike(transform.position);
                 //Vector3 knockbackDirection = (transform.position - tiger.transform.position).normalized;
@@ -299,6 +310,7 @@ public class Enemy : MonoBehaviour
                 //Debug.Log(distance + " " + enemyRb.velocity);
                 StartCoroutine(FoeAttacked(120));
                 StartCoroutine(DamageDisplayDuration(2));
+                HPBarDecrease(2);
             }
         }
         if (other.CompareTag("Bird Attack Range"))
@@ -307,7 +319,7 @@ public class Enemy : MonoBehaviour
             if (playerScript.attackLanded == false)
             {
                 HP -= 1;
-                HPBarScript.HPDecrease(1, originalHP);
+                //HPBarScript.HPDecrease(1, originalHP);
                 //Damaged();
                 playerScript.PlayBirdRegularStrike(transform.position);
 
@@ -316,6 +328,7 @@ public class Enemy : MonoBehaviour
                 //Debug.Log(distance + " " + enemyRb.velocity);
                 StartCoroutine(FoeAttacked(50));
                 StartCoroutine(DamageDisplayDuration(1));
+                HPBarDecrease(1);
             }
         }
         if (other.CompareTag("Tiger Special"))
@@ -324,7 +337,7 @@ public class Enemy : MonoBehaviour
             //TakeDamage();
 
             HP -= 3;
-            HPBarScript.HPDecrease(3, originalHP);
+            //HPBarScript.HPDecrease(3, originalHP);
             //Damaged();
             playerScript.PlayTigerSpecialStrike(transform.position);
             gameManager.HitByTigerSpecial(transform.position);
@@ -339,6 +352,7 @@ public class Enemy : MonoBehaviour
             //playerScript.AttackLandedTrue();
             //StartCoroutine(FoeAttacked());
             StartCoroutine(DamageDisplayDuration(3));
+            HPBarDecrease(3);
             if (HP > 0)
             {
 
