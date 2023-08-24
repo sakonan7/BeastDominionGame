@@ -113,7 +113,7 @@ public class NewWolf : MonoBehaviour
         }
         //dyingEffect.Play();
         ChooseDirection();
-        ChooseUpDownDirection();
+        //ChooseUpDownDirection();
         wolfAudio = GetComponent<AudioSource>();
         startIdleTime = Random.Range(2, 7);
         //animator.speed = 1;
@@ -132,14 +132,14 @@ public class NewWolf : MonoBehaviour
         //HPBar.transform.position = new Vector3(transform.position.x, transform.position.y + 1.9f, transform.position.z + 0.1f);
         //HPBar.transform.LookAt(HPBar.transform.position - (cameraRef.transform.position - HPBar.transform.position));
         //I'm just going to try measuring distance instead
-        if (playerScript.tigerActive == true)
-        {
-            //playerPosition = tiger.transform.position;
+        //if (playerScript.tigerActive == true)
+        //{
+            playerPosition = player.transform.position;
             //attackRange.transform.position = tiger.transform.position;
             distance = Vector3.Distance(player.transform.position, transform.position);
             lookRotation = Quaternion.LookRotation(player.transform.position - transform.position);
             transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, 2);
-        }
+        //}
 
         if (cooldown == true)
         {
@@ -167,16 +167,13 @@ public class NewWolf : MonoBehaviour
                 wolfRb.AddForce(Vector3.right * walkSpeed);
             }
             //I think walking diagonally is good because I think dogs walk diagonally, not side
-            if (walkUpDownDirection == 0)
-            {
+            //if (walkUpDownDirection == 0)
+            //{
                 //Debug.Log("Left Walk");
-                wolfRb.AddForce(Vector3.fwd * walkSpeed);
-            }
-            else if (walkUpDownDirection == 1)
-            {
+                //wolfRb.AddForce(Vector3.fwd * walkSpeed);
+            //}
                 //Debug.Log("Right Walk");
                 wolfRb.AddForce(Vector3.back * walkSpeed);
-            }
         }
         //So actions are only performed on the ground
         //Got rid of //cooldown == false, then  && attack == false && isOnGround == true
@@ -195,12 +192,21 @@ public class NewWolf : MonoBehaviour
             //Fucking finally
             //I'm going to get rid of chase because it doesn't make sense and this is already in a chase
             transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, 3); //Turned from 5 to 3 for smooth
-            if (distance < 5f)
+                                                                                        //if (distance < 5f)
+                                                                                        //{
+                                                                                        //chase = false;
+                                                                                        //animator.SetBool("Dash", false);
+                                                                                        //launchAttack = true;
+
+            //}
+            launchAttack = true;
+            if (distance < 7 && launchAttack == true)
             {
                 chase = false;
+                //A pause, turning Vector3 to Zer, then jumping and after a 0.5 second pause, the attack
                 animator.SetBool("Dash", false);
-                launchAttack = true;
-
+                launchAttack = false;
+                StartCoroutine(PreAttackPause());
             }
         }
         //chase == false && distance <= 6f
@@ -210,20 +216,20 @@ public class NewWolf : MonoBehaviour
         //if (attack == true && preAttackRecoil == 1)
         //A lot more variables have to be used because this is an AI and AIs don't use command prompts
         //I don't need the attack bool because the damage calculation is done in tiger in
-        if (launchAttack == true) 
-        {
+        //if (launchAttack == true) 
+        //{
             //Maybe need a countdown before the attack
             //animation.Play("Wolf Corkscrew");
             //TempGroundAttack();
             //chase = false;
 
 
-            launchAttack = false;
-            Debug.Log("Play Once");
-            StartCoroutine(PreAttackPause()); //PreAttackPause keeps playing, that's why the attack repeats, corkscrew is in there
+            //launchAttack = false;
+            //Debug.Log("Play Once");
+            //StartCoroutine(PreAttackPause()); //PreAttackPause keeps playing, that's why the attack repeats, corkscrew is in there
             //PreAttackPause is not supposed to repeat. It's repeating because attack continues to equal
             //The weird thing is that this keeps repeating even though I turn off this boolean right a
-        }
+        //}
         //if (cooldown == true)
         //{
             //animation.Play("Idle Wolf");
@@ -263,7 +269,7 @@ public class NewWolf : MonoBehaviour
         yield return new WaitForSeconds(idleTime);
         idle = false;
         chase = true;
-        //Debug.Log("Idle Over, To See If This Plays Multiple");
+        Debug.Log("Idle Over, To See If This Plays Multiple");
         animator.SetBool("Run", false);
     }
 
@@ -276,11 +282,13 @@ public class NewWolf : MonoBehaviour
     {
         //animation.Play("Wolf New Idle");
         wolfRb.velocity = Vector3.zero;
-        yield return new WaitForSeconds(0.3f);
+        yield return new WaitForSeconds(1f);
         //Debug.Log("Pause done");
         //animation.Stop();
         //CorkScrew();
-        StartCoroutine(AttackDuration());
+        //StartCoroutine(AttackDuration());
+        Jump();
+        
     }
 
     IEnumerator AttackDuration()
@@ -341,6 +349,12 @@ public class NewWolf : MonoBehaviour
             Debug.Log("Attack repeated for some rea");
             animator.SetBool("Ground Attack", false);
         }
+    }
+    public void Jump()
+    {
+        wolfRb.velocity = new Vector3(0, 30, 0);
+        Debug.Log("Velocity is " + wolfRb.velocity);
+        StartCoroutine(StartCoolDown());
     }
     public void PlayAttackEffect()
     {
