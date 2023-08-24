@@ -24,6 +24,7 @@ public class Enemy : MonoBehaviour
     public GameObject HPBarHolder;
     public Image HPBar;
     private float maxHPBarFill;
+    private GameObject camera;
     public int damage = 0;
     public ParticleSystem [] attackEffect = new ParticleSystem [3];
     //public GameObject HPBar;
@@ -64,6 +65,7 @@ public class Enemy : MonoBehaviour
         //enemyForce = GetComponent<ConstantForce>();
         //enemyHPBarPosition = GameObject.Find("Enemy HP Bar");
         maxHPBarFill = 1;
+        camera = GameObject.Find("Main Camera");
     }
 
     // Update is called once per frame
@@ -98,6 +100,7 @@ public class Enemy : MonoBehaviour
         { 
             HPBarHolder.SetActive(false);
         }
+        HPBarHolder.transform.rotation = camera.transform.rotation;
     }
     public void SetHP(int newHP)
     {
