@@ -1006,7 +1006,9 @@ public class PlayerController : MonoBehaviour
         }
         if (distance > 15 && lockedOn)
         {
-            
+            transform.rotation = Quaternion.Slerp(transform.rotation, attackRotation, 10 * Time.deltaTime); //For some reason,
+            //I don't have this for locked On att
+            //transform.rotation = Quaternion.LookRotation(targetedEnemy.transform.position- transform.position);
             attackTimeLength = normalTigerAttacklength;
             StartCoroutine(AttackDuration());
             //playerRb.AddForce(attackDirection * (attackForce + 14), ForceMode.Impulse);//Changed from 8 to 12
@@ -1027,6 +1029,7 @@ public class PlayerController : MonoBehaviour
             ///At first, I was wondering if the attack duration plays long enough for distance closer, but it looks like it does
             //Debug.Log("Distance Closer");
             transform.rotation = Quaternion.Slerp(transform.rotation, attackRotation, 10 * Time.deltaTime);
+            //transform.rotation = Quaternion.LookRotation(targetedEnemy.transform.position - transform.position);
             closeTheDistance = true;
             //StartCoroutine(DistanceCloser());
             //tigerRB.AddForce(attackDirection * (attackForce + 16), ForceMode.Impulse);
