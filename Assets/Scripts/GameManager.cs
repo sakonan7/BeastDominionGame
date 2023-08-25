@@ -202,15 +202,20 @@ public class GameManager : MonoBehaviour
     {
         storyScrollObject.gameObject.SetActive(true);
         yield return new WaitForSeconds(1);
-        StartCoroutine(TheTutorialMessage());
+        //StartCoroutine(TheTutorialMessage());
+        storyScroll = false;
+        storyScrollObject.gameObject.SetActive(false);
+        startingCutscene = true;
+        startGame = true;
+        UIAppear();
     }
     IEnumerator TheTutorialMessage()
     {
         storyScrollObject.gameObject.SetActive(false);
         tutorialMessageObject.gameObject.SetActive(true);
         yield return new WaitForSeconds(1);
-        tutorialMessageObject.gameObject.SetActive(false);
-        StartCoroutine(TheTutorialMessage2());
+        //tutorialMessageObject.gameObject.SetActive(false);
+        //StartCoroutine(TheTutorialMessage2());
     }
     IEnumerator TheTutorialMessage2()
     {

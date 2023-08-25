@@ -225,7 +225,7 @@ public class PlayerController : MonoBehaviour
         damageDisplay.color = new Color(1, 1, 1, 1);
         comboCounter.text = "x " + hitNumber;
         originalColor = blackoutLight.color;
-        SpecialOn();
+        //SpecialOn();
     }
 
     // Update is called once per frame
@@ -907,12 +907,9 @@ public class PlayerController : MonoBehaviour
     }
     public void StartCombo()
     {
-        if (tigerActive == true)
-        {
             rackingUpCombo = true;
             comboCounterHolder.gameObject.SetActive(true);
             hitNumber = 0; //Was initially 1, but I decided to put hitNumber++ in AttackLandedTrue(
-        }
     }
     IEnumerator ComboAttack()
     {
@@ -1697,10 +1694,10 @@ public class PlayerController : MonoBehaviour
         {
             cantTransform = false;
         }
-        if (other.gameObject.name == "Checkpoint")
-        {
-            SceneManager.LoadScene("Armadillo Scene");
-        }
+        //if (other.gameObject.name == "Checkpoint")
+        //{
+            //SceneManager.LoadScene("Armadillo Scene");
+        //}
 
         //Play attack effect in Enemy and load the effect in the individual script. IE, if Xemnas is using his ethereal blades,
         //load the ethereal blade effect into the private variable in Enemy. If Xemnas is using his spark orbs, load the spark orbs
