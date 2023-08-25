@@ -29,12 +29,15 @@ public class PlayerController : MonoBehaviour
     public int hitNumber = 0;
     private bool rackingUpCombo = false;
     private bool tigerSpecialUnlocked = false;
+    private bool birdSpecialUnlocked = false;
 
     public bool specialInvincibility = false;
+    [Header("Special Attack Objects")]
     public GameObject bladeOfLight;
     public GameObject tigerSpecialAOE;
     private bool charging = false;
     private Light staffLight;
+    public GameObject birdAura;
 
     [Header("Place tiger and bird sound and effects here")]
     public AudioClip tigerRegularStrike;
@@ -166,6 +169,10 @@ public class PlayerController : MonoBehaviour
     public RawImage tigerSpecialCommand;
     public RawImage tigerSpecialLightUp;
     public RawImage tigerComboLightUp;
+    public RawImage birdComboIcon;
+    public RawImage birdSpecialCommand;
+    public RawImage birdSpecialLightUp;
+    public RawImage birdComboLightUp;
     public TextMeshProUGUI pauseMessage;
     public TextMeshProUGUI gameOverMessage;
 
@@ -218,6 +225,7 @@ public class PlayerController : MonoBehaviour
         damageDisplay.color = new Color(1, 1, 1, 1);
         comboCounter.text = "x " + hitNumber;
         originalColor = blackoutLight.color;
+        SpecialOn();
     }
 
     // Update is called once per frame
@@ -391,7 +399,7 @@ public class PlayerController : MonoBehaviour
             //Special Attack
             //Changed it so that ChargeUp will determine what direction Tiger will go
             // 
-            if (Input.GetKeyDown(KeyCode.Z) && tigerSpecialUnlocked == true)
+            if (Input.GetKeyDown(KeyCode.Z) && tigerSpecialUnlocked == true && tigerActive == true)
             {
                 //StartCoroutine(TigerSpecialDuration());
                 StartCoroutine(ChargeUp());
@@ -404,9 +412,28 @@ public class PlayerController : MonoBehaviour
                     running = false;
                 }
             }
-            if (Input.GetKeyDown(KeyCode.G))
+            if (Input.GetKeyDown(KeyCode.Z) && birdSpecialUnlocked == true && birdActive == true)
             {
-                LoseHP(10, 1);
+                
+                attackDirection = (targetedEnemy.transform.position - transform.position).normalized;
+
+                attackRotation = Quaternion.LookRotation(targetedEnemy.transform.position - transform.position);
+                transform.rotation = Quaternion.Lerp(transform.rotation, attackRotation, 10 * Time.deltaTime); //Moved this from Strike() to
+                                                                                                               //see if I can immediately turn my character towards an ene
+
+                //StartCoroutine(Turner());
+                if (angleBetween > 170 && angleBetween < 180)
+                {
+                    transform.Rotate(0, transform.rotation.y + 180, 0, 0);
+                }
+
+                //attackDirection isn't changing directions because it's using the empty Player object as the reference and the Player
+                //object doesn't move
+                BirdSpecial();
+                if (running == true)
+                {
+                    running = false;
+                }
             }
 
         }
@@ -456,7 +483,10 @@ public class PlayerController : MonoBehaviour
         if (specialCloseTheDistance == true)
         {
             //For some reason I commented out the code for the distance closing lo
-            animation.Play("Distance Closer");
+            if (tigerActive == true)
+            {
+                animation.Play("Distance Closer");
+            }
             //I would prefer to use nonImpulse, but it is too slow and using Impulse is unexpectedly cool
             ///For some reason, I made specialdistancecloserslower than regular distance clos
             playerRb.AddForce(attackDirection * 5, ForceMode.Impulse); //attack force wasn't enough //Also, it isn't enough here //Try impulse
@@ -611,7 +641,7 @@ public class PlayerController : MonoBehaviour
             closeTheDistance = false;
             //Debug.Log("I don't want to do it, but, closeTheDistance = " + closeTheDistance);
         }
-        if (distance < 8 && specialCloseTheDistance)
+        if (distance < 8 && specialCloseTheDistance && tigerActive == true)
         {
             //Debug.Log("Distance Met At " + distance);
             //This will work because specialInvincibility is on and TigerSpecialDuration() cancels
@@ -622,6 +652,12 @@ public class PlayerController : MonoBehaviour
             
             specialCloseTheDistance = false;
         }
+        if (distance <= 1.5f && specialCloseTheDistance && birdActive == true)
+        {
+            StartCoroutine(BirdSpecialDuration());
+
+            specialCloseTheDistance = false;
+        }
         //Setting this here because I want to make more space in Update and because this will happen after certainn actions
         //like getting damaged or performing a spec
         if (rackingUpCombo == false)
@@ -630,10 +666,43 @@ public class PlayerController : MonoBehaviour
             hitNumber = 0;
             comboCounter.color = new Color(1, 1, 1, 1);
         }
+        if (tigerSpecialUnlocked == true)
+        {
+            if (tigerActive == true)
+            {
+                tigerSpecialCommand.gameObject.SetActive(true);
+            }
+            else
+            {
+                tigerSpecialCommand.gameObject.SetActive(false);
+            }
+        }
+        if (tigerSpecialUnlocked == true)
+        {
+            if (tigerActive == true)
+            {
+                tigerSpecialCommand.gameObject.SetActive(true);
+            }
+            else
+            {
+                tigerSpecialCommand.gameObject.SetActive(false);
+            }
+        }
+        if (birdSpecialUnlocked == true)
+        {
+            if (birdActive == true)
+            {
+                birdSpecialCommand.gameObject.SetActive(true);
+            }
+            else
+            {
+                birdSpecialCommand.gameObject.SetActive(false);
+            }
+        }
         //Attacking
         ///Small note, I accidentally used & instead of && for lockedOn. It seems like it didn't affect the code
         ///Doing AttackDuration in attack methods instead
-        if(cantMove == false)
+        if (cantMove == false)
         {
             if (Input.GetMouseButtonDown(0) && lockedOn == true)
             {
@@ -764,12 +833,9 @@ public class PlayerController : MonoBehaviour
         //Debug.Log("Attack");
         if (birdActive == true)
         {
-            if (birdActive == true)
-            {
                 birdAttackEffect.SetActive(false);
                 bird.transform.Translate(0, 1.5f, 0);
                 birdSeparater.SetActive(true);
-            }
         }
         if (tigerActive == true)
         {
@@ -820,7 +886,7 @@ public class PlayerController : MonoBehaviour
             //comboCounter.color = Color.cyan;
             comboCounter.color = new Color(0.5603f, 1, 0.965f, 1);
             tigerSpecialUnlocked = true;
-            tigerSpecialCommand.gameObject.SetActive(true);
+            
         }
         StartCoroutine(ComboMeterAnimation());
     }
@@ -904,7 +970,7 @@ public class PlayerController : MonoBehaviour
         //bladeOfLight.SetActive(true);
         yield return new WaitForSeconds(2f);
         attack = false;
-        cantMove = true;
+        cantMove = false;
         specialInvincibility = false;
         bladeOfLight.SetActive(false);
         tigerSpecialAOE.SetActive(false);
@@ -915,6 +981,26 @@ public class PlayerController : MonoBehaviour
         tigerSpecialCommand.gameObject.SetActive(false);
         tigerSpecialLightUp.gameObject.SetActive(false);
         tigerComboLightUp.gameObject.SetActive(false);
+    }
+    IEnumerator BirdSpecialDuration()
+    {
+        //attack = true;
+        //specialInvincibility = true;
+        //playerAudio.PlayOneShot(tigerSpecial, 0.1f);
+        //bladeOfLight.SetActive(true);
+        yield return new WaitForSeconds(2f);
+        attack = false;
+        cantMove = false;
+        specialInvincibility = false;
+        birdAura.SetActive(false);
+        StartCoroutine(StrikeLag());
+        birdSpecialUnlocked = false;
+        birdSpecialCommand.gameObject.SetActive(false);
+        birdSpecialLightUp.gameObject.SetActive(false);
+        birdComboLightUp.gameObject.SetActive(false);
+        
+        bird.transform.Translate(0, 1.5f, 0);
+        birdSeparater.SetActive(true);
     }
     public void Swoop()
     {
@@ -1072,6 +1158,11 @@ public class PlayerController : MonoBehaviour
         yield return new WaitForSeconds(0.8f);
         cantMove = false;
     }
+    public void SpecialOn()
+    {
+        tigerSpecialUnlocked = true;
+        birdSpecialUnlocked = true;
+    }
     public void TigerSpecial()
     {
         
@@ -1115,6 +1206,33 @@ public class PlayerController : MonoBehaviour
         playerAudio.PlayOneShot(tigerSpecialStrike, 0.5f);
         //specialHitEffect.transform.position = new Vector3(strikeArea.x, strikeArea.y + 1, strikeArea.z);
         //specialHitEffect.Play();
+    }
+    public void BirdSpecial()
+    {
+        birdAura.SetActive(true);
+        bird.transform.Translate(0, -1.5f, 0);
+        birdSeparater.SetActive(false);
+        cantMove = true;
+        if (lockedOn == false)
+        {
+
+            StartCoroutine(BirdSpecialDuration());
+            playerRb.AddForce(attackDirection * (attackForce + 20), ForceMode.Impulse);
+            //StartCoroutine(FreezeRotations());
+        }
+        //Want DistanceCloser only to play when the tiger isn't close enough. Was originally going to have a distance > 10 || distance <=3
+        //above,but I realized that the below will cover it. Maybe, let's keep testing it out
+        else if ((distance < 15 && distance > 4) && lockedOn)
+        {
+            transform.rotation = Quaternion.Slerp(transform.rotation, attackRotation, 10 * Time.deltaTime);
+            specialCloseTheDistance = true;
+        }
+        else if (distance < 4 && lockedOn)
+        {
+            transform.rotation = Quaternion.Slerp(transform.rotation, attackRotation, 10 * Time.deltaTime);
+            StartCoroutine(BirdSpecialDuration());
+            playerRb.AddForce(attackDirection * (attackForce + 14), ForceMode.Impulse);
+        }
     }
     IEnumerator Dodge()
     {

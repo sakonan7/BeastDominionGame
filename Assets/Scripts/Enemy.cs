@@ -49,6 +49,7 @@ public class Enemy : MonoBehaviour
     private bool attacked = false;
     private bool hitAgainstWall = true;
     public bool hitLanded = false;
+    private bool hitByBirdSpecial = false;
     //private ConstantForce enemyForce;
     // Start is called before the first frame update
     void Start()
@@ -270,6 +271,11 @@ public class Enemy : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         hitAgainstWall = false;
     }
+    IEnumerator Invincibility()
+    {
+        yield return new WaitForSeconds(3);
+        hitByBirdSpecial = false;
+    }
     public void OnTriggerEnter(Collider other)
     {
 
@@ -362,6 +368,16 @@ public class Enemy : MonoBehaviour
                 StartCoroutine(SecondHit());
                 
             }
+        }
+        if (other.CompareTag("Bird Special") && hitByBirdSpecial == false)
+        {
+            HP -= 5;
+            StartCoroutine(DamageDisplayDuration(5));
+            HPBarDecrease(5);
+            StartCoroutine(FoeAttacked(120));
+            hitByBirdSpecial = true;
+            StartCoroutine(Invincibility());
+            //Put a coroutine here so that enemies can only be hit by Bird Special once
         }
     }
 }
