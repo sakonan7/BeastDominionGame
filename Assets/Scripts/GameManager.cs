@@ -74,7 +74,7 @@ public class GameManager : MonoBehaviour
         //StartCoroutine(OpeningSeconds());
         //playerScript.Cutscenes();
         //Time.timeScale = 0;
-        //StartCoroutine(TheStoryScroll());
+        StartCoroutine(TheStoryScroll());
         //storyScroll = true;
         //storyScrollObject.gameObject.SetActive(true);
         //continueMessage.gameObject.SetActive(true);
@@ -282,6 +282,10 @@ public class GameManager : MonoBehaviour
         //Instantiate(enemies[1], new Vector3(wolfLocation.x + 14.5f, wolfLocation.y, wolfLocation.z - 8), enemies[0].transform.rotation);
         numOfEnemies = 1;
     }
+    public void Level2()
+    {
+        Instantiate(enemies[2], new Vector3(enemies[2].transform.position.x, enemies[2].transform.position.y, enemies[2].transform.position.z), enemies[2].transform.rotation);
+    }
     public void BossLevel()
     {
         Debug.Log("Anything that may be needed to be loaded in thisscenelol");
@@ -366,7 +370,7 @@ public class GameManager : MonoBehaviour
         startGame = true;
         if (stage2 == true)
         {
-            BossLevel();
+            Level2();
         }
         if (bossStage == true)
         {

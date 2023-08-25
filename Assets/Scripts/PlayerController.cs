@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -1564,6 +1565,10 @@ public class PlayerController : MonoBehaviour
         else
         {
             cantTransform = false;
+        }
+        if (other.gameObject.name == "Checkpoint")
+        {
+            SceneManager.LoadScene("Armadillo Scene");
         }
 
         //Play attack effect in Enemy and load the effect in the individual script. IE, if Xemnas is using his ethereal blades,
