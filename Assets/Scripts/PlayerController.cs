@@ -885,8 +885,14 @@ public class PlayerController : MonoBehaviour
             //new Color(179, 255, 253, 255)
             //comboCounter.color = Color.cyan;
             comboCounter.color = new Color(0.5603f, 1, 0.965f, 1);
-            tigerSpecialUnlocked = true;
-            
+            if (tigerActive == true)
+            {
+                tigerSpecialUnlocked = true;
+            }
+            if (birdActive == true)
+            {
+                birdSpecialUnlocked = true;
+            }
         }
         StartCoroutine(ComboMeterAnimation());
     }
@@ -1001,6 +1007,7 @@ public class PlayerController : MonoBehaviour
         
         bird.transform.Translate(0, 1.5f, 0);
         birdSeparater.SetActive(true);
+        Debug.Log("Bird Special Ov");
     }
     public void Swoop()
     {
@@ -1222,7 +1229,7 @@ public class PlayerController : MonoBehaviour
         }
         //Want DistanceCloser only to play when the tiger isn't close enough. Was originally going to have a distance > 10 || distance <=3
         //above,but I realized that the below will cover it. Maybe, let's keep testing it out
-        else if ((distance < 15 && distance > 4) && lockedOn)
+        else if ((distance > 4) && lockedOn)
         {
             transform.rotation = Quaternion.Slerp(transform.rotation, attackRotation, 10 * Time.deltaTime);
             specialCloseTheDistance = true;
@@ -1383,6 +1390,9 @@ public class PlayerController : MonoBehaviour
             //playerRb.constraints &= ~RigidbodyConstraints.FreezePositionY;
             //playerRb.constraints = RigidbodyConstraints.FreezeRotationX;
             //playerRb.constraints = RigidbodyConstraints.FreezeRotationZ;
+            rackingUpCombo = false;
+            tigerComboIcon.gameObject.SetActive(true);
+            birdComboIcon.gameObject.SetActive(false);
         }
         else if (tigerActive == true)
         {
@@ -1401,6 +1411,9 @@ public class PlayerController : MonoBehaviour
             speed = birdSpeed;
             dodgeTime = birdDodge;
             //playerRb.constraints = RigidbodyConstraints.FreezePositionY;
+            rackingUpCombo = false;
+            tigerComboIcon.gameObject.SetActive(false);
+            birdComboIcon.gameObject.SetActive(true);
         }
         transforming = false;
     }

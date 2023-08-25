@@ -374,7 +374,7 @@ public class Enemy : MonoBehaviour
             HP -= 5;
             StartCoroutine(DamageDisplayDuration(5));
             HPBarDecrease(5);
-            StartCoroutine(FoeAttacked(120));
+            StartCoroutine(FoeAttacked(200));
             hitByBirdSpecial = true;
             StartCoroutine(Invincibility());
             //Put a coroutine here so that enemies can only be hit by Bird Special once
