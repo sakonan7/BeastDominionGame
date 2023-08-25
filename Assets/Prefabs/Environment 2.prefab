@@ -1851,7 +1851,7 @@ Transform:
   - {fileID: 4199990021465284498}
   - {fileID: 7819455404015792141}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1656155180885681623
 GameObject:
@@ -1866,7 +1866,7 @@ GameObject:
   - component: {fileID: 1656155180885681621}
   - component: {fileID: 1656155180885681622}
   m_Layer: 6
-  m_Name: Wall 1 (1)
+  m_Name: Progression Wall
   m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1880,8 +1880,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1656155180885681623}
   m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 6.3, y: 1.95, z: 27.8531}
-  m_LocalScale: {x: 11.873699, y: 4, z: 60.6}
+  m_LocalPosition: {x: 6.3, y: 1.2, z: 27.8531}
+  m_LocalScale: {x: 11.873699, y: 2, z: 60.6}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8797357439789353404}
@@ -3147,8 +3147,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2975229076739933998}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6.4, y: 5.01, z: 28.05}
-  m_LocalScale: {x: 50, y: 2, z: 12}
+  m_LocalPosition: {x: 6.4, y: 3.2, z: 28.05}
+  m_LocalScale: {x: 50, y: 2, z: 9}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8797357439789353404}
@@ -5637,6 +5637,7 @@ Transform:
   - {fileID: 4648975741317220244}
   - {fileID: 4868799303012710455}
   - {fileID: 4323075077511853955}
+  - {fileID: 5547084579019656776}
   m_Father: {fileID: 1656155180659512388}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -5845,6 +5846,59 @@ BoxCollider:
     m_Bits: 0
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &5885559561077524555
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5547084579019656776}
+  - component: {fileID: 5997601535934706861}
+  m_Layer: 0
+  m_Name: Rise Point
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5547084579019656776
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5885559561077524555}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 6.4, y: 3.2, z: 20.47}
+  m_LocalScale: {x: 50, y: 2, z: 3}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8797357439789353404}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &5997601535934706861
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5885559561077524555}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3

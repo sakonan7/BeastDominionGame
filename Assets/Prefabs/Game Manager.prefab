@@ -65,7 +65,7 @@ Transform:
   - {fileID: 5384356388187109961}
   - {fileID: 8469718727530892216}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8123722900266441927
 MonoBehaviour:
@@ -90,6 +90,7 @@ MonoBehaviour:
   difficulty: Normal
   battleStart: 0
   gameEnd: 0
+  stageCleared: 0
   areaCanvas: {fileID: 0}
   foeHPBar: {fileID: 4719315092999967506, guid: 5271de4043d03634aa25c9787d484d61, type: 3}
   startMenu: {fileID: 0}
@@ -98,6 +99,7 @@ MonoBehaviour:
   veryHard: {fileID: 0}
   music: {fileID: 0}
   continueMessage: {fileID: 0}
+  storyScroll: 1
   storyScrollObject: {fileID: 0}
   tutorialMessageObject: {fileID: 0}
   tutorialMessageObject2: {fileID: 0}
@@ -106,11 +108,12 @@ MonoBehaviour:
   currentForm: {fileID: 0}
   HPDisplay: {fileID: 0}
   congratulationsMessage: {fileID: 0}
+  bossStage: 0
   startGame: 0
   startingCutscene: 0
   enemyJustDefeated: 0
   foeStruck: 0
-  dyingEffect: {fileID: 2794106771855191982, guid: 55fba767eff5add47899403a6e4c23c9, type: 3}
+  dyingEffect: {fileID: 8469718727530892217}
   specialHitEffect: {fileID: 5960259523185188916}
 --- !u!1001 &7407945344447777823
 PrefabInstance:
@@ -176,6 +179,11 @@ PrefabInstance:
 --- !u!4 &8469718727530892216 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1388290953741223847, guid: e61fa8a515fe6e349994a68456f9efb6, type: 3}
+  m_PrefabInstance: {fileID: 7407945344447777823}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &8469718727530892217 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 1388290953741223846, guid: e61fa8a515fe6e349994a68456f9efb6, type: 3}
   m_PrefabInstance: {fileID: 7407945344447777823}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7644906847637592262

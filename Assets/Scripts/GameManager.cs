@@ -37,7 +37,7 @@ public class GameManager : MonoBehaviour
     private string explorationMusic = "Uncharted Island By Greg Edmonson";
     private string victoryMusic = "Victory Fanfare By Hitoshi Sakimoto";
     public TextMeshProUGUI continueMessage;
-    private bool storyScroll = false;
+    public bool storyScroll = false;
     public TextMeshProUGUI storyScrollObject;
     private bool tutorialMessage = false;
     public TextMeshProUGUI tutorialMessageObject;
@@ -49,7 +49,8 @@ public class GameManager : MonoBehaviour
     public GameObject HPDisplay;
     public TextMeshProUGUI congratulationsMessage;
 
-    private bool bossStage = false;
+    public bool stage2 = false;
+    public bool bossStage = false;
 
     public bool startGame = false; //Set this to true so that you can move the player now
 
@@ -74,9 +75,9 @@ public class GameManager : MonoBehaviour
         //playerScript.Cutscenes();
         //Time.timeScale = 0;
         //StartCoroutine(TheStoryScroll());
-        storyScroll = true;
-        storyScrollObject.gameObject.SetActive(true);
-        continueMessage.gameObject.SetActive(true);
+        //storyScroll = true;
+        //storyScrollObject.gameObject.SetActive(true);
+        //continueMessage.gameObject.SetActive(true);
     }
 
     // Update is called once per frame
@@ -166,6 +167,10 @@ public class GameManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.T))
         {
             camScript.PlayBattleMusic();
+        }
+        if (stage2 == true || bossStage == true)
+        {
+            StartCoroutine(StageSpawner());
         }
     }
 
@@ -263,6 +268,11 @@ public class GameManager : MonoBehaviour
         gameOver = true;
         continueMessage.gameObject.SetActive(true);
     }
+    public void StagesOff()
+    {
+        stage2 = false;
+        bossStage = false;
+    }
     public void TutorialLevel()
     {
         Vector3 wolfLocation = enemies[0].transform.position;
@@ -271,6 +281,10 @@ public class GameManager : MonoBehaviour
         //Instantiate(enemies[1], new Vector3(wolfLocation.x + 8, wolfLocation.y, wolfLocation.z - 15), enemies[0].transform.rotation);
         //Instantiate(enemies[1], new Vector3(wolfLocation.x + 14.5f, wolfLocation.y, wolfLocation.z - 8), enemies[0].transform.rotation);
         numOfEnemies = 1;
+    }
+    public void BossLevel()
+    {
+        Debug.Log("Anything that may be needed to be loaded in thisscenelol");
     }
 
     //not sure how I will do this in Update because Update will keep evoking this. if it keeps invoking, it will keep instantiating
@@ -344,6 +358,21 @@ public class GameManager : MonoBehaviour
     public void ResetFoeStruck()
     {
         foeStruck = false;
+    }
+    IEnumerator StageSpawner()
+    {
+        yield return new WaitForSeconds(2);
+        playerScript.CutsceneOff();
+        startGame = true;
+        if (stage2 == true)
+        {
+            BossLevel();
+        }
+        if (bossStage == true)
+        {
+            BossLevel();
+        }
+        StagesOff();
     }
 
     public void OnMouseUp()

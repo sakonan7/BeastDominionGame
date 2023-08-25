@@ -100,7 +100,7 @@ public class PlayerController : MonoBehaviour
     public bool attackLanded = false;
     private bool canCombo = false;
     //I can either make the distance closers stop movement or use stuned/damaged to do the 
-    private bool cantMove = false;
+    public bool cantMove = false;
 
     private bool transforming = false;
     private bool cantTransform = false;
@@ -1477,6 +1477,7 @@ public class PlayerController : MonoBehaviour
     public void CutsceneOff()
     {
         cantMove = false;
+        Debug.Log("Can't Move is equal to" + cantMove);
     }
     public void OpeningRun()
     {
