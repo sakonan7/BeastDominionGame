@@ -28,8 +28,8 @@ public class PlayerController : MonoBehaviour
     [Header("Combo Meter")]
     public int hitNumber = 0;
     private bool rackingUpCombo = false;
-    private bool tigerSpecialUnlocked = false;
-    private bool birdSpecialUnlocked = false;
+    private static bool tigerSpecialUnlocked = false;
+    private static bool birdSpecialUnlocked = false;
 
     public bool specialInvincibility = false;
     [Header("Special Attack Objects")]
@@ -149,7 +149,7 @@ public class PlayerController : MonoBehaviour
     [Header ("Display")]
     public TextMeshProUGUI HPText;
     //public Image playerMugshot;
-    public int HP = 10;
+    public static int HP = 10;
     private int originalHP = 10;
     public RawImage playerMugshot;
     public Texture tigerMugshot;
@@ -608,6 +608,11 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.N))
         {
             transform.Rotate(0, transform.rotation.y + 180, 0, 0);
+        }
+        if (Input.GetKeyDown(KeyCode.Tab))
+        {
+            LoseHP(3, 1);
+            StartCoroutine(DamageDisplayed());
         }
     }
     public void LateUpdate()
@@ -1695,10 +1700,10 @@ public class PlayerController : MonoBehaviour
         {
             cantTransform = false;
         }
-        //if (other.gameObject.name == "Checkpoint")
-        //{
-            //SceneManager.LoadScene("Armadillo Scene");
-        //}
+        if (other.gameObject.name == "Checkpoint" && gameManagerScript.stageCleared == true)
+        {
+            SceneManager.LoadScene("Armadillo Scene");
+        }
 
         //Play attack effect in Enemy and load the effect in the individual script. IE, if Xemnas is using his ethereal blades,
         //load the ethereal blade effect into the private variable in Enemy. If Xemnas is using his spark orbs, load the spark orbs

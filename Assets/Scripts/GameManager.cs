@@ -148,11 +148,11 @@ public class GameManager : MonoBehaviour
         if (numOfEnemies == 0)
         {
             playerScript.Cutscenes();
-            congratulationsMessage.gameObject.SetActive(true);
+            //congratulationsMessage.gameObject.SetActive(true);
             //Time.timeScale = 0;
             //VictoryMusicOn();
             //camScript.ChangeMusic();
-            UIDisappear();
+            //UIDisappear();
             stageCleared = true;
             Destroy(barrier);
         }

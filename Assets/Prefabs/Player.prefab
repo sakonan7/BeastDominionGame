@@ -2765,7 +2765,7 @@ Transform:
   - {fileID: 6372403928268736834}
   - {fileID: 6404278404916441893}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1550653510
 MonoBehaviour:
@@ -2807,7 +2807,7 @@ MonoBehaviour:
   attack: 0
   swoopLag: 0
   attackLanded: 0
-  cantMove: 0
+  cantMove: 1
   stunnedInvincibility: 0
   target: {fileID: 8914123929791036340}
   lockedOn: 0
@@ -2822,7 +2822,6 @@ MonoBehaviour:
   bladeOfLightChargeUp: {fileID: 8300000, guid: 09732e9623f597e44bc1b055afa4f27b, type: 3}
   tigerSwing: {fileID: 8300000, guid: 363bd80bfdf8c42449356d00c4d85069, type: 3}
   HPText: {fileID: 0}
-  HP: 10
   playerMugshot: {fileID: 0}
   tigerMugshot: {fileID: 2800000, guid: fdb8044ce1cf88f4184c2cc12a2f5cd8, type: 3}
   birdMugshot: {fileID: 2800000, guid: 880c9396ed96f614db6b7920605ea38a, type: 3}
