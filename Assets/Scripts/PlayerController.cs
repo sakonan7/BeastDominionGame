@@ -652,11 +652,12 @@ public class PlayerController : MonoBehaviour
             
             specialCloseTheDistance = false;
         }
-        if (distance <= 1.5f && specialCloseTheDistance && birdActive == true)
+        if (distance <= 1.2f && specialCloseTheDistance && birdActive == true)
         {
             StartCoroutine(BirdSpecialDuration());
 
             specialCloseTheDistance = false;
+            birdRB.velocity = Vector3.zero;
         }
         //Setting this here because I want to make more space in Update and because this will happen after certainn actions
         //like getting damaged or performing a spec
