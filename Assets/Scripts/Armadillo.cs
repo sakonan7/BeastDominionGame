@@ -91,6 +91,7 @@ public class Armadillo : MonoBehaviour
         enemyScript.SetHP(HP);
 
         cameraRef = GameObject.Find("Main Camera");
+        StartCoroutine(IdleAnimation());
     }
 
     // Update is called once per frame
@@ -161,7 +162,7 @@ public class Armadillo : MonoBehaviour
     IEnumerator IdleAnimation()
     {
         idle = true;
-        animator.SetBool("Idle", true);
+        //animator.SetBool("Idle", true);
         if (beginningIdle == true)
         {
             yield return new WaitForSeconds(Random.Range(6, 12));
