@@ -76,10 +76,18 @@ public class GameManager : MonoBehaviour
         //StartCoroutine(OpeningSeconds());
         //playerScript.Cutscenes();
         //Time.timeScale = 0;
-        StartCoroutine(TheStoryScroll());
+        //StartCoroutine(TheStoryScroll());
         //storyScroll = true;
         //storyScrollObject.gameObject.SetActive(true);
         //continueMessage.gameObject.SetActive(true);
+        if (tutorialStage == true)
+        {
+            StartCoroutine(TheStoryScroll());
+        }
+        else if (tutorialStage == false)
+        {
+            StartCoroutine(NonStoryScroll());
+        }
     }
 
     // Update is called once per frame
@@ -222,6 +230,16 @@ public class GameManager : MonoBehaviour
         startGame = true;
         UIAppear();
     }
+    IEnumerator NonStoryScroll()
+    {
+        yield return new WaitForSeconds(0.5f);
+        //StartCoroutine(TheTutorialMessage());
+        //storyScroll = false;
+        //storyScrollObject.gameObject.SetActive(false);
+        startingCutscene = true;
+        startGame = true;
+        UIAppear();
+    }
     IEnumerator TheTutorialMessage()
     {
         storyScrollObject.gameObject.SetActive(false);
@@ -264,8 +282,9 @@ public class GameManager : MonoBehaviour
         //playerScript.RunAnimationOff();
         //barrier.SetActive(true);
         //Area1();
-        
+
         //BattleMusicOn();
+        stageCleared = false;
         if (tutorialStage == true)
         {
             TutorialLevel();
