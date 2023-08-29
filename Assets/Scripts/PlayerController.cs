@@ -122,7 +122,7 @@ public class PlayerController : MonoBehaviour
     //New lock on code
     private float distance = 0;
     private bool lockOnTurnedOn = false;
-    private bool noHealingItems = true;
+    private static bool noHealingItems = true;
 
     public Vector3 attackDirection;
     public Vector3 transformPosition;
@@ -155,11 +155,11 @@ public class PlayerController : MonoBehaviour
     public Texture tigerMugshot;
     public Texture birdMugshot;
     public Image HPBar;
-    float maxHPBarFill; //References the max amount of physical space the HP fills
+    private float maxHPBarFill = 1; //References the max amount of physical space the HP fills
     public TextMesh damageDisplay;
     private int damageForDisplay; //Proxy variable just for displaying damage taken
     public GameObject healingItemDisplay;
-    public TextMeshProUGUI healingItemNumber;
+    public static TextMeshProUGUI healingItemNumber;
     public int numberOfItems = 0;
     //RectTransform newTargetRect;
     //public GameObject newTarget;
@@ -190,12 +190,18 @@ public class PlayerController : MonoBehaviour
 
     public GameObject MotionBlurObject;
     private bool attackEffect = false;
+    private void Awake()
+    {
+        SetHP();
+    }
     void Start()
     {
         //cam = cameraRef.transform;
         camScript = cameraRef.GetComponent<ThirdPersonCamera>();
         Cutscenes();
         playerRb = GetComponent<Rigidbody>();
+
+        //HPBar = Image.Find("Player HP Bar Background");
         
         animation = tiger.GetComponent<Animation>();
         tigerAnimator = tiger.GetComponent<Animator>();
@@ -206,7 +212,7 @@ public class PlayerController : MonoBehaviour
         //birdSensor = GameObject.Find("Bird Sensor");
 
         tigerActive = true;
-        //tiger.SetActive(true);
+        tiger.SetActive(true);
         //tigerSensor.SetActive(true);
         birdActive = false;
         bird.SetActive(false);
@@ -216,7 +222,7 @@ public class PlayerController : MonoBehaviour
         playerAudio = GetComponent<AudioSource>();
         //playerUI = GameObject.Find("Canvas");
         //DisplayHP(HP);
-        maxHPBarFill = 1;//Changed this from HPBar.FillAmount because that is always going to equal 1
+        //maxHPBarFill = 1;//Changed this from HPBar.FillAmount because that is always going to equal 1
 
         gameManagerScript = GameObject.Find("Game Manager").GetComponent<GameManager>();
 
@@ -226,6 +232,8 @@ public class PlayerController : MonoBehaviour
         comboCounter.text = "x " + hitNumber;
         originalColor = blackoutLight.color;
         //SpecialOn();
+
+
     }
 
     // Update is called once per frame
@@ -271,6 +279,8 @@ public class PlayerController : MonoBehaviour
         {
             birdSeparater.SetActive(true);
         }
+
+
 
         //movement
         forwardInput = Input.GetAxisRaw("Vertical");
@@ -354,31 +364,16 @@ public class PlayerController : MonoBehaviour
                 if (running == true)
                 {
                     running = false;
-                    if (birdActive == true)
-                    {
-                        birdRB.AddForce(Vector3.forward * dodgeForce, ForceMode.Impulse);
-                        birdAnimation.Play("Attack");
-                        //Try using rotate degrees instead and Vectors and speed
-                        //transform.Rotate(360, 0, 0);
-                        //bird.transform.Rotate(Vector3.back * 300 * Time.deltaTime); //Doesn't work most likely because I need to use Time.deltaTime but
-                        //something that counts milliseconds, so that bird can spin a full 360 in one second
-                        //Use torque
-                        //birdRB.AddTorque(Vector3.back, ForceMode.Impulse);
-                        //Quick fix, but it actually worked. Running animation 
-                        //I tried putting a big case above all the controls, but it doesn't
-                        //For some reason, this is necessary in the code for the actions
-                    }
-                    else if (tigerActive == true)
-                    {
-                        //Tried tiger.transform.forward, but the transform of the tiger doesn't
-                        playerRb.AddForce(moveDirection.normalized * dodgeForce, ForceMode.Impulse);
-                        animation.Play("Jump Tweak");
 
-                    }
+                    playerRb.AddForce(moveDirection.normalized * dodgeForce, ForceMode.Impulse);
                 }
                 else if (running == false)
                 {
                     playerRb.AddForce(Vector3.fwd * dodgeForce, ForceMode.Impulse);
+
+                }
+                if (tigerActive == true)
+                {
                     animation.Play("Jump Tweak");
                 }
 
@@ -609,9 +604,9 @@ public class PlayerController : MonoBehaviour
         {
             transform.Rotate(0, transform.rotation.y + 180, 0, 0);
         }
-        if (Input.GetKeyDown(KeyCode.Tab))
+        if (Input.GetKeyDown(KeyCode.C))
         {
-            LoseHP(3, 1);
+            LoseHP(1, 1);
             StartCoroutine(DamageDisplayed());
         }
     }
@@ -781,6 +776,14 @@ public class PlayerController : MonoBehaviour
             }
         }
 
+    }
+
+    public void SetHP()
+    {
+        if (HP < 10)
+        {
+            HPBar.fillAmount = maxHPBarFill * (HP / originalHP);
+        }
     }
     IEnumerator TellDistance ()
     {
@@ -1223,6 +1226,7 @@ public class PlayerController : MonoBehaviour
         bird.transform.Translate(0, -1.5f, 0);
         birdSeparater.SetActive(false);
         cantMove = true;
+        rackingUpCombo = false;
         if (lockedOn == false)
         {
 
@@ -1420,6 +1424,10 @@ public class PlayerController : MonoBehaviour
         }
         transforming = false;
     }
+    public void TransformLock()
+    {
+        cantTransform = !cantTransform;
+    }
     //Taking damage anima
     public void TigerFlinching()
     {
@@ -1530,6 +1538,7 @@ public class PlayerController : MonoBehaviour
 
         damageDisplay.text = "" + damageForDisplay;
         //Debug.Log(HPBar.fillAmount);
+        Debug.Log(HP);
         playerAudio.PlayOneShot(damaged, 0.1f);
         //Putting stun animations here because I need to feed a method/IEnumerator with what stun type I'm going to
         if (tigerActive == true)
@@ -1612,7 +1621,7 @@ public class PlayerController : MonoBehaviour
     public void CutsceneOff()
     {
         cantMove = false;
-        Debug.Log("Can't Move is equal to" + cantMove);
+        //Debug.Log("Can't Move is equal to" + cantMove);
     }
     public void OpeningRun()
     {
@@ -1676,7 +1685,7 @@ public class PlayerController : MonoBehaviour
     {
         if (other.gameObject.name == "Start Game Boundary")
         {
-            gameManagerScript.StartGameMethod();
+            gameManagerScript.StartLevelMethod();
             //For some reason, now the below methods don'twork in GameManager.Maybe GameManager isn't functioning fasten
             CutsceneOff();
             RunAnimationOff();
@@ -1703,6 +1712,10 @@ public class PlayerController : MonoBehaviour
         if (other.gameObject.name == "Checkpoint" && gameManagerScript.stageCleared == true)
         {
             SceneManager.LoadScene("Armadillo Scene");
+        }
+        if (other.gameObject.name == "Checkpoint 2"  && gameManagerScript.stageCleared == true)
+        {
+        SceneManager.LoadScene("Temp Level 3");
         }
 
         //Play attack effect in Enemy and load the effect in the individual script. IE, if Xemnas is using his ethereal blades,

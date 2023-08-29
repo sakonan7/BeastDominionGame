@@ -49,8 +49,10 @@ public class GameManager : MonoBehaviour
     public GameObject HPDisplay;
     public TextMeshProUGUI congratulationsMessage;
 
-    public bool stage2 = false;
-    public bool bossStage = false;
+    public static bool tutorialStage = true;
+    public static bool stage2 = false;
+    public static bool stage3 = false;
+    public static bool bossStage = false;
 
     public bool startGame = false; //Set this to true so that you can move the player now
 
@@ -147,19 +149,30 @@ public class GameManager : MonoBehaviour
         //conditional, but it worked the day aft
         if (numOfEnemies == 0)
         {
-            playerScript.Cutscenes();
+            //playerScript.Cutscenes();
             //congratulationsMessage.gameObject.SetActive(true);
             //Time.timeScale = 0;
             //VictoryMusicOn();
             //camScript.ChangeMusic();
             //UIDisappear();
             stageCleared = true;
-            Destroy(barrier);
+            //Destroy(barrier);
+            if (tutorialStage == true)
+            {
+                tutorialStage = false;
+                stage2 = true;
+            }
+            if (stage2 == true)
+            {
+                tutorialStage = false;
+                stage3 = true;
+            }
         }
-        if (Input.GetMouseButtonDown(0) && gameEnd == true)
-        {
-            SceneManager.LoadScene("Level 1");
-        }
+        //Oh, thiswas causing a glitch
+        //if (Input.GetMouseButtonDown(0) && gameEnd == true)
+        //{
+            //SceneManager.LoadScene("Level 1");
+        //}
         if (Input.GetKeyDown(KeyCode.R))
         {
             camScript.PlayVictoryMusic();
@@ -168,10 +181,10 @@ public class GameManager : MonoBehaviour
         {
             camScript.PlayBattleMusic();
         }
-        if (stage2 == true || bossStage == true)
-        {
-            StartCoroutine(StageSpawner());
-        }
+        //if (stage2 == true || bossStage == true)
+        //{
+            //StartCoroutine(StageSpawner());
+        //}
     }
 
     //public void StartGame(string inputedDifficulty)
@@ -240,17 +253,31 @@ public class GameManager : MonoBehaviour
         HPDisplay.SetActive(false);
         currentForm.SetActive(false);
     }
-    public void StartGameMethod()
+
+    //Turn this into Start Level and load the appropriatecutscene
+    public void StartLevelMethod()
     {
         //mainCam.SetActive(true);
         //cutsceneCam.SetActive(false);
         startingCutscene = false;
         //playerScript.CutsceneOff();
         //playerScript.RunAnimationOff();
-        barrier.SetActive(true);
+        //barrier.SetActive(true);
         //Area1();
-        TutorialLevel();
+        
         //BattleMusicOn();
+        if (tutorialStage == true)
+        {
+            TutorialLevel();
+        }
+        if (stage2 == true)
+        {
+            Level2();
+        }
+        if (stage3 == true)
+        {
+            Level3();
+        }
     }
     public void BattleMusicOn()
     {
@@ -289,7 +316,19 @@ public class GameManager : MonoBehaviour
     }
     public void Level2()
     {
-        Instantiate(enemies[2], new Vector3(enemies[2].transform.position.x, enemies[2].transform.position.y, enemies[2].transform.position.z), enemies[2].transform.rotation);
+        //Instantiate(enemies[2], new Vector3(enemies[2].transform.position.x, enemies[2].transform.position.y, enemies[2].transform.position.z), enemies[2].transform.rotation);
+        Vector3 wolfLocation = enemies[0].transform.position;
+        //wolfLocation.x + 4
+        Instantiate(enemies[1], new Vector3(player.transform.position.x - 1.5f, wolfLocation.y, wolfLocation.z - 6), enemies[0].transform.rotation);
+        playerScript.TransformLock();
+        numOfEnemies = 1;
+    }
+    public void Level3()
+    {
+        Vector3 wolfLocation = enemies[0].transform.position;
+        //wolfLocation.x + 4
+        Instantiate(enemies[1], new Vector3(player.transform.position.x - 6f, wolfLocation.y, wolfLocation.z - 6), enemies[0].transform.rotation);
+        playerScript.TransformLock();
     }
     public void BossLevel()
     {
@@ -322,12 +361,6 @@ public class GameManager : MonoBehaviour
         //enemies[1].name = "Monkey";
         //May need to make a boolean for each foe when they get damaged so I can reduce their HP Bar
         numOfEnemies = 3;
-    }
-    //This is all temporary code because it would be weird for enemy HP to be displayed like this
-    public void DisplayEnemyHP ()
-    {
-        //If I want to display enemy HP, I will need to use Z = 0 all the time and or use different variables, not transform.position
-        foeHPBar.transform.position = new Vector3(enemies[0].transform.position.x, enemies[0].transform.position.y + 5, 0);
     }
     //So the slowdown after defeating a foe doesn't get stacked if another foe gets defeated around the same 
     public void EnemyDefeated(Vector3 strikeArea)
@@ -383,21 +416,5 @@ public class GameManager : MonoBehaviour
         }
         StagesOff();
     }
-
-    public void OnMouseUp()
-    {
-        Debug.Log("Clicked On Stuff");
-        if (storyScroll == true && gameObject.CompareTag("Continue"))
-        {
-            storyScroll = false;
-            storyScrollObject.gameObject.SetActive(false);
-            tutorialMessage = true;
-        }
-        if (tutorialMessage == true && gameObject.CompareTag("Continue"))
-        {
-            tutorialMessage = false;
-            tutorialMessageObject.gameObject.SetActive(false);
-            startingCutscene = true;
-        }
-    }
+    
 }

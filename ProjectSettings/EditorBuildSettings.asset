@@ -11,4 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Armadillo Scene.unity
     guid: f48c22535016ad74c999e93a5e3bb68e
+  - enabled: 1
+    path: Assets/Scenes/Temp Level 3.unity
+    guid: 23498bebe53d7a94bb5762eb9e1dc229
   m_configObjects: {}

@@ -288,6 +288,7 @@ MonoBehaviour:
   victory: {fileID: 0}
   playerObj: {fileID: 0}
   player: {fileID: 0}
+  birdFollow: {fileID: 0}
   orientation: {fileID: 0}
   tiger: {fileID: 0}
   bird: {fileID: 0}
@@ -597,6 +598,7 @@ MonoBehaviour:
   victory: {fileID: 8300000, guid: e3204adb58601e44482fe1c089f1e361, type: 3}
   playerObj: {fileID: 0}
   player: {fileID: 0}
+  birdFollow: {fileID: 0}
   orientation: {fileID: 0}
   tiger: {fileID: 0}
   bird: {fileID: 0}

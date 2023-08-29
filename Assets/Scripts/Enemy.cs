@@ -239,17 +239,17 @@ public class Enemy : MonoBehaviour
         
         yield return new WaitForSeconds(1f);
         attacked = false;
-        HP -= 4;
+        HP -= 6;
         //HPBarScript.HPDecrease(4, originalHP);
         //damageDisplay.gameObject.SetActive(false);
         //float distance = Vector3.Distance(player.transform.position, transform.position);
         //Debug.Log("Distance is equal to " + distance);
         //enemyForce.relativeForce = new Vector3(0, 0, 0);
         gameManager.HitByTigerSpecial(transform.position);
-        StartCoroutine(DamageDisplayDuration(4));
+        StartCoroutine(DamageDisplayDuration(6));
         playerScript.PlayTigerSpecialStrike(transform.position);
 
-        HPBarDecrease(4);
+        HPBarDecrease(6);
     }
     public void HPBarDecrease(int newDamage)
     {
@@ -345,7 +345,7 @@ public class Enemy : MonoBehaviour
             //For now, just trigger stun. I will use both of their directions to perform the knockback
             //TakeDamage();
 
-            HP -= 3;
+            HP -= 4;
             //HPBarScript.HPDecrease(3, originalHP);
             //Damaged();
             playerScript.PlayTigerSpecialStrike(transform.position);
@@ -360,8 +360,8 @@ public class Enemy : MonoBehaviour
             //enemyRb.AddForce(playerScript.attackDirection * 280, ForceMode.Impulse);
             //playerScript.AttackLandedTrue();
             //StartCoroutine(FoeAttacked());
-            StartCoroutine(DamageDisplayDuration(3));
-            HPBarDecrease(3);
+            StartCoroutine(DamageDisplayDuration(4));
+            HPBarDecrease(4);
             if (HP > 0)
             {
 

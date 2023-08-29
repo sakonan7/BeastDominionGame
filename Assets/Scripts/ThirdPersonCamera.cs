@@ -11,6 +11,7 @@ public class ThirdPersonCamera : MonoBehaviour
     public AudioClip victory;
     public Transform playerObj;
     public Transform player;
+    public Transform birdFollow;
     private PlayerController playerScript;
     public Transform orientation;
 
@@ -109,11 +110,14 @@ public class ThirdPersonCamera : MonoBehaviour
         if (playerScript.tigerActive == true)
         {
             playerObj = bird.transform;
+            cinemachineFL.m_Follow = birdFollow;
+            //cinemachineFL.m_Follow = player.transform.position + new Vector3(0, 1.5f, 0);
             //viewDir = player.position - new Vector3(transform.position.x, birdPosition, transform.position.z);
         }
         if (playerScript.birdActive == true)
         {
             playerObj = tiger.transform;
+            cinemachineFL.m_Follow = player;
             //viewDir = player.position - new Vector3(transform.position.x, tigerPosition, transform.position.z);
         }
     }
@@ -152,6 +156,13 @@ public class ThirdPersonCamera : MonoBehaviour
     IEnumerator BackToPlayer()
     {
         yield return new WaitForSeconds(0.5f);
-        cinemachineFL.m_LookAt = player.transform;
+        if (playerScript.tigerActive == true)
+        {
+            cinemachineFL.m_LookAt = player.transform;
+        }
+        if (playerScript.tigerActive == true)
+        {
+            cinemachineFL.m_LookAt = birdFollow;
+        }
     }
 }
