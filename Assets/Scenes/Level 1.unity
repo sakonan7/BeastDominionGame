@@ -1300,6 +1300,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1699321413}
     - target: {fileID: 8123722900266441927, guid: 60ec10cfb6f3d844b8ff5decbda68e88, type: 3}
+      propertyPath: enemies.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8123722900266441927, guid: 60ec10cfb6f3d844b8ff5decbda68e88, type: 3}
       propertyPath: battleCommandsObject
       value: 
       objectReference: {fileID: 1960940731}
@@ -1307,6 +1311,10 @@ PrefabInstance:
       propertyPath: battleCommands2Object
       value: 
       objectReference: {fileID: 710488045}
+    - target: {fileID: 8123722900266441927, guid: 60ec10cfb6f3d844b8ff5decbda68e88, type: 3}
+      propertyPath: enemies.Array.data[2]
+      value: 
+      objectReference: {fileID: 330974086762825383, guid: 865d0b25d99b52c4f8746a495147f8ef, type: 3}
     - target: {fileID: 8123722900266441927, guid: 60ec10cfb6f3d844b8ff5decbda68e88, type: 3}
       propertyPath: tutorialMessageObject
       value: 
@@ -1342,11 +1350,11 @@ PrefabInstance:
       objectReference: {fileID: 23484207}
     - target: {fileID: 2053470553529564302, guid: e588a162c379f89448e87ded4d3f754e, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.0000039122506
+      value: 0.0000039294036
       objectReference: {fileID: 0}
     - target: {fileID: 2053470553529564302, guid: e588a162c379f89448e87ded4d3f754e, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.00000030938568
+      value: -0.00000031074214
       objectReference: {fileID: 0}
     - target: {fileID: 3276491730271144906, guid: e588a162c379f89448e87ded4d3f754e, type: 3}
       propertyPath: m_RootOrder
@@ -1475,11 +1483,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3322581656046782034, guid: 5230bab3687158a4e8a33d584068b91d, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.000003905352
+      value: 0.000003913904
       objectReference: {fileID: 0}
     - target: {fileID: 3322581656046782034, guid: 5230bab3687158a4e8a33d584068b91d, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.00000042828995
+      value: 0.0000004292278
       objectReference: {fileID: 0}
     - target: {fileID: 5767329092050066304, guid: 5230bab3687158a4e8a33d584068b91d, type: 3}
       propertyPath: m_RootOrder
