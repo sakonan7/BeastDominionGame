@@ -53,7 +53,7 @@ public class Armadillo : MonoBehaviour
 
     private GameManager gameManager;
     private int HP = 10; //7
-    private bool testingStun = true;
+    private bool testingStun = false;
     private bool testingBehaviors = false;
     private bool moveLeft = false;
     private bool moveRight = true;
