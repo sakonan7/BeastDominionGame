@@ -50,6 +50,7 @@ public class Enemy : MonoBehaviour
     private bool hitAgainstWall = true;
     public bool hitLanded = false;
     private bool hitByBirdSpecial = false;
+    private bool cantBeHit = false;
     //private ConstantForce enemyForce;
     // Start is called before the first frame update
     void Start()
@@ -151,6 +152,10 @@ public class Enemy : MonoBehaviour
     public void SetComboFinisher()
     {
         comboFinisher = !comboFinisher;
+    }
+    public void SetCantBeHit()
+    {
+        cantBeHit = !cantBeHit;
     }
     //I really want to feed everything into here for simplicity's sake
     //I could alternatively just use Enemy to play the effect from Monkey

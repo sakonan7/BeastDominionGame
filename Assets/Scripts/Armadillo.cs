@@ -11,9 +11,9 @@ public class Armadillo : MonoBehaviour
     private PlayerController playerScript;
     private Enemy enemyScript;
     private float speed = 220;
-    private Rigidbody monkeyRb;
+    private Rigidbody armadilloRb;
     private Rigidbody playerRb;
-    private Collider monkeyAttackReach;
+    private Collider armadilloCollide;
     private Vector3 followDirection;
     private Vector3 attackDirection;
     private Quaternion lookRotation;
@@ -32,12 +32,10 @@ public class Armadillo : MonoBehaviour
     public int attack2 = 1;
     public int attack3 = 2;
 
-    public GameObject firstClawSlash;
-    public GameObject secondClawSlash;
     public GameObject attackRange;
     public ParticleSystem attackEffect;
     private AudioSource audio;
-    public AudioClip monkeyAttack;
+    public AudioClip armadilloAttack;
     private float attackVol;
     private float firstAttackVol = 0.1f;
     private float secondAttackVol = 0.3f;
@@ -45,6 +43,9 @@ public class Armadillo : MonoBehaviour
     public bool isOnGround = false;
     private bool attackFinished = false;
     private float distance;
+
+    //The Armadillo will start with a random attack and then cycle between two of 
+    private bool isTunneled = false;
 
     private bool stunned = false; //Freeze Monkey when i don't want it to move and when the Monkey is being stunlocked by att
     private float idleTime;
@@ -62,15 +63,13 @@ public class Armadillo : MonoBehaviour
     {
         animator = GetComponent<Animator>();
         enemyScript = GetComponent<Enemy>();
-
+        armadilloCollide = GetComponent<Collider>();
         player = GameObject.Find("Player");
         playerRb = player.GetComponent<Rigidbody>();
         playerScript = player.GetComponent<PlayerController>();
 
-        monkeyRb = GetComponent<Rigidbody>();
-        monkeyAttackReach = GetComponent<Collider>();
-
-        Physics.gravity *= 0.5f;
+        armadilloRb = GetComponent<Rigidbody>();
+        
         gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
         if (gameManager.difficulty == "Normal")
         {
@@ -87,11 +86,12 @@ public class Armadillo : MonoBehaviour
         enemyScript.SetDamage(damage);
         enemyScript.attackEffect[0] = attackEffect;
         audio = GetComponent<AudioSource>();
-        enemyScript.enemySounds[0] = monkeyAttack;
+        enemyScript.enemySounds[0] = armadilloAttack;
         enemyScript.SetHP(HP);
 
         cameraRef = GameObject.Find("Main Camera");
         StartCoroutine(IdleAnimation());
+        animator.SetBool("Idle", true);
     }
 
     // Update is called once per frame
@@ -103,7 +103,14 @@ public class Armadillo : MonoBehaviour
             if (idle == false && tunnelChase == true && stunned == false)
             {
                 //animation.Play("Run");
-
+                attack = true;
+                armadilloCollide.isTrigger = true;
+                if (isTunneled == false)
+                {
+                    transform.Translate(0, 2, 0);
+                    isTunneled = true;
+                    enemyScript.SetCantBeHit();
+                }
                 //I think i should do the direction following outside of this
                 //Either way, it looks like the Monkey only does it at the start and never rotates to face the tiger again
                 //Vector3 newDirection;
@@ -124,9 +131,10 @@ public class Armadillo : MonoBehaviour
                 //attackRange.transform.position = tiger.transform.position;
                 //distance = Vector3.Distance(player.transform.position, transform.position);
                 lookRotation = Quaternion.LookRotation(player.transform.position - transform.position);
-                monkeyRb.AddForce(followDirection * speed);
+                armadilloRb.AddForce(followDirection * speed);
                 transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, 3); //Turned from 5 to 3 for smooth
                                                                                             //StartCoroutine(AttackCountdown());
+                enemyScript.SetDamage(2);
                 if (distance <= 1.8)
                 {
                     //animator.SetBool("Chase", false);
@@ -143,6 +151,7 @@ public class Armadillo : MonoBehaviour
                    if (attackFinished == false)
                     {
                         PopUp();
+                        enemyScript.SetCantBeHit();
                     }
                 }
             }
@@ -156,9 +165,20 @@ public class Armadillo : MonoBehaviour
     }
     public void PopUp()
     {
-        monkeyRb.AddForce(Vector3.up * 100, ForceMode.Impulse);
+        armadilloRb.AddForce(Vector3.up * 100, ForceMode.Impulse);
         isOnGround = false;
     }
+    //I thought I wouldn't need an AttackDuration, but I need to deactivate the attackrange
+    IEnumerator AttackDuration()
+    {
+        attackRange.SetActive(true);  
+        yield return new WaitForSeconds(0.5f);
+        attackRange.SetActive(false);
+        armadilloCollide.isTrigger = false;
+        attackFinished = true;
+        attack = false;
+    }
+
     IEnumerator IdleAnimation()
     {
         idle = true;
