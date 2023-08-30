@@ -33,6 +33,8 @@ public class Armadillo : MonoBehaviour
     public int attack3 = 2;
 
     public GameObject attackRange;
+    public ParticleSystem tunnelingAttackEffect;
+    public ParticleSystem tunneling;
     public ParticleSystem attackEffect;
     private AudioSource audio;
     public AudioClip armadilloAttack;
@@ -45,6 +47,9 @@ public class Armadillo : MonoBehaviour
     private float distance;
 
     //The Armadillo will start with a random attack and then cycle between two of 
+    private int whichAttack = 1;
+    private int attackOne = 0;
+    private int attackTwo = 1;
     private bool isTunneled = false;
 
     private bool stunned = false; //Freeze Monkey when i don't want it to move and when the Monkey is being stunlocked by att
@@ -92,6 +97,7 @@ public class Armadillo : MonoBehaviour
         cameraRef = GameObject.Find("Main Camera");
         StartCoroutine(IdleAnimation());
         //animator.SetBool("Idle", true);
+        whichAttack = attackOne;
     }
 
     // Update is called once per frame
@@ -99,55 +105,41 @@ public class Armadillo : MonoBehaviour
     {
         if (testingStun == false)
         {
+            //I'm gonna take out stunned == false because each time a foe is in attack mode, it can't be flinched and
+            //they will be set back into IdleAnimation and only have IdleAnimation happen if the foe is not stunned
+            if (idle = false && whichAttack == attackOne)
+            {
 
-            if (idle == false && tunnelChase == true && stunned == false)
+            }
+            if (idle == false && whichAttack == attackTwo&&tunnelChase == true && stunned == false)
             {
                 //animation.Play("Run");
                 attack = true;
                 //armadilloCollide.isTrigger = true;
+                tunneling.Play();
+                
                 if (isTunneled == false)
                 {
+                    //Instead, make Armadillo invisible and shrinkhim so that the target still appears on Armadillo but is lower on the ground
+                    //Inspired by Vanitas from Kingdom Hearts
+                    transform.localScale += new Vector3(0, -3, 0);
+
                     //transform.Translate(0, 2, 0);
                     isTunneled = true;
                     enemyScript.SetCantBeHit();
                 }
-                //I think i should do the direction following outside of this
-                //Either way, it looks like the Monkey only does it at the start and never rotates to face the tiger again
-                //Vector3 newDirection;
-                //if (playerScript.tigerActive == true)
-                //{
                 followDirection = (player.transform.position - transform.position).normalized;
-                //newDirection = Vector3.RotateTowards(transform.forward, tiger.transform.position, speed * Time.deltaTime, 0.0f);
-                //transform.rotation = Quaternion.LookRotation(newDirection);
-                ///}
-                //else if (playerScript.birdActive == true)
-                //{
-                //followDirection = (bird.transform.position - transform.position).normalized;
-                //newDirection = Vector3.RotateTowards(transform.forward, bird.transform.position, speed * Time.deltaTime, 0.0f);
-                //transform.rotation = Quaternion.LookRotation(newDirection);
-                //}
                 distance = Vector3.Distance(player.transform.position, transform.position);
-                //playerPosition = tiger.transform.position;
-                //attackRange.transform.position = tiger.transform.position;
-                //distance = Vector3.Distance(player.transform.position, transform.position);
                 lookRotation = Quaternion.LookRotation(player.transform.position - transform.position);
                 armadilloRb.AddForce(followDirection * speed);
                 transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, 3); //Turned from 5 to 3 for smooth
                                                                                             //StartCoroutine(AttackCountdown());
                 enemyScript.SetDamage(2);
-                if (distance <= 1.8)
+                if (distance <= 2)
                 {
                     animator.SetBool("Chase", false);
                     tunnelChase = false;
-                    //jumpForce = 60; //Went from 50 to 60 because I want some knockback force from the first att
-                    //StartCoroutine(FirstClaw());
-                    //}
-                    //else if (distance <= 3)
-                    //{
-                    //animator.SetBool("Chase", false);
-                    //chase = false;
-                    //jumpForce = 3;
-                    //StartCoroutine(FirstClaw());
+                    tunneling.Stop();
                    if (attackFinished == false)
                     {
                         PopUp();
@@ -168,6 +160,7 @@ public class Armadillo : MonoBehaviour
     {
         armadilloRb.velocity = Vector3.zero;
         armadilloRb.AddForce(Vector3.up * 10, ForceMode.Impulse);
+        transform.localScale += new Vector3(0, 3, 0);
         isOnGround = false;
         enemyScript.SetComboFinisher();
     }
