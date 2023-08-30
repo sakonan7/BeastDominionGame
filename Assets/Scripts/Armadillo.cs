@@ -5,6 +5,7 @@ using UnityEngine;
 public class Armadillo : MonoBehaviour
 {
     private Animator animator;
+    private SkinnedMeshRenderer skin;
     //public GameObject HPBar;
     private GameObject cameraRef;
     private GameObject player;
@@ -67,6 +68,7 @@ public class Armadillo : MonoBehaviour
     void Start()
     {
         animator = GetComponent<Animator>();
+        skin = GetComponentInChildren<SkinnedMeshRenderer>();
         enemyScript = GetComponent<Enemy>();
         armadilloCollide = GetComponent<Collider>();
         player = GameObject.Find("Player");
@@ -97,7 +99,7 @@ public class Armadillo : MonoBehaviour
         cameraRef = GameObject.Find("Main Camera");
         StartCoroutine(IdleAnimation());
         //animator.SetBool("Idle", true);
-        whichAttack = attackOne;
+        whichAttack = attackTwo;
     }
 
     // Update is called once per frame
@@ -133,6 +135,7 @@ public class Armadillo : MonoBehaviour
             {
                 attack = true;
                 tunneling.Play();
+                skin.enabled = false;
                 
                 if (isTunneled == false)
                 {
@@ -178,6 +181,7 @@ public class Armadillo : MonoBehaviour
         armadilloRb.velocity = Vector3.zero;
         armadilloRb.AddForce(Vector3.up * 10, ForceMode.Impulse);
         transform.localScale += new Vector3(0, 3, 0);
+        skin.enabled = true;
         isOnGround = false;
         enemyScript.SetComboFinisher();
     }
@@ -185,7 +189,7 @@ public class Armadillo : MonoBehaviour
     {
         armadilloRb.velocity = Vector3.zero;
         attackRange.transform.localScale += new Vector3(0.2f, 0, 0.2f);
-        armadilloRb.angularVelocity = new Vector3(0, 3.14f, 0);
+        //armadilloRb.angularVelocity = new Vector3(0, 3.14f, 0);
     }
     //I thought I wouldn't need an AttackDuration, but I need to deactivate the attackrange
     IEnumerator AttackDuration()
