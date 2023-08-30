@@ -99,7 +99,7 @@ public class Armadillo : MonoBehaviour
         cameraRef = GameObject.Find("Main Camera");
         StartCoroutine(IdleAnimation());
         //animator.SetBool("Idle", true);
-        whichAttack = attackTwo;
+        whichAttack = attackOne;
     }
 
     // Update is called once per frame

@@ -497,6 +497,9 @@ GameObject:
   - component: {fileID: 187062776286453448}
   - component: {fileID: 3149556260125603573}
   - component: {fileID: 9085376207217784403}
+  - component: {fileID: 5944822372014709403}
+  - component: {fileID: 9050444478804907408}
+  - component: {fileID: 7849678132620575788}
   m_Layer: 0
   m_Name: RabbitArcher01
   m_TagString: Untagged
@@ -575,6 +578,75 @@ MonoBehaviour:
   lockedOn: 0
   dyingEffect: {fileID: 0}
   hitLanded: 0
+--- !u!114 &5944822372014709403
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2341620562665695593}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68164ecc89baf014bbfaac7f5e07938e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attack1: 0
+  attack2: 1
+  attack3: 2
+  attackRange: {fileID: 0}
+  tunnelingAttackEffect: {fileID: 0}
+  tunneling: {fileID: 0}
+  attackEffect: {fileID: 0}
+  rabbitAttack: {fileID: 0}
+  isOnGround: 0
+--- !u!54 &9050444478804907408
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2341620562665695593}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 80
+  m_CollisionDetection: 0
+--- !u!65 &7849678132620575788
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2341620562665695593}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.73487186, y: 1.32213, z: 1}
+  m_Center: {x: 0.013747692, y: 0.6903217, z: 0}
 --- !u!1 &2464209345387023690
 GameObject:
   m_ObjectHideFlags: 0
@@ -1953,6 +2025,10 @@ PrefabInstance:
     - target: {fileID: 351814709939484568, guid: 8758cfd48077e5b47903a29019735cad, type: 3}
       propertyPath: m_Name
       value: carrotarrow
+      objectReference: {fileID: 0}
+    - target: {fileID: 351814709939484568, guid: 8758cfd48077e5b47903a29019735cad, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4687871819174947312, guid: 8758cfd48077e5b47903a29019735cad, type: 3}
       propertyPath: m_RootOrder
