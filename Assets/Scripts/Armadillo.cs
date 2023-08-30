@@ -107,15 +107,31 @@ public class Armadillo : MonoBehaviour
         {
             //I'm gonna take out stunned == false because each time a foe is in attack mode, it can't be flinched and
             //they will be set back into IdleAnimation and only have IdleAnimation happen if the foe is not stunned
-            if (idle = false && whichAttack == attackOne)
+            if (idle == false && whichAttack == attackOne)
             {
-
+                attack = true;
+                
+                followDirection = (player.transform.position - transform.position).normalized;
+                distance = Vector3.Distance(player.transform.position, transform.position);
+                lookRotation = Quaternion.LookRotation(player.transform.position - transform.position);
+                armadilloRb.AddForce(followDirection * speed);
+                transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, 3); //Turned from 5 to 3 for smooth
+                                                                                            //StartCoroutine(AttackCountdown());
+                enemyScript.SetDamage(1);
+                enemyScript.SetForce(6);
+                if (distance <= 2)
+                {
+                    animator.SetBool("Chase", false);
+                    if (attackFinished == false)
+                    {
+                        SpinAttack();
+                        StartCoroutine(AttackDuration());
+                    }
+                }
             }
             if (idle == false && whichAttack == attackTwo&&tunnelChase == true && stunned == false)
             {
-                //animation.Play("Run");
                 attack = true;
-                //armadilloCollide.isTrigger = true;
                 tunneling.Play();
                 
                 if (isTunneled == false)
@@ -135,6 +151,7 @@ public class Armadillo : MonoBehaviour
                 transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, 3); //Turned from 5 to 3 for smooth
                                                                                             //StartCoroutine(AttackCountdown());
                 enemyScript.SetDamage(2);
+                enemyScript.SetForce(0);
                 if (distance <= 2)
                 {
                     animator.SetBool("Chase", false);
@@ -164,16 +181,31 @@ public class Armadillo : MonoBehaviour
         isOnGround = false;
         enemyScript.SetComboFinisher();
     }
+    public void SpinAttack()
+    {
+        armadilloRb.velocity = Vector3.zero;
+        attackRange.transform.localScale += new Vector3(0.2f, 0, 0.2f);
+        armadilloRb.angularVelocity = new Vector3(0, 3.14f, 0);
+    }
     //I thought I wouldn't need an AttackDuration, but I need to deactivate the attackrange
     IEnumerator AttackDuration()
     {
         attackRange.SetActive(true);  
+
         yield return new WaitForSeconds(0.5f);
         attackRange.SetActive(false);
         //armadilloCollide.isTrigger = false;
         attackFinished = true;
         attack = false;
-        enemyScript.SetComboFinisher();
+        
+        if (whichAttack == attackOne)
+        {
+            attackRange.transform.localScale -= new Vector3(0.2f, 0, 0.2f);
+        }
+        else if (whichAttack == attackTwo)
+        {
+            enemyScript.SetComboFinisher();
+        }
     }
 
     IEnumerator IdleAnimation()

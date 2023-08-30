@@ -37,7 +37,7 @@ public class GameManager : MonoBehaviour
     private string explorationMusic = "Uncharted Island By Greg Edmonson";
     private string victoryMusic = "Victory Fanfare By Hitoshi Sakimoto";
     public TextMeshProUGUI continueMessage;
-    public bool storyScroll = false;
+    private bool storyScroll = false;
     public TextMeshProUGUI storyScrollObject;
     private bool tutorialMessage = false;
     public TextMeshProUGUI tutorialMessageObject;
@@ -80,14 +80,18 @@ public class GameManager : MonoBehaviour
         //storyScroll = true;
         //storyScrollObject.gameObject.SetActive(true);
         //continueMessage.gameObject.SetActive(true);
-        if (tutorialStage == true)
+        if (tutorialStage == true && storyScroll == true)
         {
             StartCoroutine(TheStoryScroll());
         }
-        else if (tutorialStage == false)
+        else if (tutorialStage == true && storyScroll == false)
         {
             StartCoroutine(NonStoryScroll());
         }
+        //else if (tutorialStage == false)
+        //{
+            //StartCoroutine(NonStoryScroll());
+        //}
     }
 
     // Update is called once per frame

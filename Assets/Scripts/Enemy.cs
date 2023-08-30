@@ -31,7 +31,7 @@ public class Enemy : MonoBehaviour
     //private EnemyHPBar HPBarScript;
     public TextMesh damageDisplay;
     public Vector3 attackDirection;
-    public float attackForce;
+    public float attackForce = 0;
     public int hitNumber = 0;
     public bool comboAttack = false;
     public bool comboFinisher = false;
