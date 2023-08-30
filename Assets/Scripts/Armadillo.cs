@@ -91,7 +91,7 @@ public class Armadillo : MonoBehaviour
 
         cameraRef = GameObject.Find("Main Camera");
         StartCoroutine(IdleAnimation());
-        animator.SetBool("Idle", true);
+        //animator.SetBool("Idle", true);
     }
 
     // Update is called once per frame
@@ -104,10 +104,10 @@ public class Armadillo : MonoBehaviour
             {
                 //animation.Play("Run");
                 attack = true;
-                armadilloCollide.isTrigger = true;
+                //armadilloCollide.isTrigger = true;
                 if (isTunneled == false)
                 {
-                    transform.Translate(0, 2, 0);
+                    //transform.Translate(0, 2, 0);
                     isTunneled = true;
                     enemyScript.SetCantBeHit();
                 }
@@ -137,7 +137,7 @@ public class Armadillo : MonoBehaviour
                 enemyScript.SetDamage(2);
                 if (distance <= 1.8)
                 {
-                    //animator.SetBool("Chase", false);
+                    animator.SetBool("Chase", false);
                     tunnelChase = false;
                     //jumpForce = 60; //Went from 50 to 60 because I want some knockback force from the first att
                     //StartCoroutine(FirstClaw());
@@ -151,6 +151,7 @@ public class Armadillo : MonoBehaviour
                    if (attackFinished == false)
                     {
                         PopUp();
+                        StartCoroutine(AttackDuration());
                         enemyScript.SetCantBeHit();
                     }
                 }
@@ -165,8 +166,10 @@ public class Armadillo : MonoBehaviour
     }
     public void PopUp()
     {
-        armadilloRb.AddForce(Vector3.up * 100, ForceMode.Impulse);
+        armadilloRb.velocity = Vector3.zero;
+        armadilloRb.AddForce(Vector3.up * 10, ForceMode.Impulse);
         isOnGround = false;
+        enemyScript.SetComboFinisher();
     }
     //I thought I wouldn't need an AttackDuration, but I need to deactivate the attackrange
     IEnumerator AttackDuration()
@@ -174,15 +177,16 @@ public class Armadillo : MonoBehaviour
         attackRange.SetActive(true);  
         yield return new WaitForSeconds(0.5f);
         attackRange.SetActive(false);
-        armadilloCollide.isTrigger = false;
+        //armadilloCollide.isTrigger = false;
         attackFinished = true;
         attack = false;
+        enemyScript.SetComboFinisher();
     }
 
     IEnumerator IdleAnimation()
     {
         idle = true;
-        //animator.SetBool("Idle", true);
+        animator.SetBool("Idle", true);
         if (beginningIdle == true)
         {
             yield return new WaitForSeconds(Random.Range(6, 12));
@@ -194,8 +198,8 @@ public class Armadillo : MonoBehaviour
         beginningIdle = false;
         idle = false;
         tunnelChase = true;
-        //animator.SetBool("Idle", false);
-        //animator.SetBool("Chase", true);
+        animator.SetBool("Idle", false);
+        animator.SetBool("Chase", true);
     }
     public void OnCollisionEnter(Collision collision)
     {

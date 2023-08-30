@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2518299211319552329}
   m_Layer: 0
   m_Name: Attack Range
-  m_TagString: Untagged
+  m_TagString: Enemy Attack Range
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -51,8 +51,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.26712775, y: 0.3343486, z: 0.4577918}
-  m_Center: {x: -0.006847739, y: 0.16978501, z: -0.023839235}
+  m_Size: {x: 0.29914522, y: 0.3343486, z: 0.50438786}
+  m_Center: {x: 0.0091609955, y: 0.16978501, z: -0.0005412102}
 --- !u!1001 &330974086762725381
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -261,7 +261,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 80
   m_CollisionDetection: 0
 --- !u!4 &330974086762863239 stripped
 Transform:

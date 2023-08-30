@@ -602,7 +602,8 @@ public class PlayerController : MonoBehaviour
         //For some reason this only works here, in FixedUpdate, everywhereelse rerotates right a
         if (Input.GetKeyDown(KeyCode.N))
         {
-            transform.Rotate(0, transform.rotation.y + 180, 0, 0);
+            //transform.Rotate(0, transform.rotation.y + 180, 0, 0);
+            playerRb.angularVelocity = new Vector3(0, 3.14f, 0);
         }
         if (Input.GetKeyDown(KeyCode.C))
         {
