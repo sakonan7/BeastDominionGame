@@ -59,7 +59,7 @@ public class Rabbit : MonoBehaviour
 
     private GameManager gameManager;
     private int HP = 8; //7
-    private bool testingStun = false;
+    private bool testingStun = true;
     private bool testingBehaviors = false;
     private bool moveLeft = false;
     private bool moveRight = true;
@@ -124,7 +124,6 @@ public class Rabbit : MonoBehaviour
                 
                 distance = Vector3.Distance(player.transform.position, transform.position);
                 lookRotation = Quaternion.LookRotation(player.transform.position - transform.position);
-                rabbitRb.AddForce(followDirection * speed);
                 transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, 3); //Turned from 5 to 3 for smooth
                                                                                             //StartCoroutine(AttackCountdown());
                 enemyScript.SetDamage(1);
