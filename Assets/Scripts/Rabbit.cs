@@ -172,7 +172,7 @@ public class Rabbit : MonoBehaviour
     {
         //firing position works now that I've rearranged a fewthings..
         //Actually, I think the problem was using Translate and no Time.deltaTime
-        Instantiate(arrow, new Vector3(firingPosition.position.x, firingPosition.position.y + 2, firingPosition.position.z), firingPosition.rotation);
+        Instantiate(arrow, new Vector3(firingPosition.position.x, firingPosition.position.y + 2, firingPosition.position.z), new Quaternion(firingPosition.rotation.x, firingPosition.rotation.y + 180, firingPosition.rotation.z, 0));
     }
     //I thought I wouldn't need an AttackDuration, but I need to deactivate the attackrange
     IEnumerator AttackDuration()

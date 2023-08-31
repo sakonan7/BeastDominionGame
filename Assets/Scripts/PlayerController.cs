@@ -247,10 +247,6 @@ public class PlayerController : MonoBehaviour
         {
             UnpauseGame();
         }
-    }
-    //I tried putting everything in regular Update(), but it makes everything a lot slower
-    void FixedUpdate()
-    {
         
 
         //This code is for anything that needs to follow the player
@@ -1552,6 +1548,20 @@ public class PlayerController : MonoBehaviour
             else if (stunType % 2 == 0)
             {
                 animation.Play("Flinch 2");
+            }
+        }
+        if (birdActive == true)
+        {
+            //Debug.Log(stunType % 2);
+            if (stunType % 2 == 1)
+            {
+                //animation.Play("Flinch 1");
+                bird.transform.Rotate(0, 10, 10);
+            }
+            else if (stunType % 2 == 0)
+            {
+                //animation.Play("Flinch 2");
+                bird.transform.Rotate(0, -10, 10);
             }
         }
         if (tigerKnockedBack == true)
