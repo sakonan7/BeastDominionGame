@@ -18,6 +18,7 @@ TagManager:
   - NoTransformation
   - Bird Attack Range
   - Bird Special
+  - Projectile
   layers:
   - Default
   - TransparentFX

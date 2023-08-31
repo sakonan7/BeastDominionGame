@@ -30,9 +30,9 @@ public class Rabbit : MonoBehaviour
     public int attack2 = 1;
     public int attack3 = 2;
 
-    public GameObject attackRange;
-    public ParticleSystem tunnelingAttackEffect;
-    public ParticleSystem tunneling;
+    public GameObject arrow;
+    public Transform firingPosition;
+    
     public ParticleSystem attackEffect;
     private AudioSource audio;
     public AudioClip rabbitAttack;
@@ -104,46 +104,37 @@ public class Rabbit : MonoBehaviour
         //Prospectively, I would want the rabbit to alternate between the two attacks and then have the rabbit run away if the player is too close.
         //To run away, I could have it run backwards if it is too close to a wall, I got too complicated and thoughtI'd need to calculate
         //based on the rabbit's back beingto a wall
+
+        //For both versions, he will cancel his second bow shot if the player gets too close. Nothing will come out.
+        //I just thought of something. I will make rabbit run away a distance from the player if the player is within 5 meters of them.
+        //I will simply set an IEnumerator to make the rabbit run for 2 seconds or until it hits a wall. I could also make the rabbit stoprunning
+        //away if it reaches 7 meters away from the player for practice and to get something close to what I 
         if (testingStun == false)
         {
             //I'm gonna take out stunned == false because each time a foe is in attack mode, it can't be flinched and
             //they will be set back into IdleAnimation and only have IdleAnimation happen if the foe is not stunned
+            //Currently for suspension of disbelief, I will not properly have the rabbit turn right away from the player 
+            //And just have the arrow seekthe player
             if (idle == false && whichAttack == attackOne)
             {
                 attack = true;
-
-                followDirection = (player.transform.position - transform.position).normalized;
+                
                 distance = Vector3.Distance(player.transform.position, transform.position);
                 lookRotation = Quaternion.LookRotation(player.transform.position - transform.position);
                 rabbitRb.AddForce(followDirection * speed);
                 transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, 3); //Turned from 5 to 3 for smooth
                                                                                             //StartCoroutine(AttackCountdown());
                 enemyScript.SetDamage(1);
-                enemyScript.SetForce(6);
-                if (distance <= 2)
-                {
-                    animator.SetBool("Chase", false);
+                enemyScript.SetForce(0);
                     if (attackFinished == false)
                     {
+                    FireSingleArrow();
                         StartCoroutine(AttackDuration());
                     }
-                }
             }
             if (idle == false && whichAttack == attackTwo && tunnelChase == true && stunned == false)
             {
                 attack = true;
-                tunneling.Play();
-
-                if (isTunneled == false)
-                {
-                    //Instead, make Armadillo invisible and shrinkhim so that the target still appears on Armadillo but is lower on the ground
-                    //Inspired by Vanitas from Kingdom Hearts
-                    transform.localScale += new Vector3(0, -3, 0);
-
-                    //transform.Translate(0, 2, 0);
-                    isTunneled = true;
-                    enemyScript.SetCantBeHit();
-                }
                 followDirection = (player.transform.position - transform.position).normalized;
                 distance = Vector3.Distance(player.transform.position, transform.position);
                 lookRotation = Quaternion.LookRotation(player.transform.position - transform.position);
@@ -152,19 +143,14 @@ public class Rabbit : MonoBehaviour
                                                                                             //StartCoroutine(AttackCountdown());
                 enemyScript.SetDamage(2);
                 enemyScript.SetForce(0);
-                if (distance <= 2)
-                {
-                    animator.SetBool("Chase", false);
-                    tunnelChase = false;
-                    tunneling.Stop();
                     if (attackFinished == false)
                     {
-                        PopUp();
+                        //PopUp();
                         StartCoroutine(AttackDuration());
                         enemyScript.SetCantBeHit();
                     }
-                }
             }
+            //May not need this because Rabbit will technically not be off the ground
             if (attackFinished == true && isOnGround == true)
             {
                 attackFinished = false;
@@ -173,39 +159,34 @@ public class Rabbit : MonoBehaviour
             }
         }
     }
-    public void PopUp()
+    public void FireSingleArrow()
     {
-        rabbitRb.velocity = Vector3.zero;
-        rabbitRb.AddForce(Vector3.up * 10, ForceMode.Impulse);
-        transform.localScale += new Vector3(0, 3, 0);
-        isOnGround = false;
-        enemyScript.SetComboFinisher();
+        Instantiate(arrow, new Vector3(player.transform.position.x - 1, player.transform.position.y, player.transform.position.z - 1), lookRotation);
     }
     //I thought I wouldn't need an AttackDuration, but I need to deactivate the attackrange
     IEnumerator AttackDuration()
     {
-        attackRange.SetActive(true);
-
-        yield return new WaitForSeconds(0.5f);
-        attackRange.SetActive(false);
-        //armadilloCollide.isTrigger = false;
         attackFinished = true;
+        yield return new WaitForSeconds(0.5f);
+        //armadilloCollide.isTrigger = false;
+        attackFinished = false;
         attack = false;
 
         if (whichAttack == attackOne)
         {
-            attackRange.transform.localScale -= new Vector3(0.2f, 0, 0.2f);
         }
         else if (whichAttack == attackTwo)
         {
             enemyScript.SetComboFinisher();
         }
+        idleTime = usualIdleTime;
+        StartCoroutine(IdleAnimation());
     }
 
     IEnumerator IdleAnimation()
     {
         idle = true;
-        animator.SetBool("Idle", true);
+        //animator.SetBool("Idle", true);
         if (beginningIdle == true)
         {
             yield return new WaitForSeconds(Random.Range(6, 12));
@@ -217,8 +198,9 @@ public class Rabbit : MonoBehaviour
         beginningIdle = false;
         idle = false;
         tunnelChase = true;
-        animator.SetBool("Idle", false);
-        animator.SetBool("Chase", true);
+        Debug.Log("Attack Start");
+        //animator.SetBool("Idle", false);
+        //animator.SetBool("Chase", true);
     }
     public void OnCollisionEnter(Collision collision)
     {

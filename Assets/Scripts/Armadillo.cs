@@ -120,7 +120,7 @@ public class Armadillo : MonoBehaviour
                 transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, 3); //Turned from 5 to 3 for smooth
                                                                                             //StartCoroutine(AttackCountdown());
                 enemyScript.SetDamage(1);
-                enemyScript.SetForce(6);
+                enemyScript.SetForce(12);
                 if (distance <= 2)
                 {
                     animator.SetBool("Chase", false);
@@ -194,12 +194,12 @@ public class Armadillo : MonoBehaviour
     //I thought I wouldn't need an AttackDuration, but I need to deactivate the attackrange
     IEnumerator AttackDuration()
     {
-        attackRange.SetActive(true);  
-
+        attackRange.SetActive(true);
+        attackFinished = true;
         yield return new WaitForSeconds(0.5f);
         attackRange.SetActive(false);
         //armadilloCollide.isTrigger = false;
-        attackFinished = true;
+        attackFinished = false;
         attack = false;
         
         if (whichAttack == attackOne)

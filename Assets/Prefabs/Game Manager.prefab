@@ -87,6 +87,8 @@ MonoBehaviour:
   enemies:
   - {fileID: 1385818115536885152, guid: 427c4bec985003b479bd70ee6ecbb5c7, type: 3}
   - {fileID: 710810659962788091, guid: 87afe7059db6f4f4689becf8c02813f6, type: 3}
+  - {fileID: 330974086762825383, guid: 865d0b25d99b52c4f8746a495147f8ef, type: 3}
+  - {fileID: 2341620562665695593, guid: d4eae6d1c13137146b28658c4bbe5589, type: 3}
   difficulty: Normal
   battleStart: 0
   gameEnd: 0
@@ -99,7 +101,6 @@ MonoBehaviour:
   veryHard: {fileID: 0}
   music: {fileID: 0}
   continueMessage: {fileID: 0}
-  storyScroll: 1
   storyScrollObject: {fileID: 0}
   tutorialMessageObject: {fileID: 0}
   tutorialMessageObject2: {fileID: 0}
@@ -108,7 +109,6 @@ MonoBehaviour:
   currentForm: {fileID: 0}
   HPDisplay: {fileID: 0}
   congratulationsMessage: {fileID: 0}
-  bossStage: 0
   startGame: 0
   startingCutscene: 0
   enemyJustDefeated: 0

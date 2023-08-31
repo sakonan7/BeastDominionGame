@@ -1759,6 +1759,21 @@ public class PlayerController : MonoBehaviour
                 playerRb.AddForce(-orientation.forward * enemyScript.attackForce, ForceMode.Impulse);
             }
         }
+        if (other.CompareTag("Projectile") && (dodge == false && specialInvincibility == false && stunnedInvincibility == false))
+        {
+            Projectile projectileScript = other.gameObject.GetComponent<Projectile>();
+            playerRb.AddForce(-orientation.forward * projectileScript.attackForce, ForceMode.Impulse);
+            //projectileScript.AttackLanded(0);
+            LoseHP(1, 1);
+            StartCoroutine(DamageDisplayed());
+            StartCoroutine(DamageStunStart());
+            //enemyScript.PlayAttackEffect();
+            //if (enemyScript.comboAttack == true && enemyScript.comboFinisher == true)
+            //{
+                //StartCoroutine(StunDuration());
+                //playerRb.AddForce(-orientation.forward * enemyScript.attackForce, ForceMode.Impulse);
+            //}
+        }
     }
 }
 
