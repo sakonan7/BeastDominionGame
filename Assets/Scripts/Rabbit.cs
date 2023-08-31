@@ -58,8 +58,8 @@ public class Rabbit : MonoBehaviour
     private float damageIdleTime = 6;
 
     private GameManager gameManager;
-    private int HP = 10; //7
-    private bool testingStun = true;
+    private int HP = 8; //7
+    private bool testingStun = false;
     private bool testingBehaviors = false;
     private bool moveLeft = false;
     private bool moveRight = true;
@@ -131,7 +131,7 @@ public class Rabbit : MonoBehaviour
                 enemyScript.SetForce(0);
                     if (attackFinished == false)
                     {
-                    FireSecondArrow();
+                    FireSingleArrow();
                         StartCoroutine(AttackDuration());
                     }
             }
@@ -166,10 +166,13 @@ public class Rabbit : MonoBehaviour
     {
         //firing position works now that I've rearranged a fewthings..
         //Actually, I think the problem was using Translate and no Time.deltaTime
+        ///I tested it out andyes, doing no Time.deltaTime makes the arrow disappear. I think it moved too fast because it
+        ///is functioning with frames and there can be millions of frames per second
         Instantiate(arrow,firingPosition.position, firingPosition.rotation);
     }
     public void FireSecondArrow()
     {
+        //The challenge is that using lookRotat in Projectile makes the arrow fire away from the play
         Instantiate(arrow, new Vector3(firingPosition.position.x, firingPosition.position.y + 2, firingPosition.position.z), new Quaternion(firingPosition.rotation.x, firingPosition.rotation.y + 180, firingPosition.rotation.z, 0));
     }
     //I thought I wouldn't need an AttackDuration, but I need to deactivate the attackrange

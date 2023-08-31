@@ -1709,6 +1709,15 @@ public class PlayerController : MonoBehaviour
             //RunAnimationOff(); //For some reason,now it doesn't work in Game Mana
             //Debug.Log("Game Start");
         }
+        else if (other.gameObject.name == "Checkpoint" && gameManagerScript.stageCleared == true)
+        {
+            SceneManager.LoadScene("Armadillo Scene");
+        }
+        else if (other.gameObject.name == "Checkpoint 2" && gameManagerScript.stageCleared == true)
+        {
+            SceneManager.LoadScene("Temp Level 3");
+        }
+
         if (other.gameObject.name == "End Transformation" && gameManagerScript.stageCleared == true)
         {
             if (cantTransform == false)
@@ -1725,14 +1734,7 @@ public class PlayerController : MonoBehaviour
         {
             cantTransform = false;
         }
-        if (other.gameObject.name == "Checkpoint" && gameManagerScript.stageCleared == true)
-        {
-            SceneManager.LoadScene("Armadillo Scene");
-        }
-        if (other.gameObject.name == "Checkpoint 2"  && gameManagerScript.stageCleared == true)
-        {
-        SceneManager.LoadScene("Temp Level 3");
-        }
+
 
         //Play attack effect in Enemy and load the effect in the individual script. IE, if Xemnas is using his ethereal blades,
         //load the ethereal blade effect into the private variable in Enemy. If Xemnas is using his spark orbs, load the spark orbs

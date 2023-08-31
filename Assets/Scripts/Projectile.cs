@@ -24,8 +24,8 @@ public class Projectile : MonoBehaviour
     void Update()
     {
         transform.Translate(Vector3.back * 15 * Time.deltaTime);
-        lookRotation = Quaternion.LookRotation(player.transform.position - transform.position);
-        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, 3);
+        //lookRotation = Quaternion.LookRotation(player.transform.position - transform.position);
+        //transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, 3);
     }
     private void OnTriggerEnter(Collider collision)
     {

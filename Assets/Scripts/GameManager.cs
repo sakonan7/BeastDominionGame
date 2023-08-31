@@ -89,10 +89,10 @@ public class GameManager : MonoBehaviour
         {
             StartCoroutine(NonStoryScroll());
         }
-        //else if (tutorialStage == false)
-        //{
-            //StartCoroutine(NonStoryScroll());
-        //}
+        else if (tutorialStage == false)
+        {
+            StartCoroutine(NonStoryScroll());
+        }
     }
 
     // Update is called once per frame
@@ -160,7 +160,7 @@ public class GameManager : MonoBehaviour
         //Maybe I should evoke the method the minute the last foe is defeated in EnemeyDefeated(
         //The weird thing is that i'm very damn sure I tried changing the music with the button press methods yesterday after this
         //conditional, but it worked the day aft
-        if (numOfEnemies == 0)
+        if (numOfEnemies <= 0)
         {
             //playerScript.Cutscenes();
             //congratulationsMessage.gameObject.SetActive(true);
@@ -336,7 +336,7 @@ public class GameManager : MonoBehaviour
     {
         Vector3 wolfLocation = enemies[0].transform.position;
         //wolfLocation.x + 4
-        Instantiate(enemies[1], new Vector3(player.transform.position.x - 1.5f, wolfLocation.y + 0.1f, wolfLocation.z - 6), enemies[0].transform.rotation);
+        Instantiate(enemies[3], new Vector3(player.transform.position.x - 1.5f, wolfLocation.y + 0.1f, wolfLocation.z - 6), enemies[0].transform.rotation);
         //Instantiate(enemies[1], new Vector3(wolfLocation.x + 8, wolfLocation.y, wolfLocation.z - 15), enemies[0].transform.rotation);
         //Instantiate(enemies[1], new Vector3(wolfLocation.x + 14.5f, wolfLocation.y, wolfLocation.z - 8), enemies[0].transform.rotation);
         numOfEnemies = 1;
@@ -406,7 +406,7 @@ public class GameManager : MonoBehaviour
             
         }
         numOfEnemies--;
-        if (numOfEnemies == 0)
+        if (numOfEnemies <= 0)
         {
             camScript.PlayExplorationMusic();
         }
