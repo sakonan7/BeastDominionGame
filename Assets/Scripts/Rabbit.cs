@@ -18,7 +18,9 @@ public class Rabbit : MonoBehaviour
     private float jumpForce = 70; //Slight jump before attack
     private float attackForce = 1; //May remove attackForce because Monkey doesn't knock chaarcter back a
     private bool attack = false;
-    private bool beginningIdle = true;
+
+    private bool beginningIdle = false;
+
     private bool idle = true;
     private bool tunnelChase = false;
     private bool playerStunned = false; //For if the Tiger is hit by the first claw. Tiger will always get hit twice
@@ -109,6 +111,7 @@ public class Rabbit : MonoBehaviour
         //I just thought of something. I will make rabbit run away a distance from the player if the player is within 5 meters of them.
         //I will simply set an IEnumerator to make the rabbit run for 2 seconds or until it hits a wall. I could also make the rabbit stoprunning
         //away if it reaches 7 meters away from the player for practice and to get something close to what I 
+        //
         if (testingStun == false)
         {
             //I'm gonna take out stunned == false because each time a foe is in attack mode, it can't be flinched and
@@ -128,7 +131,7 @@ public class Rabbit : MonoBehaviour
                 enemyScript.SetForce(0);
                     if (attackFinished == false)
                     {
-                    FireSingleArrow();
+                    FireSecondArrow();
                         StartCoroutine(AttackDuration());
                     }
             }
@@ -161,7 +164,15 @@ public class Rabbit : MonoBehaviour
     }
     public void FireSingleArrow()
     {
-        Instantiate(arrow, new Vector3(player.transform.position.x - 1, player.transform.position.y, player.transform.position.z - 1), lookRotation);
+        //firing position works now that I've rearranged a fewthings..
+        //Actually, I think the problem was using Translate and no Time.deltaTime
+        Instantiate(arrow,firingPosition.position, firingPosition.rotation);
+    }
+    public void FireSecondArrow()
+    {
+        //firing position works now that I've rearranged a fewthings..
+        //Actually, I think the problem was using Translate and no Time.deltaTime
+        Instantiate(arrow, new Vector3(firingPosition.position.x, firingPosition.position.y + 2, firingPosition.position.z), firingPosition.rotation);
     }
     //I thought I wouldn't need an AttackDuration, but I need to deactivate the attackrange
     IEnumerator AttackDuration()

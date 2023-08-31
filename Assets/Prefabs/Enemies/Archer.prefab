@@ -501,7 +501,7 @@ GameObject:
   - component: {fileID: 9050444478804907408}
   - component: {fileID: 7849678132620575788}
   m_Layer: 0
-  m_Name: RabbitArcher01
+  m_Name: Archer
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -515,14 +515,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2341620562665695593}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: 13.31, y: 0.17, z: -24.54}
+  m_LocalPosition: {x: 13.31, y: 0, z: -24.54}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2956433083193881368}
   - {fileID: 7001985868019069983}
-  - {fileID: 2113983799612876167}
   - {fileID: 534750072028949240}
+  - {fileID: 2113983799612876167}
   - {fileID: 3163339857452515456}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -596,7 +596,7 @@ MonoBehaviour:
   attack2: 1
   attack3: 2
   arrow: {fileID: 351814709939484568, guid: 8758cfd48077e5b47903a29019735cad, type: 3}
-  firingPosition: {fileID: 7001985868019069983}
+  firingPosition: {fileID: 2113983799612876167}
   attackEffect: {fileID: 0}
   rabbitAttack: {fileID: 0}
   isOnGround: 0
@@ -1959,7 +1959,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 351814709939484568, guid: 8758cfd48077e5b47903a29019735cad, type: 3}
       propertyPath: m_Name
-      value: carrotarrow
+      value: carrotarrow prop
       objectReference: {fileID: 0}
     - target: {fileID: 4687871819174947312, guid: 8758cfd48077e5b47903a29019735cad, type: 3}
       propertyPath: m_RootOrder
@@ -2005,7 +2005,13 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 6488342987231876015, guid: 8758cfd48077e5b47903a29019735cad, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 6488342987231876015, guid: 8758cfd48077e5b47903a29019735cad, type: 3}
+    - {fileID: 3528267497807344226, guid: 8758cfd48077e5b47903a29019735cad, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -2029,11 +2035,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1231551698010090590, guid: e31bc8f2105a96d48a2019333b15d5b8, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 16.19
+      value: -7.9
       objectReference: {fileID: 0}
     - target: {fileID: 1231551698010090590, guid: e31bc8f2105a96d48a2019333b15d5b8, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.17
+      value: 4.8
       objectReference: {fileID: 0}
     - target: {fileID: 1231551698010090590, guid: e31bc8f2105a96d48a2019333b15d5b8, type: 3}
       propertyPath: m_LocalPosition.z
@@ -2091,7 +2097,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 351814709939484568, guid: 8758cfd48077e5b47903a29019735cad, type: 3}
       propertyPath: m_Name
-      value: carrotarrow
+      value: carrotarrow location
       objectReference: {fileID: 0}
     - target: {fileID: 351814709939484568, guid: 8758cfd48077e5b47903a29019735cad, type: 3}
       propertyPath: m_IsActive
@@ -2141,7 +2147,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 6488342987231876015, guid: 8758cfd48077e5b47903a29019735cad, type: 3}
+    - {fileID: 3528267497807344226, guid: 8758cfd48077e5b47903a29019735cad, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -2159,6 +2167,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 187062776286453448}
     m_Modifications:
+    - target: {fileID: 1196799170292239143, guid: daff0023e798dc44da699015a43f2045, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2051056479196780953, guid: daff0023e798dc44da699015a43f2045, type: 3}
       propertyPath: m_Name
       value: Enemy Canvas
