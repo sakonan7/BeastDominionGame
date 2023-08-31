@@ -8,6 +8,7 @@ public class ThirdPersonCamera : MonoBehaviour
     private AudioSource musicSource;
     public AudioClip title;
     public AudioClip battle;
+    public AudioClip exploration;
     public AudioClip victory;
     public Transform playerObj;
     public Transform player;
@@ -45,7 +46,7 @@ public class ThirdPersonCamera : MonoBehaviour
         cinemachineFL.gameObject.SetActive(false);
         musicSource = GetComponent<AudioSource>();
         musicSource.clip = title;
-        //musicSource.Play();
+        musicSource.Play();
 
         tigerPosition = player.position.y;
         birdPosition = player.position.y + 1;
@@ -135,6 +136,12 @@ public class ThirdPersonCamera : MonoBehaviour
     {
         musicSource.Stop();
         musicSource.clip = victory;
+        musicSource.Play();
+    }
+    public void PlayExplorationMusic()
+    {
+        musicSource.Stop();
+        musicSource.clip = exploration;
         musicSource.Play();
     }
     IEnumerator TurnOffRecenter()

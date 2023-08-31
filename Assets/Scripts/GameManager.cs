@@ -82,6 +82,7 @@ public class GameManager : MonoBehaviour
         //continueMessage.gameObject.SetActive(true);
         if (tutorialStage == true && storyScroll == true)
         {
+           
             StartCoroutine(TheStoryScroll());
         }
         else if (tutorialStage == true && storyScroll == false)
@@ -179,6 +180,7 @@ public class GameManager : MonoBehaviour
                 tutorialStage = false;
                 stage3 = true;
             }
+            
         }
         //Oh, thiswas causing a glitch
         //if (Input.GetMouseButtonDown(0) && gameEnd == true)
@@ -233,6 +235,7 @@ public class GameManager : MonoBehaviour
         startingCutscene = true;
         startGame = true;
         UIAppear();
+        camScript.PlayBattleMusic();
     }
     IEnumerator NonStoryScroll()
     {
@@ -243,6 +246,7 @@ public class GameManager : MonoBehaviour
         startingCutscene = true;
         startGame = true;
         UIAppear();
+        camScript.PlayBattleMusic();
     }
     IEnumerator TheTutorialMessage()
     {
@@ -332,7 +336,7 @@ public class GameManager : MonoBehaviour
     {
         Vector3 wolfLocation = enemies[0].transform.position;
         //wolfLocation.x + 4
-        Instantiate(enemies[3], new Vector3(player.transform.position.x - 1.5f, wolfLocation.y + 0.1f, wolfLocation.z - 6), enemies[0].transform.rotation);
+        Instantiate(enemies[1], new Vector3(player.transform.position.x - 1.5f, wolfLocation.y + 0.1f, wolfLocation.z - 6), enemies[0].transform.rotation);
         //Instantiate(enemies[1], new Vector3(wolfLocation.x + 8, wolfLocation.y, wolfLocation.z - 15), enemies[0].transform.rotation);
         //Instantiate(enemies[1], new Vector3(wolfLocation.x + 14.5f, wolfLocation.y, wolfLocation.z - 8), enemies[0].transform.rotation);
         numOfEnemies = 1;
@@ -402,6 +406,10 @@ public class GameManager : MonoBehaviour
             
         }
         numOfEnemies--;
+        if (numOfEnemies == 0)
+        {
+            camScript.PlayExplorationMusic();
+        }
     }
     public void HitByTigerSpecial(Vector3 strikeArea)
     {

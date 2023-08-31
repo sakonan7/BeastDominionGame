@@ -1061,6 +1061,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9114437987793611556, guid: cc5d1e7149cb79549b8d52ad54f5c8e3, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 80f75a47117f70f4a93e44b03c1a5c83, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1464,6 +1468,10 @@ PrefabInstance:
       propertyPath: birdFollow
       value: 
       objectReference: {fileID: 841920371}
+    - target: {fileID: 8031964561963932044, guid: e588a162c379f89448e87ded4d3f754e, type: 3}
+      propertyPath: exploration
+      value: 
+      objectReference: {fileID: 8300000, guid: 69db8462629c4b343b9d1c481913b998, type: 3}
     - target: {fileID: 8031964561963932044, guid: e588a162c379f89448e87ded4d3f754e, type: 3}
       propertyPath: orientation
       value: 

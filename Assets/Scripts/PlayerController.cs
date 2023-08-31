@@ -247,6 +247,10 @@ public class PlayerController : MonoBehaviour
         {
             UnpauseGame();
         }
+    }
+    //I tried putting everything in regular Update(), but it makes everything a lot slower
+    void FixedUpdate()
+    {
         
 
         //This code is for anything that needs to follow the player
@@ -571,11 +575,12 @@ public class PlayerController : MonoBehaviour
             {
                 lockedOn = false;
                 //Debug.Log("Can Lock On again"); //I think this should work because target gameObject is not part of
-                                                //The enemy and is only sent to the enemies' location. So I think the main issue was the target disappears
-                                                //because the enemy's position disappears
-                                                //I thought the main problem was that target was getting destroyed
-                                                //OOOps, I accidentally set the conditional to if targetEnemy != null
-                                                //No wonder the LockOn method still
+                //The enemy and is only sent to the enemies' location. So I think the main issue was the target disappears
+                //because the enemy's position disappears
+                //I thought the main problem was that target was getting destroyed
+                //OOOps, I accidentally set the conditional to if targetEnemy != null
+                //No wonder the LockOn method still
+                LockOff();
             }
         }
         else if (lockedOn == false)
