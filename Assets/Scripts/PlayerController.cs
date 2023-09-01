@@ -110,6 +110,8 @@ public class PlayerController : MonoBehaviour
     private bool cantTransform = false;
     public bool stunnedInvincibility;
     private float invincibleFrame;
+    private bool noMoreTurn = false;
+    private Quaternion originalRotation;
 
     public GameObject target;
     private GameObject targetedEnemy;
@@ -233,7 +235,7 @@ public class PlayerController : MonoBehaviour
         originalColor = blackoutLight.color;
         //SpecialOn();
 
-
+        originalRotation = bird.transform.rotation;
     }
 
     // Update is called once per frame
@@ -1578,18 +1580,22 @@ public class PlayerController : MonoBehaviour
                 animation.Play("Flinch 2");
             }
         }
-        if (birdActive == true)
+        if (birdActive == true && noMoreTurn == false)
         {
+            
+            noMoreTurn = true;
             //Debug.Log(stunType % 2);
             if (stunType % 2 == 1)
             {
                 //animation.Play("Flinch 1");
-                bird.transform.Rotate(0, 10, 10);
+                bird.transform.Rotate(-30, -25, 0);
+                StartCoroutine(Reorient1());
             }
             else if (stunType % 2 == 0)
             {
                 //animation.Play("Flinch 2");
-                bird.transform.Rotate(0, -10, 10);
+                bird.transform.Rotate(-30, 25, 0);
+                StartCoroutine(Reorient0());
             }
         }
         if (tigerKnockedBack == true)
@@ -1627,6 +1633,19 @@ public class PlayerController : MonoBehaviour
             //Debug.Log("Game O");
             StartCoroutine(GameOverSlowDown());
         }
+    }
+    IEnumerator Reorient1()
+    {
+        yield return new WaitForSeconds(0.5f);
+        noMoreTurn = false;
+        bird.transform.rotation = originalRotation;
+        Debug.Log("Return");
+    }
+        IEnumerator Reorient0()
+    {
+        yield return new WaitForSeconds(0.5f);
+        noMoreTurn = false;
+        bird.transform.rotation = originalRotation;
     }
     IEnumerator DamageDisplayed()
     {

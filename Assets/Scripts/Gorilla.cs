@@ -18,8 +18,6 @@ public class Gorilla : MonoBehaviour
     private Vector3 followDirection;
     private Vector3 attackDirection;
     private Quaternion lookRotation;
-    private float jumpForce = 70; //Slight jump before attack
-    private float attackForce = 1; //May remove attackForce because Monkey doesn't knock chaarcter back a
     private bool attack = false;
     private bool beginningIdle = true;
     private bool idle = true;
@@ -104,7 +102,41 @@ public class Gorilla : MonoBehaviour
     {
         Input.GetKeyDown(KeyCode.H);
     }
+    IEnumerator IdleAnimation()
+    {
+        idle = true;
+        //animation.Play("Idle");
+        animator.SetBool("Idle", true);
+        //For the timebeing, turn off the player's monkey range
+        //playerScript.monkeyRange.SetActive(false);
+        if (beginningIdle == true)
+        {
+            yield return new WaitForSeconds(Random.Range(6, 12));
+        }
+        //if (playerScript.tigerActive == true)
+        //{
+        else
+        {
+            yield return new WaitForSeconds(idleTime);
+        }
+        //}
+        //else if (playerScript.birdActive == true)
+        //{
+        //monkeyRb.AddForce(Vector3.down * 2, ForceMode.Impulse);
+        //yield return new WaitForSeconds(7);
+        //}
+        beginningIdle = false;
+        idle = false;
+        chase = true;
+        animator.SetBool("Idle", false);
+        animator.SetBool("Chase", true);
+        //playerScript.monkeyRange.SetActive(true);
+        //Debug.Log("Cooldown finished");
+    }
+    //IEnumerator SlamDown()
+    //{
 
+    //}
     //For the arena lighting up, warning the player that the whole arena will be consumed in fire
     //I think I will adjust the light source itself to create the light lighting up and down
     //Do another version for the single hand smash shock
