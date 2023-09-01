@@ -123,6 +123,11 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &15854037 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2570505133623283110, guid: cc5d1e7149cb79549b8d52ad54f5c8e3, type: 3}
+  m_PrefabInstance: {fileID: 4010593549892150239}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &23484207 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 582904149, guid: cc5d1e7149cb79549b8d52ad54f5c8e3, type: 3}
@@ -616,37 +621,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1344c3c82d62a2a41a3576d8abb8e3ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &1329141068
+--- !u!1 &1329141068 stripped
 GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 7627827021783271308, guid: cc5d1e7149cb79549b8d52ad54f5c8e3, type: 3}
+  m_PrefabInstance: {fileID: 4010593549892150239}
   m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1329141069}
-  m_Layer: 0
-  m_Name: Attack And Dodge Follow
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1329141069
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1329141068}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 3.13}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1447893420}
-  m_RootOrder: -1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1355312651 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6609794234969286891, guid: 5230bab3687158a4e8a33d584068b91d, type: 3}
@@ -981,6 +960,14 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1297755657}
     - target: {fileID: 1550653510, guid: cc5d1e7149cb79549b8d52ad54f5c8e3, type: 3}
+      propertyPath: birdFollow
+      value: 
+      objectReference: {fileID: 15854037}
+    - target: {fileID: 1550653510, guid: cc5d1e7149cb79549b8d52ad54f5c8e3, type: 3}
+      propertyPath: tigerFollow
+      value: 
+      objectReference: {fileID: 1329141068}
+    - target: {fileID: 1550653510, guid: cc5d1e7149cb79549b8d52ad54f5c8e3, type: 3}
       propertyPath: comboCounter
       value: 
       objectReference: {fileID: 510421706}
@@ -1040,10 +1027,6 @@ PrefabInstance:
       propertyPath: tigerSpecialLightUp
       value: 
       objectReference: {fileID: 1450263295}
-    - target: {fileID: 2404495841293620899, guid: cc5d1e7149cb79549b8d52ad54f5c8e3, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 4010593551167423253, guid: cc5d1e7149cb79549b8d52ad54f5c8e3, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -1092,12 +1075,17 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 6430700821330608027, guid: cc5d1e7149cb79549b8d52ad54f5c8e3, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.36
+      objectReference: {fileID: 0}
+    - target: {fileID: 6430700821330608027, guid: cc5d1e7149cb79549b8d52ad54f5c8e3, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -1.25
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: 4010593551167423253, guid: cc5d1e7149cb79549b8d52ad54f5c8e3, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1329141069}
+    m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cc5d1e7149cb79549b8d52ad54f5c8e3, type: 3}
 --- !u!4 &4010593549892150240 stripped

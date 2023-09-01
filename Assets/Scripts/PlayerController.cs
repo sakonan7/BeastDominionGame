@@ -25,6 +25,8 @@ public class PlayerController : MonoBehaviour
     public GameObject bird;
     public GameObject birdSeparater;
     private Collider tigerCollider;
+    public GameObject tigerFollow;
+    public GameObject birdFollow;
 
     [Header("Combo Meter")]
     public int hitNumber = 0;
@@ -420,10 +422,9 @@ public class PlayerController : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Z) && birdSpecialUnlocked == true && birdActive == true)
             {
                 
-                attackDirection = (targetedEnemy.transform.position - tiger.transform.position).normalized;
+                
 
-                attackRotation = Quaternion.LookRotation(targetedEnemy.transform.position - tiger.transform.position);
-                bird.transform.rotation = Quaternion.Slerp(tiger.transform.rotation, attackRotation, 3); //Moved this from Strike() to
+ //Moved this from Strike() to
                                                                                                                //see if I can immediately turn my character towards an ene
 
 
@@ -780,29 +781,29 @@ public class PlayerController : MonoBehaviour
                 if (running == true)
                 {
                     running = false;
-                    attackDirection = moveDirection; //changed from Vector3.fwd. Changed back from moveDirection
-                                                     //orientation.forward did not work out
-                                                     //While moveDirection makes the attack
-                                                     //moveDirection on its own will not move the player
-                    if (birdActive == true)
-                    {
-                        //attackDirection = (target.transform.position - bird.transform.position).normalized;
-                        Swoop();
-                        attackDirection = bird.transform.position;
-                    }
-                    else if (tigerActive == true)
-                    {
-                        //attackDirection = (target.transform.position - tiger.transform.position).normalized;
-                        Strike();
-                        //Vector3 tigerPosition = tiger.transform.position
-                        //attackDirection = tigerPosition.forward;
-                    }
+
                 }
                 //if (running == false)
                 //{
-                    //attackDirection = Vector3.fwd;
-                    //Strike();
+                //attackDirection = Vector3.fwd;
+                //Strike();
                 //}
+                if (birdActive == true)
+                {
+                    //attackDirection = (target.transform.position - bird.transform.position).normalized;
+                    attackDirection = (birdFollow.transform.position - tiger.transform.position).normalized;
+                    Swoop();
+                    
+                }
+                else if (tigerActive == true)
+                {
+                    //attackDirection = (target.transform.position - tiger.transform.position).normalized;
+                    attackDirection = (tigerFollow.transform.position - tiger.transform.position).normalized;
+                    Strike();
+                    //Vector3 tigerPosition = tiger.transform.position
+                    //attackDirection = tigerPosition.forward;
+                    
+                }
             }
         }
 
@@ -986,7 +987,7 @@ public class PlayerController : MonoBehaviour
                 animation.Play("Distance Closer");
                 //I would prefer to use nonImpulse, but it is too slow and using Impulse is unexpectedly cool
                 //playerRb.AddForce(attackDirection * (attackForce + 10), ForceMode.Impulse);
-                playerAudio.transform.Translate(attackDirection * (attackForce + 10) * Time.deltaTime);
+                playerRb.AddForce(attackDirection * (attackForce + 10) * Time.deltaTime);
                 animation.Play("Attack 1 & 2");
                 TigerSpecial();
                 StartCoroutine(TigerSpecialDuration());
@@ -1000,7 +1001,7 @@ public class PlayerController : MonoBehaviour
         }
         else if (lockedOn == false)
         {
-            attackDirection = Vector3.fwd;
+            attackDirection = (tigerFollow.transform.position - tiger.transform.position).normalized;
             playerRb.AddForce(attackDirection * (attackForce + 154), ForceMode.Impulse); //+ 8 normally, but try + 12 for blade of
             TigerSpecial();
             StartCoroutine(TigerSpecialDuration());
@@ -1013,9 +1014,9 @@ public class PlayerController : MonoBehaviour
         //specialInvincibility = true;
         playerAudio.PlayOneShot(tigerSpecial, 0.1f);
         //bladeOfLight.SetActive(true);
-        tigerCollider.enabled = true;
+        tigerCollider.isTrigger = true;
         yield return new WaitForSeconds(2f);
-        tigerCollider.enabled = false;
+        tigerCollider.isTrigger = false;
         attack = false;
         cantMove = false;
         specialInvincibility = false;
@@ -1265,7 +1266,7 @@ public class PlayerController : MonoBehaviour
         rackingUpCombo = false;
         if (lockedOn == false)
         {
-
+            attackDirection = (birdFollow.transform.position - tiger.transform.position).normalized;
             StartCoroutine(BirdSpecialDuration());
             playerRb.AddForce(attackDirection * (attackForce + 20), ForceMode.Impulse);
             //StartCoroutine(FreezeRotations());
@@ -1274,12 +1275,16 @@ public class PlayerController : MonoBehaviour
         //above,but I realized that the below will cover it. Maybe, let's keep testing it out
         else if ((distance > 4) && lockedOn)
         {
+            attackDirection = (targetedEnemy.transform.position - tiger.transform.position).normalized;
             //transform.rotation = Quaternion.Slerp(transform.rotation, attackRotation, 10 * Time.deltaTime);
             specialCloseTheDistance = true;
         }
         else if (distance < 4 && lockedOn)
         {
             //transform.rotation = Quaternion.Slerp(transform.rotation, attackRotation, 10 * Time.deltaTime);
+            attackDirection = (targetedEnemy.transform.position - tiger.transform.position).normalized;
+            attackRotation = Quaternion.LookRotation(targetedEnemy.transform.position - tiger.transform.position);
+            bird.transform.rotation = Quaternion.Slerp(tiger.transform.rotation, attackRotation, 3);
             StartCoroutine(BirdSpecialDuration());
             playerRb.AddForce(attackDirection * (attackForce + 14), ForceMode.Impulse);
         }
