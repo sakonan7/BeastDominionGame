@@ -102,12 +102,15 @@ public class Gorilla : MonoBehaviour
     {
         if (idle == true)
         {
-            animation.Play("Standing Idle");
+            animation.Play("Sitting Idle");
         }
         if (Input.GetKeyDown(KeyCode.H))
         {
             idle = false;
             StartCoroutine(SlamDown());
+            enemyScript.SetDamage(3);
+            enemyScript.SetForce(10);
+            enemyScript.SetComboFinisher();
         }
     }
     IEnumerator IdleAnimation()
@@ -143,16 +146,17 @@ public class Gorilla : MonoBehaviour
     }
     IEnumerator SlamDown()
     {
+        slamAttackRange.SetActive(true);
         yield return new WaitForSeconds(0.5f);
         animation.Play("Single Slam");
-        
+        //Potentially move the Gorill move a few inches closer so that it's fist is closer to the aren
         StartCoroutine(SlamAttackDuration());
     }
     IEnumerator SlamAttackDuration()
     {
-        slamAttackRange.SetActive(true);
+        
         attackFinished = true;
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(1f);
         slamAttackRange.SetActive(false);
         //armadilloCollide.isTrigger = false;
         attackFinished = false;
