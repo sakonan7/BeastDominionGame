@@ -24,6 +24,7 @@ public class PlayerController : MonoBehaviour
     public GameObject tiger;
     public GameObject bird;
     public GameObject birdSeparater;
+    private Collider tigerCollider;
 
     [Header("Combo Meter")]
     public int hitNumber = 0;
@@ -212,6 +213,7 @@ public class PlayerController : MonoBehaviour
         birdRB = bird.GetComponent<Rigidbody>();
         birdAnimation = bird.GetComponent<Animation>();
         //birdSensor = GameObject.Find("Bird Sensor");
+        tigerCollider = tiger.GetComponent<Collider>();
 
         tigerActive = true;
         tiger.SetActive(true);
@@ -235,7 +237,7 @@ public class PlayerController : MonoBehaviour
         originalColor = blackoutLight.color;
         //SpecialOn();
 
-        originalRotation = bird.transform.rotation;
+        
     }
 
     // Update is called once per frame
@@ -786,18 +788,21 @@ public class PlayerController : MonoBehaviour
                     {
                         //attackDirection = (target.transform.position - bird.transform.position).normalized;
                         Swoop();
+                        attackDirection = bird.transform.position;
                     }
                     else if (tigerActive == true)
                     {
                         //attackDirection = (target.transform.position - tiger.transform.position).normalized;
                         Strike();
+                        //Vector3 tigerPosition = tiger.transform.position
+                        //attackDirection = tigerPosition.forward;
                     }
                 }
-                if (running == false)
-                {
-                    attackDirection = Vector3.fwd;
-                    Strike();
-                }
+                //if (running == false)
+                //{
+                    //attackDirection = Vector3.fwd;
+                    //Strike();
+                //}
             }
         }
 
@@ -878,6 +883,7 @@ public class PlayerController : MonoBehaviour
             //tigerCollider.center = new Vector3(tigerCollider.center.x, tigerCollider.center.y, tigerCollider.center.z - 1.25f);
             tigerAttackEffect.SetActive(false);
             //transform.rotation = tiger.transform.rotation;
+            //tiger.transform.rotation = new Quaternion(originalRotation.x, 0, 0, 0);
         }
         //transform.rotation = new Quaternion(0, transform.rotation.y, transform.rotation.z, 0);
         if (attackLanded == false)
@@ -1007,7 +1013,9 @@ public class PlayerController : MonoBehaviour
         //specialInvincibility = true;
         playerAudio.PlayOneShot(tigerSpecial, 0.1f);
         //bladeOfLight.SetActive(true);
+        tigerCollider.enabled = true;
         yield return new WaitForSeconds(2f);
+        tigerCollider.enabled = false;
         attack = false;
         cantMove = false;
         specialInvincibility = false;
@@ -1113,6 +1121,7 @@ public class PlayerController : MonoBehaviour
         //I think I will create a case where lockedOn == false and for now, I want to make the distance smaller for
         //Debug.Log(playerRb.velocity);
         canCombo = false;
+        //originalRotation = tiger.transform.rotation;
         if (lockedOn == false)
         {
             attackTimeLength = normalTigerAttacklength;
@@ -1582,7 +1591,7 @@ public class PlayerController : MonoBehaviour
         }
         if (birdActive == true && noMoreTurn == false)
         {
-            
+            originalRotation = bird.transform.rotation;
             noMoreTurn = true;
             //Debug.Log(stunType % 2);
             if (stunType % 2 == 1)
