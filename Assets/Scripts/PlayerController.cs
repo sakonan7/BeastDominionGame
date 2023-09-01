@@ -1482,27 +1482,28 @@ public class PlayerController : MonoBehaviour
         if (HP < originalHP)
         {
             HP += 3;
-            HPBar.fillAmount += 3/10;
+            HPBar.fillAmount = HP/originalHP + 3/originalHP;
         }
-        if (HP > originalHP)
+        if (HP >= originalHP)
         {
             HP = originalHP;
             HPBar.fillAmount = 1;
         }
         StartCoroutine(PickUpHeal());
         StartCoroutine(HealEffect());
+        Debug.Log("Healed Up to " + HPBar.fillAmount);
     }
     IEnumerator PickUpHeal()
     {
         pickUpHealEffect.Play();
         yield return new WaitForSeconds(0.5f);
-        pickUpHealEffect.Play();
+        pickUpHealEffect.Stop();
     }
     IEnumerator HealEffect()
     {
         healingEffect.Play();
         yield return new WaitForSeconds(0.5f);
-        healingEffect.Play();
+        healingEffect.Stop();
     }
     //Taking damage anima
     public void TigerFlinching()
