@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Gorilla : MonoBehaviour
 {
-    //private new Animation animation;
+    private new Animation animation;
     private Animator animator;
     //public GameObject HPBar;
     private GameObject cameraRef;
@@ -33,7 +33,7 @@ public class Gorilla : MonoBehaviour
 
     public GameObject firstClawSlash;
     public GameObject secondClawSlash;
-    public GameObject attackRange;
+    public GameObject slamAttackRange;
     public ParticleSystem attackEffect;
     private AudioSource audio;
     public AudioClip monkeyAttack;
@@ -62,7 +62,7 @@ public class Gorilla : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        animator = GetComponent<Animator>();
+        animation = GetComponent<Animation>();
         enemyScript = GetComponent<Enemy>();
 
         player = GameObject.Find("Player");
@@ -100,13 +100,21 @@ public class Gorilla : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Input.GetKeyDown(KeyCode.H);
+        if (idle == true)
+        {
+            animation.Play("Standing Idle");
+        }
+        if (Input.GetKeyDown(KeyCode.H))
+        {
+            idle = false;
+            StartCoroutine(SlamDown());
+        }
     }
     IEnumerator IdleAnimation()
     {
         idle = true;
         //animation.Play("Idle");
-        animator.SetBool("Idle", true);
+        //animator.SetBool("Idle", true);
         //For the timebeing, turn off the player's monkey range
         //playerScript.monkeyRange.SetActive(false);
         if (beginningIdle == true)
@@ -133,10 +141,34 @@ public class Gorilla : MonoBehaviour
         //playerScript.monkeyRange.SetActive(true);
         //Debug.Log("Cooldown finished");
     }
-    //IEnumerator SlamDown()
-    //{
+    IEnumerator SlamDown()
+    {
+        yield return new WaitForSeconds(0.5f);
+        animation.Play("Single Slam");
+        
+        StartCoroutine(SlamAttackDuration());
+    }
+    IEnumerator SlamAttackDuration()
+    {
+        slamAttackRange.SetActive(true);
+        attackFinished = true;
+        yield return new WaitForSeconds(0.5f);
+        slamAttackRange.SetActive(false);
+        //armadilloCollide.isTrigger = false;
+        attackFinished = false;
+        attack = false;
 
-    //}
+        //if (whichAttack == attackOne)
+        //{
+            //attackRange.transform.localScale -= new Vector3(0.2f, 0, 0.2f);
+        //}
+        //else if (whichAttack == attackTwo)
+        //{
+            enemyScript.SetComboFinisher();
+        //}
+        idle = true;
+    }
+
     //For the arena lighting up, warning the player that the whole arena will be consumed in fire
     //I think I will adjust the light source itself to create the light lighting up and down
     //Do another version for the single hand smash shock
