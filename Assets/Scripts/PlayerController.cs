@@ -169,7 +169,7 @@ public class PlayerController : MonoBehaviour
     private int damageForDisplay; //Proxy variable just for displaying damage taken
     public GameObject healingItemDisplay;
     public TextMeshProUGUI healingItemNumber;
-    public static int numberOfItems = 0;
+    public static int numberOfItems = 1;
     //RectTransform newTargetRect;
     //public GameObject newTarget;
     public GameObject comboCounterHolder;
@@ -240,6 +240,7 @@ public class PlayerController : MonoBehaviour
         staffLight = GameObject.Find("Staff").GetComponent<Light>();
         damageDisplay.color = new Color(1, 1, 1, 1);
         comboCounter.text = "x " + hitNumber;
+        healingItemNumber.text = "X " + numberOfItems;
         originalColor = blackoutLight.color;
         //SpecialOn();
 
@@ -725,6 +726,14 @@ public class PlayerController : MonoBehaviour
                 birdSpecialCommand.gameObject.SetActive(false);
             }
         }
+        if (numberOfItems > 0)
+        {
+            healingItemDisplay.SetActive(true);
+        }
+        else if (numberOfItems <= 0)
+        {
+            healingItemDisplay.SetActive(false);
+        }
         //Attacking
         ///Small note, I accidentally used & instead of && for lockedOn. It seems like it didn't affect the code
         ///Doing AttackDuration in attack methods instead
@@ -809,7 +818,7 @@ public class PlayerController : MonoBehaviour
                     
                 }
             }
-            if (Input.GetKeyDown(KeyCode.Q))
+            if (Input.GetKeyDown(KeyCode.Q) && noHealingItems == false)
             {
                 Heal();
             }
@@ -1479,10 +1488,11 @@ public class PlayerController : MonoBehaviour
     }
     public void Heal()
     {
+        numberOfItems--;
         if (HP < originalHP)
         {
             HP += 3;
-            HPBar.fillAmount = HP/originalHP + 3/originalHP;
+            HPBar.fillAmount = HP/originalHP;
         }
         if (HP >= originalHP)
         {
@@ -1776,11 +1786,11 @@ public class PlayerController : MonoBehaviour
             Destroy(collision.gameObject);
             StartCoroutine(PickUpHeal());
             IncreaseHealingItems();
-            if (noHealingItems == true)
-            {
-                noHealingItems = false;
-                DisplayNumberOfItems();
-            }
+            //if (noHealingItems == true)
+            //{
+                //noHealingItems = false;
+                //DisplayNumberOfItems();
+            //i}
         }
         //May have to call anything that stops the player Wall
         //May need to put this in PlayerController
