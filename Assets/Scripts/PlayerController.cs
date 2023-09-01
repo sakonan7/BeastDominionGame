@@ -818,7 +818,7 @@ public class PlayerController : MonoBehaviour
                     
                 }
             }
-            if (Input.GetKeyDown(KeyCode.Q) && noHealingItems == false)
+            if (Input.GetKeyDown(KeyCode.Q) && numberOfItems > 0)
             {
                 Heal();
             }
@@ -1489,10 +1489,13 @@ public class PlayerController : MonoBehaviour
     public void Heal()
     {
         numberOfItems--;
+        healingItemNumber.text = "X " + numberOfItems;
+        HP += 3;
         if (HP < originalHP)
         {
-            HP += 3;
-            HPBar.fillAmount = HP/originalHP;
+
+
+            HPBar.fillAmount = (maxHPBarFill / originalHP) * HP;
         }
         if (HP >= originalHP)
         {
