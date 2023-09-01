@@ -55,6 +55,10 @@ public class PlayerController : MonoBehaviour
     public AudioClip tigerSpecialStrike;
     public ParticleSystem specialHitEffect;
 
+    [Header("Healing")]
+    public ParticleSystem pickUpHealEffect;
+    public ParticleSystem healingEffect;
+
     //Either make the Rigidbody bigger or make a sensor
     //*Rigidybody might not be better because the tiger will spin. I can stop the sensor from rotating, but not the
     //Rigidbody. Rigidbody would just give a more realistic anima
@@ -164,8 +168,8 @@ public class PlayerController : MonoBehaviour
     public TextMesh damageDisplay;
     private int damageForDisplay; //Proxy variable just for displaying damage taken
     public GameObject healingItemDisplay;
-    public static TextMeshProUGUI healingItemNumber;
-    public int numberOfItems = 0;
+    public TextMeshProUGUI healingItemNumber;
+    public static int numberOfItems = 0;
     //RectTransform newTargetRect;
     //public GameObject newTarget;
     public GameObject comboCounterHolder;
@@ -805,6 +809,10 @@ public class PlayerController : MonoBehaviour
                     
                 }
             }
+            if (Input.GetKeyDown(KeyCode.Q))
+            {
+                Heal();
+            }
         }
 
     }
@@ -1087,7 +1095,7 @@ public class PlayerController : MonoBehaviour
         {
             
             StartCoroutine(AttackDuration());
-            playerRb.velocity = attackDirection * (attackForce + 14);
+            playerRb.velocity = attackDirection * (attackForce + 20);
             //StartCoroutine(FreezeRotations());
         }
         //Want DistanceCloser only to play when the tiger isn't close enough. Was originally going to have a distance > 10 || distance <=3
@@ -1111,7 +1119,7 @@ public class PlayerController : MonoBehaviour
         {
             //transform.rotation = Quaternion.Slerp(transform.rotation, attackRotation, 10 * Time.deltaTime);
             StartCoroutine(AttackDuration());
-            playerRb.AddForce(attackDirection * (attackForce + 14), ForceMode.Impulse);//Changed from 8 to 12
+            playerRb.AddForce(attackDirection * (attackForce + 20), ForceMode.Impulse);//Changed from 8 to 12
             //StartCoroutine(FreezeRotations());
         }
     }
@@ -1469,6 +1477,33 @@ public class PlayerController : MonoBehaviour
     {
         cantTransform = !cantTransform;
     }
+    public void Heal()
+    {
+        if (HP < originalHP)
+        {
+            HP += 3;
+            HPBar.fillAmount += 3/10;
+        }
+        if (HP > originalHP)
+        {
+            HP = originalHP;
+            HPBar.fillAmount = 1;
+        }
+        StartCoroutine(PickUpHeal());
+        StartCoroutine(HealEffect());
+    }
+    IEnumerator PickUpHeal()
+    {
+        pickUpHealEffect.Play();
+        yield return new WaitForSeconds(0.5f);
+        pickUpHealEffect.Play();
+    }
+    IEnumerator HealEffect()
+    {
+        healingEffect.Play();
+        yield return new WaitForSeconds(0.5f);
+        healingEffect.Play();
+    }
     //Taking damage anima
     public void TigerFlinching()
     {
@@ -1738,6 +1773,7 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.CompareTag("Heal"))
         {
             Destroy(collision.gameObject);
+            StartCoroutine(PickUpHeal());
             IncreaseHealingItems();
             if (noHealingItems == true)
             {
