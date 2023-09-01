@@ -416,10 +416,10 @@ public class PlayerController : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Z) && birdSpecialUnlocked == true && birdActive == true)
             {
                 
-                attackDirection = (targetedEnemy.transform.position - transform.position).normalized;
+                attackDirection = (targetedEnemy.transform.position - tiger.transform.position).normalized;
 
-                attackRotation = Quaternion.LookRotation(targetedEnemy.transform.position - bird.transform.position);
-                bird.transform.rotation = Quaternion.Slerp(bird.transform.rotation, attackRotation, 3); //Moved this from Strike() to
+                attackRotation = Quaternion.LookRotation(targetedEnemy.transform.position - tiger.transform.position);
+                bird.transform.rotation = Quaternion.Slerp(tiger.transform.rotation, attackRotation, 3); //Moved this from Strike() to
                                                                                                                //see if I can immediately turn my character towards an ene
 
 
@@ -478,7 +478,7 @@ public class PlayerController : MonoBehaviour
             }
             if (birdActive == true)
             {
-                bird.transform.rotation = Quaternion.Slerp(bird.transform.rotation, attackRotation, 3);
+                bird.transform.rotation = Quaternion.Slerp(tiger.transform.rotation, attackRotation, 3);
             }
 
         }
@@ -509,7 +509,7 @@ public class PlayerController : MonoBehaviour
             }
             if (birdActive == true)
             {
-                bird.transform.rotation = Quaternion.Slerp(bird.transform.rotation, attackRotation, 3);
+                bird.transform.rotation = Quaternion.Slerp(tiger.transform.rotation, attackRotation, 3);
             }
         }
 
@@ -733,13 +733,14 @@ public class PlayerController : MonoBehaviour
                 {
                     Swoop();
                     //Moved attackDirection here because the player object gets rotated now
-                    attackDirection = (targetedEnemy.transform.position - bird.transform.position).normalized;
+                    attackDirection = (targetedEnemy.transform.position - tiger.transform.position).normalized;
 
-                    attackRotation = Quaternion.LookRotation(targetedEnemy.transform.position - bird.transform.position);
-                    bird.transform.rotation = Quaternion.Slerp(bird.transform.rotation, attackRotation, 3); //Moved this from Strike() to
-                                                                                                              //see if I can immediately turn my character towards an ene
+                    attackRotation = Quaternion.LookRotation(targetedEnemy.transform.position - tiger.transform.position);
+                    bird.transform.rotation = Quaternion.Slerp(tiger.transform.rotation, attackRotation, 3); //Moved this from Strike() to
+                                                                                                            //see if I can immediately turn my character towards an ene
 
-
+                    //bird.transform.rotation = new Quaternion(0, bird.transform.rotation.y, bird.transform.rotation.z, 0);
+                    //bird.transform.rotation = new Quaternion(0, attackRotation.y, attackRotation.z, 0);
                 }
                 else if (tigerActive == true)
                 {
@@ -1386,7 +1387,7 @@ public class PlayerController : MonoBehaviour
         //Instantiate(transformEffect, transform.position, Quaternion.identity);
         //transformEffect.gameObject.SetActive(true);
         blackoutLight.color = new Color(0, 0, 0);
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(1f);
         Transform();
         transformEffect.gameObject.SetActive(false);
         //Destroy(dummyTransformObject);

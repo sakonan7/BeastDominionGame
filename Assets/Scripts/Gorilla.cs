@@ -102,7 +102,7 @@ public class Gorilla : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        Input.GetKeyDown(KeyCode.H);
     }
 
     //For the arena lighting up, warning the player that the whole arena will be consumed in fire
