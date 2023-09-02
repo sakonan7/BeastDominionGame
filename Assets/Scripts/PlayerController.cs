@@ -169,7 +169,7 @@ public class PlayerController : MonoBehaviour
     private int damageForDisplay; //Proxy variable just for displaying damage taken
     public GameObject healingItemDisplay;
     public TextMeshProUGUI healingItemNumber;
-    public static int numberOfItems = 1;
+    public static int numberOfItems = 0;
     //RectTransform newTargetRect;
     //public GameObject newTarget;
     public GameObject comboCounterHolder;

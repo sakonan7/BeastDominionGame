@@ -5,23 +5,21 @@ using UnityEngine;
 public class Bear : MonoBehaviour
 {
     private Animator animator;
-    private SkinnedMeshRenderer skin;
-    //public GameObject HPBar;
     private GameObject cameraRef;
     private GameObject player;
     private PlayerController playerScript;
     private Enemy enemyScript;
     private float speed = 220;
-    private Rigidbody armadilloRb;
+    private float flurrySpeed = 1000;
+    private Rigidbody bearRb;
     private Rigidbody playerRb;
-    private Collider armadilloCollide;
     private Vector3 followDirection;
     private Vector3 attackDirection;
     private Quaternion lookRotation;
     private float jumpForce = 70; //Slight jump before attack
     private float attackForce = 1; //May remove attackForce because Monkey doesn't knock chaarcter back a
     private bool attack = false;
-    private bool beginningIdle = true;
+    private bool beginningIdle = false;
     private bool idle = true;
     private bool tunnelChase = false;
     private bool playerStunned = false; //For if the Tiger is hit by the first claw. Tiger will always get hit twice
@@ -33,12 +31,11 @@ public class Bear : MonoBehaviour
     public int attack2 = 1;
     public int attack3 = 2;
 
-    public GameObject attackRange;
-    public ParticleSystem tunnelingAttackEffect;
-    public ParticleSystem tunneling;
+    public GameObject attackRange1;
+    public GameObject attackRange2;
     public ParticleSystem attackEffect;
     private AudioSource audio;
-    public AudioClip armadilloAttack;
+    public AudioClip bearAttack;
     private float attackVol;
     private float firstAttackVol = 0.1f;
     private float secondAttackVol = 0.3f;
@@ -59,7 +56,7 @@ public class Bear : MonoBehaviour
     private float damageIdleTime = 6;
 
     private GameManager gameManager;
-    private int HP = 10; //7
+    private int HP = 25; //7
     private bool testingStun = false;
     private bool testingBehaviors = false;
     private bool moveLeft = false;
@@ -68,14 +65,12 @@ public class Bear : MonoBehaviour
     void Start()
     {
         animator = GetComponent<Animator>();
-        skin = GetComponentInChildren<SkinnedMeshRenderer>();
         enemyScript = GetComponent<Enemy>();
-        armadilloCollide = GetComponent<Collider>();
         player = GameObject.Find("Player");
         playerRb = player.GetComponent<Rigidbody>();
         playerScript = player.GetComponent<PlayerController>();
 
-        armadilloRb = GetComponent<Rigidbody>();
+        bearRb = GetComponent<Rigidbody>();
 
         gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
         if (gameManager.difficulty == "Normal")
@@ -93,83 +88,45 @@ public class Bear : MonoBehaviour
         enemyScript.SetDamage(damage);
         enemyScript.attackEffect[0] = attackEffect;
         audio = GetComponent<AudioSource>();
-        enemyScript.enemySounds[0] = armadilloAttack;
+        enemyScript.enemySounds[0] = bearAttack;
         enemyScript.SetHP(HP);
 
         cameraRef = GameObject.Find("Main Camera");
         StartCoroutine(IdleAnimation());
         //animator.SetBool("Idle", true);
-        whichAttack = attackOne;
+        whichAttack = attackTwo;
     }
 
     // Update is called once per frame
     //Make Bear idlefor 2 seconds, then make it perform its fury attack. Rinse Rep.
+    //Wait 2 seconds, chase player and perform claw. Wait, then do it again. Then after 2 seconds, roar and perform a powerful flurry
+    //For Bird, it will not do any of this and simply wait and keep turning towards the bird. If the bird comes close to its front, it performs its claw
+    //attack. Then wait before doing it again. It glows red when it is going to dothis
     void Update()
     {
         if (testingStun == false)
         {
             //I'm gonna take out stunned == false because each time a foe is in attack mode, it can't be flinched and
             //they will be set back into IdleAnimation and only have IdleAnimation happen if the foe is not stunned
-            if (idle == false && whichAttack == attackOne)
+            if (idle == false && whichAttack == attackTwo)
             {
-                attack = true;
-
-                followDirection = (player.transform.position - transform.position).normalized;
-                distance = Vector3.Distance(player.transform.position, transform.position);
-                lookRotation = Quaternion.LookRotation(player.transform.position - transform.position);
-                armadilloRb.AddForce(followDirection * speed);
-                transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, 3); //Turned from 5 to 3 for smooth
-                                                                                            //StartCoroutine(AttackCountdown());
-                enemyScript.SetDamage(1);
-                enemyScript.SetForce(12);
-                if (distance <= 2)
-                {
-                    animator.SetBool("Chase", false);
+                
                     if (attackFinished == false)
                     {
-                        SpinAttack();
-                        StartCoroutine(AttackDuration());
+                        followDirection = (player.transform.position - transform.position).normalized;
+                        distance = Vector3.Distance(player.transform.position, transform.position);
+                        lookRotation = Quaternion.LookRotation(player.transform.position - transform.position);
+                        
+                        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, 3); //Turned from 5 to 3 for smooth
+                                                                                                    //StartCoroutine(AttackCountdown());
+                        enemyScript.SetDamage(2);
+                        enemyScript.SetForce(0);
+                        animator.SetBool("Fury", true);
+                        StartCoroutine(FlurryAttack());
                     }
-                }
             }
-            if (idle == false && whichAttack == attackTwo && tunnelChase == true && stunned == false)
-            {
-                attack = true;
-                tunneling.Play();
-                skin.enabled = false;
 
-                if (isTunneled == false)
-                {
-                    //Instead, make Armadillo invisible and shrinkhim so that the target still appears on Armadillo but is lower on the ground
-                    //Inspired by Vanitas from Kingdom Hearts
-                    transform.localScale += new Vector3(0, -3, 0);
-
-                    //transform.Translate(0, 2, 0);
-                    isTunneled = true;
-                    enemyScript.SetCantBeHit();
-                }
-                followDirection = (player.transform.position - transform.position).normalized;
-                distance = Vector3.Distance(player.transform.position, transform.position);
-                lookRotation = Quaternion.LookRotation(player.transform.position - transform.position);
-                armadilloRb.AddForce(followDirection * speed);
-                transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, 3); //Turned from 5 to 3 for smooth
-                                                                                            //StartCoroutine(AttackCountdown());
-                enemyScript.SetDamage(2);
-                enemyScript.SetForce(0);
-                if (distance <= 2)
-                {
-                    animator.SetBool("Chase", false);
-                    tunnelChase = false;
-                    tunneling.Stop();
-                    if (attackFinished == false)
-                    {
-                        PopUp();
-                        StartCoroutine(AttackDuration());
-                        enemyScript.SetCantBeHit();
-                    }
-                }
-            }
-            if (attackFinished == true && isOnGround == true)
+            if (attackFinished == true)
             {
                 attackFinished = false;
                 idleTime = usualIdleTime;
@@ -177,40 +134,39 @@ public class Bear : MonoBehaviour
             }
         }
     }
-    public void PopUp()
-    {
-        armadilloRb.velocity = Vector3.zero;
-        armadilloRb.AddForce(Vector3.up * 10, ForceMode.Impulse);
-        transform.localScale += new Vector3(0, 3, 0);
-        skin.enabled = true;
-        isOnGround = false;
-        enemyScript.SetComboFinisher();
-    }
-    public void SpinAttack()
-    {
-        armadilloRb.velocity = Vector3.zero;
-        attackRange.transform.localScale += new Vector3(0.2f, 0, 0.2f);
-        //armadilloRb.angularVelocity = new Vector3(0, 3.14f, 0);
-    }
     //I thought I wouldn't need an AttackDuration, but I need to deactivate the attackrange
     IEnumerator AttackDuration()
     {
-        attackRange.SetActive(true);
+        attackRange1.SetActive(true);
+        attackRange2.SetActive(true);
         attackFinished = true;
         yield return new WaitForSeconds(0.5f);
-        attackRange.SetActive(false);
+        attackRange1.SetActive(false);
         //armadilloCollide.isTrigger = false;
         attackFinished = false;
         attack = false;
 
         if (whichAttack == attackOne)
         {
-            attackRange.transform.localScale -= new Vector3(0.2f, 0, 0.2f);
+            attackRange1.transform.localScale -= new Vector3(0.2f, 0, 0.2f);
         }
         else if (whichAttack == attackTwo)
         {
             enemyScript.SetComboFinisher();
         }
+    }
+    IEnumerator FlurryAttack() {
+        attackRange1.SetActive(true);
+        attackRange2.SetActive(true);
+        attackFinished = true;
+        bearRb.AddForce(followDirection * flurrySpeed);
+        yield return new WaitForSeconds(5f);
+        attackRange1.SetActive(false);
+        attackRange2.SetActive(true);
+        //armadilloCollide.isTrigger = false;
+        attackFinished = false;
+        animator.SetBool("Fury", false);
+        Debug.Log("Flurry Attack Done");
     }
 
     IEnumerator IdleAnimation()
@@ -227,28 +183,10 @@ public class Bear : MonoBehaviour
         }
         beginningIdle = false;
         idle = false;
-        tunnelChase = true;
-        animator.SetBool("Idle", false);
-        animator.SetBool("Chase", true);
-    }
-    public void OnCollisionEnter(Collision collision)
-    {
-        //if (collision.gameObject.CompareTag("Player") && attack == true && playerScript.dodge == false)
-        //{
-        //Forgot to change player.transform to tiger.transform, may have messed up the attack cod
 
-        //attack = false; //Doing it over here so that there isn't multiple hits per contact
-        //Debug.Log("Hit");
-        //}
-        if (collision.gameObject.CompareTag("Ground"))
-        {
-            //Aerial attack IEnumerator will make isOnGround == false
-            isOnGround = true;
-        }
-        //else
-        //{
-        //isOnGround = false;
-        //}
+        animator.SetBool("Idle", false);
+        //animator.SetBool("Chase", true);
+        
     }
     public void OnTriggerEnter(Collider other)
     {
