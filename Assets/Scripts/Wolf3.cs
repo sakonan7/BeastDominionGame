@@ -51,7 +51,7 @@ public class Wolf3 : MonoBehaviour
 
     private GameManager gameManager;
     private int HP = 11; //7
-    private bool testingStun = true;
+    private bool testingStun = false;
     private bool testingBehaviors = false;
     private bool moveLeft = false;
     private bool moveRight = true;
@@ -117,7 +117,7 @@ public class Wolf3 : MonoBehaviour
         if (testingStun == false)
         {
 
-            if (idle == false && chase == true && stunned == false)
+            if (idle == false && chase == true)
             {
                 //animation.Play("Run");
 
@@ -146,15 +146,16 @@ public class Wolf3 : MonoBehaviour
                                                                                             //StartCoroutine(AttackCountdown());
                 if (distance <= 1.8 && attackFinished == false)
                 {
+                    Debug.Log("Attack");
                     animator.SetBool("Dash", false);
                     chase = false;
-                    jumpForce = 3;
+                    //jumpForce = 3;
                     CorkScrew();
                     //StartCoroutine(AttackDuration());
                     attackFinished = true;
                 }
             }
-            if (attackFinished == true && isOnGround == true)
+            if (attackFinished == true)
             {
                 attackFinished = false;
                 idleTime = usualIdleTime;
@@ -192,14 +193,14 @@ public class Wolf3 : MonoBehaviour
                                                                                     //Debug.Log("Corkscrew");
                                                                                     //I don't think this is going to make much of a difference, but attack aura keeps spazzing 
         //attackAura.SetActive(true);
-        attackRange.SetActive(true);
+        //attackRange.SetActive(true);
         //StartCoroutine(AttackDuration());
         //attackCounter = 1;
 
         attack = true;
         //wolfRb.constraints = RigidbodyConstraints.FreezeRotation;
         //attackCounter = 1; //Putting it here because regardless, the wolf will not repeat an attack
-        yield return new WaitForSeconds(0.4f);
+        yield return new WaitForSeconds(1f);
         animator.SetBool("Ground Attack", false);
         attack = false;
         //attackCounter = 0;

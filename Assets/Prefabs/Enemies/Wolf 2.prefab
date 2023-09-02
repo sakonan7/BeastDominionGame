@@ -610,7 +610,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400082, guid: 6d146be2ce439e4408ac3c30fb154fff, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.34
+      value: 0.53
       objectReference: {fileID: 0}
     - target: {fileID: 400082, guid: 6d146be2ce439e4408ac3c30fb154fff, type: 3}
       propertyPath: m_LocalPosition.z
@@ -944,7 +944,7 @@ MonoBehaviour:
   attack1: 0
   attack2: 1
   attack3: 2
-  attackRange: {fileID: 0}
+  attackRange: {fileID: 8048470791851266537}
   attackEffect: {fileID: 0}
   wolfAttack: {fileID: 0}
   isOnGround: 0
