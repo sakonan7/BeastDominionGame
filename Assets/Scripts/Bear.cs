@@ -104,6 +104,7 @@ public class Bear : MonoBehaviour
     //attack. Then wait before doing it again. It glows red when it is going to dothis
     void Update()
     {
+        transform.rotation = new Quaternion(0, transform.rotation.y, transform.rotation.z,0);
         if (testingStun == false)
         {
             //I'm gonna take out stunned == false because each time a foe is in attack mode, it can't be flinched and
@@ -124,6 +125,7 @@ public class Bear : MonoBehaviour
                         animator.SetBool("Fury", true);
                         StartCoroutine(FlurryAttack());
                     }
+                bearRb.AddForce(followDirection * flurrySpeed);
             }
 
             if (attackFinished == true)
@@ -159,10 +161,10 @@ public class Bear : MonoBehaviour
         attackRange1.SetActive(true);
         attackRange2.SetActive(true);
         attackFinished = true;
-        bearRb.AddForce(followDirection * flurrySpeed);
+        
         yield return new WaitForSeconds(5f);
         attackRange1.SetActive(false);
-        attackRange2.SetActive(true);
+        attackRange2.SetActive(false);
         //armadilloCollide.isTrigger = false;
         attackFinished = false;
         animator.SetBool("Fury", false);

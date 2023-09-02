@@ -12,16 +12,15 @@ public class Wolf3 : MonoBehaviour
     private PlayerController playerScript;
     private Enemy enemyScript;
     private float speed = 220;
-    private Rigidbody monkeyRb;
+    private Rigidbody wolfRb;
     private Rigidbody playerRb;
-    private Collider monkeyAttackReach;
     private Vector3 followDirection;
     private Vector3 attackDirection;
     private Quaternion lookRotation;
     private float jumpForce = 70; //Slight jump before attack
     private float attackForce = 1; //May remove attackForce because Monkey doesn't knock chaarcter back a
     private bool attack = false;
-    private bool beginningIdle = true;
+    private bool beginningIdle = false;
     private bool idle = true;
     private bool chase = false;
     private bool playerStunned = false; //For if the Tiger is hit by the first claw. Tiger will always get hit twice
@@ -32,13 +31,11 @@ public class Wolf3 : MonoBehaviour
     public int attack1 = 0;
     public int attack2 = 1;
     public int attack3 = 2;
-
-    public GameObject firstClawSlash;
-    public GameObject secondClawSlash;
+    
     public GameObject attackRange;
     public ParticleSystem attackEffect;
     private AudioSource audio;
-    public AudioClip monkeyAttack;
+    public AudioClip wolfAttack;
     private float attackVol;
     private float firstAttackVol = 0.1f;
     private float secondAttackVol = 0.3f;
@@ -53,7 +50,7 @@ public class Wolf3 : MonoBehaviour
     private float damageIdleTime = 6;
 
     private GameManager gameManager;
-    private int HP = 7; //7
+    private int HP = 11; //7
     private bool testingStun = true;
     private bool testingBehaviors = false;
     private bool moveLeft = false;
@@ -69,10 +66,8 @@ public class Wolf3 : MonoBehaviour
         playerRb = player.GetComponent<Rigidbody>();
         playerScript = player.GetComponent<PlayerController>();
 
-        monkeyRb = GetComponent<Rigidbody>();
-        monkeyAttackReach = GetComponent<Collider>();
-
-        Physics.gravity *= 0.5f;
+        wolfRb = GetComponent<Rigidbody>();
+        
         gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
         if (gameManager.difficulty == "Normal")
         {
@@ -89,7 +84,7 @@ public class Wolf3 : MonoBehaviour
         enemyScript.SetDamage(damage);
         enemyScript.attackEffect[0] = attackEffect;
         audio = GetComponent<AudioSource>();
-        enemyScript.enemySounds[0] = monkeyAttack;
+        enemyScript.enemySounds[0] = wolfAttack;
         enemyScript.SetHP(HP);
 
         cameraRef = GameObject.Find("Main Camera");
@@ -107,11 +102,11 @@ public class Wolf3 : MonoBehaviour
             //Maybe Use A Button Press To Make Monkey Change Movement Directions And See If Tiger Keeps FollowingIt.
             if (moveLeft == true)
             {
-                monkeyRb.AddForce(Vector3.left * speed / 2);
+                wolfRb.AddForce(Vector3.left * speed / 2);
             }
             else if (moveRight == true)
             {
-                monkeyRb.AddForce(Vector3.right * speed / 2);
+                wolfRb.AddForce(Vector3.right * speed / 2);
             }
             if (Input.GetKeyDown(KeyCode.Tab))
             {
@@ -146,22 +141,17 @@ public class Wolf3 : MonoBehaviour
                 //attackRange.transform.position = tiger.transform.position;
                 //distance = Vector3.Distance(player.transform.position, transform.position);
                 lookRotation = Quaternion.LookRotation(player.transform.position - transform.position);
-                monkeyRb.AddForce(followDirection * speed);
+                wolfRb.AddForce(followDirection * speed);
                 transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, 3); //Turned from 5 to 3 for smooth
                                                                                             //StartCoroutine(AttackCountdown());
-                if (distance <= 1.8)
+                if (distance <= 1.8 && attackFinished == false)
                 {
-                    animator.SetBool("Chase", false);
+                    animator.SetBool("Dash", false);
                     chase = false;
-                    //jumpForce = 60; //Went from 50 to 60 because I want some knockback force from the first att
-                    //StartCoroutine(FirstClaw());
-                    //}
-                    //else if (distance <= 3)
-                    //{
-                    //animator.SetBool("Chase", false);
-                    //chase = false;
                     jumpForce = 3;
-                    StartCoroutine(FirstClaw());
+                    CorkScrew();
+                    //StartCoroutine(AttackDuration());
+                    attackFinished = true;
                 }
             }
             if (attackFinished == true && isOnGround == true)
@@ -181,8 +171,64 @@ public class Wolf3 : MonoBehaviour
         {
             playOnce = false;
             attackEffect.Play();
-            audio.PlayOneShot(monkeyAttack, attackVol);
+            audio.PlayOneShot(wolfAttack, attackVol);
         }
+    }
+    public void PlayAttackEffect()
+    {
+        attackEffect.Play();
+        //wolfAudio.PlayOneShot(wolfAttack, 0.1f);
+    }
+    IEnumerator AttackDuration()
+    {
+        //animation.Play("Wolf Corkscrew");
+        animator.SetBool("Ground Attack", true);
+        //animator.speed = 3;
+        //wolfRb.AddForce(followDirection * jumpForce, ForceMode.Impulse);
+        //attackRecoil = (transform.position - playerPosition).normalized;
+        //wolfRb.AddForce(attackRecoil, ForceMode.Impulse);
+        //transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, 5); //In case the the player runs around the Wolf
+                                                                                    //right before the att
+                                                                                    //Debug.Log("Corkscrew");
+                                                                                    //I don't think this is going to make much of a difference, but attack aura keeps spazzing 
+        //attackAura.SetActive(true);
+        attackRange.SetActive(true);
+        //StartCoroutine(AttackDuration());
+        //attackCounter = 1;
+
+        attack = true;
+        //wolfRb.constraints = RigidbodyConstraints.FreezeRotation;
+        //attackCounter = 1; //Putting it here because regardless, the wolf will not repeat an attack
+        yield return new WaitForSeconds(0.4f);
+        animator.SetBool("Ground Attack", false);
+        attack = false;
+        //attackCounter = 0;
+        //attackAura.SetActive(false);
+        attackRange.SetActive(false);
+        //attackLanded = false;
+        Debug.Log("Attack over");
+        //JumpBack();
+
+
+    }
+    public void CorkScrew()
+    {
+            //animation.Play("Wolf Corkscrew");
+            animator.SetBool("Ground Attack", true);
+            //animator.speed = 3;
+            wolfRb.AddForce(followDirection * jumpForce, ForceMode.Impulse);
+            //attackRecoil = (transform.position - playerPosition).normalized;
+            //wolfRb.AddForce(attackRecoil, ForceMode.Impulse);
+            transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, 5); //In case the the player runs around the Wolf
+                                                                                        //right before the att
+                                                                                        //Debug.Log("Corkscrew");
+                                                                                        //I don't think this is going to make much of a difference, but attack aura keeps spazzing 
+            //attackAura.SetActive(true);
+            attackRange.SetActive(true);
+            StartCoroutine(AttackDuration());
+            //attackCounter = 1;
+            //Debug.Log("Attack repeated for some rea");
+            animator.SetBool("Ground Attack", false);
     }
     //Change code. Monkey will start by running at the character and then within range, attack. Afterwards, the monkey will wait 4 seconds
     //Before attacking again
@@ -194,7 +240,7 @@ public class Wolf3 : MonoBehaviour
 
         //May want to do a counter so that an attack doesn't re
         attack = true;
-        firstClawSlash.SetActive(true);
+        //firstClawSlash.SetActive(true);
         attackRange.SetActive(true);
         //enemyScript.SetAttackEffect(attackEffect); //Doing this for practice for when I have enemies with multiple attacks
         //Necessary because there's enough time for the Monkey to repeat an attack on the bird
@@ -211,15 +257,15 @@ public class Wolf3 : MonoBehaviour
         if (playerScript.tigerActive == true)
         {
             //followDirection = (tiger.transform.position - transform.position).normalized;
-            monkeyRb.AddForce(followDirection * jumpForce, ForceMode.Impulse);
-            monkeyRb.AddForce(Vector3.up * 2, ForceMode.Impulse); //For jumping, may need to modify gravity
+            //monkeyRb.AddForce(followDirection * jumpForce, ForceMode.Impulse);
+            //monkeyRb.AddForce(Vector3.up * 2, ForceMode.Impulse); //For jumping, may need to modify gravity
                                                                   //attackCount++;
         }
         else if (playerScript.birdActive == true)
         {
             //followDirection = (bird.transform.position - transform.position).normalized;
             //monkeyRb.AddForce(followDirection, ForceMode.Impulse);
-            monkeyRb.AddForce(Vector3.up * 5, ForceMode.Impulse); //For jumping, may need to modify gravity
+            //monkeyRb.AddForce(Vector3.up * 5, ForceMode.Impulse); //For jumping, may need to modify gravity
 
         }
         //If that doesn't work, put an if (dodge == false
@@ -232,12 +278,12 @@ public class Wolf3 : MonoBehaviour
         //{
         //PlayAttackEffect();
         //}
-        monkeyRb.constraints = RigidbodyConstraints.FreezeRotation;
+        //monkeyRb.constraints = RigidbodyConstraints.FreezeRotation;
         attackVol = firstAttackVol;
         yield return new WaitForSeconds(1.5f);
         animator.SetBool("Attack 1", false);
         attack = false;
-        firstClawSlash.SetActive(false);
+        //firstClawSlash.SetActive(false);
         attackRange.SetActive(false);
         //For simplicity, second claw attack will only happen if player was hit by the first
         if (playerScript.tigerActive == true && enemyScript.hitLanded == true)
@@ -270,22 +316,22 @@ public class Wolf3 : MonoBehaviour
         //enemyScript.SetAttackEffect(attackEffect);
         enemyScript.SetAttackDirection(followDirection);
         enemyScript.SetForce(6);
-        monkeyRb.AddForce(followDirection * (jumpForce / 2), ForceMode.Impulse);
-        monkeyRb.AddForce(Vector3.up * 5, ForceMode.Impulse); //For jumping, may need to modify gravity
+        //monkeyRb.AddForce(followDirection * (jumpForce / 2), ForceMode.Impulse);
+        //monkeyRb.AddForce(Vector3.up * 5, ForceMode.Impulse); //For jumping, may need to modify gravity
         //animation.Play("Attack");
         animator.SetBool("Attack 2", true);
-        secondClawSlash.SetActive(true);
+        //secondClawSlash.SetActive(true);
 
         enemyScript.SetComboFinisher();
 
-        monkeyRb.constraints = RigidbodyConstraints.FreezeRotation;
+        //monkeyRb.constraints = RigidbodyConstraints.FreezeRotation;
         attackVol = secondAttackVol;
         yield return new WaitForSeconds(1f);
         animator.SetBool("Attack 2", false);
         //StartCoroutine(StartCoolDown());
         attackFinished = true;
         attack = false;
-        secondClawSlash.SetActive(false);
+        //secondClawSlash.SetActive(false);
         attackRange.SetActive(false);
         //Debug.Log("Start Cool");
         enemyScript.ResetHitLanded();
@@ -311,7 +357,7 @@ public class Wolf3 : MonoBehaviour
     }
     public void Jump()
     {
-        monkeyRb.AddForce(Vector3.up * 9, ForceMode.Impulse); //For jumping, may need to modify gravity
+        //monkeyRb.AddForce(Vector3.up * 9, ForceMode.Impulse); //For jumping, may need to modify gravity
         isOnGround = false;
         StartCoroutine(LagBeforeAttack());
         //Will rely on colliders for isOnGround = true;
@@ -351,7 +397,7 @@ public class Wolf3 : MonoBehaviour
         idle = false;
         chase = true;
         animator.SetBool("Idle", false);
-        animator.SetBool("Chase", true);
+        animator.SetBool("Dash", true);
         //playerScript.monkeyRange.SetActive(true);
         //Debug.Log("Cooldown finished");
     }

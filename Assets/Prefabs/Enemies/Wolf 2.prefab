@@ -610,7 +610,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400082, guid: 6d146be2ce439e4408ac3c30fb154fff, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.155
+      value: 0.34
       objectReference: {fileID: 0}
     - target: {fileID: 400082, guid: 6d146be2ce439e4408ac3c30fb154fff, type: 3}
       propertyPath: m_LocalPosition.z
@@ -701,9 +701,6 @@ PrefabInstance:
       addedObject: {fileID: 2849353336041410402}
     - targetCorrespondingSourceObject: {fileID: 100082, guid: 6d146be2ce439e4408ac3c30fb154fff, type: 3}
       insertIndex: -1
-      addedObject: {fileID: -9014784599399463480}
-    - targetCorrespondingSourceObject: {fileID: 100082, guid: 6d146be2ce439e4408ac3c30fb154fff, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 7524458577565447090}
   m_SourcePrefab: {fileID: 100100000, guid: 6d146be2ce439e4408ac3c30fb154fff, type: 3}
 --- !u!1 &1385818115536885152 stripped
@@ -766,7 +763,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1385818115536885152}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ed596ede3eceb3e4cb675bb38e6d6326, type: 3}
   m_Name: 
@@ -932,18 +929,6 @@ MonoBehaviour:
   lockedOn: 0
   dyingEffect: {fileID: 3882906373868257580}
   hitLanded: 0
---- !u!75 &-9014784599399463480
-ConstantForce:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1385818115536885152}
-  m_Enabled: 1
-  m_Force: {x: 0, y: 0, z: 0}
-  m_RelativeForce: {x: 0, y: 0, z: 0}
-  m_Torque: {x: 0, y: 0, z: 0}
-  m_RelativeTorque: {x: 0, y: 0, z: 0}
 --- !u!114 &7524458577565447090
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -956,6 +941,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b48a199f433861344ba677f35177d0d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  attack1: 0
+  attack2: 1
+  attack3: 2
+  attackRange: {fileID: 0}
+  attackEffect: {fileID: 0}
+  wolfAttack: {fileID: 0}
+  isOnGround: 0
 --- !u!4 &1385818115537308032 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400082, guid: 6d146be2ce439e4408ac3c30fb154fff, type: 3}
