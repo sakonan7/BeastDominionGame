@@ -1386,7 +1386,8 @@ public class PlayerController : MonoBehaviour
                     //if (enemyScript.lockedOn == false)
                     //{
                         enemyScript.LockOn();
-                    lockedOnLocation = new Vector3(targetedEnemy.transform.position.x, targetedEnemy.transform.position.y + 0.05f, targetedEnemy.transform.position.z);
+                    //lockedOnLocation = new Vector3(targetedEnemy.transform.position.x, targetedEnemy.transform.position.y + 0.05f, targetedEnemy.transform.position.z);
+                    lockedOnLocation = targetedEnemy.transform.position;
                     //gameManagerScript.LockOn(targetedEnemy.transform.position);
                     //}
                         
