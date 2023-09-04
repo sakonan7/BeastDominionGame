@@ -23,6 +23,7 @@ public class Enemy : MonoBehaviour
     private float originalHP;
     public GameObject HPBarHolder;
     public Image HPBar;
+    public GameObject targetReticule;
     private float maxHPBarFill;
     private GameObject camera;
     public int damage = 0;
@@ -94,6 +95,7 @@ public class Enemy : MonoBehaviour
             //Debug.Log("HP Bar Out");
             //I guess I guess I need to do this code in here. I guess it's like the code with Target.
             target = GameObject.Find("Target");
+            targetReticule.SetActive(true);
             HPBarHolder.SetActive(true);
             //HPBar.transform.position = new Vector3(target.transform.position.x, target.transform.position.y + 2.5f, target.transform.position.z);
             //HPBar.transform.position = new Vector3(0, 100, 0);
@@ -101,8 +103,10 @@ public class Enemy : MonoBehaviour
         else if (lockedOn == false)
         { 
             HPBarHolder.SetActive(false);
+            targetReticule.SetActive(false);
         }
         HPBarHolder.transform.rotation = camera.transform.rotation;
+        targetReticule.transform.rotation = camera.transform.rotation;
     }
     public void SetHP(int newHP)
     {

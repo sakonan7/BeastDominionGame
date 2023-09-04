@@ -134,6 +134,7 @@ public class PlayerController : MonoBehaviour
     private static bool noHealingItems = true;
 
     public Vector3 attackDirection;
+    private Vector3 lockedOnLocation;
     public Vector3 transformPosition;
 
     //Taking damage
@@ -587,10 +588,10 @@ public class PlayerController : MonoBehaviour
                                                                                                    //I need this here
                                                                                                    //to keep calculating the distance between foe
                                                                                                    //and player
-                attackRotation = Quaternion.LookRotation(targetedEnemy.transform.position - orientation.transform.position);
+                attackRotation = Quaternion.LookRotation(lockedOnLocation - orientation.transform.position);
                 //angleBetween = Vector3.Angle(orientation.forward, targetedEnemy.transform.position - orientation.position);
                 //angleBetween = Vector3.Angle(targetedEnemy.transform.position, orientation.forward - targetedEnemy.transform.position);
-                angleBetween = Vector3.Angle(attackDirection, targetedEnemy.transform.position - orientation.forward);
+                //angleBetween = Vector3.Angle(attackDirection, targetedEnemy.transform.position - orientation.forward);
                 //transform.rotation = Quaternion.Lerp(transform.rotation, attackRotation, 10 * Time.deltaTime);
                 
             }
@@ -607,11 +608,11 @@ public class PlayerController : MonoBehaviour
                 LockOff();
             }
         }
-        else if (lockedOn == false)
-        {
+        //else if (lockedOn == false)
+        //{
             //target.SetActive(false);
-            gameManagerScript.LockOff();
-        }
+            //gameManagerScript.LockOff();
+        //}
         if (transforming == true)
         {
             animation.Play("Transform");
@@ -752,9 +753,9 @@ public class PlayerController : MonoBehaviour
                 {
                     Swoop();
                     //Moved attackDirection here because the player object gets rotated now
-                    attackDirection = (targetedEnemy.transform.position - tiger.transform.position).normalized;
+                    attackDirection = (lockedOnLocation - tiger.transform.position).normalized;
 
-                    attackRotation = Quaternion.LookRotation(targetedEnemy.transform.position - tiger.transform.position);
+                    attackRotation = Quaternion.LookRotation(lockedOnLocation - tiger.transform.position);
                     bird.transform.rotation = Quaternion.Slerp(tiger.transform.rotation, attackRotation, 3); //Moved this from Strike() to
                                                                                                             //see if I can immediately turn my character towards an ene
 
@@ -774,9 +775,9 @@ public class PlayerController : MonoBehaviour
                     Strike();
                     //}
                     //Moved attackDirection here because the player object gets rotated now
-                    attackDirection = (targetedEnemy.transform.position - tiger.transform.position).normalized;
+                    attackDirection = (lockedOnLocation - tiger.transform.position).normalized;
 
-                    attackRotation = Quaternion.LookRotation(targetedEnemy.transform.position - tiger.transform.position);
+                    attackRotation = Quaternion.LookRotation(lockedOnLocation - tiger.transform.position);
                     tiger.transform.rotation = Quaternion.Slerp(tiger.transform.rotation, attackRotation, 3); //Moved this from Strike() to
                                                                                                               //see if I can immediately turn my character towards an ene
 
@@ -997,9 +998,9 @@ public class PlayerController : MonoBehaviour
         playerAudio.PlayOneShot(bladeOfLightChargeUp, 0.2f);
         if (lockedOn == true)
         {
-            attackDirection = (targetedEnemy.transform.position - tiger.transform.position).normalized;
+            attackDirection = (lockedOnLocation - tiger.transform.position).normalized;
             tiger.transform.rotation = Quaternion.Slerp(tiger.transform.rotation, attackRotation, 5 * Time.deltaTime);
-            attackRotation = Quaternion.LookRotation(targetedEnemy.transform.position - tiger.transform.position);
+            attackRotation = Quaternion.LookRotation(lockedOnLocation - tiger.transform.position);
             if (distance <= 5)
             {
                 animation.Play("Distance Closer");
@@ -1236,7 +1237,7 @@ public class PlayerController : MonoBehaviour
         
         playerAudio.PlayOneShot(tigerSwing, 0.05f);
         
-        attackRotation = Quaternion.LookRotation(targetedEnemy.transform.position - tiger.transform.position);
+        attackRotation = Quaternion.LookRotation(lockedOnLocation - tiger.transform.position);
         tiger.transform.rotation = Quaternion.Slerp(tiger.transform.rotation, attackRotation, 10 * Time.deltaTime); //Am using all the attack rotations
         //here because there is a charge up before Tiger Special Attack
         //playerRb.AddRelativeTorque(Vector3.down * 5, ForceMode.Impulse);
@@ -1293,15 +1294,15 @@ public class PlayerController : MonoBehaviour
         //above,but I realized that the below will cover it. Maybe, let's keep testing it out
         else if ((distance > 4) && lockedOn)
         {
-            attackDirection = (targetedEnemy.transform.position - tiger.transform.position).normalized;
+            attackDirection = (lockedOnLocation - tiger.transform.position).normalized;
             //transform.rotation = Quaternion.Slerp(transform.rotation, attackRotation, 10 * Time.deltaTime);
             specialCloseTheDistance = true;
         }
         else if (distance < 4 && lockedOn)
         {
             //transform.rotation = Quaternion.Slerp(transform.rotation, attackRotation, 10 * Time.deltaTime);
-            attackDirection = (targetedEnemy.transform.position - tiger.transform.position).normalized;
-            attackRotation = Quaternion.LookRotation(targetedEnemy.transform.position - tiger.transform.position);
+            attackDirection = (lockedOnLocation - tiger.transform.position).normalized;
+            attackRotation = Quaternion.LookRotation(lockedOnLocation - tiger.transform.position);
             bird.transform.rotation = Quaternion.Slerp(tiger.transform.rotation, attackRotation, 3);
             StartCoroutine(BirdSpecialDuration());
             playerRb.AddForce(attackDirection * (attackForce + 14), ForceMode.Impulse);
@@ -1379,13 +1380,14 @@ public class PlayerController : MonoBehaviour
                        if (lockedOn == true)
                       {
                           enemyScript.LockOff();
-                        gameManagerScript.LockOff();
+                        //gameManagerScript.LockOff();
                         }
                     enemyScript = targetedEnemy.GetComponent<Enemy>();
                     //if (enemyScript.lockedOn == false)
                     //{
                         enemyScript.LockOn();
-                    gameManagerScript.LockOn(targetedEnemy.transform.position);
+                    lockedOnLocation = new Vector3(targetedEnemy.transform.position.x, targetedEnemy.transform.position.y + 0.05f, targetedEnemy.transform.position.z);
+                    //gameManagerScript.LockOn(targetedEnemy.transform.position);
                     //}
                         
                     }
