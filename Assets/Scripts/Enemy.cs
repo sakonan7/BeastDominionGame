@@ -97,6 +97,7 @@ public class Enemy : MonoBehaviour
             //I guess I guess I need to do this code in here. I guess it's like the code with Target.
             target = GameObject.Find("Target");
             targetReticule.SetActive(true);
+            gameObject.tag = "Targeted Enemy";
             HPBarHolder.SetActive(true);
             //HPBar.transform.position = new Vector3(target.transform.position.x, target.transform.position.y + 2.5f, target.transform.position.z);
             //HPBar.transform.position = new Vector3(0, 100, 0);
@@ -105,6 +106,7 @@ public class Enemy : MonoBehaviour
         { 
             HPBarHolder.SetActive(false);
             targetReticule.SetActive(false);
+            gameObject.tag = "Enemy";
         }
         HPBarHolder.transform.rotation = camera.transform.rotation;
         //targetReticule.transform.rotation = camera.transform.rotation;
@@ -360,6 +362,7 @@ public class Enemy : MonoBehaviour
             //Damaged();
             playerScript.PlayTigerSpecialStrike(transform.position);
             gameManager.HitByTigerSpecial(transform.position);
+            playerScript.AttackLandedTrue();
             //Vector3 knockbackDirection = (transform.position - tiger.transform.position).normalized;
             //knockback force is inconsistent. Sometimes it doesn't knockback at all. Sometimes it knocks back too much
             //It doesn't matter what the value is.
@@ -382,6 +385,7 @@ public class Enemy : MonoBehaviour
         if (other.CompareTag("Bird Special") && hitByBirdSpecial == false)
         {
             HP -= 5;
+            playerScript.AttackLandedTrue();
             StartCoroutine(DamageDisplayDuration(5));
             HPBarDecrease(5);
             StartCoroutine(FoeAttacked(200));

@@ -19,6 +19,7 @@ TagManager:
   - Bird Attack Range
   - Bird Special
   - Projectile
+  - Targeted Enemy
   layers:
   - Default
   - TransparentFX

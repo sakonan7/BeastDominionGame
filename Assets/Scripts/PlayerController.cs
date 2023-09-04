@@ -34,6 +34,7 @@ public class PlayerController : MonoBehaviour
     private bool rackingUpCombo = false;
     private static bool tigerSpecialUnlocked = false;
     private static bool birdSpecialUnlocked = false;
+    private bool specialUsed = false;
 
     public bool specialInvincibility = false;
     [Header("Special Attack Objects")]
@@ -654,40 +655,13 @@ public class PlayerController : MonoBehaviour
         {
             LockOff();
         }
-        if (distance < 3 && closeTheDistance == true)
-        {
-            //Debug.Log("Distance met For Regul");
-            closeTheDistance = false;
-            //StartCoroutine(FreezeRotations());
-            attackTimeLength = distanceCloserTigerAttackLength;
-            StartCoroutine(AttackDuration());
-            animation.Play("Attack 1 & 2");
-            //playerRb.constraints = RigidbodyConstraints.FreezeRotation;
-            playerAudio.PlayOneShot(tigerSwing, 0.05f);
-        }
+
         if (closeTheDistance == true && cantMove == true)
         {
             closeTheDistance = false;
             //Debug.Log("I don't want to do it, but, closeTheDistance = " + closeTheDistance);
         }
-        if (distance < 8 && specialCloseTheDistance && tigerActive == true)
-        {
-            //Debug.Log("Distance Met At " + distance);
-            //This will work because specialInvincibility is on and TigerSpecialDuration() cancels
 
-            animation.Play("Attack 1 & 2");
-            TigerSpecial();
-            StartCoroutine(TigerSpecialDuration());
-            
-            specialCloseTheDistance = false;
-        }
-        if (distance <= 1.2f && specialCloseTheDistance && birdActive == true)
-        {
-            StartCoroutine(BirdSpecialDuration());
-
-            specialCloseTheDistance = false;
-            birdRB.velocity = Vector3.zero;
-        }
         //Setting this here because I want to make more space in Update and because this will happen after certainn actions
         //like getting damaged or performing a spec
         if (rackingUpCombo == false)
@@ -931,7 +905,7 @@ public class PlayerController : MonoBehaviour
             //StartCoroutine(NoAttackLag());
             playerRb.velocity = Vector3.zero;
         }
-        if (hitNumber == 0)
+        if (hitNumber == 0 && (specialUsed == false))
         {
             StartCombo();
         }
@@ -1003,21 +977,7 @@ public class PlayerController : MonoBehaviour
             attackDirection = (targetedEnemy.transform.position - tiger.transform.position).normalized;
             tiger.transform.rotation = Quaternion.Slerp(tiger.transform.rotation, attackRotation, 5 * Time.deltaTime);
             attackRotation = Quaternion.LookRotation(targetedEnemy.transform.position - tiger.transform.position);
-            if (distance <= 5)
-            {
-                animation.Play("Distance Closer");
-                //I would prefer to use nonImpulse, but it is too slow and using Impulse is unexpectedly cool
-                //playerRb.AddForce(attackDirection * (attackForce + 10), ForceMode.Impulse);
-                playerRb.AddForce(attackDirection * (attackForce + 10) * Time.deltaTime);
-                animation.Play("Attack 1 & 2");
-                TigerSpecial();
-                StartCoroutine(TigerSpecialDuration());
-                
-            }
-            else
-            {
                 specialCloseTheDistance = true;
-            }
             
         }
         else if (lockedOn == false)
@@ -1035,9 +995,11 @@ public class PlayerController : MonoBehaviour
         //specialInvincibility = true;
         playerAudio.PlayOneShot(tigerSpecial, 0.1f);
         //bladeOfLight.SetActive(true);
-        tigerCollider.isTrigger = true;
+        //tigerCollider.isTrigger = true;
+        specialUsed = true;
         yield return new WaitForSeconds(2f);
-        tigerCollider.isTrigger = false;
+        specialUsed = false;
+        //tigerCollider.isTrigger = false;
         attack = false;
         cantMove = false;
         specialInvincibility = false;
@@ -1057,7 +1019,9 @@ public class PlayerController : MonoBehaviour
         //specialInvincibility = true;
         //playerAudio.PlayOneShot(tigerSpecial, 0.1f);
         //bladeOfLight.SetActive(true);
+        specialUsed = true;
         yield return new WaitForSeconds(2f);
+        specialUsed = false;
         attack = false;
         cantMove = false;
         specialInvincibility = false;
@@ -1160,10 +1124,6 @@ public class PlayerController : MonoBehaviour
         //{
             //Debug.Log(distance);
         //}
-        if (lockedOn == true)
-        {
-            //StartCoroutine(TellAngle());
-        }
         if (distance > 15 && lockedOn)
         {
             //transform.rotation = Quaternion.Slerp(transform.rotation, attackRotation, 10 * Time.deltaTime); //For some reason,
@@ -1812,8 +1772,83 @@ public class PlayerController : MonoBehaviour
         {
             playerRb.velocity = Vector3.zero;
         }
+        if (collision.gameObject.CompareTag("Targeted Enemy") && (closeTheDistance == true || specialCloseTheDistance == true))
+        {
+            if (closeTheDistance == true)
+            {
+                closeTheDistance = false;
+                //StartCoroutine(FreezeRotations());
+                attackTimeLength = distanceCloserTigerAttackLength;
+                StartCoroutine(AttackDuration());
+                if (tigerActive == true)
+                {
+                    animation.Play("Attack 1 & 2");
+                    //playerRb.constraints = RigidbodyConstraints.FreezeRotation;
+                    playerAudio.PlayOneShot(tigerSwing, 0.05f);
+                }
+                else if (birdActive == true)
+                {
+
+                }
+            }
+            else if (specialCloseTheDistance)
+            {
+                if (tigerActive == true)
+                {
+                    animation.Play("Attack 1 & 2");
+                    TigerSpecial();
+                    StartCoroutine(TigerSpecialDuration());
+                }
+                if (birdActive == true)
+                {
+                    StartCoroutine(BirdSpecialDuration());
+
+                }
+
+                specialCloseTheDistance = false;
+            }
+           }    
     }
-        public void OnTriggerEnter(Collider other)
+    public void OnCollisionStay(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Targeted Enemy") && (closeTheDistance == true || specialCloseTheDistance == true))
+        {
+            if (closeTheDistance == true)
+            {
+                closeTheDistance = false;
+                //StartCoroutine(FreezeRotations());
+                attackTimeLength = distanceCloserTigerAttackLength;
+                StartCoroutine(AttackDuration());
+                if (tigerActive == true)
+                {
+                    animation.Play("Attack 1 & 2");
+                    //playerRb.constraints = RigidbodyConstraints.FreezeRotation;
+                    playerAudio.PlayOneShot(tigerSwing, 0.05f);
+                }
+                else if (birdActive == true)
+                {
+
+                }
+            }
+            else if (specialCloseTheDistance)
+            {
+                if (tigerActive == true)
+                {
+                    animation.Play("Attack 1 & 2");
+                    TigerSpecial();
+                    StartCoroutine(TigerSpecialDuration());
+                }
+                if (birdActive == true)
+                {
+                    StartCoroutine(BirdSpecialDuration());
+
+                }
+
+                specialCloseTheDistance = false;
+            }
+        }
+    }
+    public void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.name == "Start Game Boundary")
         {

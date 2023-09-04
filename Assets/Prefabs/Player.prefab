@@ -2854,6 +2854,7 @@ MonoBehaviour:
   birdSeparater: {fileID: 1941012438282399914}
   tigerFollow: {fileID: 7627827021783271308}
   birdFollow: {fileID: 2570505133623283110}
+  isFlying: 0
   hitNumber: 0
   specialInvincibility: 0
   bladeOfLight: {fileID: 1202251510}
@@ -6976,15 +6977,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5484586004806528223, guid: 3b3424c0a28a0094383dd999df40c383, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1.51
+      value: 3.32
       objectReference: {fileID: 0}
     - target: {fileID: 5484586004806528223, guid: 3b3424c0a28a0094383dd999df40c383, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -2.94
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 5484586004806528223, guid: 3b3424c0a28a0094383dd999df40c383, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 3.77
+      value: 17.43
       objectReference: {fileID: 0}
     - target: {fileID: 5484586004806528223, guid: 3b3424c0a28a0094383dd999df40c383, type: 3}
       propertyPath: m_LocalRotation.w
@@ -8071,6 +8072,18 @@ PrefabInstance:
     - target: {fileID: 4678103677468820507, guid: 1245b8d2997d5b34fb1637be70a7eb05, type: 3}
       propertyPath: playOnAwake
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4678103677468820507, guid: 1245b8d2997d5b34fb1637be70a7eb05, type: 3}
+      propertyPath: SizeModule.curve.scalar
+      value: 0.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 4678103677468820507, guid: 1245b8d2997d5b34fb1637be70a7eb05, type: 3}
+      propertyPath: InitialModule.startSize.scalar
+      value: 0.225
+      objectReference: {fileID: 0}
+    - target: {fileID: 4678103677468820507, guid: 1245b8d2997d5b34fb1637be70a7eb05, type: 3}
+      propertyPath: InitialModule.startSize.minScalar
+      value: 0.075
       objectReference: {fileID: 0}
     - target: {fileID: 5858841876001134857, guid: 1245b8d2997d5b34fb1637be70a7eb05, type: 3}
       propertyPath: playOnAwake

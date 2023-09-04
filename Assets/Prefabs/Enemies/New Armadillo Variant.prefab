@@ -228,6 +228,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HPBarHolder: {fileID: 2461991353210765627}
   HPBar: {fileID: 8157742570311772786}
+  targetReticule: {fileID: 2044411954733882298}
   damage: 0
   attackEffect:
   - {fileID: 0}
@@ -246,6 +247,7 @@ MonoBehaviour:
   lockedOn: 0
   dyingEffect: {fileID: 0}
   hitLanded: 0
+  isFlying: 0
 --- !u!114 &8452419772987273097
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -520,6 +522,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: daff0023e798dc44da699015a43f2045, type: 3}
+--- !u!1 &2044411954733882298 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3381665938218668454, guid: daff0023e798dc44da699015a43f2045, type: 3}
+  m_PrefabInstance: {fileID: 3652738801840048668}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2461991353210765627 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1196799170292239143, guid: daff0023e798dc44da699015a43f2045, type: 3}
