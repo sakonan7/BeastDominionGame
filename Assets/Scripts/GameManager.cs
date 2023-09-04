@@ -7,9 +7,11 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
+    [Header("Objects")]
     public GameObject mainCam;
     private ThirdPersonCamera camScript;
     public GameObject cutsceneCam;
+    public GameObject target;
 
     private bool gameOver = false;
     public GameObject player;
@@ -337,7 +339,7 @@ public class GameManager : MonoBehaviour
         Vector3 wolfLocation = enemies[0].transform.position;
         //wolfLocation.x + 4
         //wolfLocation.y + 0.1f
-        Instantiate(enemies[0], new Vector3(player.transform.position.x - 1.5f, wolfLocation.y + 0.2f, wolfLocation.z - 6), enemies[0].transform.rotation);
+        Instantiate(enemies[1], new Vector3(player.transform.position.x - 1.5f, wolfLocation.y + 0.2f, wolfLocation.z - 6), enemies[0].transform.rotation);
         //Instantiate(enemies[1], new Vector3(wolfLocation.x + 8, wolfLocation.y, wolfLocation.z - 15), enemies[0].transform.rotation);
         //Instantiate(enemies[1], new Vector3(wolfLocation.x + 14.5f, wolfLocation.y, wolfLocation.z - 8), enemies[0].transform.rotation);
         numOfEnemies = 1;
@@ -428,6 +430,15 @@ public class GameManager : MonoBehaviour
     public void NoAttackLag()
     {
         foeStruck = true;
+    }
+    public void LockOn(Vector3 newLockOn)
+    {
+        target.SetActive(true);
+        target.transform.position = newLockOn;
+    }
+    public void LockOff()
+    {
+        target.SetActive(false);
     }
     public void ResetFoeStruck()
     {

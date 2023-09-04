@@ -564,7 +564,7 @@ public class PlayerController : MonoBehaviour
 
                 //Weirdly fixed by using position instead of Translate(
                 //enemyTargetPosition = targetedEnemy.GiveTargetPosition();
-                target.transform.position = targetedEnemy.transform.position; //I think I should at most just adjust target's loca
+                //target.transform.position = targetedEnemy.transform.position; //I think I should at most just adjust target's loca
                                                                               //target.transform.position = enemyTargetPosition;
                                                                               //newTarget.transform.position = new Vector3(targetedEnemy.transform.position.x, targetedEnemy.transform.position.y, 0);
 
@@ -572,10 +572,10 @@ public class PlayerController : MonoBehaviour
                 //And to have the new target appear over the targeted foe
                 //newTargetRect = newTarget.GetComponent<RectTransform>();
                 //newTargetRect.localPosition = new Vector2(target.transform.position.x, target.transform.position.y);
-                target.SetActive(true);
+                //target.SetActive(true);
                 //Code to make lockedOn symbol face camera
                 //The original simple LookAt(cameraRef.transform) didn't work because it showed the clear backside of the plane/quad instead
-                target.transform.LookAt(target.transform.position - (cameraRef.transform.position - target.transform.position));
+                //target.transform.LookAt(target.transform.position - (cameraRef.transform.position - target.transform.position));
                 
                 
 
@@ -609,7 +609,8 @@ public class PlayerController : MonoBehaviour
         }
         else if (lockedOn == false)
         {
-            target.SetActive(false);
+            //target.SetActive(false);
+            gameManagerScript.LockOff();
         }
         if (transforming == true)
         {
@@ -1378,11 +1379,13 @@ public class PlayerController : MonoBehaviour
                        if (lockedOn == true)
                       {
                           enemyScript.LockOff();
+                        gameManagerScript.LockOff();
                         }
                     enemyScript = targetedEnemy.GetComponent<Enemy>();
                     //if (enemyScript.lockedOn == false)
                     //{
                         enemyScript.LockOn();
+                    gameManagerScript.LockOn(targetedEnemy.transform.position);
                     //}
                         
                     }
@@ -1393,7 +1396,7 @@ public class PlayerController : MonoBehaviour
             //Debug.Log("Targeted Enemy is null");
             //}
             camScript.TurnToTarget(targetedEnemy.transform);
-            StartCoroutine(TellAngle());
+            //StartCoroutine(TellAngle());
             lockedOn = true;
             //I was going to get rid of this because it looked like this code was for shifting the target
             //But it's actually if the lockOn function isn't even on

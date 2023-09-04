@@ -144,7 +144,7 @@ public class Wolf3 : MonoBehaviour
                 wolfRb.AddForce(followDirection * speed);
                 transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, 3); //Turned from 5 to 3 for smooth
                                                                                             //StartCoroutine(AttackCountdown());
-                if (distance <= 1.8 && attackFinished == false)
+                if (distance <= 1.8)
                 {
                     Debug.Log("Attack");
                     animator.SetBool("Dash", false);
