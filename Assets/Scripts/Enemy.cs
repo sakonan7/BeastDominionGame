@@ -106,7 +106,7 @@ public class Enemy : MonoBehaviour
             targetReticule.SetActive(false);
         }
         HPBarHolder.transform.rotation = camera.transform.rotation;
-        targetReticule.transform.rotation = camera.transform.rotation;
+        //targetReticule.transform.rotation = camera.transform.rotation;
     }
     public void SetHP(int newHP)
     {
