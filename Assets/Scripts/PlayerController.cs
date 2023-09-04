@@ -27,6 +27,7 @@ public class PlayerController : MonoBehaviour
     private Collider tigerCollider;
     public GameObject tigerFollow;
     public GameObject birdFollow;
+    public bool isFlying = false;
 
     [Header("Combo Meter")]
     public int hitNumber = 0;
@@ -264,7 +265,7 @@ public class PlayerController : MonoBehaviour
     void FixedUpdate()
     {
 
-
+        //Code that applies only when the respective form is active
         //This code is for anything that needs to follow the player
         //transform.rotation = new Quaternion(0, transform.rotation.y, transform.rotation.z, 0);
         if (birdActive == true)
@@ -928,6 +929,7 @@ public class PlayerController : MonoBehaviour
             attackLanded = true;
             //Debug.Log("Can Continue To Attack");
             //StartCoroutine(NoAttackLag());
+            playerRb.velocity = Vector3.zero;
         }
         if (hitNumber == 0)
         {
@@ -1464,6 +1466,7 @@ public class PlayerController : MonoBehaviour
             rackingUpCombo = false;
             tigerComboIcon.gameObject.SetActive(true);
             birdComboIcon.gameObject.SetActive(false);
+            isFlying = false;
         }
         else if (tigerActive == true)
         {
@@ -1485,6 +1488,7 @@ public class PlayerController : MonoBehaviour
             rackingUpCombo = false;
             tigerComboIcon.gameObject.SetActive(false);
             birdComboIcon.gameObject.SetActive(true);
+            isFlying = true;
         }
         transforming = false;
     }

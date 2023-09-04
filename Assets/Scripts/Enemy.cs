@@ -52,6 +52,7 @@ public class Enemy : MonoBehaviour
     public bool hitLanded = false;
     private bool hitByBirdSpecial = false;
     private bool cantBeHit = false;
+    public bool isFlying = false;
     //private ConstantForce enemyForce;
     // Start is called before the first frame update
     void Start()
