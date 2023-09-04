@@ -379,7 +379,7 @@ public class Enemy : MonoBehaviour
             {
 
                 StartCoroutine(SecondHit());
-                
+                Debug.Log("Second Hit");
             }
         }
         if (other.CompareTag("Bird Special") && hitByBirdSpecial == false)

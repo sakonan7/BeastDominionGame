@@ -136,7 +136,7 @@ public class PlayerController : MonoBehaviour
     private static bool noHealingItems = true;
 
     public Vector3 attackDirection;
-    private Vector3 lockedOnLocation;
+    private Transform lockedOnLocation;
     public Vector3 transformPosition;
 
     //Taking damage
@@ -1349,7 +1349,7 @@ public class PlayerController : MonoBehaviour
                     //{
                         enemyScript.LockOn();
                     //lockedOnLocation = new Vector3(targetedEnemy.transform.position.x, targetedEnemy.transform.position.y + 0.05f, targetedEnemy.transform.position.z);
-                    lockedOnLocation = targetedEnemy.transform.position;
+                    lockedOnLocation = targetedEnemy.transform.Find("Camera Target").transform;
                     //gameManagerScript.LockOn(targetedEnemy.transform.position);
                     //}
                         
@@ -1360,7 +1360,7 @@ public class PlayerController : MonoBehaviour
             //{
             //Debug.Log("Targeted Enemy is null");
             //}
-            camScript.TurnToTarget(targetedEnemy.transform);
+            camScript.TurnToTarget(lockedOnLocation);
             //StartCoroutine(TellAngle());
             lockedOn = true;
             //I was going to get rid of this because it looked like this code was for shifting the target
