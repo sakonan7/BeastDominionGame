@@ -9,6 +9,7 @@ public class ThirdPersonCamera : MonoBehaviour
     public AudioClip title;
     public AudioClip battle;
     public AudioClip exploration;
+    public AudioClip boss;
     public AudioClip victory;
     public Transform playerObj;
     public Transform player;
@@ -142,6 +143,12 @@ public class ThirdPersonCamera : MonoBehaviour
     {
         musicSource.Stop();
         musicSource.clip = exploration;
+        musicSource.Play();
+    }
+        public void PlayUsualBossMusic()
+    {
+        musicSource.Stop();
+        musicSource.clip = boss;
         musicSource.Play();
     }
     IEnumerator TurnOffRecenter()

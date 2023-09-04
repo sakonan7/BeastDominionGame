@@ -248,7 +248,8 @@ public class GameManager : MonoBehaviour
         startingCutscene = true;
         startGame = true;
         UIAppear();
-        camScript.PlayBattleMusic();
+        //camScript.PlayBattleMusic();
+        camScript.PlayUsualBossMusic();
     }
     IEnumerator TheTutorialMessage()
     {

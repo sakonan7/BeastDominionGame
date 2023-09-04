@@ -20,7 +20,7 @@ public class Gorilla : MonoBehaviour
     private Quaternion lookRotation;
     private bool attack = false;
     private bool beginningIdle = true;
-    private bool idle = true;
+    private bool idle = false;
     private bool chase = false;
     private bool playerStunned = false; //For if the Tiger is hit by the first claw. Tiger will always get hit twice
     private int damage = 1;
@@ -95,6 +95,7 @@ public class Gorilla : MonoBehaviour
         cameraRef = GameObject.Find("Main Camera");
 
         //StartCoroutine(IdleAnimation());
+        StartCoroutine(Cutscene());
     }
 
     // Update is called once per frame
@@ -102,7 +103,7 @@ public class Gorilla : MonoBehaviour
     {
         if (idle == true)
         {
-            animation.Play("Sitting Idle");
+            animation.Play("Idle");
         }
         if (Input.GetKeyDown(KeyCode.H))
         {
@@ -182,5 +183,11 @@ public class Gorilla : MonoBehaviour
         {
             yield return new WaitForSeconds(0.5f);
         }
+    }
+    IEnumerator Cutscene()
+    {
+        animation.Play("Sitting Idle");
+        yield return new WaitForSeconds(1);
+        idle = true;
     }
 }
