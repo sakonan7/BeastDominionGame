@@ -136,6 +136,7 @@ public class PlayerController : MonoBehaviour
     private static bool noHealingItems = true;
 
     public Vector3 attackDirection;
+    Vector3 dodgeDirection;
     private Transform lockedOnLocation;
     public Vector3 transformPosition;
 
@@ -377,7 +378,7 @@ public class PlayerController : MonoBehaviour
             //}
             if (Input.GetKeyDown(KeyCode.Space))
             {
-
+                
 
                 //Make an else case for the current code for when the player isn't pressing a direction
                 //Placed animations here instead so that the full animation plays
@@ -387,17 +388,23 @@ public class PlayerController : MonoBehaviour
 
                     playerRb.AddForce(moveDirection.normalized * dodgeForce, ForceMode.Impulse);
                 }
-                else if (running == false)
-                {
-                    playerRb.AddForce(Vector3.fwd * dodgeForce, ForceMode.Impulse);
+                //else if (running == false)
+                //{
+                    //playerRb.AddForce(Vector3.fwd * dodgeForce, ForceMode.Impulse);
 
-                }
+                //}
                 if (tigerActive == true)
                 {
                     animation.Play("Jump Tweak");
+                    dodgeDirection = (tigerFollow.transform.position - tiger.transform.position).normalized;
+                    
+                }
+                else if (birdActive == true)
+                {
+                    attackDirection = (birdFollow.transform.position - tiger.transform.position).normalized;
                 }
 
-
+                playerRb.AddForce(dodgeDirection * dodgeForce, ForceMode.Impulse);
                 StartCoroutine(Dodge());
             }
             if (Input.GetKeyDown(KeyCode.E) && cantTransform == false)

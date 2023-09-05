@@ -144,8 +144,9 @@ public class Wolf3 : MonoBehaviour
                 wolfRb.AddForce(followDirection * speed);
                 transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, 3); //Turned from 5 to 3 for smooth
                                                                                             //StartCoroutine(AttackCountdown());
-                if (distance <= 1.8)
+                if (distance <= 4)
                 {
+                    Debug.Log("Reached");
                     animator.SetBool("Dash", false);
                     chase = false;
                     jumpForce = 3;
@@ -154,7 +155,8 @@ public class Wolf3 : MonoBehaviour
                     attackFinished = true;
                 }
             }
-            if (attackFinished == true && isOnGround == true)
+            // && isOnGround == true
+            if (attackFinished == true)
             {
                 attackFinished = false;
                 idleTime = usualIdleTime;
@@ -208,7 +210,7 @@ public class Wolf3 : MonoBehaviour
         //attackLanded = false;
         Debug.Log("Attack over");
         //JumpBack();
-
+        attackFinished = true;
 
     }
     public void CorkScrew()
@@ -399,7 +401,7 @@ public class Wolf3 : MonoBehaviour
         animator.SetBool("Idle", false);
         animator.SetBool("Dash", true);
         //playerScript.monkeyRange.SetActive(true);
-        //Debug.Log("Cooldown finished");
+        Debug.Log("Cooldown finished");
     }
     //IEnumerator Fall()
     // {
