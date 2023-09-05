@@ -1446,7 +1446,7 @@ Rigidbody:
   m_Mass: 1
   m_Drag: 0
   m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 2, y: 1, z: 1}
+  m_CenterOfMass: {x: 0, y: 0, z: -4}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
   m_IncludeLayers:
@@ -1517,6 +1517,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HPBarHolder: {fileID: 7224413516492695701}
   HPBar: {fileID: 3989796070051152860}
+  targetReticule: {fileID: 6500858175021675028}
   damage: 0
   attackEffect:
   - {fileID: 0}
@@ -1535,6 +1536,7 @@ MonoBehaviour:
   lockedOn: 0
   dyingEffect: {fileID: 0}
   hitLanded: 0
+  isFlying: 0
 --- !u!1 &5023179313687313171
 GameObject:
   m_ObjectHideFlags: 0
@@ -2701,6 +2703,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &6500858175021675028 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3381665938218668454, guid: daff0023e798dc44da699015a43f2045, type: 3}
+  m_PrefabInstance: {fileID: 8419944941288137650}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &7224413516492695701 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1196799170292239143, guid: daff0023e798dc44da699015a43f2045, type: 3}
