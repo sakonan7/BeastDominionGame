@@ -17,6 +17,9 @@ public class Projectile : MonoBehaviour
     public bool moving = false;
     public bool destroyable = true;
     public float lifeTime;
+    public bool leftAttack = false;
+    public bool rightAttack = false;
+    public bool backAttack = false;
     // Start is called before the first frame update
     void Start()
     {

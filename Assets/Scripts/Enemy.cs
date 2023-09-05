@@ -38,6 +38,9 @@ public class Enemy : MonoBehaviour
     public bool comboFinisher = false;
     private AudioSource enemyAudio;
     public AudioClip[] enemySounds = new AudioClip[3];
+    public bool leftAttack = false;
+    public bool rightAttack = false;
+    public bool backAttack = false;
 
     public bool lockedOn = false;
     private GameObject target;
