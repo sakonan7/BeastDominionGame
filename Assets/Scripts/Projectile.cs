@@ -27,6 +27,7 @@ public class Projectile : MonoBehaviour
         //lookRotation = Quaternion.LookRotation(player.transform.position - transform.position);
         //transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, 3);
     }
+    //Setting up setters for speed will allow me todo stuff like doing Luxord's trick shots
     private void OnTriggerEnter(Collider collision)
     {
         if (collision.gameObject.CompareTag("Player") || collision.gameObject.CompareTag("Wall") || collision.gameObject.CompareTag("Ground"))

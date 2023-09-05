@@ -1411,6 +1411,7 @@ Transform:
   - {fileID: 2186967402317017986}
   - {fileID: 1534772528874055829}
   - {fileID: 6831488050111294220}
+  - {fileID: 4180864387074532110}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
@@ -1537,6 +1538,8 @@ MonoBehaviour:
   dyingEffect: {fileID: 0}
   hitLanded: 0
   isFlying: 0
+  giantEnemy: 0
+  revengeValue: 0
 --- !u!1 &5023179313687313171
 GameObject:
   m_ObjectHideFlags: 0
@@ -2193,6 +2196,37 @@ Transform:
   - {fileID: 6417202146828070538}
   m_Father: {fileID: 94206309207888260}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &7222520533393809992
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4180864387074532110}
+  m_Layer: 0
+  m_Name: Camera Target
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4180864387074532110
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7222520533393809992}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2390632649298060074}
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7380599145509350900
 GameObject:
