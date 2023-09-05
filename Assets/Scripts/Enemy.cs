@@ -53,6 +53,9 @@ public class Enemy : MonoBehaviour
     private bool hitByBirdSpecial = false;
     private bool cantBeHit = false;
     public bool isFlying = false;
+    public bool giantEnemy = false;
+    public bool revengeValue = false;
+    private int revengeValueCount = 3;
     //private ConstantForce enemyForce;
     // Start is called before the first frame update
     void Start()
@@ -123,6 +126,10 @@ public class Enemy : MonoBehaviour
     public void SetDamage(int newDamage)
     {
         damage = newDamage;
+    }
+    public void IsGiantEnemy()
+    {
+        giantEnemy = true;
     }
     //public void SetAttackEffect(ParticleSystem newEffect)
     //{
@@ -209,45 +216,28 @@ public class Enemy : MonoBehaviour
     IEnumerator FoeAttacked(float enterAttackForce)
     {
         attacked = true;
-        float playerAttackForce = enterAttackForce;
-        //enemyRb.AddForce(playerScript.attackDirection * attackForce, ForceMode.Force);
-        enemyRb.velocity = new Vector3(playerScript.attackDirection.x * playerAttackForce, 0, playerScript.attackDirection.z * playerAttackForce);
-        //enemyRb.maxLinearVelocity = attackForce;
+        if (giantEnemy == false)
+        {
+            float playerAttackForce = enterAttackForce;
+            //enemyRb.AddForce(playerScript.attackDirection * attackForce, ForceMode.Force);
+            enemyRb.velocity = new Vector3(playerScript.attackDirection.x * playerAttackForce, 0, playerScript.attackDirection.z * playerAttackForce);
+        }
 
-        //Vector3 consistentVel = new Vector3(enemyRb.velocity.x, 0, enemyRb.velocity.z);
 
-
-        //if (consistentVel.magnitude > attackForce)
-        //{
-        //Vector3 limitedVel = consistentVel.normalized * attackForce;
-        //enemyRb.velocity = new Vector3(limitedVel.x, 0, limitedVel.z);
-        //}
-        //enemyForce.relativeForce = -playerScript.attackDirection * attackForce;
-        //enemyRb.velocity = new Vector3(enemyRb.maxLinearVelocity, 0, enemyRb.maxLinearVelocity);
         yield return new WaitForSeconds(0.5f);
         attacked = false;
-        //damageDisplay.gameObject.SetActive(false);
-        float distance = Vector3.Distance(player.transform.position, transform.position);
-        //Debug.Log("Distance is equal to " + distance);
-        //enemyForce.relativeForce = new Vector3(0,0,0);
     }
     //This will be helpful for combo att
     IEnumerator SecondHit()
     {
         attacked = true;
-        float playerAttackForce = 280;
+if (giantEnemy == false)
+        {
+                    float playerAttackForce = 280;
         //enemyRb.AddForce(playerScript.attackDirection * attackForce, ForceMode.Force);
-        enemyRb.velocity = new Vector3(playerScript.attackDirection.x * attackForce, 0, playerScript.attackDirection.z * attackForce);
+        enemyRb.velocity = new Vector3(playerScript.attackDirection.x * playerAttackForce, 0, playerScript.attackDirection.z * attackForce);
+        }
 
-        //Vector3 consistentVel = new Vector3(enemyRb.velocity.x, 0, enemyRb.velocity.z);
-
-
-        //if (consistentVel.magnitude > attackForce)
-        //{
-        //Vector3 limitedVel = consistentVel.normalized * attackForce;
-        //enemyRb.velocity = new Vector3(limitedVel.x, 0, limitedVel.z);
-        //}
-        //enemyForce.relativeForce = -playerScript.attackDirection * attackForce;
         
         yield return new WaitForSeconds(1f);
         attacked = false;

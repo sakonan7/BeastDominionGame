@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &402188459505930006
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3446125736501073544}
+  m_Layer: 0
+  m_Name: Camera Target
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3446125736501073544
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 402188459505930006}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 330974086762863239}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7705545269385236855
 GameObject:
   m_ObjectHideFlags: 0
@@ -195,6 +226,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 400002, guid: 920324f305589a74c9835018c2fdbbef, type: 3}
       insertIndex: -1
       addedObject: {fileID: 3388973928769311905}
+    - targetCorrespondingSourceObject: {fileID: 400002, guid: 920324f305589a74c9835018c2fdbbef, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3446125736501073544}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 100002, guid: 920324f305589a74c9835018c2fdbbef, type: 3}
       insertIndex: -1

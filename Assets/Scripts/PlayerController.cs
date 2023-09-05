@@ -378,7 +378,6 @@ public class PlayerController : MonoBehaviour
             //}
             if (Input.GetKeyDown(KeyCode.Space))
             {
-                
 
                 //Make an else case for the current code for when the player isn't pressing a direction
                 //Placed animations here instead so that the full animation plays

@@ -91,6 +91,7 @@ public class Gorilla : MonoBehaviour
         audio = GetComponent<AudioSource>();
         enemyScript.enemySounds[0] = monkeyAttack;
         enemyScript.SetHP(HP);
+        enemyScript.IsGiantEnemy();
 
         cameraRef = GameObject.Find("Main Camera");
 
