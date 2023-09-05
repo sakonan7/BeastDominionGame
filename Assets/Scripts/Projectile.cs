@@ -10,11 +10,13 @@ public class Projectile : MonoBehaviour
     private Vector3 attackDirection;
     private Quaternion lookRotation;
     public float attackForce = 6;
-    public float damage;
+    public int damage;
     private float speed;
-    private bool moving = true;
-    private bool destroyable = true;
-    private float lifeTime;
+    //Unfortunately, for objects created instantaneously, you have to set up these values in the inspector. Projectiles always move
+    //if the projectilewas set to move before using the set. Itmeans the setter didn't work
+    public bool moving = false;
+    public bool destroyable = true;
+    public float lifeTime;
     // Start is called before the first frame update
     void Start()
     {
@@ -48,7 +50,7 @@ public class Projectile : MonoBehaviour
     {
         destroyable = trueFalse;
     }
-    public void SetDamage(float newDamage)
+    public void SetDamage(int newDamage)
     {
         damage = newDamage;
     }
@@ -64,6 +66,7 @@ public class Projectile : MonoBehaviour
     {
         yield return new WaitForSeconds(lifeTime);
         Destroy(gameObject);
+        Debug.Log("Time'sUp");
     }
     private void OnTriggerEnter(Collider collision)
     {

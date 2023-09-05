@@ -116,12 +116,13 @@ public class Gorilla : MonoBehaviour
             enemyScript.SetForce(10);
             enemyScript.SetComboFinisher();
             GameObject newCrater = fireCrater;
-            craterScript = fireCrater.GetComponent<Projectile>();
-            Instantiate(fireCrater, new Vector3(player.transform.position.x - 5, 0, player.transform.position.z), fireCrater.transform.rotation);
+            craterScript = newCrater.GetComponent<Projectile>();
             craterScript.SetDamage(1);
-            craterScript.IsMoving(false);
-            craterScript.SetLifeTime(3);
-            craterScript.IsDestroyable(false);
+            //craterScript.IsMoving(false);
+            //craterScript.SetLifeTime(3);
+            //craterScript.IsDestroyable(false);
+            Instantiate(newCrater, new Vector3(player.transform.position.x - 6f, fireCrater.transform.position.y, player.transform.position.z), fireCrater.transform.rotation);
+
         }
     }
     IEnumerator IdleAnimation()

@@ -1936,9 +1936,9 @@ public class PlayerController : MonoBehaviour
         if (other.CompareTag("Projectile") && (dodge == false && specialInvincibility == false && stunnedInvincibility == false))
         {
             Projectile projectileScript = other.gameObject.GetComponent<Projectile>();
-            playerRb.AddForce(-orientation.forward * projectileScript.attackForce, ForceMode.Impulse);
+            //playerRb.AddForce(-orientation.forward * projectileScript.attackForce, ForceMode.Impulse);
             //projectileScript.AttackLanded(0);
-            LoseHP(1, 1);
+            LoseHP(projectileScript.damage, 1);
             StartCoroutine(DamageDisplayed());
             StartCoroutine(DamageStunStart());
             //enemyScript.PlayAttackEffect();
