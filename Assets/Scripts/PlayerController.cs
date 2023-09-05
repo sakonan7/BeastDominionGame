@@ -68,7 +68,7 @@ public class PlayerController : MonoBehaviour
     private float speed = 36; //Changed from 30 because now I'm using charactercontroller
     private float tigerSpeed = 36;
     private float birdSpeed = 54;
-    private float dodgeForce = 35; //90 barely jumps
+    private float dodgeForce = 25; //90 barely jumps
     public GameObject dodgeEffect;
     private float attackForce = 20;
     private float forwardInput;
@@ -401,7 +401,7 @@ public class PlayerController : MonoBehaviour
                 }
                 else if (birdActive == true)
                 {
-                    attackDirection = (birdFollow.transform.position - tiger.transform.position).normalized;
+                    dodgeDirection = (birdFollow.transform.position - tiger.transform.position).normalized;
                 }
 
                 playerRb.AddForce(dodgeDirection * dodgeForce, ForceMode.Impulse);
