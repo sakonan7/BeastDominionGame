@@ -35,6 +35,8 @@ public class Gorilla : MonoBehaviour
     public GameObject secondClawSlash;
     public GameObject slamAttackRange;
     public ParticleSystem attackEffect;
+    public GameObject fireCrater;
+    private Projectile craterScript;
     private AudioSource audio;
     public AudioClip monkeyAttack;
     private float attackVol;
@@ -113,6 +115,13 @@ public class Gorilla : MonoBehaviour
             enemyScript.SetDamage(3);
             enemyScript.SetForce(10);
             enemyScript.SetComboFinisher();
+            GameObject newCrater = fireCrater;
+            craterScript = fireCrater.GetComponent<Projectile>();
+            Instantiate(fireCrater, new Vector3(player.transform.position.x - 5, 0, player.transform.position.z), fireCrater.transform.rotation);
+            craterScript.SetDamage(1);
+            craterScript.IsMoving(false);
+            craterScript.SetLifeTime(3);
+            craterScript.IsDestroyable(false);
         }
     }
     IEnumerator IdleAnimation()
