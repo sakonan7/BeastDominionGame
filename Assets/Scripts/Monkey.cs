@@ -54,7 +54,7 @@ public class Monkey : MonoBehaviour
 
     private GameManager gameManager;
     private int HP = 10; //7
-    private bool testingStun = true;
+    private bool testingStun = false;
     private bool testingBehaviors = false;
     private bool moveLeft = false;
     private bool moveRight = true;
@@ -225,7 +225,7 @@ public class Monkey : MonoBehaviour
         //If that doesn't work, put an if (dodge == false
 
         //animation.Play("Attack");
-        animator.SetBool("Attack 1", true);
+        animator.SetTrigger("Slash 1");
         isOnGround = false; //Will always have this happen, because both attacks make the Monkey jump
         //}
         //if (enemyScript.hitLanded == true)
@@ -273,7 +273,7 @@ public class Monkey : MonoBehaviour
         monkeyRb.AddForce(followDirection * (jumpForce/2), ForceMode.Impulse);
         monkeyRb.AddForce(Vector3.up * 5, ForceMode.Impulse); //For jumping, may need to modify gravity
         //animation.Play("Attack");
-        animator.SetBool("Attack 2", true);
+        animator.SetTrigger("Slash 2");
         secondClawSlash.SetActive(true);
         
         enemyScript.SetComboFinisher();
