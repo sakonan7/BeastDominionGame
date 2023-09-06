@@ -12,6 +12,7 @@ public class Projectile : MonoBehaviour
     public float attackForce = 6;
     public int damage;
     private float speed;
+    public bool comboFinisher = false;
     //Unfortunately, for objects created instantaneously, you have to set up these values in the inspector. Projectiles always move
     //if the projectilewas set to move before using the set. Itmeans the setter didn't work
     public bool moving = false;
@@ -20,6 +21,8 @@ public class Projectile : MonoBehaviour
     public bool leftAttack = false;
     public bool rightAttack = false;
     public bool backAttack = false;
+    public bool isLingering = false;
+    public bool playerDodged = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -64,6 +67,32 @@ public class Projectile : MonoBehaviour
     public void SetLifeTime(float newLifeTime)
     {
         lifeTime = newLifeTime;
+    }
+    public void LeftKnockBack()
+    {
+        leftAttack = true;
+    }
+    public void RightKnockBack()
+    {
+        rightAttack = true;
+    }
+    public void BackKnockBack()
+    {
+        backAttack = true;
+    }
+    public void ResetKnockbacks()
+    {
+        leftAttack = false;
+        rightAttack = false;
+        backAttack = false;
+    }
+    public void SetLingering()
+    {
+        isLingering = !isLingering;
+    }
+    public void SetPlayerDodged()
+    {
+        playerDodged = true;
     }
     IEnumerator DestroyAfterTime()
     {

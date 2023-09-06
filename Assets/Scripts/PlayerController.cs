@@ -107,6 +107,7 @@ public class PlayerController : MonoBehaviour
     private float dodgeTime;
     private float tigerDodge = 0.8f;
     private float birdDodge = 1.2f;
+    //public bool successfulDodge = true;
     //public bool lag = false;
     public bool attack = false;
     public bool swoopLag = false;
@@ -702,6 +703,7 @@ public class PlayerController : MonoBehaviour
         {
             if (birdActive == true)
             {
+
                 birdSpecialCommand.gameObject.SetActive(true);
             }
             else
@@ -864,6 +866,7 @@ public class PlayerController : MonoBehaviour
             birdAttackEffect.SetActive(true);
             bird.transform.Translate(0, -1.5f, 0);
             birdSeparater.SetActive(false);
+            isFlying = false;
         }
         //playerRb.constraints = RigidbodyConstraints.FreezeRotation;
         yield return new WaitForSeconds(attackTimeLength);
@@ -876,6 +879,7 @@ public class PlayerController : MonoBehaviour
                 birdAttackEffect.SetActive(false);
                 bird.transform.Translate(0, 1.5f, 0);
                 birdSeparater.SetActive(true);
+            isFlying = true;
             //transform.rotation = bird.transform.rotation;
         }
         if (tigerActive == true)
@@ -1026,8 +1030,10 @@ public class PlayerController : MonoBehaviour
         //playerAudio.PlayOneShot(tigerSpecial, 0.1f);
         //bladeOfLight.SetActive(true);
         specialUsed = true;
+        isFlying = false;
         yield return new WaitForSeconds(2f);
         specialUsed = false;
+        isFlying = true;
         attack = false;
         cantMove = false;
         specialInvincibility = false;
@@ -1876,7 +1882,29 @@ public class PlayerController : MonoBehaviour
         //Play attack effect in Enemy and load the effect in the individual script. IE, if Xemnas is using his ethereal blades,
         //load the ethereal blade effect into the private variable in Enemy. If Xemnas is using his spark orbs, load the spark orbs
         //effect into the private variable in Enem
-        if (other.CompareTag("Enemy Attack Range") && (dodge == false && specialInvincibility == false && stunnedInvincibility == false))
+        ///Was going to do a successfuldodge bool, but that would make the player able to be invincibile to other foe's attacks
+        ///after a successfuldodge fora time
+        ///wasGoing to use an arbitrary IEnumerator of 0.5s, butIdecided to have the enemy individualscript reset the bools instead
+        ///so it isn't as arbitrary and it make sense because the enemy's attackrange as disappeared at that 
+        ///This is inspired by how Terra-Xehanort Datauses a slam attack and if the player dodged it, the lingering effect will not damage Sora
+        ///but if he does get hitby it, it does have a lingering hitbox because he can getdamaged again by falling into the spikes
+        ///I don't have to reset values for projectiles because projectiles will get destroyed after a while
+        ///It's a good thing I thought of thisbecause I didn't account for making the player unable to dodgeinto the fire crater
+        ///The main point of this is to make a player able to dodge an attack and not get hit just because they're stuck around the 
+        ///hitbox. This does have the unintentional downside of making it so that players potentially can't be hit by say Sephiroth
+        ///creating a circle of slashes around himself that hit players multiple times unless they dodge out of range or block
+        ///but I think isLingingeraccounts for that
+        ///I didn't think of this at first because usually attack ranges disappearreally quickly, but I think Gorilla attack got me think
+        if(other.CompareTag("Enemy Attack Range") && (dodge == true))
+        {
+            Enemy enemyScript = other.gameObject.GetComponentInParent<Enemy>();
+            if (enemyScript.isLingering == false)
+            {
+                enemyScript.SetPlayerDodged();
+            }
+            
+        }
+        if (other.CompareTag("Enemy Attack Range") && (enemyScript.playerDodged == false && dodge == false && specialInvincibility == false && stunnedInvincibility == false))
         {
             Enemy enemyScript = other.gameObject.GetComponentInParent<Enemy>();
 
@@ -1899,13 +1927,32 @@ public class PlayerController : MonoBehaviour
             //Need to put a boolean on a foe's individual script to tell if an attack has knockback and then use an if to apply
             //the knockbackforce
             
-            if (enemyScript.leftAttack == true)
+            //This is for tiger
+            if(tigerActive == true)
             {
-                playerRb.AddForce(Vector3.left * enemyScript.attackForce, ForceMode.Impulse);
+                if (enemyScript.leftAttack == true)
+                {
+                    playerRb.AddForce(Vector3.left * enemyScript.attackForce, ForceMode.Impulse);
+                }
+                if (enemyScript.rightAttack == true)
+                {
+                    playerRb.AddForce(Vector3.right * enemyScript.attackForce, ForceMode.Impulse);
+                }
+                if (enemyScript.backAttack == true)
+                {
+                    playerRb.AddForce(Vector3.back * enemyScript.attackForce, ForceMode.Impulse);
+                }
             }
-            if (enemyScript.rightAttack == true)
+            else if (birdActive == true)
             {
-                playerRb.AddForce(Vector3.right * enemyScript.attackForce, ForceMode.Impulse);
+                if (isFlying == false)
+                {
+                    isFlying = true;
+                    bird.transform.Translate(0, 1.5f, 0);
+                    birdSeparater.SetActive(true);
+                }
+
+                playerRb.AddForce(Vector3.back * enemyScript.attackForce, ForceMode.Impulse);
             }
             enemyScript.AttackLanded(0);
             //playerRb.AddForce(Vector3.back * 12, ForceMode.Impulse); //I don't know why I have this
@@ -1918,7 +1965,8 @@ public class PlayerController : MonoBehaviour
             if (enemyScript.comboAttack == true && enemyScript.comboFinisher == true)
             {
                 StartCoroutine(StunDuration());
-                playerRb.AddForce(-orientation.forward * enemyScript.attackForce, ForceMode.Impulse);
+                Debug.Log("Stun Duration is equal to " + stunnedInvincibility);
+                //playerRb.AddForce(-orientation.forward * enemyScript.attackForce, ForceMode.Impulse);
             }
         }
         if (other.CompareTag("Projectile") && (dodge == false && specialInvincibility == false && stunnedInvincibility == false))
@@ -1930,11 +1978,20 @@ public class PlayerController : MonoBehaviour
             StartCoroutine(DamageDisplayed());
             StartCoroutine(DamageStunStart());
             //enemyScript.PlayAttackEffect();
-            //if (enemyScript.comboAttack == true && enemyScript.comboFinisher == true)
-            //{
-                //StartCoroutine(StunDuration());
+            if (projectileScript.comboFinisher == true)
+            {
+                StartCoroutine(StunDuration());
                 //playerRb.AddForce(-orientation.forward * enemyScript.attackForce, ForceMode.Impulse);
-            //}
+            }
+        }
+        if (other.CompareTag("Projectile") && (dodge == true))
+        {
+            Projectile projectileScript = other.gameObject.GetComponent<Projectile>();
+            if (projectileScript.isLingering == false)
+            {
+                projectileScript.SetPlayerDodged();
+            }
+            
         }
     }
 }

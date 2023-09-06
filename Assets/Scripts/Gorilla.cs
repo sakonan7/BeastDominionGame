@@ -221,6 +221,7 @@ public class Gorilla : MonoBehaviour
         //craterScript.SetLifeTime(3);
         //craterScript.IsDestroyable(false);
         Instantiate(newCrater, new Vector3(placeForFireCrater.x, fireCrater.transform.position.y, placeForFireCrater.z), fireCrater.transform.rotation);
+        enemyScript.UnsetPlayerDodged();
     }
 
     //For the arena lighting up, warning the player that the whole arena will be consumed in fire

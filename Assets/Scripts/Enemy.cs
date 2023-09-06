@@ -59,6 +59,9 @@ public class Enemy : MonoBehaviour
     public bool giantEnemy = false;
     public bool revengeValue = false;
     private int revengeValueCount = 3;
+    public bool isLingering = false;
+
+    public bool playerDodged = false;
     //private ConstantForce enemyForce;
     // Start is called before the first frame update
     void Start()
@@ -218,7 +221,18 @@ public class Enemy : MonoBehaviour
         rightAttack = false;
         backAttack = false;
     }
-
+    public void SetLingering()
+    {
+        isLingering = !isLingering;
+    }
+    public void SetPlayerDodged()
+    {
+        playerDodged = true;
+    }
+    public void UnsetPlayerDodged()
+    {
+        playerDodged = false;
+    }
     public void OnCollisionEnter(Collision collision)
     {
        if (collision.gameObject.CompareTag("Wall") && attacked == true)
