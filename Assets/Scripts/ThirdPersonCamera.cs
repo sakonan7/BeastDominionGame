@@ -161,6 +161,7 @@ public class ThirdPersonCamera : MonoBehaviour
     {
         //transform.LookAt(target);
         cinemachineFL.m_LookAt = target;
+        //cinemachineFL.
         //StartCoroutine(BackToPlayer());
     }
     public void LockOff()

@@ -12,9 +12,8 @@ public class Gorilla : MonoBehaviour
     private PlayerController playerScript;
     private Enemy enemyScript;
     private float speed = 220;
-    private Rigidbody monkeyRb;
+    private Rigidbody gorillaRb;
     private Rigidbody playerRb;
-    private Collider monkeyAttackReach;
     private Vector3 followDirection;
     private Vector3 attackDirection;
     private Quaternion lookRotation;
@@ -58,6 +57,7 @@ public class Gorilla : MonoBehaviour
     private bool testingBehaviors = false;
     private bool moveLeft = false;
     private bool moveRight = true;
+    private Vector3 originalPosition;
     // Start is called before the first frame update
 
     private bool ultimateAttackStart = false;
@@ -71,10 +71,8 @@ public class Gorilla : MonoBehaviour
         playerRb = player.GetComponent<Rigidbody>();
         playerScript = player.GetComponent<PlayerController>();
 
-        monkeyRb = GetComponent<Rigidbody>();
-        monkeyAttackReach = GetComponent<Collider>();
-
-        Physics.gravity *= 0.5f;
+        //gorillaRb = GetComponent<Rigidbody>();
+        
         gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
         if (gameManager.difficulty == "Normal")
         {
@@ -99,6 +97,7 @@ public class Gorilla : MonoBehaviour
 
         //StartCoroutine(IdleAnimation());
         StartCoroutine(Cutscene());
+        originalPosition = transform.position;
     }
 
     // Update is called once per frame
@@ -111,17 +110,29 @@ public class Gorilla : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.H))
         {
             idle = false;
-            StartCoroutine(SlamDown());
-            enemyScript.SetDamage(3);
-            enemyScript.SetForce(10);
-            enemyScript.SetComboFinisher();
-            GameObject newCrater = fireCrater;
-            craterScript = newCrater.GetComponent<Projectile>();
-            craterScript.SetDamage(1);
-            //craterScript.IsMoving(false);
-            //craterScript.SetLifeTime(3);
-            //craterScript.IsDestroyable(false);
-            Instantiate(newCrater, new Vector3(player.transform.position.x - 6f, fireCrater.transform.position.y, player.transform.position.z), fireCrater.transform.rotation);
+            followDirection = (player.transform.position - transform.position).normalized;
+            distance = Vector3.Distance(player.transform.position, transform.position);
+            lookRotation = Quaternion.LookRotation(player.transform.position - transform.position);
+            transform.Translate(followDirection * speed* Time.deltaTime);
+            transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, 3); //Turned from 5 to 3 for smooth
+                                                                                        //StartCoroutine(AttackCountdown());
+            if (distance <= 4)
+            {
+                //gorillaRb.velocity = Vector3.zero;
+                StartCoroutine(SlamDown());
+                enemyScript.SetDamage(3);
+                enemyScript.SetForce(10);
+                enemyScript.SetComboFinisher();
+                GameObject newCrater = fireCrater;
+                craterScript = newCrater.GetComponent<Projectile>();
+                craterScript.SetDamage(1);
+                //craterScript.IsMoving(false);
+                //craterScript.SetLifeTime(3);
+                //craterScript.IsDestroyable(false);
+                Instantiate(newCrater, new Vector3(player.transform.position.x - 6f, fireCrater.transform.position.y, player.transform.position.z), fireCrater.transform.rotation);
+
+
+            }
 
         }
     }
@@ -183,6 +194,7 @@ public class Gorilla : MonoBehaviour
             enemyScript.SetComboFinisher();
         //}
         idle = true;
+        transform.position = originalPosition;
     }
 
     //For the arena lighting up, warning the player that the whole arena will be consumed in fire
