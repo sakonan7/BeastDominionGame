@@ -1494,26 +1494,6 @@ public class PlayerController : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         healingEffect.Stop();
     }
-    //Taking damage anima
-    public void TigerFlinching()
-    {
-        //Debug.Log("Flinching from Monkey");
-        //Wierdly, animation doesn't work here, needed to do it in up
-        tigerFlinch = true;
-        StartCoroutine(StunDuration());
-    }
-    public void TigerFlinching2()
-    {
-        //Debug.Log("Flinching from Monkey");
-        //Wierdly, animation doesn't work here, needed to do it in up
-        tigerFlinch2 = true;
-        StartCoroutine(StunDuration());
-    }
-    public void BirdFlinching()
-    {
-        birdFlinch = true;
-        StartCoroutine(StunDuration());
-    }
 
     public void TigerKnockBack()
     {

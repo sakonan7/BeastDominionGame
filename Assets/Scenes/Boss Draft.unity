@@ -1656,6 +1656,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1632477306 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3023598258869932815, guid: fca9f7da32548a9429e232e1595c8ea8, type: 3}
+  m_PrefabInstance: {fileID: 1739047054}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1739047054
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1704,6 +1709,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3180877536571746903, guid: fca9f7da32548a9429e232e1595c8ea8, type: 3}
+      propertyPath: m_TagString
+      value: Enemy Attack Range
+      objectReference: {fileID: 0}
     - target: {fileID: 3594966524018280128, guid: fca9f7da32548a9429e232e1595c8ea8, type: 3}
       propertyPath: m_Name
       value: Gorilla
@@ -1716,6 +1725,10 @@ PrefabInstance:
       propertyPath: m_ReceiveShadows
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4259664755844106925, guid: fca9f7da32548a9429e232e1595c8ea8, type: 3}
+      propertyPath: regularShockWave
+      value: 
+      objectReference: {fileID: 1632477306}
     - target: {fileID: 6987869514440069686, guid: fca9f7da32548a9429e232e1595c8ea8, type: 3}
       propertyPath: m_RootOrder
       value: 4

@@ -119,7 +119,7 @@ public class Wolf : MonoBehaviour
             //tigerRB.AddTorque(Vector3.left * 4.5f, ForceMode.Impulse);
             //tigerRB.AddForce(Vector3.up, ForceMode.Impulse);
             attack = false;
-            playerScript.TigerFlinching();
+            //playerScript.TigerFlinching();
         }
         //May not do the same as I did for Monkey because Monkey's attacks specifically have very little knock
         yield return new WaitForSeconds(3f);
@@ -151,7 +151,7 @@ public class Wolf : MonoBehaviour
             //tigerRB.AddTorque(Vector3.left * 4.5f, ForceMode.Impulse);
             //tigerRB.AddForce(Vector3.up, ForceMode.Impulse);
             attack = false;
-            playerScript.TigerFlinching();
+            //playerScript.TigerFlinching();
         }
         //May not do the same as I did for Monkey because Monkey's attacks specifically have very little knock
         yield return new WaitForSeconds(1f);
