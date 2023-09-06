@@ -352,11 +352,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3093959637342806294, guid: 5230bab3687158a4e8a33d584068b91d, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.0000030444685
+      value: 0.0000030444687
       objectReference: {fileID: 0}
     - target: {fileID: 3093959637342806294, guid: 5230bab3687158a4e8a33d584068b91d, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.0000000130604585
+      value: -0.000000013060402
       objectReference: {fileID: 0}
     - target: {fileID: 3322581656046782034, guid: 5230bab3687158a4e8a33d584068b91d, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1676,9 +1676,45 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: 0.28
       objectReference: {fileID: 0}
+    - target: {fileID: 2374744371624459960, guid: fca9f7da32548a9429e232e1595c8ea8, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.85
+      objectReference: {fileID: 0}
+    - target: {fileID: 2374744371624459960, guid: fca9f7da32548a9429e232e1595c8ea8, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 2374744371624459960, guid: fca9f7da32548a9429e232e1595c8ea8, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.85
+      objectReference: {fileID: 0}
+    - target: {fileID: 2374744371624459960, guid: fca9f7da32548a9429e232e1595c8ea8, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.04
+      objectReference: {fileID: 0}
+    - target: {fileID: 2374744371624459960, guid: fca9f7da32548a9429e232e1595c8ea8, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.71
+      objectReference: {fileID: 0}
+    - target: {fileID: 2374744371624459960, guid: fca9f7da32548a9429e232e1595c8ea8, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 2.56
+      objectReference: {fileID: 0}
+    - target: {fileID: 3023598258869932815, guid: fca9f7da32548a9429e232e1595c8ea8, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3594966524018280128, guid: fca9f7da32548a9429e232e1595c8ea8, type: 3}
       propertyPath: m_Name
       value: Gorilla
+      objectReference: {fileID: 0}
+    - target: {fileID: 4059899623230160382, guid: fca9f7da32548a9429e232e1595c8ea8, type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4059899623230160382, guid: fca9f7da32548a9429e232e1595c8ea8, type: 3}
+      propertyPath: m_ReceiveShadows
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6987869514440069686, guid: fca9f7da32548a9429e232e1595c8ea8, type: 3}
       propertyPath: m_RootOrder

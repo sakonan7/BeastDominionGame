@@ -103,6 +103,7 @@ public class Gorilla : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        followDirection = (transform.position - player.transform.position).normalized;
         if (idle == true)
         {
             animation.Play("Idle");
@@ -110,28 +111,33 @@ public class Gorilla : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.H))
         {
             idle = false;
-            followDirection = (player.transform.position - transform.position).normalized;
+            chase = true;
+            
             distance = Vector3.Distance(player.transform.position, transform.position);
             lookRotation = Quaternion.LookRotation(player.transform.position - transform.position);
             transform.Translate(followDirection * speed* Time.deltaTime);
             transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, 3); //Turned from 5 to 3 for smooth
                                                                                         //StartCoroutine(AttackCountdown());
-            if (distance <= 4)
-            {
-                //gorillaRb.velocity = Vector3.zero;
+            Debug.Log(distance);
+            if (chase == true) {
+                if (distance == 30)
+                {
+                    chase = false;
+                    //gorillaRb.velocity = Vector3.zero;
                 StartCoroutine(SlamDown());
-                enemyScript.SetDamage(3);
-                enemyScript.SetForce(10);
-                enemyScript.SetComboFinisher();
-                GameObject newCrater = fireCrater;
-                craterScript = newCrater.GetComponent<Projectile>();
-                craterScript.SetDamage(1);
-                //craterScript.IsMoving(false);
-                //craterScript.SetLifeTime(3);
-                //craterScript.IsDestroyable(false);
-                Instantiate(newCrater, new Vector3(player.transform.position.x - 6f, fireCrater.transform.position.y, player.transform.position.z), fireCrater.transform.rotation);
+                    enemyScript.SetDamage(3);
+                    enemyScript.SetForce(15);
+                    enemyScript.SetComboFinisher();
+                    GameObject newCrater = fireCrater;
+                    craterScript = newCrater.GetComponent<Projectile>();
+                    craterScript.SetDamage(2);
+                    //craterScript.IsMoving(false);
+                    //craterScript.SetLifeTime(3);
+                    //craterScript.IsDestroyable(false);
+                    Instantiate(newCrater, new Vector3(player.transform.position.x - 6f, fireCrater.transform.position.y, player.transform.position.z), fireCrater.transform.rotation);
 
 
+                }
             }
 
         }
@@ -170,6 +176,7 @@ public class Gorilla : MonoBehaviour
     IEnumerator SlamDown()
     {
         slamAttackRange.SetActive(true);
+        enemyScript.RightKnockBack();
         yield return new WaitForSeconds(0.5f);
         animation.Play("Single Slam");
         //Potentially move the Gorill move a few inches closer so that it's fist is closer to the aren
@@ -192,6 +199,7 @@ public class Gorilla : MonoBehaviour
         //else if (whichAttack == attackTwo)
         //{
             enemyScript.SetComboFinisher();
+        enemyScript.ResetKnockbacks();
         //}
         idle = true;
         transform.position = originalPosition;

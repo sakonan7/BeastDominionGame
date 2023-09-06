@@ -1918,7 +1918,15 @@ public class PlayerController : MonoBehaviour
 
             //Need to put a boolean on a foe's individual script to tell if an attack has knockback and then use an if to apply
             //the knockbackforce
-            playerRb.AddForce(-orientation.forward * enemyScript.attackForce, ForceMode.Impulse);
+            
+            if (enemyScript.leftAttack == true)
+            {
+                playerRb.AddForce(Vector3.left * enemyScript.attackForce, ForceMode.Impulse);
+            }
+            if (enemyScript.rightAttack == true)
+            {
+                playerRb.AddForce(Vector3.right * enemyScript.attackForce, ForceMode.Impulse);
+            }
             enemyScript.AttackLanded(0);
             //playerRb.AddForce(Vector3.back * 12, ForceMode.Impulse); //I don't know why I have this
             //playerScript.AttackLandedTrue();

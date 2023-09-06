@@ -200,6 +200,24 @@ public class Enemy : MonoBehaviour
         lockedOn = false;
         //Debug.Log("Enemy is Locked Off");
     }
+    public void LeftKnockBack()
+    {
+        leftAttack = true;
+    }
+    public void RightKnockBack()
+    {
+        rightAttack = true;
+    }
+    public void BackKnockBack()
+    {
+        backAttack = true;
+    }
+    public void ResetKnockbacks()
+    {
+        leftAttack = false;
+        rightAttack = false;
+        backAttack = false;
+    }
 
     public void OnCollisionEnter(Collision collision)
     {
