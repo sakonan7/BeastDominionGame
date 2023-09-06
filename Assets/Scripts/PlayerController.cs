@@ -126,6 +126,7 @@ public class PlayerController : MonoBehaviour
     public GameObject target;
     private GameObject targetedEnemy;
     private Enemy enemyScript;
+    private Enemy attackingEnemy;
     private Vector3 enemyTargetPosition;
     private Rigidbody foeRB;
     //public bool canLockOn = false;
@@ -867,6 +868,11 @@ public class PlayerController : MonoBehaviour
             bird.transform.Translate(0, -1.5f, 0);
             birdSeparater.SetActive(false);
             isFlying = false;
+        }
+        if (damageStun == true || stunnedInvincibility) {
+            attack = false;
+            tigerAttackEffect.SetActive(false);
+            birdAttackEffect.SetActive(false);
         }
         //playerRb.constraints = RigidbodyConstraints.FreezeRotation;
         yield return new WaitForSeconds(attackTimeLength);
@@ -1897,16 +1903,19 @@ public class PlayerController : MonoBehaviour
         ///I didn't think of this at first because usually attack ranges disappearreally quickly, but I think Gorilla attack got me think
         if(other.CompareTag("Enemy Attack Range") && (dodge == true))
         {
-            Enemy enemyScript = other.gameObject.GetComponentInParent<Enemy>();
-            if (enemyScript.isLingering == false)
+            Enemy currentEnemyScript = other.gameObject.GetComponentInParent<Enemy>();
+            if (currentEnemyScript.isLingering == false)
             {
-                enemyScript.SetPlayerDodged();
+                currentEnemyScript.SetPlayerDodged();
             }
             
         }
-        if (other.CompareTag("Enemy Attack Range") && (enemyScript.playerDodged == false && dodge == false && specialInvincibility == false && stunnedInvincibility == false))
+        //Idon't think I need to check for enemyScript.playerDodgedeven though Iwanted to. I could always check inside the loop
+        //after accessing enemyScript in the condition
+        if (other.CompareTag("Enemy Attack Range") && (dodge == false && specialInvincibility == false && stunnedInvincibility == false))
         {
-            Enemy enemyScript = other.gameObject.GetComponentInParent<Enemy>();
+            Enemy currentEnemyScript = other.gameObject.GetComponentInParent<Enemy>();
+            attackingEnemy = currentEnemyScript;
 
             //if (wolfScript.attackLanded == false)
             //{
@@ -1930,17 +1939,17 @@ public class PlayerController : MonoBehaviour
             //This is for tiger
             if(tigerActive == true)
             {
-                if (enemyScript.leftAttack == true)
+                if (currentEnemyScript.leftAttack == true)
                 {
-                    playerRb.AddForce(Vector3.left * enemyScript.attackForce, ForceMode.Impulse);
+                    playerRb.AddForce(Vector3.left * currentEnemyScript.attackForce, ForceMode.Impulse);
                 }
-                if (enemyScript.rightAttack == true)
+                if (currentEnemyScript.rightAttack == true)
                 {
-                    playerRb.AddForce(Vector3.right * enemyScript.attackForce, ForceMode.Impulse);
+                    playerRb.AddForce(Vector3.right * currentEnemyScript.attackForce, ForceMode.Impulse);
                 }
-                if (enemyScript.backAttack == true)
+                if (currentEnemyScript.backAttack == true)
                 {
-                    playerRb.AddForce(Vector3.back * enemyScript.attackForce, ForceMode.Impulse);
+                    playerRb.AddForce(Vector3.back * currentEnemyScript.attackForce, ForceMode.Impulse);
                 }
             }
             else if (birdActive == true)
@@ -1952,35 +1961,26 @@ public class PlayerController : MonoBehaviour
                     birdSeparater.SetActive(true);
                 }
 
-                playerRb.AddForce(Vector3.back * enemyScript.attackForce, ForceMode.Impulse);
+                playerRb.AddForce(Vector3.back * currentEnemyScript.attackForce, ForceMode.Impulse);
             }
-            enemyScript.AttackLanded(0);
+            currentEnemyScript.AttackLanded(0);
             //playerRb.AddForce(Vector3.back * 12, ForceMode.Impulse); //I don't know why I have this
             //playerScript.AttackLandedTrue();
             //}
-            LoseHP(enemyScript.damage, enemyScript.hitNumber);
+            LoseHP(currentEnemyScript.damage, currentEnemyScript.hitNumber);
             StartCoroutine(DamageDisplayed());
-            StartCoroutine(DamageStunStart());
+            
+            if (currentEnemyScript.comboFinisher == false)
+            {
+                StartCoroutine(DamageStunStart());
+            }
             //enemyScript.PlayAttackEffect();
-            if (enemyScript.comboAttack == true && enemyScript.comboFinisher == true)
+            //Removed checking for comboAttack because the player only gets stunnedInvincibilityfrom combo finish
+            //I probably didn't realize this when designing combo att
+            if (currentEnemyScript.comboFinisher == true)
             {
                 StartCoroutine(StunDuration());
                 Debug.Log("Stun Duration is equal to " + stunnedInvincibility);
-                //playerRb.AddForce(-orientation.forward * enemyScript.attackForce, ForceMode.Impulse);
-            }
-        }
-        if (other.CompareTag("Projectile") && (dodge == false && specialInvincibility == false && stunnedInvincibility == false))
-        {
-            Projectile projectileScript = other.gameObject.GetComponent<Projectile>();
-            //playerRb.AddForce(-orientation.forward * projectileScript.attackForce, ForceMode.Impulse);
-            //projectileScript.AttackLanded(0);
-            LoseHP(projectileScript.damage, 1);
-            StartCoroutine(DamageDisplayed());
-            StartCoroutine(DamageStunStart());
-            //enemyScript.PlayAttackEffect();
-            if (projectileScript.comboFinisher == true)
-            {
-                StartCoroutine(StunDuration());
                 //playerRb.AddForce(-orientation.forward * enemyScript.attackForce, ForceMode.Impulse);
             }
         }
@@ -1991,8 +1991,63 @@ public class PlayerController : MonoBehaviour
             {
                 projectileScript.SetPlayerDodged();
             }
-            
+
         }
+        if (other.CompareTag("Projectile") && (dodge == false && specialInvincibility == false && stunnedInvincibility == false))
+        {
+            Projectile projectileScript = other.gameObject.GetComponent<Projectile>();
+            //playerRb.AddForce(-orientation.forward * projectileScript.attackForce, ForceMode.Impulse);
+            //projectileScript.AttackLanded(0);
+            LoseHP(projectileScript.damage, 1);
+            StartCoroutine(DamageDisplayed());
+            StartCoroutine(DamageStunStart());
+            //enemyScript.PlayAttackEffect();
+            if (tigerActive == true)
+            {
+                if (projectileScript.leftAttack == true)
+                {
+                    playerRb.AddForce(Vector3.left * projectileScript.attackForce, ForceMode.Impulse);
+                }
+                if (projectileScript.rightAttack == true)
+                {
+                    playerRb.AddForce(Vector3.right * projectileScript.attackForce, ForceMode.Impulse);
+                }
+                if (projectileScript.backAttack == true)
+                {
+                    playerRb.AddForce(Vector3.back * projectileScript.attackForce, ForceMode.Impulse);
+                }
+            }
+            else if (birdActive == true)
+            {
+                if (isFlying == false)
+                {
+                    isFlying = true;
+                    bird.transform.Translate(0, 1.5f, 0);
+                    birdSeparater.SetActive(true);
+                }
+
+                playerRb.AddForce(Vector3.back * projectileScript.attackForce, ForceMode.Impulse);
+            }
+            if (projectileScript.comboFinisher == false)
+            {
+                StartCoroutine(DamageStunStart());
+            }
+            if (projectileScript.comboFinisher == true)
+            {
+                StartCoroutine(StunDuration());
+                Debug.Log("Stun Duration is equal to " + stunnedInvincibility);
+                //playerRb.AddForce(-orientation.forward * enemyScript.attackForce, ForceMode.Impulse);
+            }
+        }
+        if (other.CompareTag("Wall") && (damageStun == true || stunnedInvincibility == true))
+        {
+            playerRb.velocity = Vector3.zero;
+            if (attackingEnemy.giantBoss == false)
+            {
+                attackingEnemy.GetComponent<Rigidbody>().AddForce(Vector3.back * 10, ForceMode.Impulse);
+            }
+        }
+
     }
 }
 

@@ -171,7 +171,7 @@ public class Gorilla : MonoBehaviour
         yield return new WaitForSeconds(1);
         StartCoroutine(SlamDown());
         enemyScript.SetDamage(3);
-        enemyScript.SetForce(20);
+        enemyScript.SetForce(30);
         enemyScript.SetComboFinisher();
 
     }

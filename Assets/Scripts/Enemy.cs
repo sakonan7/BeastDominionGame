@@ -57,6 +57,7 @@ public class Enemy : MonoBehaviour
     private bool cantBeHit = false;
     public bool isFlying = false;
     public bool giantEnemy = false;
+    public bool giantBoss = false;
     public bool revengeValue = false;
     private int revengeValueCount = 3;
     public bool isLingering = false;
@@ -136,6 +137,11 @@ public class Enemy : MonoBehaviour
     public void IsGiantEnemy()
     {
         giantEnemy = true;
+    }
+    //Is importantbecause giant bosses don't have a rigidbod
+    public void IsGiantBoss()
+    {
+        giantBoss = true;
     }
     //public void SetAttackEffect(ParticleSystem newEffect)
     //{

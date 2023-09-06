@@ -9,7 +9,7 @@ public class Projectile : MonoBehaviour
     private Vector3 followDirection;
     private Vector3 attackDirection;
     private Quaternion lookRotation;
-    public float attackForce = 6;
+    public float attackForce = 0;
     public int damage;
     private float speed;
     public bool comboFinisher = false;
