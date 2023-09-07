@@ -569,7 +569,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  damageDisplay: {fileID: 0}
+  damageDisplay: {fileID: 260633326032570694}
   attackDirection: {x: 0, y: 0, z: 0}
   attackForce: 0
   hitNumber: 0
@@ -587,7 +587,10 @@ MonoBehaviour:
   hitLanded: 0
   isFlying: 0
   giantEnemy: 0
+  giantBoss: 0
   revengeValue: 0
+  isLingering: 0
+  playerDodged: 0
 --- !u!114 &5944822372014709403
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -608,6 +611,7 @@ MonoBehaviour:
   attackEffect: {fileID: 0}
   rabbitAttack: {fileID: 0}
   isOnGround: 0
+  testingStun: 1
 --- !u!54 &9050444478804907408
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2121,6 +2125,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e31bc8f2105a96d48a2019333b15d5b8, type: 3}
+--- !u!102 &260633326032570694 stripped
+TextMesh:
+  m_CorrespondingSourceObject: {fileID: 4137926011392992664, guid: e31bc8f2105a96d48a2019333b15d5b8, type: 3}
+  m_PrefabInstance: {fileID: 4247221456970280158}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &3163339857452515456 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1231551698010090590, guid: e31bc8f2105a96d48a2019333b15d5b8, type: 3}
@@ -2220,11 +2229,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1196799170292239143, guid: daff0023e798dc44da699015a43f2045, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2051056479196780953, guid: daff0023e798dc44da699015a43f2045, type: 3}
       propertyPath: m_Name
       value: Enemy Canvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 3381665938218668454, guid: daff0023e798dc44da699015a43f2045, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7031592552738540327, guid: daff0023e798dc44da699015a43f2045, type: 3}
       propertyPath: m_Pivot.x

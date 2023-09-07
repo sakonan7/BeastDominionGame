@@ -117,7 +117,7 @@ public class PlayerController : MonoBehaviour
     public bool cantMove = false;
 
     private bool transforming = false;
-    private bool cantTransform = false;
+    public bool cantTransform = false;
     public bool stunnedInvincibility;
     private float invincibleFrame;
     private bool noMoreTurn = false;
@@ -1805,8 +1805,29 @@ public class PlayerController : MonoBehaviour
 
                 specialCloseTheDistance = false;
             }
-           }    
+           }
+        if (collision.gameObject.name == "Checkpoint")
+        {
+            SceneManager.LoadScene("Armadillo Scene");
+        }
+        if (collision.gameObject.name == "Checkpoint 2")
+        {
+            SceneManager.LoadScene("Temp Level 3");
+        }
+        if (collision.gameObject.name == "Checkpoint 3")
+        {
+            SceneManager.LoadScene("Temp Level 3");
+        }
+        if (collision.gameObject.CompareTag("Wall") && (damageStun == true || stunnedInvincibility == true))
+        {
+            playerRb.velocity = Vector3.zero;
+            if (attackingEnemy.giantBoss == false)
+            {
+                attackingEnemy.GetComponent<Rigidbody>().AddForce(Vector3.back * 10, ForceMode.Impulse);
+            }
+        }
     }
+
     public void OnCollisionStay(Collision collision)
     {
         if (collision.gameObject.CompareTag("Targeted Enemy") && (closeTheDistance == true || specialCloseTheDistance == true))
@@ -1845,26 +1866,7 @@ public class PlayerController : MonoBehaviour
                 specialCloseTheDistance = false;
             }
         }
-        if (collision.gameObject.name == "Checkpoint" && gameManagerScript.stageCleared == true)
-        {
-            SceneManager.LoadScene("Armadillo Scene");
-        }
-        if (collision.gameObject.name == "Checkpoint 2" && gameManagerScript.stageCleared == true)
-        {
-            SceneManager.LoadScene("Temp Level 3");
-        }
-        if (collision.gameObject.name == "Checkpoint 3" && gameManagerScript.stageCleared == true)
-        {
-            SceneManager.LoadScene("Temp Level 3");
-        }
-        if (collision.gameObject.CompareTag("Wall") && (damageStun == true || stunnedInvincibility == true))
-        {
-            playerRb.velocity = Vector3.zero;
-            if (attackingEnemy.giantBoss == false)
-            {
-                attackingEnemy.GetComponent<Rigidbody>().AddForce(Vector3.back * 10, ForceMode.Impulse);
-            }
-        }
+
     }
     public void OnTriggerEnter(Collider other)
     {
@@ -1879,22 +1881,26 @@ public class PlayerController : MonoBehaviour
             //Debug.Log("Game Start");
         }
 //The thing that was triggering the colliders by accident was the motion blur object. I have removed its collider fornow
-        if (other.gameObject.name == "End Transformation" && gameManagerScript.stageCleared == true)
+//The last part is so that only Bird can triggerthis trigger
+//If I want to make the checkpoints triggers again, I could make it so that the gameObject's name has to be
+//Tiger or Bird so that the motion blue object can't trigger
+///.name == "Bird" didn'twork
+        if (other.gameObject.name == "End Transformation"&&birdActive == true)
         {
             if (cantTransform == false)
             {
                 StartCoroutine(TransformCountdown());
                 //I think I will have tags designated for Walls to fly over
                 //Surprisingly, bird.transform.y worked the same way as transform.position.y + 2.2f
-                transform.position = new Vector3(transform.position.x, bird.transform.position.y - 0.1f, transform.position.z);
+                //transform.position = new Vector3(transform.position.x, bird.transform.position.y - 0.1f, transform.position.z);
             }
             cantTransform = true;
             //Debug.Log("Triggered?");
         }
-        else
-        {
-            cantTransform = false;
-        }
+        //else
+        //{
+            //cantTransform = false;
+        //}
 
 
         //Play attack effect in Enemy and load the effect in the individual script. IE, if Xemnas is using his ethereal blades,
@@ -2064,7 +2070,20 @@ public class PlayerController : MonoBehaviour
 
         }
 
-
+    }
+    public void OnTriggerStay(Collider other)
+    {
+        if (other.CompareTag("NoTransformation") && cantTransform == true)
+        {
+            cantTransform = true;
+        }
+    }
+    public void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("NoTransformation") && cantTransform == true)
+        {
+            cantTransform = false;
+        }
     }
 }
 

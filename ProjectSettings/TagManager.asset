@@ -20,6 +20,7 @@ TagManager:
   - Bird Special
   - Projectile
   - Targeted Enemy
+  - Non Triggerable
   layers:
   - Default
   - TransparentFX

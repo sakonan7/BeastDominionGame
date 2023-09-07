@@ -59,7 +59,7 @@ public class Rabbit : MonoBehaviour
 
     private GameManager gameManager;
     private int HP = 8; //7
-    private bool testingStun = false;
+    public bool testingStun = true;
     private bool testingBehaviors = false;
     private bool moveLeft = false;
     private bool moveRight = true;
