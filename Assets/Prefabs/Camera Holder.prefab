@@ -286,6 +286,7 @@ MonoBehaviour:
   title: {fileID: 0}
   battle: {fileID: 0}
   exploration: {fileID: 0}
+  boss: {fileID: 0}
   victory: {fileID: 0}
   playerObj: {fileID: 0}
   player: {fileID: 0}
@@ -441,7 +442,7 @@ AudioSource:
   m_Volume: 0.211
   m_Pitch: 1
   Loop: 1
-  Mute: 0
+  Mute: 1
   Spatialize: 0
   SpatializePostEffects: 0
   Priority: 128
@@ -597,6 +598,7 @@ MonoBehaviour:
   title: {fileID: 8300000, guid: 7071f57fec7c856409182885800ccaac, type: 3}
   battle: {fileID: 8300000, guid: 36b4babb85f75734da552a5b080a029b, type: 3}
   exploration: {fileID: 8300000, guid: 69db8462629c4b343b9d1c481913b998, type: 3}
+  boss: {fileID: 0}
   victory: {fileID: 8300000, guid: e3204adb58601e44482fe1c089f1e361, type: 3}
   playerObj: {fileID: 0}
   player: {fileID: 0}

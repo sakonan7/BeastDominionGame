@@ -930,6 +930,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: -1.1
       objectReference: {fileID: 0}
+    - target: {fileID: 2595627896750501274, guid: adfe49826da36a34b9ccf722c0ad0d1f, type: 3}
+      propertyPath: m_Name
+      value: Checkpoint 3
+      objectReference: {fileID: 0}
     - target: {fileID: 2975229076739933998, guid: adfe49826da36a34b9ccf722c0ad0d1f, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -952,6 +956,10 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 8310243318f27c6498610a9b44bd35dc, type: 2}
     - target: {fileID: 5885559561077524555, guid: adfe49826da36a34b9ccf722c0ad0d1f, type: 3}
       propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6338059688040988949, guid: adfe49826da36a34b9ccf722c0ad0d1f, type: 3}
+      propertyPath: m_IsTrigger
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7714488863449839122, guid: adfe49826da36a34b9ccf722c0ad0d1f, type: 3}

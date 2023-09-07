@@ -491,7 +491,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 110878629}
-  m_LocalRotation: {x: -0.076344, y: -0.000000015473066, z: -0.000000007526208, w: 0.9970816}
+  m_LocalRotation: {x: -0.076344, y: 0.000000015473066, z: 0.000000007526208, w: 0.9970816}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1067,6 +1067,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   title: {fileID: 0}
   battle: {fileID: 8300000, guid: 36b4babb85f75734da552a5b080a029b, type: 3}
+  exploration: {fileID: 0}
+  boss: {fileID: 0}
   victory: {fileID: 8300000, guid: e3204adb58601e44482fe1c089f1e361, type: 3}
   playerObj: {fileID: 425389402}
   player: {fileID: 425389398}
@@ -2161,6 +2163,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   title: {fileID: 0}
   battle: {fileID: 0}
+  exploration: {fileID: 0}
+  boss: {fileID: 0}
   victory: {fileID: 0}
   playerObj: {fileID: 0}
   player: {fileID: 0}
@@ -2568,7 +2572,7 @@ MeshCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 5

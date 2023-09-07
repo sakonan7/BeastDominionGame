@@ -186,7 +186,7 @@ public class ThirdPersonCamera : MonoBehaviour
     }
     IEnumerator ScreenShake()
     {
-        cinemachineFL.GetComponentInChildren<CinemachineBasicMultiChannelPerlin>().m_AmplitudeGain = 2.5f;
+        cinemachineFL.GetComponentInChildren<CinemachineBasicMultiChannelPerlin>().m_AmplitudeGain = 5f;
         yield return new WaitForSeconds(0.5f);
         cinemachineFL.GetComponentInChildren<CinemachineBasicMultiChannelPerlin>().m_AmplitudeGain = 0;
     }

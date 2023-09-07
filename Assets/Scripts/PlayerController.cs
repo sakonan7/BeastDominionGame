@@ -1845,6 +1845,26 @@ public class PlayerController : MonoBehaviour
                 specialCloseTheDistance = false;
             }
         }
+        if (collision.gameObject.name == "Checkpoint" && gameManagerScript.stageCleared == true)
+        {
+            SceneManager.LoadScene("Armadillo Scene");
+        }
+        if (collision.gameObject.name == "Checkpoint 2" && gameManagerScript.stageCleared == true)
+        {
+            SceneManager.LoadScene("Temp Level 3");
+        }
+        if (collision.gameObject.name == "Checkpoint 3" && gameManagerScript.stageCleared == true)
+        {
+            SceneManager.LoadScene("Temp Level 3");
+        }
+        if (collision.CompareTag("Wall") && (damageStun == true || stunnedInvincibility == true))
+        {
+            playerRb.velocity = Vector3.zero;
+            if (attackingEnemy.giantBoss == false)
+            {
+                attackingEnemy.GetComponent<Rigidbody>().AddForce(Vector3.back * 10, ForceMode.Impulse);
+            }
+        }
     }
     public void OnTriggerEnter(Collider other)
     {
@@ -1858,15 +1878,7 @@ public class PlayerController : MonoBehaviour
             //RunAnimationOff(); //For some reason,now it doesn't work in Game Mana
             //Debug.Log("Game Start");
         }
-        else if (other.gameObject.name == "Checkpoint" && gameManagerScript.stageCleared == true)
-        {
-            SceneManager.LoadScene("Armadillo Scene");
-        }
-        else if (other.gameObject.name == "Checkpoint 2" && gameManagerScript.stageCleared == true)
-        {
-            SceneManager.LoadScene("Temp Level 3");
-        }
-
+//The thing that was triggering the colliders by accident was the motion blur object. I have removed its collider fornow
         if (other.gameObject.name == "End Transformation" && gameManagerScript.stageCleared == true)
         {
             if (cantTransform == false)
@@ -2051,14 +2063,7 @@ public class PlayerController : MonoBehaviour
             }
 
         }
-        if (other.CompareTag("Wall") && (damageStun == true || stunnedInvincibility == true))
-        {
-            playerRb.velocity = Vector3.zero;
-            if (attackingEnemy.giantBoss == false)
-            {
-                attackingEnemy.GetComponent<Rigidbody>().AddForce(Vector3.back * 10, ForceMode.Impulse);
-            }
-        }
+
 
     }
 }
