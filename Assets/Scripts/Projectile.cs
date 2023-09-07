@@ -40,7 +40,7 @@ public class Projectile : MonoBehaviour
         if (playerScript.tigerActive == true)
         {
             tiger = GameObject.Find("Tiger");
-            playerPosition = new Vector3(tiger.transform.position.x, tiger.transform.position.y + 0.1f, tiger.transform.position.z);
+            playerPosition = new Vector3(tiger.transform.position.x, tiger.transform.position.y + 0.2f, tiger.transform.position.z);
             lookRotation = Quaternion.LookRotation(transform.position - tiger.transform.position);
         }
         if (playerScript.birdActive == true)

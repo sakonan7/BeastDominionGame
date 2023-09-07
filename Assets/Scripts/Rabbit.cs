@@ -52,7 +52,7 @@ public class Rabbit : MonoBehaviour
     private float distance;
 
     //The Armadillo will start with a random attack and then cycle between two of 
-    private int whichAttack = 1;
+    private int whichAttack = 0;
     private int attackOne = 0;
     private int attackTwo = 1;
     private bool isTunneled = false;
@@ -100,7 +100,7 @@ public class Rabbit : MonoBehaviour
         cameraRef = GameObject.Find("Main Camera");
         StartCoroutine(IdleAnimation());
         //animator.SetBool("Idle", true);
-        whichAttack = attackTwo;
+        whichAttack = attackOne;
     }
 
     // Update is called once per frame
@@ -148,7 +148,7 @@ public class Rabbit : MonoBehaviour
                     StartCoroutine(PauseBeforeShoot());
                 }
             }
-            if (idle == false && whichAttack == attackOne & runAway == false)
+            if (idle == false && whichAttack == attackOne && runAway == false)
             {
                 attack = true;
                 
@@ -164,7 +164,7 @@ public class Rabbit : MonoBehaviour
                         StartCoroutine(AttackDuration());
                     }
             }
-            if (idle == false && whichAttack == attackTwo)
+            else if (idle == false && whichAttack == attackTwo && runAway == false)
             {
                 attack = true;
 
@@ -177,6 +177,7 @@ public class Rabbit : MonoBehaviour
                 //Need this for archer because then it will keep firingarrows lmao
                 if (attackFinished == false)
                 {
+                    Debug.Log("SecondShot");
                     FireSingleArrow();
                     StartCoroutine(DoubleShootDuration());
                 }
@@ -232,11 +233,16 @@ public class Rabbit : MonoBehaviour
 
         if (whichAttack == attackOne)
         {
+            whichAttack = attackTwo;
         }
         else if (whichAttack == attackTwo)
         {
-            enemyScript.SetComboFinisher();
+            whichAttack = attackOne;
         }
+        //else if (whichAttack == attackTwo)
+        //{
+        //enemyScript.SetComboFinisher();
+        //}
         idleTime = usualIdleTime;
         StartCoroutine(IdleAnimation());
     }
