@@ -119,7 +119,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackForce: 0
-  damage: 0
+  damage: 1
   comboFinisher: 0
   moving: 1
   destroyable: 1

@@ -19,7 +19,7 @@ public class Rabbit : MonoBehaviour
     private float attackForce = 1; //May remove attackForce because Monkey doesn't knock chaarcter back a
     private bool attack = false;
 
-    private bool beginningIdle = false;
+    private bool beginningIdle = true;
 
     private bool idle = true;
     private bool tunnelChase = false;
@@ -128,6 +128,7 @@ public class Rabbit : MonoBehaviour
                                                                                             //StartCoroutine(AttackCountdown());
                 enemyScript.SetDamage(1);
                 enemyScript.SetForce(0);
+                //Need this for archer because then it will keep firingarrows lmao
                     if (attackFinished == false)
                     {
                     FireSingleArrow();
@@ -144,6 +145,7 @@ public class Rabbit : MonoBehaviour
                                                                                             //StartCoroutine(AttackCountdown());
                 enemyScript.SetDamage(1);
                 enemyScript.SetForce(0);
+                //Need this for archer because then it will keep firingarrows lmao
                 if (attackFinished == false)
                 {
                     FireSingleArrow();
@@ -173,7 +175,8 @@ public class Rabbit : MonoBehaviour
         //The challenge is that using lookRotat in Projectile makes the arrow fire away from the play
         animator.SetTrigger("Double Shoot");//If this doesn't work, simply do FireSingleArrow()and then do this method and
         //set this as a trigger instead
-        Instantiate(arrow, new Vector3(firingPosition.position.x, firingPosition.position.y + 2, firingPosition.position.z), new Quaternion(firingPosition.rotation.x, firingPosition.rotation.y + 180, firingPosition.rotation.z, 0));
+        //Instantiate(arrow, new Vector3(firingPosition.position.x, firingPosition.position.y + 2, firingPosition.position.z), new Quaternion(firingPosition.rotation.x, firingPosition.rotation.y + 180, firingPosition.rotation.z, 0));
+        Instantiate(arrow, firingPosition.position, firingPosition.rotation);
     }
     //I thought I wouldn't need an AttackDuration, but I need to deactivate the attackrange
     IEnumerator AttackDuration()
