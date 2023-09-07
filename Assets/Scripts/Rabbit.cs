@@ -207,15 +207,19 @@ public class Rabbit : MonoBehaviour
         ///I tested it out andyes, doing no Time.deltaTime makes the arrow disappear. I think it moved too fast because it
         ///is functioning with frames and there can be millions of frames per second
         animator.SetTrigger("Single Shoot");
-        Instantiate(arrow,firingPosition.position, firingPosition.rotation);
+        Instantiate(arrow,firingPosition.position, arrow.transform.rotation);
     }
     public void FireSecondArrow()
     {
         //The challenge is that using lookRotat in Projectile makes the arrow fire away from the play
         animator.SetTrigger("Double Shoot");//If this doesn't work, simply do FireSingleArrow()and then do this method and
         //set this as a trigger instead
-        Instantiate(arrow, new Vector3(firingPosition.position.x, firingPosition.position.y + 1, firingPosition.position.z), firingPosition.rotation);
+        
         //Instantiate(arrow, firingPosition.position, firingPosition.rotation);
+        if (distance > 8)
+        {
+            Instantiate(arrow, new Vector3(firingPosition.position.x, firingPosition.position.y + 1, firingPosition.position.z), arrow.transform.rotation);
+        }
     }
     //I thought I wouldn't need an AttackDuration, but I need to deactivate the attackrange
     IEnumerator AttackDuration()

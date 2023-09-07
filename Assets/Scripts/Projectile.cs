@@ -33,15 +33,21 @@ public class Projectile : MonoBehaviour
     {
         player = GameObject.Find("Player");
         playerScript = player.GetComponent<PlayerController>();
+        //For some reason I had to reversethe lookRotation or the arrow would have been inverted. It happened even when I inverted
+        //the projectile's y-rotation
+        //it's possible it's because you need to orient the object in the right direction. The 3D models don'tautomatically know what is
+        //front and what is back, so youcan have your character run towards another object while facing away from
         if (playerScript.tigerActive == true)
         {
             tiger = GameObject.Find("Tiger");
             playerPosition = new Vector3(tiger.transform.position.x, tiger.transform.position.y + 0.1f, tiger.transform.position.z);
+            lookRotation = Quaternion.LookRotation(transform.position - tiger.transform.position);
         }
         if (playerScript.birdActive == true)
         {
             bird = GameObject.Find("Bird");
             playerPosition = bird.transform.position;
+            lookRotation = Quaternion.LookRotation(transform.position - bird.transform.position);
         }
         rb = GetComponent<Rigidbody>();
     }
@@ -52,9 +58,11 @@ public class Projectile : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        followDirection = (playerPosition - transform.position).normalized;
         if (moving == true)
         {
-            rb.AddForce((playerPosition - transform.position).normalized * 2, ForceMode.Impulse);
+            rb.AddForce(followDirection * 2, ForceMode.Impulse);
+            transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, 3);
         }
         if (destroyable == false)
         {
