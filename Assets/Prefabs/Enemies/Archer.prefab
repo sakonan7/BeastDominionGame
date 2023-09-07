@@ -603,6 +603,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68164ecc89baf014bbfaac7f5e07938e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  beginningIdle: 1
   attack1: 0
   attack2: 1
   attack3: 2
@@ -611,7 +612,7 @@ MonoBehaviour:
   attackEffect: {fileID: 0}
   rabbitAttack: {fileID: 0}
   isOnGround: 0
-  testingStun: 1
+  testingStun: 0
 --- !u!54 &9050444478804907408
 Rigidbody:
   m_ObjectHideFlags: 0

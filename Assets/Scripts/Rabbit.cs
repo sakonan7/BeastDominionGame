@@ -9,7 +9,7 @@ public class Rabbit : MonoBehaviour
     private GameObject player;
     private PlayerController playerScript;
     private Enemy enemyScript;
-    private float speed = 220;
+    private float speed = 50;
     private Rigidbody rabbitRb;
     private Rigidbody playerRb;
     private Vector3 followDirection;
@@ -19,7 +19,7 @@ public class Rabbit : MonoBehaviour
     private float attackForce = 1; //May remove attackForce because Monkey doesn't knock chaarcter back a
     private bool attack = false;
 
-    private bool beginningIdle = true;
+    public bool beginningIdle = true;
 
     private bool idle = true;
     private bool tunnelChase = false;
@@ -31,6 +31,11 @@ public class Rabbit : MonoBehaviour
     public int attack1 = 0;
     public int attack2 = 1;
     public int attack3 = 2;
+    private Quaternion lookAwayRotation;
+    private bool runAway = false;
+    private bool alreadyRanAway = false;
+    private Vector3 runDirection;
+    private bool pauseThenShoot = false;
 
     public GameObject arrow;
     public Transform firingPosition;
@@ -118,14 +123,38 @@ public class Rabbit : MonoBehaviour
             //they will be set back into IdleAnimation and only have IdleAnimation happen if the foe is not stunned
             //Currently for suspension of disbelief, I will not properly have the rabbit turn right away from the player 
             //And just have the arrow seekthe player
-            if (idle == false && whichAttack == attackOne)
+            distance = Vector3.Distance(player.transform.position, transform.position);
+            lookRotation = Quaternion.LookRotation(player.transform.position - transform.position);
+            if (idle == true && alreadyRanAway == false)
+            {
+                if (distance <= 7)
+                {
+                    Debug.Log("Rabbit distance is " + distance);
+                    runAway = true;
+                    animator.SetBool("Run", true);
+                }
+            }
+            if (runAway == true && stunned == false)
+            {
+                runDirection = transform.position - player.transform.position;
+                lookAwayRotation = Quaternion.LookRotation(transform.position - player.transform.position);
+                transform.rotation = Quaternion.Slerp(transform.rotation, lookAwayRotation, 3);
+                rabbitRb.AddForce(runDirection * 150);
+                if (distance >= 12)
+                {
+                    runAway = false;
+                    animator.SetBool("Run", false);
+                    transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, 3);
+                    StartCoroutine(PauseBeforeShoot());
+                }
+            }
+            if (idle == false && whichAttack == attackOne & runAway == false)
             {
                 attack = true;
                 
-                distance = Vector3.Distance(player.transform.position, transform.position);
-                lookRotation = Quaternion.LookRotation(player.transform.position - transform.position);
-                transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, 3); //Turned from 5 to 3 for smooth
-                                                                                            //StartCoroutine(AttackCountdown());
+                
+                
+                transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, 3);
                 enemyScript.SetDamage(1);
                 enemyScript.SetForce(0);
                 //Need this for archer because then it will keep firingarrows lmao
@@ -161,6 +190,16 @@ public class Rabbit : MonoBehaviour
             }
         }
     }
+    IEnumerator PauseBeforeShoot()
+    {
+        idle = true;
+        alreadyRanAway = true;
+        animator.SetBool("Idle", true);
+        yield return new WaitForSeconds(1.5f);
+        idle = false;
+        alreadyRanAway = false;
+        animator.SetBool("Idle", false);
+    }
     public void FireSingleArrow()
     {
         //firing position works now that I've rearranged a fewthings..
@@ -175,8 +214,8 @@ public class Rabbit : MonoBehaviour
         //The challenge is that using lookRotat in Projectile makes the arrow fire away from the play
         animator.SetTrigger("Double Shoot");//If this doesn't work, simply do FireSingleArrow()and then do this method and
         //set this as a trigger instead
-        //Instantiate(arrow, new Vector3(firingPosition.position.x, firingPosition.position.y + 2, firingPosition.position.z), new Quaternion(firingPosition.rotation.x, firingPosition.rotation.y + 180, firingPosition.rotation.z, 0));
-        Instantiate(arrow, firingPosition.position, firingPosition.rotation);
+        Instantiate(arrow, new Vector3(firingPosition.position.x, firingPosition.position.y + 1, firingPosition.position.z), firingPosition.rotation);
+        //Instantiate(arrow, firingPosition.position, firingPosition.rotation);
     }
     //I thought I wouldn't need an AttackDuration, but I need to deactivate the attackrange
     IEnumerator AttackDuration()
@@ -200,7 +239,7 @@ public class Rabbit : MonoBehaviour
     IEnumerator DoubleShootDuration()
     {
         attackFinished = true;
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(1.5f);
         //armadilloCollide.isTrigger = false;
         attackFinished = false;
 
@@ -239,22 +278,23 @@ public class Rabbit : MonoBehaviour
     }
     public void OnCollisionEnter(Collision collision)
     {
-        //if (collision.gameObject.CompareTag("Player") && attack == true && playerScript.dodge == false)
-        //{
-        //Forgot to change player.transform to tiger.transform, may have messed up the attack cod
-
-        //attack = false; //Doing it over here so that there isn't multiple hits per contact
-        //Debug.Log("Hit");
-        //}
-        if (collision.gameObject.CompareTag("Ground"))
+        if (runAway == true && collision.gameObject.CompareTag("Wall"))
         {
-            //Aerial attack IEnumerator will make isOnGround == false
-            isOnGround = true;
+            runAway = false;
+            animator.SetBool("Run", false);
+            transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, 3);
+            StartCoroutine(PauseBeforeShoot());
         }
-        //else
-        //{
-        //isOnGround = false;
-        //}
+    }
+    public void OnCollisionStay(Collision collision)
+    {
+        if (runAway == true && collision.gameObject.CompareTag("Wall"))
+        {
+            runAway = false;
+            animator.SetBool("Run", false);
+            transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, 3);
+            StartCoroutine(PauseBeforeShoot());
+        }
     }
     public void OnTriggerEnter(Collider other)
     {

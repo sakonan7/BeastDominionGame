@@ -6,6 +6,10 @@ public class Projectile : MonoBehaviour
 {
     private GameObject player;
     private PlayerController playerScript;
+    private Vector3 playerPosition;
+    private GameObject tiger;
+    private GameObject bird;
+    private Rigidbody rb;
     private Vector3 followDirection;
     private Vector3 attackDirection;
     private Quaternion lookRotation;
@@ -28,7 +32,18 @@ public class Projectile : MonoBehaviour
     void Start()
     {
         player = GameObject.Find("Player");
-        playerScript = player.GetComponent<PlayerController>();       
+        playerScript = player.GetComponent<PlayerController>();
+        if (playerScript.tigerActive == true)
+        {
+            tiger = GameObject.Find("Tiger");
+            playerPosition = new Vector3(tiger.transform.position.x, tiger.transform.position.y + 0.1f, tiger.transform.position.z);
+        }
+        if (playerScript.birdActive == true)
+        {
+            bird = GameObject.Find("Bird");
+            playerPosition = bird.transform.position;
+        }
+        rb = GetComponent<Rigidbody>();
     }
     public void SetAttackForce()
     {
@@ -39,7 +54,7 @@ public class Projectile : MonoBehaviour
     {
         if (moving == true)
         {
-            transform.Translate(Vector3.back * 15 * Time.deltaTime);
+            rb.AddForce((playerPosition - transform.position).normalized * 2, ForceMode.Impulse);
         }
         if (destroyable == false)
         {
