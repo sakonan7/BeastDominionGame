@@ -11,6 +11,9 @@ public class Wolf3 : MonoBehaviour
     private GameObject player;
     private PlayerController playerScript;
     private Enemy enemyScript;
+    private float walkSpeed = 65;
+    private int walkDirection;
+    private bool directionChosen = false;
     private float speed = 220;
     private Rigidbody wolfRb;
     private Rigidbody playerRb;
@@ -89,6 +92,7 @@ public class Wolf3 : MonoBehaviour
 
         cameraRef = GameObject.Find("Main Camera");
 
+        ChooseDirection();
         StartCoroutine(IdleAnimation());
     }
 
@@ -116,6 +120,7 @@ public class Wolf3 : MonoBehaviour
         }
         if (testingStun == false)
         {
+
 
             if (idle == false && chase == true && stunned == false)
             {
@@ -149,7 +154,7 @@ public class Wolf3 : MonoBehaviour
                     Debug.Log("Reached");
                     animator.SetBool("Dash", false);
                     chase = false;
-                    jumpForce = 3;
+                    //jumpForce = 3;
                     CorkScrew();
                     //StartCoroutine(AttackDuration());
                     attackFinished = true;
@@ -194,13 +199,17 @@ public class Wolf3 : MonoBehaviour
                                                                                     //Debug.Log("Corkscrew");
                                                                                     //I don't think this is going to make much of a difference, but attack aura keeps spazzing 
         //attackAura.SetActive(true);
-        attackRange.SetActive(true);
+        //attackRange.SetActive(true);
         //StartCoroutine(AttackDuration());
         //attackCounter = 1;
 
         attack = true;
         //wolfRb.constraints = RigidbodyConstraints.FreezeRotation;
         //attackCounter = 1; //Putting it here because regardless, the wolf will not repeat an attack
+        if (enemyScript.hitLanded == true)
+        {
+            enemyScript.SetPlayerDodged();//So player can't be hit multiple times by this att
+        }
         yield return new WaitForSeconds(0.4f);
         animator.SetBool("Ground Attack", false);
         attack = false;
@@ -211,12 +220,12 @@ public class Wolf3 : MonoBehaviour
         Debug.Log("Attack over");
         //JumpBack();
         attackFinished = true;
-
+        enemyScript.UnsetPlayerDodged();
     }
     public void CorkScrew()
     {
             //animation.Play("Wolf Corkscrew");
-            animator.SetBool("Ground Attack", true);
+            //animator.SetBool("Ground Attack", true);
             //animator.speed = 3;
             wolfRb.AddForce(followDirection * jumpForce, ForceMode.Impulse);
             //attackRecoil = (transform.position - playerPosition).normalized;
@@ -230,7 +239,7 @@ public class Wolf3 : MonoBehaviour
             StartCoroutine(AttackDuration());
             //attackCounter = 1;
             //Debug.Log("Attack repeated for some rea");
-            animator.SetBool("Ground Attack", false);
+            //animator.SetBool("Ground Attack", false);
     }
     //Change code. Monkey will start by running at the character and then within range, attack. Afterwards, the monkey will wait 4 seconds
     //Before attacking again
@@ -372,11 +381,35 @@ public class Wolf3 : MonoBehaviour
         attack = false;
         Debug.Log("Start Air Attack");
     }
+    public void ChooseDirection()
+    {
+        //0 == left walk, 1 == right walk
+        walkDirection = Random.Range(0, 2);
+        directionChosen = true;
+        //Debug.Log(walkDirection);
+        //Debug.Log("Direction Chosen");
+    }
     IEnumerator IdleAnimation()
     {
         idle = true;
         //animation.Play("Idle");
         animator.SetBool("Idle", true);
+        if (walkDirection == 0)
+        {
+            wolfRb.AddForce(Vector3.left * walkSpeed);
+        }
+        else if (walkDirection == 1)
+        {
+            wolfRb.AddForce(Vector3.right * walkSpeed);
+        }
+        //I think walking diagonally is good because I think dogs walk diagonally, not side
+        //if (walkUpDownDirection == 0)
+        //{
+        //Debug.Log("Left Walk");
+        //wolfRb.AddForce(Vector3.fwd * walkSpeed);
+        //}
+        //Debug.Log("Right Walk");
+        wolfRb.AddForce(Vector3.back * walkSpeed);
         //For the timebeing, turn off the player's monkey range
         //playerScript.monkeyRange.SetActive(false);
         if (beginningIdle == true)

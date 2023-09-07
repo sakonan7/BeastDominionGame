@@ -51,7 +51,7 @@ public class GameManager : MonoBehaviour
     public GameObject HPDisplay;
     public TextMeshProUGUI congratulationsMessage;
 
-    public static bool tutorialStage = false;
+    public static bool tutorialStage = true;
     public static bool stage2 = false;
     public static bool stage3 = false;
     public static bool bossStage = false;
@@ -179,10 +179,15 @@ public class GameManager : MonoBehaviour
             }
             if (stage2 == true)
             {
-                tutorialStage = false;
+                stage2 = false;//This was accidentally tutorialStage = false. i wonder what was sending me to the next scenelo
                 stage3 = true;
             }
-            
+            if (stage3 == true)
+            {
+                stage3 = false;
+                bossStage = true;
+            }
+
         }
         //Oh, thiswas causing a glitch
         //if (Input.GetMouseButtonDown(0) && gameEnd == true)
@@ -340,7 +345,7 @@ public class GameManager : MonoBehaviour
         Vector3 wolfLocation = enemies[0].transform.position;
         //wolfLocation.x + 4
         //wolfLocation.y + 0.1f
-        Instantiate(enemies[1], new Vector3(player.transform.position.x - 1.5f, wolfLocation.y + 0.1f, wolfLocation.z - 6), enemies[0].transform.rotation);
+        Instantiate(enemies[0], new Vector3(player.transform.position.x - 1.5f, wolfLocation.y + 0.1f, wolfLocation.z - 6), enemies[0].transform.rotation);
 
         //Instantiate(enemies[0], new Vector3(player.transform.position.x - 1.5f, wolfLocation.y, wolfLocation.z - 6), enemies[0].transform.rotation);
 
@@ -353,7 +358,7 @@ public class GameManager : MonoBehaviour
         //Instantiate(enemies[2], new Vector3(enemies[2].transform.position.x, enemies[2].transform.position.y, enemies[2].transform.position.z), enemies[2].transform.rotation);
         Vector3 wolfLocation = enemies[0].transform.position;
         //wolfLocation.x + 4
-        Instantiate(enemies[1], new Vector3(player.transform.position.x - 1.5f, wolfLocation.y, wolfLocation.z - 6), enemies[0].transform.rotation);
+        Instantiate(enemies[2], new Vector3(player.transform.position.x - 1.5f, wolfLocation.y, wolfLocation.z - 6), enemies[0].transform.rotation);
         playerScript.TransformLock();
         numOfEnemies = 1;
     }
@@ -361,7 +366,7 @@ public class GameManager : MonoBehaviour
     {
         Vector3 wolfLocation = enemies[0].transform.position;
         //wolfLocation.x + 4
-        Instantiate(enemies[1], new Vector3(player.transform.position.x - 6f, wolfLocation.y, wolfLocation.z - 6), enemies[0].transform.rotation);
+        Instantiate(enemies[3], new Vector3(player.transform.position.x - 6f, wolfLocation.y, wolfLocation.z - 6), enemies[0].transform.rotation);
         playerScript.TransformLock();
     }
     public void BossLevel()

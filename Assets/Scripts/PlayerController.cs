@@ -1857,7 +1857,7 @@ public class PlayerController : MonoBehaviour
         {
             SceneManager.LoadScene("Temp Level 3");
         }
-        if (collision.CompareTag("Wall") && (damageStun == true || stunnedInvincibility == true))
+        if (collision.gameObject.CompareTag("Wall") && (damageStun == true || stunnedInvincibility == true))
         {
             playerRb.velocity = Vector3.zero;
             if (attackingEnemy.giantBoss == false)
