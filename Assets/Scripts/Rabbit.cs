@@ -95,7 +95,7 @@ public class Rabbit : MonoBehaviour
         cameraRef = GameObject.Find("Main Camera");
         StartCoroutine(IdleAnimation());
         //animator.SetBool("Idle", true);
-        whichAttack = attackOne;
+        whichAttack = attackTwo;
     }
 
     // Update is called once per frame
@@ -134,23 +134,21 @@ public class Rabbit : MonoBehaviour
                         StartCoroutine(AttackDuration());
                     }
             }
-            if (idle == false && whichAttack == attackTwo && tunnelChase == true && stunned == false)
+            if (idle == false && whichAttack == attackTwo)
             {
                 attack = true;
-                followDirection = (player.transform.position - transform.position).normalized;
+
                 distance = Vector3.Distance(player.transform.position, transform.position);
                 lookRotation = Quaternion.LookRotation(player.transform.position - transform.position);
-                rabbitRb.AddForce(followDirection * speed);
                 transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, 3); //Turned from 5 to 3 for smooth
                                                                                             //StartCoroutine(AttackCountdown());
-                enemyScript.SetDamage(2);
+                enemyScript.SetDamage(1);
                 enemyScript.SetForce(0);
-                    if (attackFinished == false)
-                    {
-                        //PopUp();
-                        StartCoroutine(AttackDuration());
-                        enemyScript.SetCantBeHit();
-                    }
+                if (attackFinished == false)
+                {
+                    FireSingleArrow();
+                    StartCoroutine(DoubleShootDuration());
+                }
             }
             //May not need this because Rabbit will technically not be off the ground
             if (attackFinished == true && isOnGround == true)
@@ -173,7 +171,7 @@ public class Rabbit : MonoBehaviour
     public void FireSecondArrow()
     {
         //The challenge is that using lookRotat in Projectile makes the arrow fire away from the play
-        animator.SetBool("Double Shot", true);//If this doesn't work, simply do FireSingleArrow()and then do this method and
+        animator.SetTrigger("Double Shoot");//If this doesn't work, simply do FireSingleArrow()and then do this method and
         //set this as a trigger instead
         Instantiate(arrow, new Vector3(firingPosition.position.x, firingPosition.position.y + 2, firingPosition.position.z), new Quaternion(firingPosition.rotation.x, firingPosition.rotation.y + 180, firingPosition.rotation.z, 0));
     }
@@ -196,6 +194,26 @@ public class Rabbit : MonoBehaviour
         idleTime = usualIdleTime;
         StartCoroutine(IdleAnimation());
     }
+    IEnumerator DoubleShootDuration()
+    {
+        attackFinished = true;
+        yield return new WaitForSeconds(1f);
+        //armadilloCollide.isTrigger = false;
+        attackFinished = false;
+
+        distance = Vector3.Distance(player.transform.position, transform.position);
+        lookRotation = Quaternion.LookRotation(player.transform.position - transform.position);
+        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, 3); //Turned from 5 to 3 for smooth
+                                                                                    //StartCoroutine(AttackCountdown());
+        enemyScript.SetDamage(1);
+        enemyScript.SetForce(0);
+        if (attackFinished == false)
+        {
+            FireSecondArrow();
+            StartCoroutine(AttackDuration());
+        }
+
+    }
 
     IEnumerator IdleAnimation()
     {
@@ -212,8 +230,8 @@ public class Rabbit : MonoBehaviour
         beginningIdle = false;
         idle = false;
         tunnelChase = true;
-        Debug.Log("Attack Start");
-        //animator.SetBool("Idle", false);
+        //Debug.Log("Attack Start");
+        animator.SetBool("Idle", false);
         //animator.SetBool("Chase", true);
     }
     public void OnCollisionEnter(Collision collision)
