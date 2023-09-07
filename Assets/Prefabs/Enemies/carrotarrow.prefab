@@ -121,7 +121,7 @@ MonoBehaviour:
   attackForce: 0
   damage: 0
   comboFinisher: 0
-  moving: 0
+  moving: 1
   destroyable: 1
   lifeTime: 0
   leftAttack: 0

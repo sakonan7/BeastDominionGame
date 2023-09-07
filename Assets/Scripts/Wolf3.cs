@@ -11,8 +11,8 @@ public class Wolf3 : MonoBehaviour
     private GameObject player;
     private PlayerController playerScript;
     private Enemy enemyScript;
-    private float walkSpeed = 65;
-    private int walkDirection;
+    private float walkSpeed = 100;
+    private int walkDirection = 0;
     private bool directionChosen = false;
     private float speed = 220;
     private Rigidbody wolfRb;
@@ -23,7 +23,7 @@ public class Wolf3 : MonoBehaviour
     private float jumpForce = 70; //Slight jump before attack
     private float attackForce = 1; //May remove attackForce because Monkey doesn't knock chaarcter back a
     private bool attack = false;
-    private bool beginningIdle = false;
+    private bool beginningIdle = true;
     private bool idle = true;
     private bool chase = false;
     private bool playerStunned = false; //For if the Tiger is hit by the first claw. Tiger will always get hit twice
@@ -121,6 +121,25 @@ public class Wolf3 : MonoBehaviour
         if (testingStun == false)
         {
 
+            if (idle == true)
+            {
+                if (walkDirection == 0)
+                {
+                    wolfRb.AddForce(Vector3.left * walkSpeed);
+                }
+                else if (walkDirection == 1)
+                {
+                    wolfRb.AddForce(Vector3.right * walkSpeed);
+                }
+                //I think walking diagonally is good because I think dogs walk diagonally, not side
+                //if (walkUpDownDirection == 0)
+                //{
+                //Debug.Log("Left Walk");
+                //wolfRb.AddForce(Vector3.fwd * walkSpeed);
+                //}
+                //Debug.Log("Right Walk");
+                wolfRb.AddForce(Vector3.back * walkSpeed);
+            }
 
             if (idle == false && chase == true && stunned == false)
             {
@@ -165,6 +184,7 @@ public class Wolf3 : MonoBehaviour
             {
                 attackFinished = false;
                 idleTime = usualIdleTime;
+                ChooseDirection();
                 StartCoroutine(IdleAnimation());
             }
         }
@@ -387,29 +407,14 @@ public class Wolf3 : MonoBehaviour
         walkDirection = Random.Range(0, 2);
         directionChosen = true;
         //Debug.Log(walkDirection);
-        //Debug.Log("Direction Chosen");
+        Debug.Log("Direction Chosen");
     }
     IEnumerator IdleAnimation()
     {
         idle = true;
         //animation.Play("Idle");
         animator.SetBool("Idle", true);
-        if (walkDirection == 0)
-        {
-            wolfRb.AddForce(Vector3.left * walkSpeed);
-        }
-        else if (walkDirection == 1)
-        {
-            wolfRb.AddForce(Vector3.right * walkSpeed);
-        }
-        //I think walking diagonally is good because I think dogs walk diagonally, not side
-        //if (walkUpDownDirection == 0)
-        //{
-        //Debug.Log("Left Walk");
-        //wolfRb.AddForce(Vector3.fwd * walkSpeed);
-        //}
-        //Debug.Log("Right Walk");
-        wolfRb.AddForce(Vector3.back * walkSpeed);
+
         //For the timebeing, turn off the player's monkey range
         //playerScript.monkeyRange.SetActive(false);
         if (beginningIdle == true)
@@ -435,6 +440,7 @@ public class Wolf3 : MonoBehaviour
         animator.SetBool("Dash", true);
         //playerScript.monkeyRange.SetActive(true);
         Debug.Log("Cooldown finished");
+        directionChosen = false;
     }
     //IEnumerator Fall()
     // {
