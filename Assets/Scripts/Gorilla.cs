@@ -8,6 +8,7 @@ public class Gorilla : MonoBehaviour
     private Animator animator;
     //public GameObject HPBar;
     private GameObject cameraRef;
+    private ThirdPersonCamera camScript;
     private GameObject player;
     private PlayerController playerScript;
     private Enemy enemyScript;
@@ -37,6 +38,9 @@ public class Gorilla : MonoBehaviour
     public ParticleSystem attackEffect;
     public GameObject fireCrater;
     private Projectile craterScript;
+    public GameObject warningLightSmall;
+    private bool slamComing = false;
+    public GameObject motionBlurObject;
     private AudioSource audio;
     public AudioClip monkeyAttack;
     private float attackVol;
@@ -95,6 +99,7 @@ public class Gorilla : MonoBehaviour
         enemyScript.IsGiantEnemy();
 
         cameraRef = GameObject.Find("Main Camera");
+        camScript = cameraRef.GetComponent<ThirdPersonCamera>();
 
         //StartCoroutine(IdleAnimation());
         StartCoroutine(Cutscene());
@@ -132,6 +137,12 @@ public class Gorilla : MonoBehaviour
             //}
             //}
             attackFinished = true;
+            
+        }
+        if (slamComing == true)
+        {
+            StartCoroutine(WarningLightRegular());
+            warningLightSmall.transform.position = new Vector3(player.transform.position.x, warningLightSmall.transform.position.y, player.transform.position.z);
         }
     }
     IEnumerator IdleAnimation()
@@ -173,22 +184,35 @@ public class Gorilla : MonoBehaviour
         enemyScript.SetDamage(3);
         enemyScript.SetForce(30);
         enemyScript.SetComboFinisher();
-
+        slamComing = true;
+    }
+    IEnumerator WarningLightRegular()
+    {
+        warningLightSmall.SetActive(true);
+        yield return new WaitForSeconds(0.1f);
+        warningLightSmall.SetActive(false);
     }
     IEnumerator SlamDown()
     {
         
         enemyScript.RightKnockBack();
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.2f);
         animation.Play("Single Slam");
         //Potentially move the Gorill move a few inches closer so that it's fist is closer to the aren
         StartCoroutine(SlamAttackDuration());
         StartCoroutine(ShockWaveAppears());
+        
+        //Place warningLightSmall in exactly where the player is for a directhit
+        //StartCoroutine(WarningLightRegular());
     }
     IEnumerator ShockWaveAppears()
     {
         yield return new WaitForSeconds(0.5f);
         regularShockWave.SetActive(true);
+        motionBlurObject.SetActive(true);
+        slamComing = false;
+        warningLightSmall.SetActive(false);
+        camScript.ScreenShakeMethod();
     }
     IEnumerator SlamAttackDuration()
     {
@@ -198,6 +222,7 @@ public class Gorilla : MonoBehaviour
         yield return new WaitForSeconds(1f);
         slamAttackRange.SetActive(false);
         regularShockWave.SetActive(false);
+        motionBlurObject.SetActive(false);
         //armadilloCollide.isTrigger = false;
         attackFinished = false;
         attack = false;

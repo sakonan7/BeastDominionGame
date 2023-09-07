@@ -23,6 +23,7 @@ public class Projectile : MonoBehaviour
     public bool backAttack = false;
     public bool isLingering = false;
     public bool playerDodged = false;
+    public bool canHurtFlying = true;
     // Start is called before the first frame update
     void Start()
     {

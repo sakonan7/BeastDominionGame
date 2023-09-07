@@ -579,6 +579,77 @@ Transform:
   m_Father: {fileID: 5947310995551033804}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1631063087952596400
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4820279632381544401}
+  - component: {fileID: 7322680895479461236}
+  - component: {fileID: 4615795673425057770}
+  m_Layer: 3
+  m_Name: Motion Blur Storage
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &4820279632381544401
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1631063087952596400}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.74, y: 0, z: 2.52}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6987869514440069686}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7322680895479461236
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1631063087952596400}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b9a305e18de0c04dbd257a21cd47087, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sharedProfile: {fileID: 11400000, guid: 245924b4d1d74dd4db454c92a83c2e8a, type: 2}
+  isGlobal: 0
+  blendDistance: 10
+  weight: 1
+  priority: 0
+--- !u!65 &4615795673425057770
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1631063087952596400}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 100, y: 40, z: 130}
+  m_Center: {x: 0, y: 20, z: 30}
 --- !u!1 &1644340105413561392
 GameObject:
   m_ObjectHideFlags: 0
@@ -1740,6 +1811,7 @@ Transform:
   - {fileID: 3967621082220537369}
   - {fileID: 8605316032565017692}
   - {fileID: 2374744371624459960}
+  - {fileID: 4820279632381544401}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
@@ -1803,8 +1875,10 @@ MonoBehaviour:
   firstClawSlash: {fileID: 0}
   secondClawSlash: {fileID: 0}
   slamAttackRange: {fileID: 3180877536571746903}
+  regularShockWave: {fileID: 0}
   attackEffect: {fileID: 0}
   fireCrater: {fileID: 5229749047291934494, guid: 1a2c6072ef2ee724ebaf4f545fc61d31, type: 3}
+  motionBlurObject: {fileID: 1631063087952596400}
   monkeyAttack: {fileID: 0}
   isOnGround: 0
 --- !u!111 &4673134653771710273
@@ -1863,7 +1937,10 @@ MonoBehaviour:
   hitLanded: 0
   isFlying: 0
   giantEnemy: 0
+  giantBoss: 0
   revengeValue: 0
+  isLingering: 0
+  playerDodged: 0
 --- !u!1 &3745737437608188115
 GameObject:
   m_ObjectHideFlags: 0

@@ -180,4 +180,14 @@ public class ThirdPersonCamera : MonoBehaviour
             cinemachineFL.m_LookAt = birdFollow;
         }
     }
+    public void ScreenShakeMethod()
+    {
+        StartCoroutine(ScreenShake());
+    }
+    IEnumerator ScreenShake()
+    {
+        cinemachineFL.GetComponentInChildren<CinemachineBasicMultiChannelPerlin>().m_AmplitudeGain = 2.5f;
+        yield return new WaitForSeconds(0.5f);
+        cinemachineFL.GetComponentInChildren<CinemachineBasicMultiChannelPerlin>().m_AmplitudeGain = 0;
+    }
 }

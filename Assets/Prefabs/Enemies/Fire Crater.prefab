@@ -287,3 +287,4 @@ MonoBehaviour:
   backAttack: 0
   isLingering: 1
   playerDodged: 0
+  canHurtFlying: 0

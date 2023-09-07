@@ -1670,7 +1670,7 @@ public class PlayerController : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         noMoreTurn = false;
         bird.transform.rotation = originalRotation;
-        Debug.Log("Return");
+        //Debug.Log("Return");
     }
         IEnumerator Reorient0()
     {
@@ -1998,9 +1998,7 @@ public class PlayerController : MonoBehaviour
             Projectile projectileScript = other.gameObject.GetComponent<Projectile>();
             //playerRb.AddForce(-orientation.forward * projectileScript.attackForce, ForceMode.Impulse);
             //projectileScript.AttackLanded(0);
-            LoseHP(projectileScript.damage, 1);
-            StartCoroutine(DamageDisplayed());
-            StartCoroutine(DamageStunStart());
+
             //enemyScript.PlayAttackEffect();
             if (tigerActive == true)
             {
@@ -2016,8 +2014,20 @@ public class PlayerController : MonoBehaviour
                 {
                     playerRb.AddForce(Vector3.back * projectileScript.attackForce, ForceMode.Impulse);
                 }
+                LoseHP(projectileScript.damage, 1);
+                StartCoroutine(DamageDisplayed());
+                if (projectileScript.comboFinisher == false)
+                {
+                    StartCoroutine(DamageStunStart());
+                }
+                if (projectileScript.comboFinisher == true)
+                {
+                    StartCoroutine(StunDuration());
+                    Debug.Log("Stun Duration is equal to " + stunnedInvincibility);
+                    //playerRb.AddForce(-orientation.forward * enemyScript.attackForce, ForceMode.Impulse);
+                }
             }
-            else if (birdActive == true)
+            else if (birdActive == true && projectileScript.canHurtFlying == true)
             {
                 if (isFlying == false)
                 {
@@ -2025,19 +2035,21 @@ public class PlayerController : MonoBehaviour
                     bird.transform.Translate(0, 1.5f, 0);
                     birdSeparater.SetActive(true);
                 }
-
+                LoseHP(projectileScript.damage * 2, 1);
+                StartCoroutine(DamageDisplayed());
                 playerRb.AddForce(Vector3.back * projectileScript.attackForce, ForceMode.Impulse);
+                if (projectileScript.comboFinisher == false)
+                {
+                    StartCoroutine(DamageStunStart());
+                }
+                if (projectileScript.comboFinisher == true)
+                {
+                    StartCoroutine(StunDuration());
+                    Debug.Log("Stun Duration is equal to " + stunnedInvincibility);
+                    //playerRb.AddForce(-orientation.forward * enemyScript.attackForce, ForceMode.Impulse);
+                }
             }
-            if (projectileScript.comboFinisher == false)
-            {
-                StartCoroutine(DamageStunStart());
-            }
-            if (projectileScript.comboFinisher == true)
-            {
-                StartCoroutine(StunDuration());
-                Debug.Log("Stun Duration is equal to " + stunnedInvincibility);
-                //playerRb.AddForce(-orientation.forward * enemyScript.attackForce, ForceMode.Impulse);
-            }
+
         }
         if (other.CompareTag("Wall") && (damageStun == true || stunnedInvincibility == true))
         {

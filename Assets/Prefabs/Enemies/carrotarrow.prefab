@@ -118,7 +118,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21dd6dc6728404b499305adc3cdaba45, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackForce: 6
+  attackForce: 0
   damage: 0
   comboFinisher: 0
   moving: 0
@@ -127,5 +127,6 @@ MonoBehaviour:
   leftAttack: 0
   rightAttack: 0
   backAttack: 0
-  isLingering: 1
+  isLingering: 0
   playerDodged: 0
+  canHurtFlying: 1
