@@ -121,62 +121,65 @@ public class Wolf3 : MonoBehaviour
         if (testingStun == false)
         {
 
-            if (idle == true)
+if (stunned == false)
             {
-                if (walkDirection == 0)
+                if (idle == true)
                 {
-                    wolfRb.AddForce(Vector3.left * walkSpeed);
+                    if (walkDirection == 0)
+                    {
+                        wolfRb.AddForce(Vector3.left * walkSpeed);
+                    }
+                    else if (walkDirection == 1)
+                    {
+                        wolfRb.AddForce(Vector3.right * walkSpeed);
+                    }
+                    //I think walking diagonally is good because I think dogs walk diagonally, not side
+                    //if (walkUpDownDirection == 0)
+                    //{
+                    //Debug.Log("Left Walk");
+                    //wolfRb.AddForce(Vector3.fwd * walkSpeed);
+                    //}
+                    //Debug.Log("Right Walk");
+                    wolfRb.AddForce(Vector3.back * walkSpeed);
                 }
-                else if (walkDirection == 1)
-                {
-                    wolfRb.AddForce(Vector3.right * walkSpeed);
-                }
-                //I think walking diagonally is good because I think dogs walk diagonally, not side
-                //if (walkUpDownDirection == 0)
-                //{
-                //Debug.Log("Left Walk");
-                //wolfRb.AddForce(Vector3.fwd * walkSpeed);
-                //}
-                //Debug.Log("Right Walk");
-                wolfRb.AddForce(Vector3.back * walkSpeed);
-            }
 
-            if (idle == false && chase == true && stunned == false)
-            {
-                //animation.Play("Run");
-
-                //I think i should do the direction following outside of this
-                //Either way, it looks like the Monkey only does it at the start and never rotates to face the tiger again
-                //Vector3 newDirection;
-                //if (playerScript.tigerActive == true)
-                //{
-                followDirection = (player.transform.position - transform.position).normalized;
-                //newDirection = Vector3.RotateTowards(transform.forward, tiger.transform.position, speed * Time.deltaTime, 0.0f);
-                //transform.rotation = Quaternion.LookRotation(newDirection);
-                ///}
-                //else if (playerScript.birdActive == true)
-                //{
-                //followDirection = (bird.transform.position - transform.position).normalized;
-                //newDirection = Vector3.RotateTowards(transform.forward, bird.transform.position, speed * Time.deltaTime, 0.0f);
-                //transform.rotation = Quaternion.LookRotation(newDirection);
-                //}
-                distance = Vector3.Distance(player.transform.position, transform.position);
-                //playerPosition = tiger.transform.position;
-                //attackRange.transform.position = tiger.transform.position;
-                //distance = Vector3.Distance(player.transform.position, transform.position);
-                lookRotation = Quaternion.LookRotation(player.transform.position - transform.position);
-                wolfRb.AddForce(followDirection * speed);
-                transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, 3); //Turned from 5 to 3 for smooth
-                                                                                            //StartCoroutine(AttackCountdown());
-                if (distance <= 4)
+                if (idle == false && chase == true)
                 {
-                    Debug.Log("Reached");
-                    animator.SetBool("Dash", false);
-                    chase = false;
-                    //jumpForce = 3;
-                    CorkScrew();
-                    //StartCoroutine(AttackDuration());
-                    attackFinished = true;
+                    //animation.Play("Run");
+
+                    //I think i should do the direction following outside of this
+                    //Either way, it looks like the Monkey only does it at the start and never rotates to face the tiger again
+                    //Vector3 newDirection;
+                    //if (playerScript.tigerActive == true)
+                    //{
+                    followDirection = (player.transform.position - transform.position).normalized;
+                    //newDirection = Vector3.RotateTowards(transform.forward, tiger.transform.position, speed * Time.deltaTime, 0.0f);
+                    //transform.rotation = Quaternion.LookRotation(newDirection);
+                    ///}
+                    //else if (playerScript.birdActive == true)
+                    //{
+                    //followDirection = (bird.transform.position - transform.position).normalized;
+                    //newDirection = Vector3.RotateTowards(transform.forward, bird.transform.position, speed * Time.deltaTime, 0.0f);
+                    //transform.rotation = Quaternion.LookRotation(newDirection);
+                    //}
+                    distance = Vector3.Distance(player.transform.position, transform.position);
+                    //playerPosition = tiger.transform.position;
+                    //attackRange.transform.position = tiger.transform.position;
+                    //distance = Vector3.Distance(player.transform.position, transform.position);
+                    lookRotation = Quaternion.LookRotation(player.transform.position - transform.position);
+                    wolfRb.AddForce(followDirection * speed);
+                    transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, 3); //Turned from 5 to 3 for smooth
+                                                                                                //StartCoroutine(AttackCountdown());
+                    if (distance <= 4)
+                    {
+                        Debug.Log("Reached");
+                        animator.SetBool("Dash", false);
+                        chase = false;
+                        //jumpForce = 3;
+                        CorkScrew();
+                        //StartCoroutine(AttackDuration());
+                        attackFinished = true;
+                    }
                 }
             }
             // && isOnGround == true
@@ -261,120 +264,7 @@ public class Wolf3 : MonoBehaviour
             //Debug.Log("Attack repeated for some rea");
             //animator.SetBool("Ground Attack", false);
     }
-    //Change code. Monkey will start by running at the character and then within range, attack. Afterwards, the monkey will wait 4 seconds
-    //Before attacking again
-    IEnumerator FirstClaw()
-    {
-        //Want to expand the Monkey's collider slightly
-        //StartCoroutine(Attack());
-        //Debug.Log("First Claw");
 
-        //May want to do a counter so that an attack doesn't re
-        attack = true;
-        //firstClawSlash.SetActive(true);
-        attackRange.SetActive(true);
-        //enemyScript.SetAttackEffect(attackEffect); //Doing this for practice for when I have enemies with multiple attacks
-        //Necessary because there's enough time for the Monkey to repeat an attack on the bird
-        //May not be necessary after my edit to the collider
-        enemyScript.SetAttackDirection(followDirection);
-        enemyScript.SetForce(0);
-        //lookRotation = Quaternion.LookRotation(player.transform.position - transform.position);
-        //monkeyRb.AddForce(followDirection * speed);
-        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, 5); //For extra right target turning
-        //if (stunned == false && playerStunned == false && playerScript.specialInvincibility == false)
-        //{
-        //if (hitOnce == false)
-        //{
-        if (playerScript.tigerActive == true)
-        {
-            //followDirection = (tiger.transform.position - transform.position).normalized;
-            //monkeyRb.AddForce(followDirection * jumpForce, ForceMode.Impulse);
-            //monkeyRb.AddForce(Vector3.up * 2, ForceMode.Impulse); //For jumping, may need to modify gravity
-                                                                  //attackCount++;
-        }
-        else if (playerScript.birdActive == true)
-        {
-            //followDirection = (bird.transform.position - transform.position).normalized;
-            //monkeyRb.AddForce(followDirection, ForceMode.Impulse);
-            //monkeyRb.AddForce(Vector3.up * 5, ForceMode.Impulse); //For jumping, may need to modify gravity
-
-        }
-        //If that doesn't work, put an if (dodge == false
-
-        //animation.Play("Attack");
-        animator.SetBool("Attack 1", true);
-        isOnGround = false; //Will always have this happen, because both attacks make the Monkey jump
-        //}
-        //if (enemyScript.hitLanded == true)
-        //{
-        //PlayAttackEffect();
-        //}
-        //monkeyRb.constraints = RigidbodyConstraints.FreezeRotation;
-        attackVol = firstAttackVol;
-        yield return new WaitForSeconds(1.5f);
-        animator.SetBool("Attack 1", false);
-        attack = false;
-        //firstClawSlash.SetActive(false);
-        attackRange.SetActive(false);
-        //For simplicity, second claw attack will only happen if player was hit by the first
-        if (playerScript.tigerActive == true && enemyScript.hitLanded == true)
-        {
-            //hitCount = 1;
-            StartCoroutine(SecondClaw());
-            enemyScript.SetComboAttack(); //I put this here because if the IEnumerator goes on too long, it'll set the comboAttack repeatedly
-        }
-        else
-        {
-            attackFinished = true; //IdleAnimation() is not played here because it plays in Update when the Monkey has returned to the 
-            //playerStunned = false; //Because a second atack will not be made on the bird
-        }
-
-        enemyScript.ResetHitLanded();
-        //Debug.Log("First Hit");
-        playOnce = true;
-    }
-
-    //Combos will be complicated because I need the combo finisher to trigger stunInvincibility, but also, it needs to land
-    //This will be a handwave because this combo only happens if the first hit of the combo
-    IEnumerator SecondClaw()
-    {
-        //Need a cooldown period before this that is only a second
-        //Debug.Log("Second claw");
-        attack = true;
-        attackRange.SetActive(true);
-        //StartCoroutine(Attack());
-        followDirection = (player.transform.position - transform.position).normalized;
-        //enemyScript.SetAttackEffect(attackEffect);
-        enemyScript.SetAttackDirection(followDirection);
-        enemyScript.SetForce(6);
-        //monkeyRb.AddForce(followDirection * (jumpForce / 2), ForceMode.Impulse);
-        //monkeyRb.AddForce(Vector3.up * 5, ForceMode.Impulse); //For jumping, may need to modify gravity
-        //animation.Play("Attack");
-        animator.SetBool("Attack 2", true);
-        //secondClawSlash.SetActive(true);
-
-        enemyScript.SetComboFinisher();
-
-        //monkeyRb.constraints = RigidbodyConstraints.FreezeRotation;
-        attackVol = secondAttackVol;
-        yield return new WaitForSeconds(1f);
-        animator.SetBool("Attack 2", false);
-        //StartCoroutine(StartCoolDown());
-        attackFinished = true;
-        attack = false;
-        //secondClawSlash.SetActive(false);
-        attackRange.SetActive(false);
-        //Debug.Log("Start Cool");
-        enemyScript.ResetHitLanded();
-        enemyScript.ResetHitNumber();
-        enemyScript.SetComboAttack();
-        enemyScript.SetComboFinisher();
-
-        //hitLanded = false;
-        //Debug.Log("Second Hit");
-        //Debug.Log("Combo Finisher is " + enemyScript.comboFinisher);
-        playOnce = true;
-    }
     //public void PlayAttackEffect()
     //{
     //attackEffect.Play();
@@ -481,39 +371,19 @@ public class Wolf3 : MonoBehaviour
         //Need isOnGround because the Monkey triggers this two times by running into the collider and then falling into it
         if (other.CompareTag("Tiger Attack Regular"))
         {
-            //For now, just trigger stun. I will use both of their directions to perform the knockback
-            //TakeDamage();
-
-            //enemyScript.HP -= 2;
             Damaged();
-            //playerScript.PlayTigerRegularStrike(transform.position);
-            //Vector3 knockbackDirection = (transform.position - tiger.transform.position).normalized;
-            //knockback force is inconsistent. Sometimes it doesn't knockback at all. Sometimes it knocks back too much
-            //It doesn't matter what the value is.
-            //It may not matter because I will have the attack lag minimized
-            //But I don't want the player to whiff attacks, so I think I will make sure the tiger is the right distance from the wolf
-            //Unless I can make a force play until a certain distance is reached
-            //I can't use forcemode.impulse then
-            //wolfRb.AddForce(playerScript.attackDirection * 15, ForceMode.Impulse);
-            //playerScript.AttackLandedTrue();
         }
         if (other.CompareTag("Tiger Special"))
         {
-            //For now, just trigger stun. I will use both of their directions to perform the knockback
-            //TakeDamage();
-
-            //enemyScript.HP -= 7;
             Damaged();
-            //playerScript.PlayTigerSpecialStrike(transform.position);
-            //Vector3 knockbackDirection = (transform.position - tiger.transform.position).normalized;
-            //knockback force is inconsistent. Sometimes it doesn't knockback at all. Sometimes it knocks back too much
-            //It doesn't matter what the value is.
-            //It may not matter because I will have the attack lag minimized
-            //But I don't want the player to whiff attacks, so I think I will make sure the tiger is the right distance from the wolf
-            //Unless I can make a force play until a certain distance is reached
-            //I can't use forcemode.impulse then
-            //wolfRb.AddForce(playerScript.attackDirection * 20, ForceMode.Impulse);
-            //playerScript.AttackLandedTrue();
+        }
+        if (other.CompareTag("Bird Attack Regular"))
+        {
+            Damaged();
+        }
+        if (other.CompareTag("Bird Special"))
+        {
+            Damaged();
         }
     }
     public void Damaged()

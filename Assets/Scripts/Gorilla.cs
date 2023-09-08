@@ -310,8 +310,8 @@ public class Gorilla : MonoBehaviour
         yield return new WaitForSeconds(5);
         
         desperationMoveOn = false;
-        //slamAttackRange.SetActive(true);
-        //slamAttackRange2.SetActive(true);
+        slamAttackRange.SetActive(true);
+        slamAttackRange2.SetActive(true);
         DMSlamDown();
     }
     //I turned this into a method so there isn't a wa it time for 
@@ -346,8 +346,8 @@ public class Gorilla : MonoBehaviour
         attackFinished = true;
         //Vector3 placeForFireCraterDM = fireCraterDM.transform.position;
         yield return new WaitForSeconds(1f);
-        //slamAttackRange.SetActive(false);
-        //slamAttackRange2.SetActive(false);
+        slamAttackRange.SetActive(false);
+        slamAttackRange2.SetActive(false);
         bigShockWave.SetActive(false);
         //DMShockWave.SetActive(false);
         motionBlurObject.SetActive(false);

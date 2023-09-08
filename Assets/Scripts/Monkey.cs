@@ -121,47 +121,50 @@ public class Monkey : MonoBehaviour
         }
         if (testingStun == false)
         {
-
-            if (idle == false && chase == true && stunned == false)
+//Less necessary because Monkey technically onlyhas one attack,but doing this for consistenc
+if (stunned == false)
             {
-                //animation.Play("Run");
-                
-                //I think i should do the direction following outside of this
-                //Either way, it looks like the Monkey only does it at the start and never rotates to face the tiger again
-                //Vector3 newDirection;
-                //if (playerScript.tigerActive == true)
-                //{
-                followDirection = (player.transform.position - transform.position).normalized;
-                //newDirection = Vector3.RotateTowards(transform.forward, tiger.transform.position, speed * Time.deltaTime, 0.0f);
-                //transform.rotation = Quaternion.LookRotation(newDirection);
-                ///}
-                //else if (playerScript.birdActive == true)
-                //{
-                //followDirection = (bird.transform.position - transform.position).normalized;
-                //newDirection = Vector3.RotateTowards(transform.forward, bird.transform.position, speed * Time.deltaTime, 0.0f);
-                //transform.rotation = Quaternion.LookRotation(newDirection);
-                //}
-                distance = Vector3.Distance(player.transform.position, transform.position);
-                //playerPosition = tiger.transform.position;
-                //attackRange.transform.position = tiger.transform.position;
-                //distance = Vector3.Distance(player.transform.position, transform.position);
-                lookRotation = Quaternion.LookRotation(player.transform.position - transform.position);
-                monkeyRb.AddForce(followDirection * speed);
-                transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, 3); //Turned from 5 to 3 for smooth
-                                                                                            //StartCoroutine(AttackCountdown());
-                if (distance <= 1.8)
+                if (idle == false && chase == true)
                 {
-                    animator.SetBool("Chase", false);
-                    chase = false;
-                    //jumpForce = 60; //Went from 50 to 60 because I want some knockback force from the first att
-                    //StartCoroutine(FirstClaw());
-                //}
-                //else if (distance <= 3)
-                //{
-                    //animator.SetBool("Chase", false);
-                    //chase = false;
-                    jumpForce = 3;
-                    StartCoroutine(FirstClaw());
+                    //animation.Play("Run");
+
+                    //I think i should do the direction following outside of this
+                    //Either way, it looks like the Monkey only does it at the start and never rotates to face the tiger again
+                    //Vector3 newDirection;
+                    //if (playerScript.tigerActive == true)
+                    //{
+                    followDirection = (player.transform.position - transform.position).normalized;
+                    //newDirection = Vector3.RotateTowards(transform.forward, tiger.transform.position, speed * Time.deltaTime, 0.0f);
+                    //transform.rotation = Quaternion.LookRotation(newDirection);
+                    ///}
+                    //else if (playerScript.birdActive == true)
+                    //{
+                    //followDirection = (bird.transform.position - transform.position).normalized;
+                    //newDirection = Vector3.RotateTowards(transform.forward, bird.transform.position, speed * Time.deltaTime, 0.0f);
+                    //transform.rotation = Quaternion.LookRotation(newDirection);
+                    //}
+                    distance = Vector3.Distance(player.transform.position, transform.position);
+                    //playerPosition = tiger.transform.position;
+                    //attackRange.transform.position = tiger.transform.position;
+                    //distance = Vector3.Distance(player.transform.position, transform.position);
+                    lookRotation = Quaternion.LookRotation(player.transform.position - transform.position);
+                    monkeyRb.AddForce(followDirection * speed);
+                    transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, 3); //Turned from 5 to 3 for smooth
+                                                                                                //StartCoroutine(AttackCountdown());
+                    if (distance <= 1.8)
+                    {
+                        animator.SetBool("Chase", false);
+                        chase = false;
+                        //jumpForce = 60; //Went from 50 to 60 because I want some knockback force from the first att
+                        //StartCoroutine(FirstClaw());
+                        //}
+                        //else if (distance <= 3)
+                        //{
+                        //animator.SetBool("Chase", false);
+                        //chase = false;
+                        jumpForce = 3;
+                        StartCoroutine(FirstClaw());
+                    }
                 }
             }
             if (attackFinished == true && isOnGround == true)
@@ -255,6 +258,7 @@ public class Monkey : MonoBehaviour
         enemyScript.ResetHitLanded();
         //Debug.Log("First Hit");
         playOnce = true;
+        enemyScript.UnsetPlayerDodged();
     }
 
     //Combos will be complicated because I need the combo finisher to trigger stunInvincibility, but also, it needs to land
@@ -297,6 +301,7 @@ public class Monkey : MonoBehaviour
         //Debug.Log("Second Hit");
         //Debug.Log("Combo Finisher is " + enemyScript.comboFinisher);
         playOnce = true;
+        enemyScript.UnsetPlayerDodged();
     }
     //public void PlayAttackEffect()
     //{
@@ -427,6 +432,14 @@ public class Monkey : MonoBehaviour
             //I can't use forcemode.impulse then
             //wolfRb.AddForce(playerScript.attackDirection * 20, ForceMode.Impulse);
             //playerScript.AttackLandedTrue();
+        }
+        if (other.CompareTag("Bird Attack Regular"))
+        {
+            Damaged();
+        }
+        if (other.CompareTag("Bird Special"))
+        {
+            Damaged();
         }
     }
     public void Damaged()

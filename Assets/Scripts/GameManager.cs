@@ -51,7 +51,7 @@ public class GameManager : MonoBehaviour
     public GameObject HPDisplay;
     public TextMeshProUGUI congratulationsMessage;
 
-    public static bool tutorialStage = false;
+    public static bool tutorialStage = true;
     public static bool stage2 = false;
     public static bool stage3 = false;
     public static bool bossStage = false;

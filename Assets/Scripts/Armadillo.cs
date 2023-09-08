@@ -21,7 +21,7 @@ public class Armadillo : MonoBehaviour
     private float jumpForce = 70; //Slight jump before attack
     private float attackForce = 1; //May remove attackForce because Monkey doesn't knock chaarcter back a
     private bool attack = false;
-    private bool beginningIdle = true;
+    public bool beginningIdle = true;
     private bool idle = true;
     private bool tunnelChase = false;
     private bool playerStunned = false; //For if the Tiger is hit by the first claw. Tiger will always get hit twice
@@ -60,7 +60,7 @@ public class Armadillo : MonoBehaviour
 
     private GameManager gameManager;
     private int HP = 10; //7
-    private bool testingStun = false;
+    public bool testingStun = false;
     private bool testingBehaviors = false;
     private bool moveLeft = false;
     private bool moveRight = true;
@@ -109,62 +109,65 @@ public class Armadillo : MonoBehaviour
         {
             //I'm gonna take out stunned == false because each time a foe is in attack mode, it can't be flinched and
             //they will be set back into IdleAnimation and only have IdleAnimation happen if the foe is not stunned
-            if (idle == false && whichAttack == attackOne)
+if (stunned == false)
             {
-                attack = true;
-                
-                followDirection = (player.transform.position - transform.position).normalized;
-                distance = Vector3.Distance(player.transform.position, transform.position);
-                lookRotation = Quaternion.LookRotation(player.transform.position - transform.position);
-                armadilloRb.AddForce(followDirection * speed);
-                transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, 3); //Turned from 5 to 3 for smooth
-                                                                                            //StartCoroutine(AttackCountdown());
-                enemyScript.SetDamage(1);
-                enemyScript.SetForce(12);
-                if (distance <= 2)
+                if (idle == false && whichAttack == attackOne)
                 {
-                    animator.SetBool("Chase", false);
-                    if (attackFinished == false)
+                    attack = true;
+
+                    followDirection = (player.transform.position - transform.position).normalized;
+                    distance = Vector3.Distance(player.transform.position, transform.position);
+                    lookRotation = Quaternion.LookRotation(player.transform.position - transform.position);
+                    armadilloRb.AddForce(followDirection * speed);
+                    transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, 3); //Turned from 5 to 3 for smooth
+                                                                                                //StartCoroutine(AttackCountdown());
+                    enemyScript.SetDamage(1);
+                    enemyScript.SetForce(12);
+                    if (distance <= 2)
                     {
-                        SpinAttack();
-                        StartCoroutine(AttackDuration());
+                        animator.SetBool("Chase", false);
+                        if (attackFinished == false)
+                        {
+                            SpinAttack();
+                            StartCoroutine(AttackDuration());
+                        }
                     }
                 }
-            }
-            if (idle == false && whichAttack == attackTwo&&tunnelChase == true && stunned == false)
-            {
-                attack = true;
-                tunneling.Play();
-                skin.enabled = false;
-                
-                if (isTunneled == false)
+                if (idle == false && whichAttack == attackTwo && tunnelChase == true)
                 {
-                    //Instead, make Armadillo invisible and shrinkhim so that the target still appears on Armadillo but is lower on the ground
-                    //Inspired by Vanitas from Kingdom Hearts
-                    transform.localScale += new Vector3(0, -3, 0);
+                    attack = true;
+                    tunneling.Play();
+                    skin.enabled = false;
 
-                    //transform.Translate(0, 2, 0);
-                    isTunneled = true;
-                    enemyScript.SetCantBeHit();
-                }
-                followDirection = (player.transform.position - transform.position).normalized;
-                distance = Vector3.Distance(player.transform.position, transform.position);
-                lookRotation = Quaternion.LookRotation(player.transform.position - transform.position);
-                armadilloRb.AddForce(followDirection * speed);
-                transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, 3); //Turned from 5 to 3 for smooth
-                                                                                            //StartCoroutine(AttackCountdown());
-                enemyScript.SetDamage(2);
-                enemyScript.SetForce(0);
-                if (distance <= 2)
-                {
-                    animator.SetBool("Chase", false);
-                    tunnelChase = false;
-                    tunneling.Stop();
-                   if (attackFinished == false)
+                    if (isTunneled == false)
                     {
-                        PopUp();
-                        StartCoroutine(AttackDuration());
+                        //Instead, make Armadillo invisible and shrinkhim so that the target still appears on Armadillo but is lower on the ground
+                        //Inspired by Vanitas from Kingdom Hearts
+                        transform.localScale += new Vector3(0, -3, 0);
+
+                        //transform.Translate(0, 2, 0);
+                        isTunneled = true;
                         enemyScript.SetCantBeHit();
+                    }
+                    followDirection = (player.transform.position - transform.position).normalized;
+                    distance = Vector3.Distance(player.transform.position, transform.position);
+                    lookRotation = Quaternion.LookRotation(player.transform.position - transform.position);
+                    armadilloRb.AddForce(followDirection * speed);
+                    transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, 3); //Turned from 5 to 3 for smooth
+                                                                                                //StartCoroutine(AttackCountdown());
+                    enemyScript.SetDamage(2);
+                    enemyScript.SetForce(0);
+                    if (distance <= 2)
+                    {
+                        animator.SetBool("Chase", false);
+                        tunnelChase = false;
+                        tunneling.Stop();
+                        if (attackFinished == false)
+                        {
+                            PopUp();
+                            StartCoroutine(AttackDuration());
+                            enemyScript.SetCantBeHit();
+                        }
                     }
                 }
             }
@@ -205,11 +208,14 @@ public class Armadillo : MonoBehaviour
         if (whichAttack == attackOne)
         {
             attackRange.transform.localScale -= new Vector3(0.2f, 0, 0.2f);
+            whichAttack = attackTwo;
         }
         else if (whichAttack == attackTwo)
         {
             enemyScript.SetComboFinisher();
+            whichAttack = attackOne;
         }
+        enemyScript.UnsetPlayerDodged();
     }
 
     IEnumerator IdleAnimation()
@@ -294,6 +300,14 @@ public class Armadillo : MonoBehaviour
             //I can't use forcemode.impulse then
             //wolfRb.AddForce(playerScript.attackDirection * 20, ForceMode.Impulse);
             //playerScript.AttackLandedTrue();
+        }
+                if (other.CompareTag("Bird Attack Regular"))
+        {
+            Damaged();
+        }
+        if (other.CompareTag("Bird Special"))
+        {
+            Damaged();
         }
     }
     public void Damaged()
