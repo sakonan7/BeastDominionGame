@@ -147,10 +147,7 @@ public class Gorilla : MonoBehaviour
             //}
             //}
             attackFinished = true;
-            for (int i = 0; i < rage.Length; i++)
-            {
-                rage[i].SetActive(true);
-            }
+
         }
         if (slamComing == true)
         {
@@ -306,7 +303,8 @@ public class Gorilla : MonoBehaviour
 
     public void DMStart()
     {
-        animator.SetTrigger("DM Start Up");
+        //animator.SetTrigger("DM Start Up");
+        animation.Play("Roar");
         StartCoroutine(StartUpFists());
     }
     IEnumerator StartUpFists()
@@ -326,13 +324,13 @@ public class Gorilla : MonoBehaviour
         //{
         //yield return new WaitForSeconds(0.5f);
         //}
-        animator.SetBool("DM Charge Up", true);
+        //animator.SetBool("DM Charge Up", true);
         yield return new WaitForSeconds(3);
         
         desperationMoveOn = false;
 
         DMSlamDown();
-        animator.SetBool("DM Charge Up", false);
+        //animator.SetBool("DM Charge Up", false);
     }
     //I turned this into a method so there isn't a wa it time for 
     public void DMSlamDown()
@@ -340,7 +338,7 @@ public class Gorilla : MonoBehaviour
 
         enemyScript.RightKnockBack();
         //yield return new WaitForSeconds(0.2f);
-        //animation.Play("Desperation Move"); //This isn't playing at all for some reason, even after I turned this into
+        animation.Play("Desperation Move"); //This isn't playing at all for some reason, even after I turned this into
         //a meth
         //Potentially move the Gorill move a few inches closer so that it's fist is closer to the aren
         StartCoroutine(DMSlamAttackDuration());
@@ -407,7 +405,7 @@ public class Gorilla : MonoBehaviour
     }
     IEnumerator StartIdle()
     {
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(1f);
         idle = true;
     }
     private void OnTriggerEnter(Collider other)
