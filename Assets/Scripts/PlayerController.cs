@@ -24,7 +24,7 @@ public class PlayerController : MonoBehaviour
     public GameObject tiger;
     public GameObject bird;
     public GameObject birdSeparater;
-    private Collider tigerCollider;
+    //private Collider tigerCollider;
     public GameObject tigerFollow;
     public GameObject birdFollow;
     public bool isFlying = false;
@@ -225,7 +225,7 @@ public class PlayerController : MonoBehaviour
         birdRB = bird.GetComponent<Rigidbody>();
         birdAnimation = bird.GetComponent<Animation>();
         //birdSensor = GameObject.Find("Bird Sensor");
-        tigerCollider = tiger.GetComponent<Collider>();
+        //tigerCollider = tiger.GetComponent<Collider>();
 
         tigerActive = true;
         tiger.SetActive(true);
@@ -1529,7 +1529,7 @@ public class PlayerController : MonoBehaviour
         {
             running = false;
         }
-        yield return new WaitForSeconds(1.4f);
+        yield return new WaitForSeconds(3f);
         damageStun = false;
         cantMove = false;
     }
@@ -1547,7 +1547,7 @@ public class PlayerController : MonoBehaviour
         {
             running = false;
         }
-        yield return new WaitForSeconds(1.4f);
+        yield return new WaitForSeconds(3f);
         if (tigerKnockedBack == true)
         {
             tigerKnockedBack = false;
@@ -1816,7 +1816,7 @@ public class PlayerController : MonoBehaviour
         }
         if (collision.gameObject.name == "Checkpoint 3")
         {
-            SceneManager.LoadScene("Temp Level 3");
+            SceneManager.LoadScene("Boss Draft");
         }
         if (collision.gameObject.CompareTag("Wall") && (damageStun == true || stunnedInvincibility == true))
         {
@@ -1957,17 +1957,21 @@ public class PlayerController : MonoBehaviour
             //This is for tiger
             if(tigerActive == true)
             {
+                //playerRb.velocity = attackDirection * (attackForce + 20) exam
                 if (currentEnemyScript.leftAttack == true)
                 {
-                    playerRb.AddForce(Vector3.left * currentEnemyScript.attackForce, ForceMode.Impulse);
+                    //playerRb.AddForce(Vector3.left * currentEnemyScript.attackForce, ForceMode.Impulse);
+                    playerRb.velocity = Vector3.left * currentEnemyScript.attackForce;
                 }
                 if (currentEnemyScript.rightAttack == true)
                 {
-                    playerRb.AddForce(Vector3.right * currentEnemyScript.attackForce, ForceMode.Impulse);
+                    //playerRb.AddForce(Vector3.right * currentEnemyScript.attackForce, ForceMode.Impulse);
+                    playerRb.velocity = Vector3.right * currentEnemyScript.attackForce;
                 }
                 if (currentEnemyScript.backAttack == true)
                 {
-                    playerRb.AddForce(Vector3.back * currentEnemyScript.attackForce, ForceMode.Impulse);
+                    //playerRb.AddForce(Vector3.back * currentEnemyScript.attackForce, ForceMode.Impulse);
+                    playerRb.velocity = Vector3.back * currentEnemyScript.attackForce;
                 }
             }
             else if (birdActive == true)
@@ -1978,8 +1982,21 @@ public class PlayerController : MonoBehaviour
                     bird.transform.Translate(0, 1.5f, 0);
                     birdSeparater.SetActive(true);
                 }
-
-                playerRb.AddForce(Vector3.back * currentEnemyScript.attackForce, ForceMode.Impulse);
+                if (currentEnemyScript.leftAttack == true)
+                {
+                    //playerRb.AddForce(Vector3.left * currentEnemyScript.attackForce, ForceMode.Impulse);
+                    playerRb.velocity = Vector3.left * currentEnemyScript.attackForce;
+                }
+                if (currentEnemyScript.rightAttack == true)
+                {
+                    //playerRb.AddForce(Vector3.right * currentEnemyScript.attackForce, ForceMode.Impulse);
+                    playerRb.velocity = Vector3.right * currentEnemyScript.attackForce;
+                }
+                if (currentEnemyScript.backAttack == true)
+                {
+                    //playerRb.AddForce(Vector3.back * currentEnemyScript.attackForce, ForceMode.Impulse);
+                    playerRb.velocity = Vector3.back * currentEnemyScript.attackForce;
+                }
             }
             currentEnemyScript.AttackLanded(0);
             //playerRb.AddForce(Vector3.back * 12, ForceMode.Impulse); //I don't know why I have this
@@ -2022,15 +2039,18 @@ public class PlayerController : MonoBehaviour
             {
                 if (projectileScript.leftAttack == true)
                 {
-                    playerRb.AddForce(Vector3.left * projectileScript.attackForce, ForceMode.Impulse);
+                    //playerRb.AddForce(Vector3.left * projectileScript.attackForce, ForceMode.Impulse);
+                    playerRb.velocity = Vector3.left * projectileScript.attackForce;
                 }
                 if (projectileScript.rightAttack == true)
                 {
-                    playerRb.AddForce(Vector3.right * projectileScript.attackForce, ForceMode.Impulse);
+                    //playerRb.AddForce(Vector3.right * projectileScript.attackForce, ForceMode.Impulse);
+                    playerRb.velocity = Vector3.right * projectileScript.attackForce;
                 }
                 if (projectileScript.backAttack == true)
                 {
-                    playerRb.AddForce(Vector3.back * projectileScript.attackForce, ForceMode.Impulse);
+                    //playerRb.AddForce(Vector3.back * projectileScript.attackForce, ForceMode.Impulse);
+                    playerRb.velocity = Vector3.left * projectileScript.attackForce;
                 }
                 LoseHP(projectileScript.damage, 1);
                 StartCoroutine(DamageDisplayed());
@@ -2053,9 +2073,24 @@ public class PlayerController : MonoBehaviour
                     bird.transform.Translate(0, 1.5f, 0);
                     birdSeparater.SetActive(true);
                 }
+                if (projectileScript.leftAttack == true)
+                {
+                    //playerRb.AddForce(Vector3.left * projectileScript.attackForce, ForceMode.Impulse);
+                    playerRb.velocity = Vector3.left * projectileScript.attackForce;
+                }
+                if (projectileScript.rightAttack == true)
+                {
+                    //playerRb.AddForce(Vector3.right * projectileScript.attackForce, ForceMode.Impulse);
+                    playerRb.velocity = Vector3.right * projectileScript.attackForce;
+                }
+                if (projectileScript.backAttack == true)
+                {
+                    //playerRb.AddForce(Vector3.back * projectileScript.attackForce, ForceMode.Impulse);
+                    playerRb.velocity = Vector3.left * projectileScript.attackForce;
+                }
                 LoseHP(projectileScript.damage * 2, 1);
                 StartCoroutine(DamageDisplayed());
-                playerRb.AddForce(Vector3.back * projectileScript.attackForce, ForceMode.Impulse);
+                //playerRb.AddForce(Vector3.back * projectileScript.attackForce, ForceMode.Impulse);
                 if (projectileScript.comboFinisher == false)
                 {
                     StartCoroutine(DamageStunStart());

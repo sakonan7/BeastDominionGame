@@ -233,6 +233,7 @@ if (stunned == false)
         {
             enemyScript.SetPlayerDodged();//So player can't be hit multiple times by this att
         }
+        enemyScript.BackKnockBack();
         yield return new WaitForSeconds(0.4f);
         animator.SetBool("Ground Attack", false);
         attack = false;
@@ -244,6 +245,7 @@ if (stunned == false)
         //JumpBack();
         attackFinished = true;
         enemyScript.UnsetPlayerDodged();
+        enemyScript.ResetKnockbacks();
     }
     public void CorkScrew()
     {
@@ -402,7 +404,7 @@ if (stunned == false)
         stunned = true;
         //animation.Play("Damage Monkey");
         animator.SetBool("Damaged", true);
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(3f);
         animator.SetBool("Damaged", false);
         stunned = false;
         idleTime = damageIdleTime;

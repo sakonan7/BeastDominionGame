@@ -9,7 +9,7 @@ public class Rabbit : MonoBehaviour
     private GameObject player;
     private PlayerController playerScript;
     private Enemy enemyScript;
-    private float speed = 50;
+    private float speed = 100;
     private Rigidbody rabbitRb;
     private Rigidbody playerRb;
     private Vector3 followDirection;
@@ -35,7 +35,7 @@ public class Rabbit : MonoBehaviour
     private bool runAway = false;
     private bool alreadyRanAway = false;
     private Vector3 runDirection;
-    private bool pauseThenShoot = false;
+    private bool pause = false;
 
     public GameObject arrow;
     public Transform firingPosition;
@@ -127,21 +127,12 @@ public class Rabbit : MonoBehaviour
             lookRotation = Quaternion.LookRotation(player.transform.position - transform.position);
 if (stunned == false)
             {
-                if (idle == true && alreadyRanAway == false)
-                {
-                    if (distance <= 7)
-                    {
-                        Debug.Log("Rabbit distance is " + distance);
-                        runAway = true;
-                        animator.SetBool("Run", true);
-                    }
-                }
-                if (runAway == true && stunned == false)
+                if (runAway == true)
                 {
                     runDirection = transform.position - player.transform.position;
                     lookAwayRotation = Quaternion.LookRotation(transform.position - player.transform.position);
                     transform.rotation = Quaternion.Slerp(transform.rotation, lookAwayRotation, 3);
-                    rabbitRb.AddForce(runDirection * 150);
+                    rabbitRb.AddForce(runDirection * speed);
                     if (distance >= 12)
                     {
                         runAway = false;
@@ -150,7 +141,8 @@ if (stunned == false)
                         StartCoroutine(PauseBeforeShoot());
                     }
                 }
-                if (idle == false && whichAttack == attackOne && runAway == false)
+
+                if (idle == false && whichAttack == attackOne && pause == false)
                 {
                     attack = true;
 
@@ -166,7 +158,7 @@ if (stunned == false)
                         StartCoroutine(AttackDuration());
                     }
                 }
-                else if (idle == false && whichAttack == attackTwo && runAway == false)
+                else if (idle == false && whichAttack == attackTwo && pause == false)
                 {
                     attack = true;
 
@@ -196,11 +188,10 @@ if (stunned == false)
     }
     IEnumerator PauseBeforeShoot()
     {
-        idle = true;
         alreadyRanAway = true;
         animator.SetBool("Idle", true);
-        yield return new WaitForSeconds(1.5f);
-        idle = false;
+        yield return new WaitForSeconds(2f);
+        pause = false;
         alreadyRanAway = false;
         animator.SetBool("Idle", false);
     }
@@ -288,6 +279,13 @@ if (stunned == false)
         //Debug.Log("Attack Start");
         animator.SetBool("Idle", false);
         //animator.SetBool("Chase", true);
+        if (distance <= 7)
+        {
+            Debug.Log("Rabbit distance is " + distance);
+            runAway = true;
+            animator.SetBool("Run", true);
+            pause = true;
+        }
     }
     public void OnCollisionEnter(Collision collision)
     {
@@ -352,7 +350,7 @@ if (stunned == false)
         stunned = true;
         //animation.Play("Damage Monkey");
         animator.SetBool("Damaged", true);
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(3f);
         animator.SetBool("Damaged", false);
         stunned = false;
         idleTime = damageIdleTime;

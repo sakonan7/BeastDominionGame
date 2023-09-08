@@ -273,6 +273,7 @@ if (stunned == false)
         followDirection = (player.transform.position - transform.position).normalized;
         //enemyScript.SetAttackEffect(attackEffect);
         enemyScript.SetAttackDirection(followDirection);
+        enemyScript.BackKnockBack();
         enemyScript.SetForce(6);
         monkeyRb.AddForce(followDirection * (jumpForce/2), ForceMode.Impulse);
         monkeyRb.AddForce(Vector3.up * 5, ForceMode.Impulse); //For jumping, may need to modify gravity
@@ -302,6 +303,7 @@ if (stunned == false)
         //Debug.Log("Combo Finisher is " + enemyScript.comboFinisher);
         playOnce = true;
         enemyScript.UnsetPlayerDodged();
+        enemyScript.ResetKnockbacks();
     }
     //public void PlayAttackEffect()
     //{
@@ -458,7 +460,7 @@ if (stunned == false)
         stunned = true;
         //animation.Play("Damage Monkey");
         animator.SetBool("Damaged", true);
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(3f);
         animator.SetBool("Damaged", false);
         stunned = false;
         idleTime = damageIdleTime;
