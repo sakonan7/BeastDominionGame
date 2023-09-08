@@ -168,6 +168,9 @@ public class Gorilla : MonoBehaviour
         if (desperationMoveOn == true)
         {
             StartCoroutine(WarningLightDM());
+            lookRotation = Quaternion.LookRotation(player.transform.position - transform.position);
+
+            transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, 3);
         }
         if (desperationMoveOn == false)
         {
@@ -307,16 +310,18 @@ public class Gorilla : MonoBehaviour
         yield return new WaitForSeconds(5);
         
         desperationMoveOn = false;
-        slamAttackRange.SetActive(true);
-        slamAttackRange2.SetActive(true);
-        StartCoroutine(DMSlamDown());
+        //slamAttackRange.SetActive(true);
+        //slamAttackRange2.SetActive(true);
+        DMSlamDown();
     }
-    IEnumerator DMSlamDown()
+    //I turned this into a method so there isn't a wa it time for 
+    public void DMSlamDown()
     {
 
         enemyScript.RightKnockBack();
-        yield return new WaitForSeconds(0.2f);
-        animation.Play("Single Slam");
+        //yield return new WaitForSeconds(0.2f);
+        animation.Play("Desperation Move"); //This isn't playing at all for some reason, even after I turned this into
+        //a meth
         //Potentially move the Gorill move a few inches closer so that it's fist is closer to the aren
         StartCoroutine(DMSlamAttackDuration());
         StartCoroutine(DMShockWaveAppears());
@@ -327,7 +332,9 @@ public class Gorilla : MonoBehaviour
     IEnumerator DMShockWaveAppears()
     {
         yield return new WaitForSeconds(0.5f);
-        DMShockWave.SetActive(true);
+        bigShockWave.SetActive(true);
+        //DMShockWave.SetActive(true);
+        Instantiate(DMShockWave, DMShockWave.transform.position, DMShockWave.transform.rotation);
         motionBlurObject.SetActive(true);
         //slamComing = false;
         warningLightSmall.SetActive(false);
@@ -339,9 +346,10 @@ public class Gorilla : MonoBehaviour
         attackFinished = true;
         //Vector3 placeForFireCraterDM = fireCraterDM.transform.position;
         yield return new WaitForSeconds(1f);
-        slamAttackRange.SetActive(false);
-        slamAttackRange2.SetActive(false);
-        DMShockWave.SetActive(false);
+        //slamAttackRange.SetActive(false);
+        //slamAttackRange2.SetActive(false);
+        bigShockWave.SetActive(false);
+        //DMShockWave.SetActive(false);
         motionBlurObject.SetActive(false);
         //armadilloCollide.isTrigger = false;
         attackFinished = false;
