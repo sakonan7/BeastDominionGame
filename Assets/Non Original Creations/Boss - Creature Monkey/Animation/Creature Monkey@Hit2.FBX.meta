@@ -27,35 +27,12 @@ ModelImporter:
     rigImportErrors: 
     rigImportWarnings: 
     animationImportErrors: 
-    animationImportWarnings: "\nClip 'Take 001' has import animation warnings that
-      might lower retargeting quality:\nNote: Activate translation DOF on avatar
-      to improve retargeting quality.\n\t'MonkeyRArmDigit21' has scale animation
-      that will be discarded.\n\t'MonkeyRArmDigit23' has scale animation that will
-      be discarded.\n\t'MonkeyRArmDigit31' has translation animation that will be
-      discarded.\n\t'MonkeyRArmDigit31' has scale animation that will be discarded.\n\t'MonkeyRArmDigit32'
-      has scale animation that will be discarded.\n\t'MonkeyRArmDigit41' has scale
-      animation that will be discarded.\n\t'MonkeyRArmDigit42' has scale animation
-      that will be discarded.\n\t'MonkeyRArmDigit43' has scale animation that will
-      be discarded.\n\t'MonkeyRArmDigit53' has scale animation that will be discarded.\n\t'MonkeyLArmDigit11'
-      has translation animation that will be discarded.\n\t'MonkeyLArmDigit12' has
-      translation animation that will be discarded.\n\t'MonkeyLArmDigit13' has translation
-      animation that will be discarded.\n\t'MonkeyLArmDigit21' has translation animation
-      that will be discarded.\n\t'MonkeyLArmDigit22' has translation animation that
-      will be discarded.\n\t'MonkeyLArmDigit23' has translation animation that will
-      be discarded.\n\t'MonkeyLArmDigit31' has translation animation that will be
-      discarded.\n\t'MonkeyLArmDigit32' has translation animation that will be discarded.\n\t'MonkeyLArmDigit33'
-      has translation animation that will be discarded.\n\t'MonkeyLArmDigit41' has
-      translation animation that will be discarded.\n\t'MonkeyLArmDigit42' has translation
-      animation that will be discarded.\n\t'MonkeyLArmDigit43' has translation animation
-      that will be discarded.\n\t'MonkeyLArmDigit51' has translation animation that
-      will be discarded.\n\t'MonkeyLArmDigit52' has translation animation that will
-      be discarded.\n\t'MonkeyLArmDigit53' has translation animation that will be
-      discarded.\n"
+    animationImportWarnings: 
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
     importConstraints: 1
-    animationCompression: 1
+    animationCompression: 3
     animationRotationError: 0.5
     animationPositionError: 0.5
     animationScaleError: 0.5
@@ -642,7 +619,7 @@ ModelImporter:
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
   autoGenerateAvatarMappingIfUnspecified: 1
-  animationType: 1
+  animationType: 2
   humanoidOversampling: 1
   avatarSetup: 0
   addHumanoidExtraRootOnlyWhenUsingAvatar: 0

@@ -24,6 +24,7 @@ public class Armadillo : MonoBehaviour
     public bool beginningIdle = true;
     private bool idle = true;
     private bool tunnelChase = false;
+    private Vector3 originalSize;
     private bool playerStunned = false; //For if the Tiger is hit by the first claw. Tiger will always get hit twice
     private int damage = 1;
     private bool hitThrown = false;
@@ -36,6 +37,7 @@ public class Armadillo : MonoBehaviour
     public GameObject attackRange;
     public ParticleSystem tunnelingAttackEffect;
     public ParticleSystem tunneling;
+    public GameObject separater;
     public ParticleSystem attackEffect;
     private AudioSource audio;
     public AudioClip armadilloAttack;
@@ -100,6 +102,7 @@ public class Armadillo : MonoBehaviour
         StartCoroutine(IdleAnimation());
         //animator.SetBool("Idle", true);
         whichAttack = attackOne;
+        originalSize = transform.localScale;
     }
 
     // Update is called once per frame
@@ -123,7 +126,7 @@ if (stunned == false)
                                                                                                 //StartCoroutine(AttackCountdown());
                     enemyScript.SetDamage(1);
                     enemyScript.SetForce(12);
-                    if (distance <= 2)
+                    if (distance <= 2.5)
                     {
                         animator.SetBool("Chase", false);
                         if (attackFinished == false)
@@ -157,7 +160,7 @@ if (stunned == false)
                                                                                                 //StartCoroutine(AttackCountdown());
                     enemyScript.SetDamage(2);
                     enemyScript.SetForce(6);
-                    if (distance <= 2.5)
+                    if (distance <= 3)
                     {
                         animator.SetBool("Chase", false);
                         tunnelChase = false;
@@ -182,12 +185,19 @@ if (stunned == false)
     public void PopUp()
     {
         armadilloRb.velocity = Vector3.zero;
-        armadilloRb.AddForce(Vector3.up * 5, ForceMode.Impulse);
-        transform.localScale += new Vector3(0, 3, 0);
+        //armadilloRb.AddForce(Vector3.up * 10, ForceMode.Impulse);
+        transform.localScale = originalSize;
         skin.enabled = true;
         isOnGround = false;
         enemyScript.SetComboFinisher();
         enemyScript.BackKnockBack();
+        //StartCoroutine(AfterPopUp());
+    }
+    IEnumerator AfterPopUp()
+    {
+        yield return new WaitForSeconds(0.5f);
+        separater.SetActive(true); //This is for making sure Armadillo doesn't unbalance, maybe use an IEnumerator for this instead
+        //Have the IEnumerator make it appear AFTerA thecount
     }
     public void SpinAttack()
     {
@@ -220,6 +230,7 @@ if (stunned == false)
         {
             enemyScript.SetComboFinisher();
             whichAttack = attackOne;
+            separater.SetActive(false);
         }
         enemyScript.UnsetPlayerDodged();
         enemyScript.ResetKnockbacks();

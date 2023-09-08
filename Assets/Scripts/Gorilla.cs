@@ -78,6 +78,7 @@ public class Gorilla : MonoBehaviour
     void Start()
     {
         animation = GetComponent<Animation>();
+        animator = GetComponent<Animator>();
         enemyScript = GetComponent<Enemy>();
 
         player = GameObject.Find("Player");
@@ -120,6 +121,7 @@ public class Gorilla : MonoBehaviour
         followDirection = (transform.position - player.transform.position).normalized;
         if (idle == true)
         {
+            //animator.SetBool("Idle", true);
             animation.Play("Idle");
         }
         if (Input.GetKeyDown(KeyCode.H) && attackFinished == false)
@@ -145,11 +147,15 @@ public class Gorilla : MonoBehaviour
             //}
             //}
             attackFinished = true;
-            
+            for (int i = 0; i < rage.Length; i++)
+            {
+                rage[i].SetActive(true);
+            }
         }
         if (slamComing == true)
         {
             StartCoroutine(WarningLightRegular());
+
             warningLightSmall.transform.position = new Vector3(player.transform.position.x, warningLightSmall.transform.position.y, player.transform.position.z);
         }
         //I think this will be triggered by booldesperationMoveOn
@@ -163,7 +169,8 @@ public class Gorilla : MonoBehaviour
             {
                 rage[i].SetActive(true);
             }
-            StartCoroutine(DesperationMove());
+            DMStart();
+            
         }
         if (desperationMoveOn == true)
         {
@@ -236,7 +243,7 @@ public class Gorilla : MonoBehaviour
     IEnumerator WarningLightDM()
     {
         warningLightDM.SetActive(true);
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSeconds(0.1f);
         warningLightDM.SetActive(false);
     }
    //What I could potential do is have the shockwaves trigger the second the Gorilla's arms touch the ground because they do touch theground 
@@ -297,6 +304,19 @@ public class Gorilla : MonoBehaviour
         enemyScript.UnsetPlayerDodged();
     }
 
+    public void DMStart()
+    {
+        animator.SetTrigger("DM Start Up");
+        StartCoroutine(StartUpFists());
+    }
+    IEnumerator StartUpFists()
+    {
+        yield return new WaitForSeconds(0.5f);
+        slamAttackRange.SetActive(true);
+        slamAttackRange2.SetActive(true);
+        //Remove the tags from the fists ATM so that they don't hurt the player during the charge 
+        StartCoroutine(DesperationMove());
+    }
     //For the arena lighting up, warning the player that the whole arena will be consumed in fire
     //I think I will adjust the light source itself to create the light lighting up and down
     //Do another version for the single hand smash shock
@@ -306,13 +326,13 @@ public class Gorilla : MonoBehaviour
         //{
         //yield return new WaitForSeconds(0.5f);
         //}
-        
-        yield return new WaitForSeconds(5);
+        animator.SetBool("DM Charge Up", true);
+        yield return new WaitForSeconds(3);
         
         desperationMoveOn = false;
-        slamAttackRange.SetActive(true);
-        slamAttackRange2.SetActive(true);
+
         DMSlamDown();
+        animator.SetBool("DM Charge Up", false);
     }
     //I turned this into a method so there isn't a wa it time for 
     public void DMSlamDown()
@@ -320,7 +340,7 @@ public class Gorilla : MonoBehaviour
 
         enemyScript.RightKnockBack();
         //yield return new WaitForSeconds(0.2f);
-        animation.Play("Desperation Move"); //This isn't playing at all for some reason, even after I turned this into
+        //animation.Play("Desperation Move"); //This isn't playing at all for some reason, even after I turned this into
         //a meth
         //Potentially move the Gorill move a few inches closer so that it's fist is closer to the aren
         StartCoroutine(DMSlamAttackDuration());
@@ -380,6 +400,14 @@ public class Gorilla : MonoBehaviour
     {
         animation.Play("Sitting Idle");
         yield return new WaitForSeconds(1);
+        //idle = true;
+        //animator.SetTrigger("Stand Up");
+        animation.Play("Stand Up");
+        StartCoroutine(StartIdle());
+    }
+    IEnumerator StartIdle()
+    {
+        yield return new WaitForSeconds(0.5f);
         idle = true;
     }
     private void OnTriggerEnter(Collider other)

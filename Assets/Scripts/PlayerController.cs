@@ -1529,7 +1529,7 @@ public class PlayerController : MonoBehaviour
         {
             running = false;
         }
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(2f);
         damageStun = false;
         cantMove = false;
     }
