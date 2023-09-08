@@ -178,7 +178,10 @@ if (stunned == false)
                         //jumpForce = 3;
                         CorkScrew();
                         //StartCoroutine(AttackDuration());
-                        attackFinished = true;
+                        if (attackFinished == false)
+                        {
+                            attackFinished = true;
+                        }
                     }
                 }
             }
@@ -379,7 +382,7 @@ if (stunned == false)
         {
             Damaged();
         }
-        if (other.CompareTag("Bird Attack Regular"))
+        if (other.CompareTag("Bird Attack Range"))
         {
             Damaged();
         }

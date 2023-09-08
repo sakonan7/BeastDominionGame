@@ -119,7 +119,7 @@ public class Enemy : MonoBehaviour
             gameObject.tag = "Enemy";
         }
         HPBarHolder.transform.rotation = camera.transform.rotation;
-        //targetReticule.transform.rotation = camera.transform.rotation;
+        targetReticule.transform.rotation = camera.transform.rotation;
     }
     public void SetHP(int newHP)
     {

@@ -2820,8 +2820,8 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2404495841293388419}
-  - {fileID: 1799832250095017728}
   - {fileID: 582904149}
+  - {fileID: 1799832250095017728}
   - {fileID: 2239733890934913216}
   - {fileID: 8914123929791036341}
   - {fileID: 6372403928268736834}
@@ -2830,7 +2830,7 @@ Transform:
   - {fileID: 193705039040788550}
   - {fileID: 8972114346742877420}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1550653510
 MonoBehaviour:
@@ -2878,6 +2878,7 @@ MonoBehaviour:
   swoopLag: 0
   attackLanded: 0
   cantMove: 1
+  cantTransform: 0
   stunnedInvincibility: 0
   target: {fileID: 8914123929791036340}
   lockedOn: 0
@@ -4797,7 +4798,7 @@ GameObject:
   - component: {fileID: 2236580654012312854}
   m_Layer: 3
   m_Name: Motion Blur Storage
-  m_TagString: Untagged
+  m_TagString: Non Triggerable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

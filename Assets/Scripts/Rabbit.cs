@@ -325,7 +325,7 @@ if (stunned == false)
         {
             Damaged();
         }
-        if (other.CompareTag("Bird Attack Regular"))
+        if (other.CompareTag("Bird Attack Range"))
         {
             Damaged();
         }
@@ -336,10 +336,10 @@ if (stunned == false)
     }
     public void Damaged()
     {
-        if (attack == false)
-        {
+        //if (attack == false)
+        //{
             Stunned();
-        }
+        //}
     }
     public void Stunned()
     {
@@ -348,10 +348,11 @@ if (stunned == false)
     IEnumerator StunnedDuration()
     {
         stunned = true;
+        runAway = false; //If struckwhilerunning away, it will be 
         //animation.Play("Damage Monkey");
-        animator.SetBool("Damaged", true);
+        animator.SetTrigger("Damaged");
         yield return new WaitForSeconds(3f);
-        animator.SetBool("Damaged", false);
+        //animator.SetBool("Damaged", false);
         stunned = false;
         idleTime = damageIdleTime;
         StartCoroutine(IdleAnimation());

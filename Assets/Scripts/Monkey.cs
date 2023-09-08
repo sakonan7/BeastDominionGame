@@ -435,7 +435,7 @@ if (stunned == false)
             //wolfRb.AddForce(playerScript.attackDirection * 20, ForceMode.Impulse);
             //playerScript.AttackLandedTrue();
         }
-        if (other.CompareTag("Bird Attack Regular"))
+        if (other.CompareTag("Bird Attack Range"))
         {
             Damaged();
         }

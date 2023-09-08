@@ -156,8 +156,8 @@ if (stunned == false)
                     transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, 3); //Turned from 5 to 3 for smooth
                                                                                                 //StartCoroutine(AttackCountdown());
                     enemyScript.SetDamage(2);
-                    enemyScript.SetForce(0);
-                    if (distance <= 2)
+                    enemyScript.SetForce(6);
+                    if (distance <= 2.5)
                     {
                         animator.SetBool("Chase", false);
                         tunnelChase = false;
@@ -182,17 +182,21 @@ if (stunned == false)
     public void PopUp()
     {
         armadilloRb.velocity = Vector3.zero;
-        armadilloRb.AddForce(Vector3.up * 10, ForceMode.Impulse);
+        armadilloRb.AddForce(Vector3.up * 5, ForceMode.Impulse);
         transform.localScale += new Vector3(0, 3, 0);
         skin.enabled = true;
         isOnGround = false;
         enemyScript.SetComboFinisher();
+        enemyScript.BackKnockBack();
     }
     public void SpinAttack()
     {
+        animator.SetTrigger("Spin Attack");
+        attackEffect.Play();
         armadilloRb.velocity = Vector3.zero;
         attackRange.transform.localScale += new Vector3(0.2f, 0, 0.2f);
-        //armadilloRb.angularVelocity = new Vector3(0, 3.14f, 0);
+        armadilloRb.angularVelocity = new Vector3(0, 3.14f, 0);
+        enemyScript.BackKnockBack();
     }
     //I thought I wouldn't need an AttackDuration, but I need to deactivate the attackrange
     IEnumerator AttackDuration()
@@ -202,13 +206,15 @@ if (stunned == false)
         yield return new WaitForSeconds(0.5f);
         attackRange.SetActive(false);
         //armadilloCollide.isTrigger = false;
-        attackFinished = false;
+        //attackFinished = false;
         attack = false;
         
         if (whichAttack == attackOne)
         {
             attackRange.transform.localScale -= new Vector3(0.2f, 0, 0.2f);
             whichAttack = attackTwo;
+            attackFinished = true;//Attack One automatically has attackFinished because it stays on the ground for the att
+            attackEffect.Stop();
         }
         else if (whichAttack == attackTwo)
         {
@@ -216,6 +222,7 @@ if (stunned == false)
             whichAttack = attackOne;
         }
         enemyScript.UnsetPlayerDodged();
+        enemyScript.ResetKnockbacks();
     }
 
     IEnumerator IdleAnimation()
@@ -301,7 +308,7 @@ if (stunned == false)
             //wolfRb.AddForce(playerScript.attackDirection * 20, ForceMode.Impulse);
             //playerScript.AttackLandedTrue();
         }
-                if (other.CompareTag("Bird Attack Regular"))
+                if (other.CompareTag("Bird Attack Range"))
         {
             Damaged();
         }
@@ -325,9 +332,9 @@ if (stunned == false)
     {
         stunned = true;
         //animation.Play("Damage Monkey");
-        animator.SetBool("Damaged", true);
-        yield return new WaitForSeconds(1.5f);
-        animator.SetBool("Damaged", false);
+        animator.SetTrigger("Damaged");
+        yield return new WaitForSeconds(3f);
+        //animator.SetBool("Damaged", false);
         stunned = false;
         idleTime = damageIdleTime;
         StartCoroutine(IdleAnimation());

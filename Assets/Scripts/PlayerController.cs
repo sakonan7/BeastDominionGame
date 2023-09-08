@@ -1378,7 +1378,7 @@ public class PlayerController : MonoBehaviour
             //{
             //Debug.Log("Targeted Enemy is null");
             //}
-            camScript.TurnToTarget(lockedOnLocation);
+            //camScript.TurnToTarget(lockedOnLocation);
             //StartCoroutine(TellAngle());
             lockedOn = true;
             //I was going to get rid of this because it looked like this code was for shifting the target
@@ -1395,7 +1395,7 @@ public class PlayerController : MonoBehaviour
     {
         lockedOn = false;
         enemyScript.LockOff();
-        camScript.LockOff();
+        //camScript.LockOff();
     }
     IEnumerator TransformCountdown()
     {
@@ -1482,7 +1482,7 @@ public class PlayerController : MonoBehaviour
         if (HP < originalHP)
         {
 
-
+            //Taken directly fromlosing HP.For some reason, it just works
             HPBar.fillAmount = (maxHPBarFill / originalHP) * HP;
         }
         if (HP >= originalHP)
@@ -1810,11 +1810,11 @@ public class PlayerController : MonoBehaviour
         {
             SceneManager.LoadScene("Armadillo Scene");
         }
-        if (collision.gameObject.name == "Checkpoint 2")
+        else if (collision.gameObject.name == "Checkpoint 2")
         {
             SceneManager.LoadScene("Temp Level 3");
         }
-        if (collision.gameObject.name == "Checkpoint 3")
+        else if (collision.gameObject.name == "Checkpoint 3")
         {
             SceneManager.LoadScene("Boss Draft");
         }
