@@ -34,12 +34,18 @@ public class Gorilla : MonoBehaviour
     public GameObject firstClawSlash;
     public GameObject secondClawSlash;
     public GameObject slamAttackRange;
+    public GameObject slamAttackRange2;
     public GameObject regularShockWave;
+    public GameObject bigShockWave;
+    public GameObject DMShockWave;
     public ParticleSystem attackEffect;
     public GameObject fireCrater;
+    public GameObject fireCraterDM;
     private Projectile craterScript;
     public GameObject warningLightSmall;
+    public GameObject warningLightDM;
     private bool slamComing = false;
+    private bool desperationMoveOn = false;
     public GameObject motionBlurObject;
     private AudioSource audio;
     public AudioClip monkeyAttack;
@@ -50,6 +56,8 @@ public class Gorilla : MonoBehaviour
     public bool isOnGround = false;
     private bool attackFinished = false;
     private float distance;
+
+    public GameObject[] rage = new GameObject[13];
 
     private bool stunned = false; //Freeze Monkey when i don't want it to move and when the Monkey is being stunlocked by att
     private float idleTime;
@@ -144,6 +152,30 @@ public class Gorilla : MonoBehaviour
             StartCoroutine(WarningLightRegular());
             warningLightSmall.transform.position = new Vector3(player.transform.position.x, warningLightSmall.transform.position.y, player.transform.position.z);
         }
+        //I think this will be triggered by booldesperationMoveOn
+        if (Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            enemyScript.SetDamage(8);
+            enemyScript.SetForce(30);
+            enemyScript.SetComboFinisher();
+            desperationMoveOn = true;
+            for(int i = 0; i < rage.Length; i++)
+            {
+                rage[i].SetActive(true);
+            }
+            StartCoroutine(DesperationMove());
+        }
+        if (desperationMoveOn == true)
+        {
+            StartCoroutine(WarningLightDM());
+        }
+        if (desperationMoveOn == false)
+        {
+            for (int i = 0; i < rage.Length; i++)
+            {
+                rage[i].SetActive(false);
+            }
+        }
     }
     IEnumerator IdleAnimation()
     {
@@ -192,6 +224,19 @@ public class Gorilla : MonoBehaviour
         yield return new WaitForSeconds(0.1f);
         warningLightSmall.SetActive(false);
     }
+    IEnumerator WarningLightBig()
+    {
+        warningLightSmall.SetActive(true);
+        yield return new WaitForSeconds(0.1f);
+        warningLightSmall.SetActive(false);
+    }
+    IEnumerator WarningLightDM()
+    {
+        warningLightDM.SetActive(true);
+        yield return new WaitForSeconds(0.2f);
+        warningLightDM.SetActive(false);
+    }
+   //What I could potential do is have the shockwaves trigger the second the Gorilla's arms touch the ground because they do touch theground 
     IEnumerator SlamDown()
     {
         
@@ -252,17 +297,93 @@ public class Gorilla : MonoBehaviour
     //For the arena lighting up, warning the player that the whole arena will be consumed in fire
     //I think I will adjust the light source itself to create the light lighting up and down
     //Do another version for the single hand smash shock
-    IEnumerator UltimateAttackChargeUp()
+    IEnumerator DesperationMove()
     {
-        while(ultimateAttackStart)
-        {
-            yield return new WaitForSeconds(0.5f);
-        }
+        //while(ultimateAttackStart)
+        //{
+        //yield return new WaitForSeconds(0.5f);
+        //}
+        
+        yield return new WaitForSeconds(5);
+        
+        desperationMoveOn = false;
+        slamAttackRange.SetActive(true);
+        slamAttackRange2.SetActive(true);
+        StartCoroutine(DMSlamDown());
+    }
+    IEnumerator DMSlamDown()
+    {
+
+        enemyScript.RightKnockBack();
+        yield return new WaitForSeconds(0.2f);
+        animation.Play("Single Slam");
+        //Potentially move the Gorill move a few inches closer so that it's fist is closer to the aren
+        StartCoroutine(DMSlamAttackDuration());
+        StartCoroutine(DMShockWaveAppears());
+
+        //Place warningLightSmall in exactly where the player is for a directhit
+        //StartCoroutine(WarningLightRegular());
+    }
+    IEnumerator DMShockWaveAppears()
+    {
+        yield return new WaitForSeconds(0.5f);
+        DMShockWave.SetActive(true);
+        motionBlurObject.SetActive(true);
+        //slamComing = false;
+        warningLightSmall.SetActive(false);
+        camScript.ScreenShakeMethod();
+    }
+    IEnumerator DMSlamAttackDuration()
+    {
+
+        attackFinished = true;
+        //Vector3 placeForFireCraterDM = fireCraterDM.transform.position;
+        yield return new WaitForSeconds(1f);
+        slamAttackRange.SetActive(false);
+        slamAttackRange2.SetActive(false);
+        DMShockWave.SetActive(false);
+        motionBlurObject.SetActive(false);
+        //armadilloCollide.isTrigger = false;
+        attackFinished = false;
+        attack = false;
+
+        //if (whichAttack == attackOne)
+        //{
+        //attackRange.transform.localScale -= new Vector3(0.2f, 0, 0.2f);
+        //}
+        //else if (whichAttack == attackTwo)
+        //{
+        enemyScript.SetComboFinisher();
+        enemyScript.ResetKnockbacks();
+        //}
+        idle = true;
+        transform.position = originalPosition;
+        attackFinished = false;
+        GameObject newDMCrater = fireCraterDM;
+        craterScript = newDMCrater.GetComponent<Projectile>();
+        craterScript.SetDamage(8);
+        //craterScript.IsMoving(false);
+        //craterScript.SetLifeTime(3);
+        //craterScript.IsDestroyable(false);
+        Instantiate(newDMCrater, fireCraterDM.transform.position, fireCraterDM.transform.rotation);
+        enemyScript.UnsetPlayerDodged();
     }
     IEnumerator Cutscene()
     {
         animation.Play("Sitting Idle");
         yield return new WaitForSeconds(1);
         idle = true;
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+        //I don't think this is going to work because I think the thing it's touching has to be a trig
+        if (other.CompareTag("Ground") && desperationMoveOn == true)
+        {
+            DMShockWave.SetActive(true);
+            motionBlurObject.SetActive(true);
+            slamComing = false;
+            warningLightSmall.SetActive(false);
+            camScript.ScreenShakeMethod();
+        }
     }
 }

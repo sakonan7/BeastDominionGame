@@ -125,61 +125,64 @@ public class Rabbit : MonoBehaviour
             //And just have the arrow seekthe player
             distance = Vector3.Distance(player.transform.position, transform.position);
             lookRotation = Quaternion.LookRotation(player.transform.position - transform.position);
-            if (idle == true && alreadyRanAway == false)
+if (stunned == false)
             {
-                if (distance <= 7)
+                if (idle == true && alreadyRanAway == false)
                 {
-                    Debug.Log("Rabbit distance is " + distance);
-                    runAway = true;
-                    animator.SetBool("Run", true);
+                    if (distance <= 7)
+                    {
+                        Debug.Log("Rabbit distance is " + distance);
+                        runAway = true;
+                        animator.SetBool("Run", true);
+                    }
                 }
-            }
-            if (runAway == true && stunned == false)
-            {
-                runDirection = transform.position - player.transform.position;
-                lookAwayRotation = Quaternion.LookRotation(transform.position - player.transform.position);
-                transform.rotation = Quaternion.Slerp(transform.rotation, lookAwayRotation, 3);
-                rabbitRb.AddForce(runDirection * 150);
-                if (distance >= 12)
+                if (runAway == true && stunned == false)
                 {
-                    runAway = false;
-                    animator.SetBool("Run", false);
+                    runDirection = transform.position - player.transform.position;
+                    lookAwayRotation = Quaternion.LookRotation(transform.position - player.transform.position);
+                    transform.rotation = Quaternion.Slerp(transform.rotation, lookAwayRotation, 3);
+                    rabbitRb.AddForce(runDirection * 150);
+                    if (distance >= 12)
+                    {
+                        runAway = false;
+                        animator.SetBool("Run", false);
+                        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, 3);
+                        StartCoroutine(PauseBeforeShoot());
+                    }
+                }
+                if (idle == false && whichAttack == attackOne && runAway == false)
+                {
+                    attack = true;
+
+
+
                     transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, 3);
-                    StartCoroutine(PauseBeforeShoot());
-                }
-            }
-            if (idle == false && whichAttack == attackOne && runAway == false)
-            {
-                attack = true;
-                
-                
-                
-                transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, 3);
-                enemyScript.SetDamage(1);
-                enemyScript.SetForce(0);
-                //Need this for archer because then it will keep firingarrows lmao
+                    enemyScript.SetDamage(1);
+                    enemyScript.SetForce(0);
+                    //Need this for archer because then it will keep firingarrows lmao
                     if (attackFinished == false)
                     {
-                    FireSingleArrow();
+                        FireSingleArrow();
                         StartCoroutine(AttackDuration());
                     }
-            }
-            else if (idle == false && whichAttack == attackTwo && runAway == false)
-            {
-                attack = true;
-
-                distance = Vector3.Distance(player.transform.position, transform.position);
-                lookRotation = Quaternion.LookRotation(player.transform.position - transform.position);
-                transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, 3); //Turned from 5 to 3 for smooth
-                                                                                            //StartCoroutine(AttackCountdown());
-                enemyScript.SetDamage(1);
-                enemyScript.SetForce(0);
-                //Need this for archer because then it will keep firingarrows lmao
-                if (attackFinished == false)
+                }
+                else if (idle == false && whichAttack == attackTwo && runAway == false)
                 {
-                    Debug.Log("SecondShot");
-                    FireSingleArrow();
-                    StartCoroutine(DoubleShootDuration());
+                    attack = true;
+
+                    distance = Vector3.Distance(player.transform.position, transform.position);
+                    lookRotation = Quaternion.LookRotation(player.transform.position - transform.position);
+                    transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, 3); //Turned from 5 to 3 for smooth
+                                                                                                //StartCoroutine(AttackCountdown());
+                    enemyScript.SetDamage(1);
+                    enemyScript.SetForce(0);
+                    //Need this for archer because then it will keep firingarrows lmao
+                    if (attackFinished == false)
+                    {
+                        Debug.Log("SecondShot");
+                        FireSingleArrow();
+                        StartCoroutine(DoubleShootDuration());
+                    }
                 }
             }
             //May not need this because Rabbit will technically not be off the ground
@@ -318,39 +321,19 @@ public class Rabbit : MonoBehaviour
         //Need isOnGround because the Monkey triggers this two times by running into the collider and then falling into it
         if (other.CompareTag("Tiger Attack Regular"))
         {
-            //For now, just trigger stun. I will use both of their directions to perform the knockback
-            //TakeDamage();
-
-            //enemyScript.HP -= 2;
             Damaged();
-            //playerScript.PlayTigerRegularStrike(transform.position);
-            //Vector3 knockbackDirection = (transform.position - tiger.transform.position).normalized;
-            //knockback force is inconsistent. Sometimes it doesn't knockback at all. Sometimes it knocks back too much
-            //It doesn't matter what the value is.
-            //It may not matter because I will have the attack lag minimized
-            //But I don't want the player to whiff attacks, so I think I will make sure the tiger is the right distance from the wolf
-            //Unless I can make a force play until a certain distance is reached
-            //I can't use forcemode.impulse then
-            //wolfRb.AddForce(playerScript.attackDirection * 15, ForceMode.Impulse);
-            //playerScript.AttackLandedTrue();
         }
         if (other.CompareTag("Tiger Special"))
         {
-            //For now, just trigger stun. I will use both of their directions to perform the knockback
-            //TakeDamage();
-
-            //enemyScript.HP -= 7;
             Damaged();
-            //playerScript.PlayTigerSpecialStrike(transform.position);
-            //Vector3 knockbackDirection = (transform.position - tiger.transform.position).normalized;
-            //knockback force is inconsistent. Sometimes it doesn't knockback at all. Sometimes it knocks back too much
-            //It doesn't matter what the value is.
-            //It may not matter because I will have the attack lag minimized
-            //But I don't want the player to whiff attacks, so I think I will make sure the tiger is the right distance from the wolf
-            //Unless I can make a force play until a certain distance is reached
-            //I can't use forcemode.impulse then
-            //wolfRb.AddForce(playerScript.attackDirection * 20, ForceMode.Impulse);
-            //playerScript.AttackLandedTrue();
+        }
+        if (other.CompareTag("Bird Attack Regular"))
+        {
+            Damaged();
+        }
+        if (other.CompareTag("Bird Special"))
+        {
+            Damaged();
         }
     }
     public void Damaged()

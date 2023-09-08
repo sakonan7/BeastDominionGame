@@ -21,6 +21,8 @@ TagManager:
   - Projectile
   - Targeted Enemy
   - Non Triggerable
+  - Fire
+  - Undodgable Attack
   layers:
   - Default
   - TransparentFX
