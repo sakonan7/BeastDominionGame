@@ -185,6 +185,8 @@ if (stunned == false)
     public void PopUp()
     {
         armadilloRb.velocity = Vector3.zero;
+        //Use velocity for jumping instead. Or use translate and separater. Separater isgood for keeping the player away and not toppling the
+        //Armadillo if the player dodgesit
         //armadilloRb.AddForce(Vector3.up * 10, ForceMode.Impulse);
         transform.localScale = originalSize;
         skin.enabled = true;

@@ -118,6 +118,7 @@ public class Gorilla : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //3 Ways to make Gorilla initiate an attack. Cancel out it's closeTheDistance with 3
         followDirection = (transform.position - player.transform.position).normalized;
         if (idle == true)
         {
@@ -156,12 +157,14 @@ public class Gorilla : MonoBehaviour
             warningLightSmall.transform.position = new Vector3(player.transform.position.x, warningLightSmall.transform.position.y, player.transform.position.z);
         }
         //I think this will be triggered by booldesperationMoveOn
-        if (Input.GetKeyDown(KeyCode.LeftShift))
+        //Somethingis making the code not animation not cooperate. Not the lights or the way the animation is built. Try
+        //getting rid of as many IEnumerators as possib
+        if (Input.GetKeyDown(KeyCode.T))
         {
             enemyScript.SetDamage(8);
             enemyScript.SetForce(30);
             enemyScript.SetComboFinisher();
-            desperationMoveOn = true;
+            
             for(int i = 0; i < rage.Length; i++)
             {
                 rage[i].SetActive(true);
@@ -325,6 +328,7 @@ public class Gorilla : MonoBehaviour
         //yield return new WaitForSeconds(0.5f);
         //}
         //animator.SetBool("DM Charge Up", true);
+        desperationMoveOn = true;
         yield return new WaitForSeconds(3);
         
         desperationMoveOn = false;

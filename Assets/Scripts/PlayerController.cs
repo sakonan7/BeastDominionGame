@@ -166,6 +166,8 @@ public class PlayerController : MonoBehaviour
     //public Image playerMugshot;
     public static int HP = 10;
     private int originalHP = 10;
+    public static bool death = false;
+    //public bool gameOver = false;
     public RawImage playerMugshot;
     public Texture tigerMugshot;
     public Texture birdMugshot;
@@ -303,7 +305,14 @@ public class PlayerController : MonoBehaviour
             birdSeparater.SetActive(true);
         }
 
-
+        if(death == true)
+        {
+            //ATM, each level always starts out with the player being a tiger. This will not be the case for 
+            //gameOver = death;
+            animation.Play("Current Death");
+            cantMove = true;
+            //gameManagerScript.StartLevelMethod();
+        }
 
         //movement
         forwardInput = Input.GetAxisRaw("Vertical");
@@ -634,7 +643,10 @@ public class PlayerController : MonoBehaviour
         //Cutscenes
         if (gameManagerScript.startingCutscene == true)
         {
-            OpeningRun();
+            if (death ==false)
+            {
+                OpeningRun();
+            }
         }
         //For some reason this only works here, in FixedUpdate, everywhereelse rerotates right a
         if (Input.GetKeyDown(KeyCode.N))
@@ -1663,6 +1675,9 @@ public class PlayerController : MonoBehaviour
             //Time.timeScale = 0;
             //Debug.Log("Game O");
             StartCoroutine(GameOverSlowDown());
+            death = true;
+            gameManagerScript.SetGameOver();
+            SceneManager.LoadScene("Game Over Screen");
         }
     }
     IEnumerator Reorient1()
@@ -1741,12 +1756,12 @@ public class PlayerController : MonoBehaviour
     }
     IEnumerator GameOverSlowDown()
     {
-        //Time.timeScale = 0.2f;
-        gameOverMessage.gameObject.SetActive(true);
+        Time.timeScale = 0.2f;
+        //gameOverMessage.gameObject.SetActive(true);
         yield return new WaitForSeconds(0.8f);
         //Time.timeScale = 0;
         //Time.timeScale = 1; //The interesting thingis that is that the timeScale doesn't set back to . gameOverMessage does setback, 
-        gameManagerScript.GameOver();
+        
     }
     public void OnCollisionEnter(Collision collision)
     {

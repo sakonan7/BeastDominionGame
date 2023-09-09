@@ -13,7 +13,7 @@ public class GameManager : MonoBehaviour
     public GameObject cutsceneCam;
     public GameObject target;
 
-    private bool gameOver = false;
+    //private bool gameOver = false;
     public GameObject player;
     private PlayerController playerScript;
     public GameObject tiger;
@@ -50,11 +50,18 @@ public class GameManager : MonoBehaviour
     public GameObject currentForm;
     public GameObject HPDisplay;
     public TextMeshProUGUI congratulationsMessage;
+    public TextMeshProUGUI gameOverMessage;
 
     public bool tutorialStage = true;
     public bool stage2 = false;
     public bool stage3 = false;
     public bool bossStage = false;
+    //For some reason, the static bools don't 
+    public static bool tutorialStageStored = true;
+    public static bool stage2Stored = false;
+    public static bool stage3Stored = false;
+    public static bool bossStageStored = false;
+    public static bool gameOverNow = false;
 
     public bool startGame = false; //Set this to true so that you can move the player now
 
@@ -82,19 +89,27 @@ public class GameManager : MonoBehaviour
         //storyScroll = true;
         //storyScrollObject.gameObject.SetActive(true);
         //continueMessage.gameObject.SetActive(true);
-        if (tutorialStage == true && storyScroll == true)
+        if (gameOverNow == false)
         {
-           
-            StartCoroutine(TheStoryScroll());
+            if (tutorialStage == true && storyScroll == true)
+            {
+
+                StartCoroutine(TheStoryScroll());
+            }
+            else if (tutorialStage == true && storyScroll == false)
+            {
+                StartCoroutine(NonStoryScroll());
+            }
+            else if (tutorialStage == false)
+            {
+                StartCoroutine(NonStoryScroll());
+            }
         }
-        else if (tutorialStage == true && storyScroll == false)
+        else
         {
-            StartCoroutine(NonStoryScroll());
+            GameOverScreen();
         }
-        else if (tutorialStage == false)
-        {
-            StartCoroutine(NonStoryScroll());
-        }
+
     }
 
     // Update is called once per frame
@@ -150,9 +165,33 @@ public class GameManager : MonoBehaviour
             //camScript.PlayBattleMusic();
         }
 
-        if (Input.GetMouseButtonDown(0) && gameOver == true)
-        {
-            SceneManager.LoadScene("Level 1");
+        if (gameOverNow == true) {
+            if (Input.GetMouseButtonDown(0))
+            {
+                if (tutorialStageStored == true)
+                {
+                    SceneManager.LoadScene("Level 1");
+                }
+                else if (stage2Stored == true)
+                {
+                    SceneManager.LoadScene("Armadillo Scene");
+                }
+                else if (stage3Stored == true)
+                {
+                    SceneManager.LoadScene("Temp Level 3");
+                }
+                else if (bossStageStored == true)
+                {
+                    SceneManager.LoadScene("Boss Draft");
+                }
+                gameOverNow = false;
+            }
+            if (Input.GetMouseButtonDown(1))
+            {
+                SceneManager.LoadScene("Level 1");
+                tutorialStageStored = true;
+                gameOverNow = false;
+            }
         }
         ///Need to turn this into a meth
         
@@ -172,7 +211,18 @@ public class GameManager : MonoBehaviour
             //UIDisappear();
             stageCleared = true;
             //Destroy(barrier);
-
+            if (tutorialStageStored == true)
+            {
+                tutorialStageStored = false;
+            }
+            else if (stage2Stored == true)
+            {
+                stage2Stored = false;
+            }
+            else if (stage3Stored == true)
+            {
+                stage3Stored = false;
+            }
         }
         //Oh, thiswas causing a glitch
         //if (Input.GetMouseButtonDown(0) && gameEnd == true)
@@ -286,22 +336,26 @@ public class GameManager : MonoBehaviour
 
         //BattleMusicOn();
         stageCleared = false;
-        if (tutorialStage == true)
-        {
-            TutorialLevel();
-        }
-        else if (stage2 == true)
-        {
-            Level2();
-        }
-        else if (stage3 == true)
-        {
-            Level3();
-        }
-        else if (bossStage == true)
-        {
-            BossLevel();
-        }
+            if (tutorialStage == true)
+            {
+                TutorialLevel();
+            tutorialStageStored = true;
+            }
+            else if (stage2 == true)
+            {
+                Level2();
+            stage2Stored = true;
+            }
+            else if (stage3 == true)
+            {
+                Level3();
+            stage3Stored = true;
+            }
+            else if (bossStage == true)
+            {
+                BossLevel();
+            }
+
     }
     public void BattleMusicOn()
     {
@@ -319,10 +373,15 @@ public class GameManager : MonoBehaviour
         continueMessage.gameObject.SetActive(true);
         camScript.PlayVictoryMusic();
     }
-    public void GameOver()
+    public void SetGameOver()
     {
-        gameOver = true;
-        continueMessage.gameObject.SetActive(true);
+        gameOverNow = true;
+    }
+    public void GameOverScreen()
+    {
+        //gameOver = true;
+        //continueMessage.gameObject.SetActive(true);
+        gameOverMessage.gameObject.SetActive(true);
     }
     public void StagesOff()
     {

@@ -17,4 +17,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Boss Draft.unity
     guid: 1ab73e8e81e372a4190b480d26905097
+  - enabled: 1
+    path: Assets/Scenes/Game Over Screen.unity
+    guid: 46cbc8041a0852e46aef81c8ecf45295
   m_configObjects: {}

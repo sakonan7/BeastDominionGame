@@ -2925,7 +2925,7 @@ Transform:
   m_GameObject: {fileID: 3594966524018280128}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: 13.4, y: 0, z: -2}
-  m_LocalScale: {x: 5.5, y: 5.5, z: 5.5}
+  m_LocalScale: {x: 5, y: 5, z: 5}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 4274165669797494485}
@@ -2956,7 +2956,7 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3594966524018280128}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Avatar: {fileID: 9000000, guid: dcfe34484734d094d8d0f8b2ab770ebe, type: 3}
   m_Controller: {fileID: 9100000, guid: 80f75a47117f70f4a93e44b03c1a5c83, type: 2}
   m_CullingMode: 1
@@ -3011,7 +3011,7 @@ MonoBehaviour:
   slamAttackRange2: {fileID: 3605712079868239290}
   regularShockWave: {fileID: 3023598258869932815}
   bigShockWave: {fileID: 1930462366596847710}
-  DMShockWave: {fileID: 0}
+  DMShockWave: {fileID: 8431569934143376260, guid: 8c9fd8e2c50e8d04888a9493ad1d3977, type: 3}
   attackEffect: {fileID: 0}
   fireCrater: {fileID: 5229749047291934494, guid: 1a2c6072ef2ee724ebaf4f545fc61d31, type: 3}
   fireCraterDM: {fileID: 5229749047291934494, guid: 333d69850779c6e4991f46825cecf91f, type: 3}
@@ -3042,14 +3042,16 @@ Animation:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3594966524018280128}
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 3
   m_Animation: {fileID: 7400000, guid: 37354a2bf619c9e448c761ab6e4a3e46, type: 2}
   m_Animations:
   - {fileID: 7400000, guid: 66031b6aaaf67ab46a7b6aa4967ee557, type: 2}
   - {fileID: 7400000, guid: 37354a2bf619c9e448c761ab6e4a3e46, type: 2}
   - {fileID: 7400000, guid: 4b281231a1809814880137e86aea20f4, type: 2}
+  - {fileID: 7400000, guid: 7cc1d1df9dc60a644b3d6dcfdb7b7f51, type: 2}
   - {fileID: 7400000, guid: 55f4d633692d41346a3ab3b4e0e84c33, type: 2}
+  - {fileID: 7400000, guid: 993e7fb8356b0e746982c307ffdc5262, type: 2}
   m_WrapMode: 0
   m_PlayAutomatically: 1
   m_AnimatePhysics: 0

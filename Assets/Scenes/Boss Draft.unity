@@ -352,11 +352,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3093959637342806294, guid: 5230bab3687158a4e8a33d584068b91d, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.0000025786737
+      value: 0.000002617148
       objectReference: {fileID: 0}
     - target: {fileID: 3093959637342806294, guid: 5230bab3687158a4e8a33d584068b91d, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.0000000080115115
+      value: -0.00000000813111
       objectReference: {fileID: 0}
     - target: {fileID: 3322581656046782034, guid: 5230bab3687158a4e8a33d584068b91d, type: 3}
       propertyPath: m_LocalRotation.w
@@ -384,11 +384,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4932722839982319352, guid: 5230bab3687158a4e8a33d584068b91d, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.0000025878912
+      value: 0.000002605088
       objectReference: {fileID: 0}
     - target: {fileID: 4932722839982319352, guid: 5230bab3687158a4e8a33d584068b91d, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.000000086017366
+      value: 0.000000086588926
       objectReference: {fileID: 0}
     - target: {fileID: 5767329092050066304, guid: 5230bab3687158a4e8a33d584068b91d, type: 3}
       propertyPath: m_RootOrder
@@ -631,10 +631,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1756891565}
     - target: {fileID: 8123722900266441927, guid: 60ec10cfb6f3d844b8ff5decbda68e88, type: 3}
-      propertyPath: bossStage
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8123722900266441927, guid: 60ec10cfb6f3d844b8ff5decbda68e88, type: 3}
       propertyPath: startMenu
       value: 
       objectReference: {fileID: 88682163}
@@ -651,17 +647,13 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2109806398}
     - target: {fileID: 8123722900266441927, guid: 60ec10cfb6f3d844b8ff5decbda68e88, type: 3}
-      propertyPath: storyScroll
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8123722900266441927, guid: 60ec10cfb6f3d844b8ff5decbda68e88, type: 3}
-      propertyPath: tutorialStage
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8123722900266441927, guid: 60ec10cfb6f3d844b8ff5decbda68e88, type: 3}
       propertyPath: continueMessage
       value: 
       objectReference: {fileID: 1559555460}
+    - target: {fileID: 8123722900266441927, guid: 60ec10cfb6f3d844b8ff5decbda68e88, type: 3}
+      propertyPath: gameOverMessage
+      value: 
+      objectReference: {fileID: 359981158}
     - target: {fileID: 8123722900266441927, guid: 60ec10cfb6f3d844b8ff5decbda68e88, type: 3}
       propertyPath: storyScrollObject
       value: 
@@ -849,6 +841,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1399339636106868097, guid: 4f0a326d21919974c803a88238e49d9a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4773532658103731901, guid: 4f0a326d21919974c803a88238e49d9a, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -1710,37 +1706,29 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 703606107740589257, guid: fca9f7da32548a9429e232e1595c8ea8, type: 3}
-      propertyPath: m_Enabled
+    - target: {fileID: 3180877536571746903, guid: fca9f7da32548a9429e232e1595c8ea8, type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3594966524018280128, guid: fca9f7da32548a9429e232e1595c8ea8, type: 3}
       propertyPath: m_Name
       value: Gorilla
       objectReference: {fileID: 0}
-    - target: {fileID: 4673134653771710273, guid: fca9f7da32548a9429e232e1595c8ea8, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4673134653771710273, guid: fca9f7da32548a9429e232e1595c8ea8, type: 3}
-      propertyPath: m_Animations.Array.size
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 4673134653771710273, guid: fca9f7da32548a9429e232e1595c8ea8, type: 3}
-      propertyPath: m_Animations.Array.data[3]
-      value: 
-      objectReference: {fileID: 7400000, guid: 7cc1d1df9dc60a644b3d6dcfdb7b7f51, type: 2}
-    - target: {fileID: 4673134653771710273, guid: fca9f7da32548a9429e232e1595c8ea8, type: 3}
-      propertyPath: m_Animations.Array.data[4]
-      value: 
-      objectReference: {fileID: 7400000, guid: 55f4d633692d41346a3ab3b4e0e84c33, type: 2}
-    - target: {fileID: 4673134653771710273, guid: fca9f7da32548a9429e232e1595c8ea8, type: 3}
-      propertyPath: m_Animations.Array.data[5]
-      value: 
-      objectReference: {fileID: 7400000, guid: 993e7fb8356b0e746982c307ffdc5262, type: 2}
     - target: {fileID: 6987869514440069686, guid: fca9f7da32548a9429e232e1595c8ea8, type: 3}
       propertyPath: m_RootOrder
       value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6987869514440069686, guid: fca9f7da32548a9429e232e1595c8ea8, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 6987869514440069686, guid: fca9f7da32548a9429e232e1595c8ea8, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 5.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6987869514440069686, guid: fca9f7da32548a9429e232e1595c8ea8, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 6987869514440069686, guid: fca9f7da32548a9429e232e1595c8ea8, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1780,6 +1768,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6987869514440069686, guid: fca9f7da32548a9429e232e1595c8ea8, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6987869514440069686, guid: fca9f7da32548a9429e232e1595c8ea8, type: 3}
+      propertyPath: m_ConstrainProportionsScale
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
