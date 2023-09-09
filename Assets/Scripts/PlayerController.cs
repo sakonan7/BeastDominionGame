@@ -826,9 +826,15 @@ public class PlayerController : MonoBehaviour
 
     public void SetHP()
     {
-        if (HP < 10)
+        if (HP < 10 && HP > 0)
         {
             HPBar.fillAmount = maxHPBarFill * (HP / originalHP);
+        }
+        else if (HP <= 0)
+        {
+            HPBar.fillAmount = maxHPBarFill;
+            HP = originalHP;
+            death = false;
         }
     }
     IEnumerator TellDistance ()

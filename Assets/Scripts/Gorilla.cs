@@ -119,6 +119,8 @@ public class Gorilla : MonoBehaviour
     void Update()
     {
         //3 Ways to make Gorilla initiate an attack. Cancel out it's closeTheDistance with 3
+        //Either it hits a boundaryorit is <= 8 or 16distance away from the player. I think I don't need to have OnCollision or OnCollisionStay
+        //becausethat counts as being < 8 distance
         followDirection = (transform.position - player.transform.position).normalized;
         if (idle == true)
         {

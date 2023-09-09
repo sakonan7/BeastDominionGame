@@ -65,7 +65,7 @@ Transform:
   - {fileID: 5384356388187109961}
   - {fileID: 8469718727530892216}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8123722900266441927
 MonoBehaviour:
@@ -82,7 +82,7 @@ MonoBehaviour:
   mainCam: {fileID: 0}
   cutsceneCam: {fileID: 0}
   target: {fileID: 0}
-  player: {fileID: 4010593551167423254, guid: cc5d1e7149cb79549b8d52ad54f5c8e3, type: 3}
+  player: {fileID: 0}
   tiger: {fileID: 0}
   barrier: {fileID: 0}
   enemies:
@@ -111,6 +111,11 @@ MonoBehaviour:
   currentForm: {fileID: 0}
   HPDisplay: {fileID: 0}
   congratulationsMessage: {fileID: 0}
+  gameOverMessage: {fileID: 0}
+  tutorialStage: 0
+  stage2: 0
+  stage3: 0
+  bossStage: 1
   startGame: 0
   startingCutscene: 0
   enemyJustDefeated: 0

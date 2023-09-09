@@ -57,11 +57,13 @@ public class GameManager : MonoBehaviour
     public bool stage3 = false;
     public bool bossStage = false;
     //For some reason, the static bools don't 
-    public static bool tutorialStageStored = true;
-    public static bool stage2Stored = false;
-    public static bool stage3Stored = false;
-    public static bool bossStageStored = false;
-    public static bool gameOverNow = false;
+    //For some reason they do when I take off the valueshere
+    //Changedto privateand nothinghappened
+    private static bool tutorialStageStored;
+    private static bool stage2Stored;
+    private static bool stage3Stored;
+    private static bool bossStageStored;
+    private static bool gameOverNow = false;
 
     public bool startGame = false; //Set this to true so that you can move the player now
 
@@ -185,12 +187,19 @@ public class GameManager : MonoBehaviour
                     SceneManager.LoadScene("Boss Draft");
                 }
                 gameOverNow = false;
+                playerScript.SetHP();
+                Time.timeScale = 1f;
             }
             if (Input.GetMouseButtonDown(1))
             {
                 SceneManager.LoadScene("Level 1");
                 tutorialStageStored = true;
+                stage2Stored = false;
+                stage3Stored = false;
+                bossStageStored = false;
                 gameOverNow = false;
+                playerScript.SetHP();
+                Time.timeScale = 1f;
             }
         }
         ///Need to turn this into a meth
@@ -354,6 +363,7 @@ public class GameManager : MonoBehaviour
             else if (bossStage == true)
             {
                 BossLevel();
+            bossStageStored = true;
             }
 
     }
