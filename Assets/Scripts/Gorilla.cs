@@ -49,6 +49,10 @@ public class Gorilla : MonoBehaviour
     public GameObject motionBlurObject;
     private AudioSource audio;
     public AudioClip monkeyAttack;
+    public AudioClip startingSound;
+    public AudioClip startingSound;
+    public AudioClip fieryAura;
+    public AudioClip DMSmash;
     private float attackVol;
     private float firstAttackVol = 0.1f;
     private float secondAttackVol = 0.3f;
@@ -180,6 +184,10 @@ public class Gorilla : MonoBehaviour
             lookRotation = Quaternion.LookRotation(player.transform.position - transform.position);
 
             transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, 3);
+            //new code
+            //Maybe don't need to play this as audio fullout because the audio clip is long and the code will play out the wholeclip
+            //audio.clip = fieryAura;//Just needtocut fire sound to about 3 seconds, before a pause and the louder fire
+            audio.PlayOneShot(fieryAura, 0.2f);
         }
         if (desperationMoveOn == false)
         {
@@ -187,6 +195,7 @@ public class Gorilla : MonoBehaviour
             {
                 rage[i].SetActive(false);
             }
+            audio.PlayOneShot(DMSmash, 0.4f);
         }
     }
     IEnumerator IdleAnimation()
@@ -312,6 +321,8 @@ public class Gorilla : MonoBehaviour
         animation.Play("Roar");
         StartCoroutine(StartUpFists());
     }
+
+    //Rewrite of DM
     IEnumerator StartUpFists()
     {
         yield return new WaitForSeconds(0.5f);
@@ -357,8 +368,8 @@ public class Gorilla : MonoBehaviour
     {
         yield return new WaitForSeconds(0.5f);
         bigShockWave.SetActive(true);
-        //DMShockWave.SetActive(true);
-        Instantiate(DMShockWave, DMShockWave.transform.position, DMShockWave.transform.rotation);
+        DMShockWave.SetActive(true);
+        //Instantiate(DMShockWave, DMShockWave.transform.position, DMShockWave.transform.rotation);
         motionBlurObject.SetActive(true);
         //slamComing = false;
         warningLightSmall.SetActive(false);
@@ -373,7 +384,7 @@ public class Gorilla : MonoBehaviour
         slamAttackRange.SetActive(false);
         slamAttackRange2.SetActive(false);
         bigShockWave.SetActive(false);
-        //DMShockWave.SetActive(false);
+        DMShockWave.SetActive(false);
         motionBlurObject.SetActive(false);
         //armadilloCollide.isTrigger = false;
         attackFinished = false;
