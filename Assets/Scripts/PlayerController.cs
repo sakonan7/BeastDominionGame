@@ -1396,7 +1396,7 @@ public class PlayerController : MonoBehaviour
             //{
             //Debug.Log("Targeted Enemy is null");
             //}
-            //camScript.TurnToTarget(lockedOnLocation);
+            camScript.TurnToTarget(lockedOnLocation);
             //StartCoroutine(TellAngle());
             lockedOn = true;
             //I was going to get rid of this because it looked like this code was for shifting the target
@@ -1413,7 +1413,7 @@ public class PlayerController : MonoBehaviour
     {
         lockedOn = false;
         enemyScript.LockOff();
-        //camScript.LockOff();
+        camScript.LockOff();
     }
     IEnumerator TransformCountdown()
     {
