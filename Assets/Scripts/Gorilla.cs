@@ -192,14 +192,6 @@ public class Gorilla : MonoBehaviour
             audio.PlayOneShot(fieryAura, 0.2f);
 
         }
-        else if (desperationMoveOn == false)
-        {
-            for (int i = 0; i < rage.Length; i++)
-            {
-                rage[i].SetActive(false);
-            }
-            //audio.PlayOneShot(DMSmash, 0.4f);
-        }
     }
     IEnumerator IdleAnimation()
     {

@@ -59,7 +59,8 @@ public class Enemy : MonoBehaviour
     public bool giantEnemy = false;
     public bool giantBoss = false;
     public bool revengeValue = false;
-    private int revengeValueCount = 3;
+    public int currentRevengeValue = 0;
+    public int revengeValueCount = 3;
     public bool isLingering = false;
 
     public bool playerDodged = false;
@@ -133,6 +134,10 @@ public class Enemy : MonoBehaviour
     public void SetDamage(int newDamage)
     {
         damage = newDamage;
+    }
+    public void SetFlying()
+    {
+        isFlying = !isFlying;
     }
     public void IsGiantEnemy()
     {
@@ -238,6 +243,18 @@ public class Enemy : MonoBehaviour
     public void UnsetPlayerDodged()
     {
         playerDodged = false;
+    }
+    public void HasRevengeValue()
+    {
+        revengeValue = true;
+    }
+    public void ResetRevengeValue()
+    {
+        revengeValueCount = 0;
+    }
+    public void RevengeValueUp()
+    {
+        currentRevengeValue++;
     }
     public void OnCollisionEnter(Collision collision)
     {
