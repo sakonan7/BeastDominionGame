@@ -50,7 +50,6 @@ public class Gorilla : MonoBehaviour
     private AudioSource audio;
     public AudioClip monkeyAttack;
     public AudioClip startingSound;
-    public AudioClip startingSound;
     public AudioClip fieryAura;
     public AudioClip DMSmash;
     private float attackVol;
@@ -134,6 +133,7 @@ public class Gorilla : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.H) && attackFinished == false)
         {
             idle = false;
+            LightsOn();
             //chase = true;
             slamAttackRange.SetActive(true);
             StartCoroutine(CloseTheDistance());
@@ -154,7 +154,6 @@ public class Gorilla : MonoBehaviour
             //}
             //}
             attackFinished = true;
-
         }
         if (slamComing == true)
         {
@@ -165,22 +164,25 @@ public class Gorilla : MonoBehaviour
         //I think this will be triggered by booldesperationMoveOn
         //Somethingis making the code not animation not cooperate. Not the lights or the way the animation is built. Try
         //getting rid of as many IEnumerators as possib
-        if (Input.GetKeyDown(KeyCode.T))
+        //Something is cursed with this code, I tried turning off several IEnumeratorsand justdoing the animation and nothing happ
+        if (Input.GetKeyDown(KeyCode.T) && attackFinished == false)
         {
-            enemyScript.SetDamage(8);
-            enemyScript.SetForce(30);
-            enemyScript.SetComboFinisher();
-            
-            for(int i = 0; i < rage.Length; i++)
-            {
-                rage[i].SetActive(true);
-            }
-            DMStart();
-            
+            idle = false; //Oh my god, I never turned off Idle for thiscode//This is why the gorilla twitches but doesn'tdoany
+            //enemyScript.SetDamage(8);
+            //enemyScript.SetForce(30);
+            //enemyScript.SetComboFinisher();
+            //attackFinished = true;
+
+            LightsOn();
+            //DMStart();
+            //desperationMoveOn = true;
+            enemyScript.BackKnockBack();
+            //StartCoroutine(NewDMCode());
+            animation.Play("Desperation Move");
         }
         if (desperationMoveOn == true)
         {
-            StartCoroutine(WarningLightDM());
+            //StartCoroutine(WarningLightDM());
             lookRotation = Quaternion.LookRotation(player.transform.position - transform.position);
 
             transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, 3);
@@ -188,14 +190,15 @@ public class Gorilla : MonoBehaviour
             //Maybe don't need to play this as audio fullout because the audio clip is long and the code will play out the wholeclip
             //audio.clip = fieryAura;//Just needtocut fire sound to about 3 seconds, before a pause and the louder fire
             audio.PlayOneShot(fieryAura, 0.2f);
+
         }
-        if (desperationMoveOn == false)
+        else if (desperationMoveOn == false)
         {
             for (int i = 0; i < rage.Length; i++)
             {
                 rage[i].SetActive(false);
             }
-            audio.PlayOneShot(DMSmash, 0.4f);
+            //audio.PlayOneShot(DMSmash, 0.4f);
         }
     }
     IEnumerator IdleAnimation()
@@ -314,7 +317,20 @@ public class Gorilla : MonoBehaviour
         Instantiate(newCrater, new Vector3(placeForFireCrater.x, fireCrater.transform.position.y, placeForFireCrater.z), fireCrater.transform.rotation);
         enemyScript.UnsetPlayerDodged();
     }
-
+    public void LightsOn()
+    {
+        for (int i = 0; i < rage.Length; i++)
+        {
+            rage[i].SetActive(true);
+        }
+    }
+    public void LightsOff()
+    {
+        for (int i = 0; i < rage.Length; i++)
+        {
+            rage[i].SetActive(false);
+        }
+    }
     public void DMStart()
     {
         //animator.SetTrigger("DM Start Up");
@@ -323,6 +339,18 @@ public class Gorilla : MonoBehaviour
     }
 
     //Rewrite of DM
+    IEnumerator NewDMCode()
+    {
+        yield return new WaitForSeconds(4);
+        desperationMoveOn = false;
+        animation.Play("Desperation Move");
+        //DMShockWave.SetActive(true);
+        //Instantiate(DMShockWave, DMShockWave.transform.position, DMShockWave.transform.rotation);
+        //motionBlurObject.SetActive(true);
+        //slamComing = false;
+        //camScript.ScreenShakeMethod();
+        //StartCoroutine(DMSlamAttackDuration());
+    }
     IEnumerator StartUpFists()
     {
         yield return new WaitForSeconds(0.5f);
