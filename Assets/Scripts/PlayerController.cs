@@ -1462,7 +1462,9 @@ public class PlayerController : MonoBehaviour
                                                    //Doing this in case there's already a foe that's been locked
                        if (lockedOn == true)
                       {
-                          enemyScript.LockOff();
+                        //enemyScript.LockOff();
+                        //camScript.LockOff();
+                        LockOff();
                         //gameManagerScript.LockOff();
                         }
                     enemyScript = targetedEnemy.GetComponent<Enemy>();

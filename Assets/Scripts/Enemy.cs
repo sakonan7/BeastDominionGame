@@ -55,6 +55,7 @@ public class Enemy : MonoBehaviour
     public bool hitLanded = false;
     private bool hitByBirdSpecial = false;
     private bool cantBeHit = false;
+    public bool isBird = false;
     public bool isFlying = false;
     public bool giantEnemy = false;
     public bool giantBoss = false;
@@ -380,11 +381,11 @@ if (giantEnemy == false)
                 //StartCoroutine(FoeAttacked(120));
                 //This code is for airborne enemies, but actually, it is for enemies that use animation instead of animator
                 //because animtor makes characters a lot slower
-                if (isFlying == true)
+                if (isBird == true)
                 {
-                    StartCoroutine(FoeAttacked(30));
+                    StartCoroutine(FoeAttacked(10));
                 }
-                else if (isFlying == false)
+                if (isBird == false && isFlying == false)
                 {
                     StartCoroutine(FoeAttacked(120));
                 }
@@ -406,11 +407,11 @@ if (giantEnemy == false)
                 playerScript.AttackLandedTrue();
                 //Debug.Log(distance + " " + enemyRb.velocity);
                 //May want barely any pushbackfrom bird attacks for the islandportion
-                if (isFlying == true)
+                if (isBird == true)
                 {
-                    StartCoroutine(FoeAttacked(10));
+                    StartCoroutine(FoeAttacked(15));
                 }
-                else if (isFlying == false)
+                if (isFlying == false)
                 {
                     StartCoroutine(FoeAttacked(50));
                 }
@@ -454,7 +455,14 @@ if (giantEnemy == false)
             playerScript.AttackLandedTrue();
             StartCoroutine(DamageDisplayDuration(5));
             HPBarDecrease(5);
-            StartCoroutine(FoeAttacked(200));
+            if (isBird == true)
+            {
+                StartCoroutine(FoeAttacked(50));
+            }
+            else
+            {
+                StartCoroutine(FoeAttacked(200));
+            }
             hitByBirdSpecial = true;
             StartCoroutine(Invincibility());
             //Put a coroutine here so that enemies can only be hit by Bird Special once

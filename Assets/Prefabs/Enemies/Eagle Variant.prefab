@@ -673,6 +673,7 @@ MonoBehaviour:
   lockedOn: 0
   dyingEffect: {fileID: 0}
   hitLanded: 0
+  isBird: 1
   isFlying: 0
   giantEnemy: 0
   giantBoss: 0
