@@ -28,6 +28,7 @@ public class PlayerController : MonoBehaviour
     public GameObject tigerFollow;
     public GameObject birdFollow;
     public bool isFlying = false;
+    private bool swoopedDown = false;
 
     [Header("Combo Meter")]
     public int hitNumber = 0;
@@ -510,6 +511,20 @@ public class PlayerController : MonoBehaviour
             {
                 bird.transform.rotation = Quaternion.Slerp(tiger.transform.rotation, attackRotation, 3);
             }
+            
+            //Just cancel the distanceClosersif the flying enemy just happens to start flying before the player can reach
+            //them.Shouldn't happen becauseThedistance clloserattack is very quick
+            if (enemyScript.isFlying == true)
+            {
+                closeTheDistance = false; // Almostforgot thispart
+                //Just cancel into att
+                if (tigerActive==true)
+                {
+                    animation.Play("Attack 1 & 2");
+                    //playerRb.constraints = RigidbodyConstraints.FreezeRotation;
+                    playerAudio.PlayOneShot(tigerSwing, 0.05f);
+                }
+            }
 
         }
         if (specialCloseTheDistance == true)
@@ -540,6 +555,21 @@ public class PlayerController : MonoBehaviour
             if (birdActive == true)
             {
                 bird.transform.rotation = Quaternion.Slerp(tiger.transform.rotation, attackRotation, 3);
+            }
+
+            if (enemyScript.isFlying == true)
+            {
+                specialCloseTheDistance = false;
+                if (tigerActive == true)
+                {
+                    animation.Play("Attack 1 & 2");
+                    TigerSpecial();
+                    StartCoroutine(TigerSpecialDuration());
+                }
+                else if (birdActive == true)
+                {
+                    StartCoroutine(BirdSpecialDuration());
+                }
             }
         }
 
@@ -739,7 +769,7 @@ public class PlayerController : MonoBehaviour
             //When I put this in Update(), the attacks are slower than if I were to put in LateUpdate()
         if (cantMove == false)
         {
-
+            //For Attacking, I may want to modify Quaternion.Slerp tomake the tigerand maybe the bird too not turn out of X-ax
             if (Input.GetMouseButtonDown(0) && lockedOn == true)
             {
 
@@ -772,6 +802,10 @@ public class PlayerController : MonoBehaviour
                     //}
                     //Moved attackDirection here because the player object gets rotated now
                     attackDirection = (targetedEnemy.transform.position - tiger.transform.position).normalized;
+                    //if (enemyScript.isFlying == true)
+                    //{//To avoid tiger from roating from att
+                        attackDirection = new Vector3(attackDirection.x, 0, attackDirection.z);
+                    //}
 
                     attackRotation = Quaternion.LookRotation(targetedEnemy.transform.position - tiger.transform.position);
                     tiger.transform.rotation = Quaternion.Slerp(tiger.transform.rotation, attackRotation, 3); //Moved this from Strike() to
@@ -883,9 +917,7 @@ public class PlayerController : MonoBehaviour
         if (birdActive == true)
         {
             birdAttackEffect.SetActive(true);
-            bird.transform.Translate(0, -1.5f, 0);
-            birdSeparater.SetActive(false);
-            isFlying = false;
+
         }
         if (damageStun == true || stunnedInvincibility) {
             attack = false;
@@ -901,8 +933,12 @@ public class PlayerController : MonoBehaviour
         if (birdActive == true)
         {
                 birdAttackEffect.SetActive(false);
-                bird.transform.Translate(0, 1.5f, 0);
+            if (swoopedDown == true)
+            {
+                swoopedDown = false; bird.transform.Translate(0, 1.5f, 0);
                 birdSeparater.SetActive(true);
+            }
+
             isFlying = true;
             //transform.rotation = bird.transform.rotation;
         }
@@ -1006,9 +1042,12 @@ public class PlayerController : MonoBehaviour
         staffLight.intensity = 2;
 
         playerAudio.PlayOneShot(bladeOfLightChargeUp, 0.2f);
-        if (lockedOn == true)
+        //Maywant to watch out for this for flying enemies, but maybe not because the eaglewill be in its lag after the charge up
+        //is done
+        if (lockedOn == true && enemyScript.isFlying == false)
         {
             attackDirection = (targetedEnemy.transform.position - tiger.transform.position).normalized;
+            attackDirection = new Vector3(attackDirection.x, 0, attackDirection.z);
             tiger.transform.rotation = Quaternion.Slerp(tiger.transform.rotation, attackRotation, 5 * Time.deltaTime);
             attackRotation = Quaternion.LookRotation(targetedEnemy.transform.position - tiger.transform.position);
                 specialCloseTheDistance = true;
@@ -1054,8 +1093,14 @@ public class PlayerController : MonoBehaviour
         //playerAudio.PlayOneShot(tigerSpecial, 0.1f);
         //bladeOfLight.SetActive(true);
         specialUsed = true;
-        isFlying = false;
+        //isFlying = false;
         yield return new WaitForSeconds(2f);
+        if (swoopedDown == true)
+        {
+                bird.transform.Translate(0, 1.5f, 0);
+                birdSeparater.SetActive(true);
+            swoopedDown = false; //Almost forgot
+        }
         specialUsed = false;
         isFlying = true;
         attack = false;
@@ -1100,15 +1145,21 @@ public class PlayerController : MonoBehaviour
         //{
             //Debug.Log(distance);
         //}
-        if (lockedOn == true)
+        //Placingthis over here instead of in AttackDuration because IEnumerators are continuous (although I think I tried a movement code
+        //In another script and it didn't work in an IEnumera)
+        if (lockedOn == true && enemyScript.isFlying== false) //Almost accidentally wrotethis as ==true
         {
             //StartCoroutine(TellAngle());
+            bird.transform.Translate(0, -1.5f, 0);
+            birdSeparater.SetActive(false);
+            isFlying = false;
+            swoopedDown = true;
         }
-        if (distance > 15 && lockedOn)
+        if (distance >= 15 && lockedOn)
         {
-            
+            Debug.Log("Non Distance Closer,Bird");
             StartCoroutine(AttackDuration());
-            playerRb.velocity = attackDirection * (attackForce + 20);
+            playerRb.AddForce(attackDirection * (attackForce + 20), ForceMode.Impulse);
             //StartCoroutine(FreezeRotations());
         }
         //Want DistanceCloser only to play when the tiger isn't close enough. Was originally going to have a distance > 10 || distance <=3
@@ -1144,6 +1195,8 @@ public class PlayerController : MonoBehaviour
         //Debug.Log(playerRb.velocity);
         canCombo = false;
         //originalRotation = tiger.transform.rotation;
+
+        //I envision the tiger not being able to reach the eagle at all and won't be able to use its distance clos
         if (lockedOn == false)
         {
             attackTimeLength = normalTigerAttacklength;
@@ -1160,22 +1213,23 @@ public class PlayerController : MonoBehaviour
         //{
             //Debug.Log(distance);
         //}
-        if (distance > 15 && lockedOn)
+        if (distance >= 15 && lockedOn)
         {
+            Debug.Log("Non distance closer, tig");
             //transform.rotation = Quaternion.Slerp(transform.rotation, attackRotation, 10 * Time.deltaTime); //For some reason,
             //I don't have this for locked On att
             //transform.rotation = Quaternion.LookRotation(targetedEnemy.transform.position- transform.position);
             attackTimeLength = normalTigerAttacklength;
             StartCoroutine(AttackDuration());
-            //playerRb.AddForce(attackDirection * (attackForce + 14), ForceMode.Impulse);//Changed from 8 to 12
-            playerRb.velocity = attackDirection * (attackForce + 14);
+            playerRb.AddForce(attackDirection * (attackForce + 14), ForceMode.Impulse);//Changed from 8 to 12
+            //playerRb.velocity = attackDirection * (attackForce + 14);
             animation.Play("Attack 1 & 2");
             playerAudio.PlayOneShot(tigerSwing, 0.05f);
             //StartCoroutine(FreezeRotations());
         }
         //Want DistanceCloser only to play when the tiger isn't close enough. Was originally going to have a distance > 10 || distance <=3
         //above,but I realized that the below will cover it. Maybe, let's keep testing it out
-        else if (((distance < 15 && distance > 4) || canCombo == true) && lockedOn)
+        else if (((distance < 15 && distance > 4) || canCombo == true) && lockedOn && enemyScript.isFlying == false)
         {
             //I need some way to stop this
             //Maybe like the wolf, once the tiger reaches the necessary distance, just perform the regular attack
@@ -1277,8 +1331,8 @@ public class PlayerController : MonoBehaviour
     public void BirdSpecial()
     {
         birdAura.SetActive(true);
-        bird.transform.Translate(0, -1.5f, 0);
-        birdSeparater.SetActive(false);
+        //bird.transform.Translate(0, -1.5f, 0);
+        //birdSeparater.SetActive(false);
         cantMove = true;
         rackingUpCombo = false;
         if (lockedOn == false)
@@ -1287,6 +1341,14 @@ public class PlayerController : MonoBehaviour
             StartCoroutine(BirdSpecialDuration());
             playerRb.AddForce(attackDirection * (attackForce + 20), ForceMode.Impulse);
             //StartCoroutine(FreezeRotations());
+        }
+        if (lockedOn == true && enemyScript.isFlying == false) //Almost accidentally wrotethis as ==true
+        {
+            //StartCoroutine(TellAngle());
+            bird.transform.Translate(0, -1.5f, 0);
+            birdSeparater.SetActive(false);
+            isFlying = false;
+            swoopedDown = true;
         }
         //Want DistanceCloser only to play when the tiger isn't close enough. Was originally going to have a distance > 10 || distance <=3
         //above,but I realized that the below will cover it. Maybe, let's keep testing it out

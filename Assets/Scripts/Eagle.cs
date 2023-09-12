@@ -56,7 +56,7 @@ public class Eagle : MonoBehaviour
     private float damageIdleTime = 6;
 
     private GameManager gameManager;
-    private int HP = 10; //7
+    private int HP = 7; //7
     public bool testingStun = false;
     private bool testingBehaviors = false;
     private bool moveLeft = false;

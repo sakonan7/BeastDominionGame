@@ -182,6 +182,8 @@ if (stunned == false)
             }
         }
     }
+    //AfterPopUp(), if the Armadillo is attacked while in the air, it's automatically thrown back to grown level, with
+    //its separater goneifI used it
     public void PopUp()
     {
         armadilloRb.velocity = Vector3.zero;

@@ -403,7 +403,7 @@ public class GameManager : MonoBehaviour
         Vector3 wolfLocation = enemies[0].transform.position;
         //wolfLocation.x + 4
         //wolfLocation.y + 0.1f
-        Instantiate(enemies[5], new Vector3(player.transform.position.x - 1.5f, 2.5f, wolfLocation.z - 6), enemies[0].transform.rotation);
+        Instantiate(enemies[0], new Vector3(player.transform.position.x - 1.5f, 0, wolfLocation.z - 6), enemies[0].transform.rotation);
 
         //Instantiate(enemies[0], new Vector3(player.transform.position.x - 1.5f, wolfLocation.y, wolfLocation.z - 6), enemies[0].transform.rotation);
 
