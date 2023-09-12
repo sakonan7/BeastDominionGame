@@ -11,8 +11,10 @@ public class Eagle : MonoBehaviour
     private GameObject player;
     private PlayerController playerScript;
     private Enemy enemyScript;
-    private float speed = 220;
-    private float distanceCloserSpeed = 220;
+    private float speed = 25;
+    private float distanceCloserSpeed = 30;
+    private int walkDirection = 0;
+    private bool directionChosen = false;
     private Rigidbody eagleRb;
     private Rigidbody playerRb;
     private Vector3 followDirection;
@@ -130,7 +132,6 @@ public class Eagle : MonoBehaviour
                     {
                         eagleRb.AddForce(Vector3.right * speed);
                     }
-                    eagleRb.AddForce(Vector3.back * speed);
                 }
                 if (idle == false && chase == true)
                 {
@@ -157,6 +158,7 @@ public class Eagle : MonoBehaviour
                     {
                         //Switched from tigerActive to isFlying because the eaglewill use the swooping attacking when
                         //the bird is low
+                        chase = false;
                         if (playerScript.isFlying == true)
                         {
                             //flyingHit, this bool will tell attackDuration to put the bird back
@@ -293,9 +295,28 @@ public class Eagle : MonoBehaviour
     IEnumerator AttackDuration()
     {
         attack = true;
+        attackRange.SetActive(true);
         yield return new WaitForSeconds(1.5f);
         attack = false;
         eagleRb.velocity = Vector3.zero;
+        attackRange.SetActive(false);
+    }
+    IEnumerator Lag()
+    {
+        yield return new WaitForSeconds(2);
+        if (enemyScript.isFlying == false)
+        {
+            transform.Translate(0, 1.5f, 0);
+        }
+        StartCoroutine(IdleAnimation());
+    }
+    public void ChooseDirection()
+    {
+        //0 == left walk, 1 == right walk
+        walkDirection = Random.Range(0, 2);
+        directionChosen = true;
+        //Debug.Log(walkDirection);
+        Debug.Log("Direction Chosen");
     }
     IEnumerator IdleAnimation()
     {
@@ -320,6 +341,7 @@ public class Eagle : MonoBehaviour
         beginningIdle = false;
         idle = false;
         chase = true;
+        directionChosen = false;
     }
     public void OnCollisionEnter(Collision collision)
     {

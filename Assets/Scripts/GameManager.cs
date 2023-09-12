@@ -403,7 +403,7 @@ public class GameManager : MonoBehaviour
         Vector3 wolfLocation = enemies[0].transform.position;
         //wolfLocation.x + 4
         //wolfLocation.y + 0.1f
-        //Instantiate(enemies[0], new Vector3(player.transform.position.x - 1.5f, wolfLocation.y + 0.1f, wolfLocation.z - 6), enemies[0].transform.rotation);
+        Instantiate(enemies[5], new Vector3(player.transform.position.x - 1.5f, 2.5f, wolfLocation.z - 6), enemies[0].transform.rotation);
 
         //Instantiate(enemies[0], new Vector3(player.transform.position.x - 1.5f, wolfLocation.y, wolfLocation.z - 6), enemies[0].transform.rotation);
 
@@ -411,12 +411,12 @@ public class GameManager : MonoBehaviour
         //Instantiate(enemies[1], new Vector3(wolfLocation.x + 14.5f, wolfLocation.y, wolfLocation.z - 8), enemies[0].transform.rotation);
         //numOfEnemies = 1;
 
-        Instantiate(enemies[0], new Vector3(wolfLocation.x + 1, wolfLocation.y, wolfLocation.z - 6), enemies[0].transform.rotation);
+        //Instantiate(enemies[0], new Vector3(wolfLocation.x + 1, wolfLocation.y, wolfLocation.z - 6), enemies[0].transform.rotation);
         //Enemy # 2
         //Instantiate(enemies[0], new Vector3(wolfLocation.x + 19, wolfLocation.y, wolfLocation.z - 3), enemies[0].transform.rotation);
-        Instantiate(enemies[0], new Vector3(wolfLocation.x + 5, wolfLocation.y, wolfLocation.z - 15), enemies[0].transform.rotation);
+        //Instantiate(enemies[0], new Vector3(wolfLocation.x + 5, wolfLocation.y, wolfLocation.z - 15), enemies[0].transform.rotation);
         //Instantiate(enemies[1], new Vector3(wolfLocation.x + 7, wolfLocation.y, wolfLocation.z - 10), enemies[0].transform.rotation);
-        Instantiate(enemies[0], new Vector3(wolfLocation.x + 11.5f, wolfLocation.y, wolfLocation.z - 8), enemies[0].transform.rotation);
+        //Instantiate(enemies[0], new Vector3(wolfLocation.x + 11.5f, wolfLocation.y, wolfLocation.z - 8), enemies[0].transform.rotation);
         numOfEnemies = 3;
     }
     public void Level2()
