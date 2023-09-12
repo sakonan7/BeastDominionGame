@@ -515,7 +515,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 7ebac5696286bc642b0091b1257f5d54, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.048
+      value: 2.548
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 7ebac5696286bc642b0091b1257f5d54, type: 3}
       propertyPath: m_LocalPosition.z
@@ -634,7 +634,7 @@ MonoBehaviour:
   eagleCry: {fileID: 0}
   eagleAttack: {fileID: 0}
   isOnGround: 0
-  testingStun: 1
+  testingStun: 0
 --- !u!114 &4444185724134267165
 MonoBehaviour:
   m_ObjectHideFlags: 0

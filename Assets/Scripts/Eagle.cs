@@ -309,7 +309,18 @@ public class Eagle : MonoBehaviour
         {
             transform.Translate(0, 1.5f, 0);
         }
+        ReturnToTheAir();
         StartCoroutine(IdleAnimation());
+    }
+    public void ReturnToTheAir()
+    {
+        enemyScript.ResetRevengeValue(); //Makessenseto put it here because if the character can do their idle animation
+        //that means they are no longer being stun
+        //I think I should make it so that idle is definitely false when stun duration is going on just to be safe
+        //To be extra safe, if stun is still equal to truebythe end of the IEnumerator, then don't do ResetRev
+        enemyScript.SetFlying(); //Need to do this when revenge value is trig
+        //Or I will Put it here instead because that way I don't have to Set it in Start and I don't have to do this in Lag
+        transform.Translate(0, 1.5f, 0);
     }
     public void ChooseDirection()
     {
@@ -323,11 +334,7 @@ public class Eagle : MonoBehaviour
     {
         idle = true;
         animation.Play("Eagle Idle");
-        enemyScript.ResetRevengeValue(); //Makessenseto put it here because if the character can do their idle animation
-        //that means they are no longer being stun
-        //I think I should make it so that idle is definitely false when stun duration is going on just to be safe
-        //To be extra safe, if stun is still equal to truebythe end of the IEnumerator, then don't do ResetRev
-        enemyScript.SetFlying();
+
         if (beginningIdle == true)
         {
             yield return new WaitForSeconds(Random.Range(6, 12));
@@ -403,15 +410,12 @@ public class Eagle : MonoBehaviour
         }
         if (enemyScript.currentRevengeValue == enemyScript.revengeValueCount)
         {
-            enemyScript.ResetRevengeValue();
-            //I was going to write some code to cover this to be safe, but it lookslikethiscovers
             if (enemyScript.isFlying ==false)
             {
-                enemyScript.SetFlying();
-                transform.Translate(0, 1.5f, 0);
+                ReturnToTheAir();
                 playerRb.velocity = Vector3.back * 10;
-                //StartCoroutine(SolidForSeconds());
-                StartCoroutine(IdleAnimation());
+                StartCoroutine(IdleAnimation()); //Unlikeusual returning to the air, this forces the eagle back into its attack
+                //patt
             }
         }
     }
