@@ -625,24 +625,27 @@ public class PlayerController : MonoBehaviour
                 //target.SetActive(true);
                 //Code to make lockedOn symbol face camera
                 //The original simple LookAt(cameraRef.transform) didn't work because it showed the clear backside of the plane/quad instead
-                target.transform.LookAt(target.transform.position - (cameraRef.transform.position - target.transform.position));
+                //target.transform.LookAt(target.transform.position - (cameraRef.transform.position - target.transform.position));
                 
                 
 
                 //Code to turn camera towards target
                 //Test to see if using a method will only place the method once. I don't think so, so try it in the lockedon meth
-                distance = Vector3.Distance(targetedEnemy.transform.position, transform.position); //Didn't realize I'd have
-                                                                                                   //Didn't realize I'd have to keep calculating Distance
-                                                                                                   //Actually, I will recalculate distance in lockedOn
-                                                                                                   //I need this here
-                                                                                                   //to keep calculating the distance between foe
-                                                                                                   //and player
-                attackRotation = Quaternion.LookRotation(targetedEnemy.transform.position - orientation.transform.position);
-                //angleBetween = Vector3.Angle(orientation.forward, targetedEnemy.transform.position - orientation.position);
-                //angleBetween = Vector3.Angle(targetedEnemy.transform.position, orientation.forward - targetedEnemy.transform.position);
-                //angleBetween = Vector3.Angle(attackDirection, targetedEnemy.transform.position - orientation.forward);
-                //transform.rotation = Quaternion.Lerp(transform.rotation, attackRotation, 10 * Time.deltaTime);
-                
+                distance = Vector3.Distance(targetedEnemy.transform.position, transform.position);
+                //Calculating attackdirection AND attackrotation here tosee if it solves the first attack prob
+                if (birdActive == true)
+                {
+                    attackDirection = (targetedEnemy.transform.position - tiger.transform.position).normalized;
+
+                    attackRotation = Quaternion.LookRotation(targetedEnemy.transform.position - tiger.transform.position);
+                }
+                else if (tigerActive == true)
+                {
+                    attackDirection = (targetedEnemy.transform.position - tiger.transform.position).normalized;
+                    attackDirection = new Vector3(attackDirection.x, 0, attackDirection.z);
+                    attackRotation = Quaternion.LookRotation(targetedEnemy.transform.position - tiger.transform.position);
+                }
+
             }
             //I may want to change this because I can trigger an error by trying to access enemyScript when targetEnemy has been killed
             if (enemyScript.GetHP() <= 0)
@@ -781,12 +784,17 @@ public class PlayerController : MonoBehaviour
                     //Moved attackDirection here because the player object gets rotated now
                     attackDirection = (targetedEnemy.transform.position - tiger.transform.position).normalized;
 
+                    //This only works for grounded ene
                     attackRotation = Quaternion.LookRotation(targetedEnemy.transform.position - tiger.transform.position);
                     bird.transform.rotation = Quaternion.Slerp(tiger.transform.rotation, attackRotation, 3); //Moved this from Strike() to
                                                                                                             //see if I can immediately turn my character towards an ene
 
                     //bird.transform.rotation = new Quaternion(0, bird.transform.rotation.y, bird.transform.rotation.z, 0);
                     //bird.transform.rotation = new Quaternion(0, attackRotation.y, attackRotation.z, 0);
+                    if (enemyScript.isFlying==true)
+                    {
+                        bird.transform.rotation = Quaternion.Slerp(bird.transform.rotation, attackRotation, 3);
+                    }
                 }
                 else if (tigerActive == true)
                 {
@@ -799,7 +807,12 @@ public class PlayerController : MonoBehaviour
                     //else
                     //{
                     Strike();
-                    //}
+
+                    attackDirection = (targetedEnemy.transform.position - tiger.transform.position).normalized;
+                    //Only rotate when foe is notfly
+                    //My method (not literal)worked here. It's because of attackRotation that tiger rotates upwards for att
+                    if (enemyScript.isFlying == false)
+                    {
                     //Moved attackDirection here because the player object gets rotated now
                     attackDirection = (targetedEnemy.transform.position - tiger.transform.position).normalized;
                     //if (enemyScript.isFlying == true)
@@ -811,7 +824,11 @@ public class PlayerController : MonoBehaviour
                     tiger.transform.rotation = Quaternion.Slerp(tiger.transform.rotation, attackRotation, 3); //Moved this from Strike() to
                                                                                                               //see if I can immediately turn my character towards an ene
 
+                    }
+                    //else if (enemyScript.isFlying == true)
+                    //{
 
+                    //}
                 }
                 if (running == true)
                 {
@@ -876,18 +893,7 @@ public class PlayerController : MonoBehaviour
         yield return new WaitForSeconds(2);
         Debug.Log("Distance between player and enemy is " + distance);
     }
-    IEnumerator TellAngle ()
-    {
-        yield return new WaitForSeconds(1);
-        Debug.Log("Angle is " + angleBetween);
-    }
-    IEnumerator Turning()
-    {
-        transform.rotation = Quaternion.Lerp(transform.rotation, attackRotation, 5 * Time.deltaTime);
-        //cantMove = true;
-        yield return new WaitForSeconds(0.3f);
-        Strike();
-    }
+
     //Turn into an IEnumerator
     IEnumerator FreezeRotations()
     {
@@ -1060,6 +1066,13 @@ public class PlayerController : MonoBehaviour
             TigerSpecial();
             StartCoroutine(TigerSpecialDuration());
         }
+        else if (lockedOn == true && enemyScript.isFlying == true)
+        {
+            attackDirection = (tigerFollow.transform.position - tiger.transform.position).normalized;
+            playerRb.AddForce(attackDirection * (attackForce + 154), ForceMode.Impulse); //+ 8 normally, but try + 12 for blade of
+            TigerSpecial();
+            StartCoroutine(TigerSpecialDuration());
+        }
     }
 
     IEnumerator TigerSpecialDuration()
@@ -1209,52 +1222,62 @@ public class PlayerController : MonoBehaviour
         }
         //I guestimated from gameplay that the distance needs to be at least 15
         //I think I may want to rewrite this because I don't think this works
-        //if (lockedOn == true)
-        //{
-            //Debug.Log(distance);
-        //}
-        if (distance >= 15 && lockedOn)
+        if (lockedOn == true && enemyScript.isFlying == true)
         {
-            Debug.Log("Non distance closer, tig");
-            //transform.rotation = Quaternion.Slerp(transform.rotation, attackRotation, 10 * Time.deltaTime); //For some reason,
-            //I don't have this for locked On att
-            //transform.rotation = Quaternion.LookRotation(targetedEnemy.transform.position- transform.position);
             attackTimeLength = normalTigerAttacklength;
             StartCoroutine(AttackDuration());
+            
             playerRb.AddForce(attackDirection * (attackForce + 14), ForceMode.Impulse);//Changed from 8 to 12
-            //playerRb.velocity = attackDirection * (attackForce + 14);
+            //playerRb.velocity = attackDirection * (attackForce + 10);
             animation.Play("Attack 1 & 2");
             playerAudio.PlayOneShot(tigerSwing, 0.05f);
-            //StartCoroutine(FreezeRotations());
         }
-        //Want DistanceCloser only to play when the tiger isn't close enough. Was originally going to have a distance > 10 || distance <=3
-        //above,but I realized that the below will cover it. Maybe, let's keep testing it out
-        else if (((distance < 15 && distance > 4) || canCombo == true) && lockedOn && enemyScript.isFlying == false)
+        else if (lockedOn == true && enemyScript.isFlying == false)
         {
-            //I need some way to stop this
-            //Maybe like the wolf, once the tiger reaches the necessary distance, just perform the regular attack
-            //I could either have a non impulse movement to close the distance, or an impulse that will definitely get me close
-            //enough to the target. I partially want to do the latter, but I think the former is better because the impulse is not consistent
-            //Gonna need a method like DistanceCloser
-            ///At first, I was wondering if the attack duration plays long enough for distance closer, but it looks like it does
-            //Debug.Log("Distance Closer");
-            //transform.rotation = Quaternion.Slerp(transform.rotation, attackRotation, 10 * Time.deltaTime);
-            //transform.rotation = Quaternion.LookRotation(targetedEnemy.transform.position - transform.position);
-            closeTheDistance = true;
-            //StartCoroutine(DistanceCloser());
-            //tigerRB.AddForce(attackDirection * (attackForce + 16), ForceMode.Impulse);
-            //canCombo = false;
+            if (distance >= 15)
+            {
+                Debug.Log("Non distance closer, tig");
+                //transform.rotation = Quaternion.Slerp(transform.rotation, attackRotation, 10 * Time.deltaTime); //For some reason,
+                //I don't have this for locked On att
+                //transform.rotation = Quaternion.LookRotation(targetedEnemy.transform.position- transform.position);
+                attackTimeLength = normalTigerAttacklength;
+                StartCoroutine(AttackDuration());
+                playerRb.AddForce(attackDirection * (attackForce + 14), ForceMode.Impulse);//Changed from 8 to 12
+                                                                                           //playerRb.velocity = attackDirection * (attackForce + 14);
+                animation.Play("Attack 1 & 2");
+                playerAudio.PlayOneShot(tigerSwing, 0.05f);
+                //StartCoroutine(FreezeRotations());
+            }
+            //Want DistanceCloser only to play when the tiger isn't close enough. Was originally going to have a distance > 10 || distance <=3
+            //above,but I realized that the below will cover it. Maybe, let's keep testing it out
+            else if (((distance < 15 && distance > 4) || canCombo == true))
+            {
+                //I need some way to stop this
+                //Maybe like the wolf, once the tiger reaches the necessary distance, just perform the regular attack
+                //I could either have a non impulse movement to close the distance, or an impulse that will definitely get me close
+                //enough to the target. I partially want to do the latter, but I think the former is better because the impulse is not consistent
+                //Gonna need a method like DistanceCloser
+                ///At first, I was wondering if the attack duration plays long enough for distance closer, but it looks like it does
+                //Debug.Log("Distance Closer");
+                //transform.rotation = Quaternion.Slerp(transform.rotation, attackRotation, 10 * Time.deltaTime);
+                //transform.rotation = Quaternion.LookRotation(targetedEnemy.transform.position - transform.position);
+                closeTheDistance = true;
+                //StartCoroutine(DistanceCloser());
+                //tigerRB.AddForce(attackDirection * (attackForce + 16), ForceMode.Impulse);
+                //canCombo = false;
+            }
+            else if (distance < 4)
+            {
+                //transform.rotation = Quaternion.Slerp(transform.rotation, attackRotation, 10 * Time.deltaTime);
+                attackTimeLength = normalTigerAttacklength;
+                StartCoroutine(AttackDuration());
+                playerRb.AddForce(attackDirection * (attackForce + 14), ForceMode.Impulse);//Changed from 8 to 12
+                animation.Play("Attack 1 & 2");
+                playerAudio.PlayOneShot(tigerSwing, 0.05f);
+                //StartCoroutine(FreezeRotations());
+            }
         }
-        else if (distance < 4 && lockedOn)
-        {
-            //transform.rotation = Quaternion.Slerp(transform.rotation, attackRotation, 10 * Time.deltaTime);
-            attackTimeLength = normalTigerAttacklength;
-            StartCoroutine(AttackDuration());
-            playerRb.AddForce(attackDirection * (attackForce + 14), ForceMode.Impulse);//Changed from 8 to 12
-            animation.Play("Attack 1 & 2");
-            playerAudio.PlayOneShot(tigerSwing, 0.05f);
-            //StartCoroutine(FreezeRotations());
-        }
+
     }
 
 

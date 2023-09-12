@@ -377,7 +377,17 @@ if (giantEnemy == false)
 
                 playerScript.AttackLandedTrue();
                 //Debug.Log(distance + " " + enemyRb.velocity);
-                StartCoroutine(FoeAttacked(120));
+                //StartCoroutine(FoeAttacked(120));
+                //This code is for airborne enemies, but actually, it is for enemies that use animation instead of animator
+                //because animtor makes characters a lot slower
+                if (isFlying == true)
+                {
+                    StartCoroutine(FoeAttacked(30));
+                }
+                else if (isFlying == false)
+                {
+                    StartCoroutine(FoeAttacked(120));
+                }
                 StartCoroutine(DamageDisplayDuration(2));
                 HPBarDecrease(2);
             }
@@ -395,7 +405,15 @@ if (giantEnemy == false)
 
                 playerScript.AttackLandedTrue();
                 //Debug.Log(distance + " " + enemyRb.velocity);
-                StartCoroutine(FoeAttacked(50));
+                //May want barely any pushbackfrom bird attacks for the islandportion
+                if (isFlying == true)
+                {
+                    StartCoroutine(FoeAttacked(10));
+                }
+                else if (isFlying == false)
+                {
+                    StartCoroutine(FoeAttacked(50));
+                }
                 StartCoroutine(DamageDisplayDuration(1));
                 HPBarDecrease(1);
             }

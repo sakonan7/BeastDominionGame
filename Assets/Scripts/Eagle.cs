@@ -11,7 +11,7 @@ public class Eagle : MonoBehaviour
     private GameObject player;
     private PlayerController playerScript;
     private Enemy enemyScript;
-    private float speed = 25;
+    private float speed = 10;
     private float distanceCloserSpeed = 30;
     private int walkDirection = 0;
     private bool directionChosen = false;
@@ -39,6 +39,7 @@ public class Eagle : MonoBehaviour
     public GameObject secondClawSlash;
     public GameObject attackRange;
     public ParticleSystem attackEffect;
+    public ParticleSystem hitEffect;
     private AudioSource audio;
     public AudioClip eagleCry;
     public AudioClip eagleAttack;
@@ -56,7 +57,7 @@ public class Eagle : MonoBehaviour
     private float damageIdleTime = 6;
 
     private GameManager gameManager;
-    private int HP = 7; //7
+    private int HP = 8; //7
     public bool testingStun = false;
     private bool testingBehaviors = false;
     private bool moveLeft = false;
@@ -97,6 +98,7 @@ public class Eagle : MonoBehaviour
         cameraRef = GameObject.Find("Main Camera");
 
         StartCoroutine(IdleAnimation());
+        ChooseDirection();
     }
 
     // Update is called once per frame
@@ -123,7 +125,7 @@ public class Eagle : MonoBehaviour
             if (stunned == false)
             {
                 if (idle == true)
-                {
+                {//Modify to change directions every 2 sec
                     if (walkDirection == 0)
                     {
                         eagleRb.AddForce(Vector3.left * speed);
@@ -294,6 +296,7 @@ public class Eagle : MonoBehaviour
     {
         attack = true;
         attackRange.SetActive(true);
+        attackEffect.Play();
         yield return new WaitForSeconds(1.5f);
         attack = false;
         eagleRb.velocity = Vector3.zero;
@@ -319,7 +322,11 @@ public class Eagle : MonoBehaviour
     IEnumerator IdleAnimation()
     {
         idle = true;
-        animation.Play("Idle");
+        animation.Play("Eagle Idle");
+        enemyScript.ResetRevengeValue(); //Makessenseto put it here because if the character can do their idle animation
+        //that means they are no longer being stun
+        //I think I should make it so that idle is definitely false when stun duration is going on just to be safe
+        //To be extra safe, if stun is still equal to truebythe end of the IEnumerator, then don't do ResetRev
         if (beginningIdle == true)
         {
             yield return new WaitForSeconds(Random.Range(6, 12));
@@ -356,7 +363,7 @@ public class Eagle : MonoBehaviour
             {
                 walkDirection = 1;
             }
-                        if (walkDirection == 1)
+                        else if (walkDirection == 1)
             {
                 walkDirection = 0;
             }
@@ -390,10 +397,13 @@ public class Eagle : MonoBehaviour
             Stunned();
             idle = false; //Putting this here to make sure its idle animation is cancelled and restarted
             //each time the player stops attack
+            enemyScript.RevengeValueUp();
+            chase = false;
         }
         if (enemyScript.currentRevengeValue == enemyScript.revengeValueCount)
         {
             enemyScript.ResetRevengeValue();
+            //I was going to write some code to cover this to be safe, but it lookslikethiscovers
             if (enemyScript.isFlying ==false)
             {
                 transform.Translate(0, 1.5f, 0);
@@ -410,7 +420,7 @@ public class Eagle : MonoBehaviour
     IEnumerator StunnedDuration()
     {
         stunned = true;
-        animation.Play("Damage Monkey");
+        //animation.Play("Damage Monkey");
         yield return new WaitForSeconds(3f);
         stunned = false;
         idleTime = damageIdleTime;

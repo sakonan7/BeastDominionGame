@@ -227,12 +227,17 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 0.81906515, y: 0.64611906, z: 0.72351843}
   m_Center: {x: 0.054451548, y: 0.0367327, z: -0.065801136}
+--- !u!198 &6189954282243343596 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 4642848129145531053, guid: 3138a83bedbd6ad4481ba0b061da2eb6, type: 3}
+  m_PrefabInstance: {fileID: 1551937959187164737}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &8167413445252911798 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7264847263909231863, guid: 3138a83bedbd6ad4481ba0b061da2eb6, type: 3}
@@ -317,6 +322,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 8609524798227661549}
     m_Modifications:
+    - target: {fileID: 186799515606816554, guid: daff0023e798dc44da699015a43f2045, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.1
+      objectReference: {fileID: 0}
     - target: {fileID: 186799515606816554, guid: daff0023e798dc44da699015a43f2045, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: 19.660004
@@ -426,6 +435,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8967160697045486388, guid: daff0023e798dc44da699015a43f2045, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8967160697045486388, guid: daff0023e798dc44da699015a43f2045, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -172.353
       objectReference: {fileID: 0}
@@ -502,7 +515,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 7ebac5696286bc642b0091b1257f5d54, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.5
+      value: 2.548
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 7ebac5696286bc642b0091b1257f5d54, type: 3}
       propertyPath: m_LocalPosition.z
@@ -543,10 +556,10 @@ PrefabInstance:
     - target: {fileID: 11100000, guid: 7ebac5696286bc642b0091b1257f5d54, type: 3}
       propertyPath: m_Animation
       value: 
-      objectReference: {fileID: 7400000, guid: 94ad682b55d1ef34aac4cd129d9e454a, type: 2}
+      objectReference: {fileID: 7400000, guid: 1bf6997cf5743bd4582b1c17c8810cbc, type: 2}
     - target: {fileID: 11100000, guid: 7ebac5696286bc642b0091b1257f5d54, type: 3}
       propertyPath: m_Animations.Array.size
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 11100000, guid: 7ebac5696286bc642b0091b1257f5d54, type: 3}
       propertyPath: m_Animations.Array.data[0]
@@ -560,6 +573,10 @@ PrefabInstance:
       propertyPath: m_Animations.Array.data[2]
       value: 
       objectReference: {fileID: 7400000, guid: 7ebac5696286bc642b0091b1257f5d54, type: 3}
+    - target: {fileID: 11100000, guid: 7ebac5696286bc642b0091b1257f5d54, type: 3}
+      propertyPath: m_Animations.Array.data[3]
+      value: 
+      objectReference: {fileID: 7400000, guid: 1bf6997cf5743bd4582b1c17c8810cbc, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -612,11 +629,12 @@ MonoBehaviour:
   firstClawSlash: {fileID: 0}
   secondClawSlash: {fileID: 0}
   attackRange: {fileID: 5420269715547230062}
-  attackEffect: {fileID: 0}
+  attackEffect: {fileID: 6189954282243343596}
+  hitEffect: {fileID: 0}
   eagleCry: {fileID: 0}
   eagleAttack: {fileID: 0}
   isOnGround: 0
-  testingStun: 0
+  testingStun: 1
 --- !u!114 &4444185724134267165
 MonoBehaviour:
   m_ObjectHideFlags: 0
