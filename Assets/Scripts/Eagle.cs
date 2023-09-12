@@ -12,6 +12,7 @@ public class Eagle : MonoBehaviour
     private PlayerController playerScript;
     private Enemy enemyScript;
     private float speed = 220;
+    private float distanceCloserSpeed = 220;
     private Rigidbody eagleRb;
     private Rigidbody playerRb;
     private Vector3 followDirection;
@@ -22,6 +23,7 @@ public class Eagle : MonoBehaviour
     private bool beginningIdle = true;
     private bool idle = true;
     private bool chase = false;
+    private bool distanceCloser;
     private bool playerStunned = false; //For if the Tiger is hit by the first claw. Tiger will always get hit twice
     private int damage = 1;
     private bool hitThrown = false;
@@ -118,6 +120,18 @@ public class Eagle : MonoBehaviour
         {
             if (stunned == false)
             {
+                if (idle == true)
+                {
+                    if (walkDirection == 0)
+                    {
+                        eagleRb.AddForce(Vector3.left * speed);
+                    }
+                    else if (walkDirection == 1)
+                    {
+                        eagleRb.AddForce(Vector3.right * speed);
+                    }
+                    eagleRb.AddForce(Vector3.back * speed);
+                }
                 if (idle == false && chase == true)
                 {
                     //animation.Play("Run");
@@ -141,8 +155,6 @@ public class Eagle : MonoBehaviour
                                                                                                 //StartCoroutine(AttackCountdown());
                     if (distance <= 8)
                     {
-                        jumpForce = 3;
-                        StartCoroutine(FirstClaw());
                         //Switched from tigerActive to isFlying because the eaglewill use the swooping attacking when
                         //the bird is low
                         if (playerScript.isFlying == true)
@@ -152,7 +164,21 @@ public class Eagle : MonoBehaviour
                         if (playerScript.isFlying == false)
                         {
                             //flyingHit, this bool will tell attackDuration to put the bird back
+                            transform.Translate(0, -1.5f, 0);
+                            enemyScript.SetFlying();
                         }
+                        distanceCloser = true;
+                    }
+                }
+                if (distanceCloser == true)
+                {
+                    eagleRb.AddForce(followDirection * distanceCloserSpeed);
+                    StartCoroutine(AttackDuration());
+                    if (enemyScript.hitLanded == true)
+                    {
+                        StartCoroutine(Lag());
+                        enemyScript.ResetHitLanded();
+                        eagleRb.velocity = Vector3.zero;
                     }
                 }
             }
@@ -247,6 +273,8 @@ public class Eagle : MonoBehaviour
         playOnce = true;
         enemyScript.UnsetPlayerDodged();
     }
+    //AttackDuration And an attacklag. The AttackDuration is short and the attack lag is around 2 seconds long. 
+    //Forthe ground to air att. The attacklag is shorter for when the player is abird
 
 
     IEnumerator PauseBeforeJump()
@@ -261,6 +289,13 @@ public class Eagle : MonoBehaviour
         //StartCoroutine(AirSlash());
         attack = false;
         Debug.Log("Start Air Attack");
+    }
+    IEnumerator AttackDuration()
+    {
+        attack = true;
+        yield return new WaitForSeconds(1.5f);
+        attack = false;
+        eagleRb.velocity = Vector3.zero;
     }
     IEnumerator IdleAnimation()
     {
@@ -288,6 +323,13 @@ public class Eagle : MonoBehaviour
     }
     public void OnCollisionEnter(Collision collision)
     {
+        if (collision.gameObject.CompareTag("Wall") && distanceCloser ==true)
+        {
+            distanceCloser = false;
+            StartCoroutine(Lag());
+            enemyScript.ResetHitLanded();
+            eagleRb.velocity = Vector3.zero;
+        }
     }
     public void OnTriggerEnter(Collider other)
     {
@@ -309,15 +351,24 @@ public class Eagle : MonoBehaviour
             Damaged();
         }
     }
+    //I need a code that takes into account if the player stops hitting the bird before its revenge value is
     public void Damaged()
     {
+        if (attack == false)
+        {
             Stunned();
+            idle = false; //Putting this here to make sure its idle animation is cancelled and restarted
+            //each time the player stops attack
+        }
         if (enemyScript.currentRevengeValue == enemyScript.revengeValueCount)
         {
             enemyScript.ResetRevengeValue();
             if (enemyScript.isFlying ==false)
             {
-
+                transform.Translate(0, 1.5f, 0);
+                playerRb.velocity = Vector3.back * 10;
+                //StartCoroutine(SolidForSeconds());
+                StartCoroutine(IdleAnimation());
             }
         }
     }
@@ -332,6 +383,7 @@ public class Eagle : MonoBehaviour
         yield return new WaitForSeconds(3f);
         stunned = false;
         idleTime = damageIdleTime;
+        transform.Translate(0, 1.5f, 0);
         StartCoroutine(IdleAnimation());
     }
 }
