@@ -163,26 +163,24 @@ public class Eagle : MonoBehaviour
                         {
                             //flyingHit, this bool will tell attackDuration to put the bird back
                         }
+                        //Need to playthis justonce
                         if (playerScript.isFlying == false)
                         {
                             //flyingHit, this bool will tell attackDuration to put the bird back
                             transform.Translate(0, -1.5f, 0);
                             enemyScript.SetFlying();
                         }
-                        distanceCloser = true;
+                        eagleRb.AddForce(followDirection * distanceCloserSpeed);
+                        StartCoroutine(AttackDuration());
+                        if (enemyScript.hitLanded == true)
+                        {
+                            StartCoroutine(Lag());
+                            enemyScript.ResetHitLanded();
+                            eagleRb.velocity = Vector3.zero;
+                        }
                     }
                 }
-                if (distanceCloser == true)
-                {
-                    eagleRb.AddForce(followDirection * distanceCloserSpeed);
-                    StartCoroutine(AttackDuration());
-                    if (enemyScript.hitLanded == true)
-                    {
-                        StartCoroutine(Lag());
-                        enemyScript.ResetHitLanded();
-                        eagleRb.velocity = Vector3.zero;
-                    }
-                }
+
             }
             //if (attackFinished == true && isOnGround == true)
             //{
@@ -351,6 +349,17 @@ public class Eagle : MonoBehaviour
             StartCoroutine(Lag());
             enemyScript.ResetHitLanded();
             eagleRb.velocity = Vector3.zero;
+        }
+                if (collision.gameObject.CompareTag("Wall") && idle ==true)
+        {
+            if (walkDirection == 0)
+            {
+                walkDirection = 1;
+            }
+                        if (walkDirection == 1)
+            {
+                walkDirection = 0;
+            }
         }
     }
     public void OnTriggerEnter(Collider other)
