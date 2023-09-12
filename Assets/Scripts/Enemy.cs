@@ -63,6 +63,7 @@ public class Enemy : MonoBehaviour
     public int currentRevengeValue = 0;
     public int revengeValueCount = 3;
     public bool isLingering = false;
+    public bool canHurtFlying = false;
 
     public bool playerDodged = false;
     //private ConstantForce enemyForce;
@@ -256,6 +257,10 @@ public class Enemy : MonoBehaviour
     public void RevengeValueUp()
     {
         currentRevengeValue++;
+    }
+    public void HurtFlying()
+    {
+        canHurtFlying = !canHurtFlying;
     }
     public void OnCollisionEnter(Collision collision)
     {

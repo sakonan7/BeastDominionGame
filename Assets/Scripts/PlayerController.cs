@@ -2082,7 +2082,7 @@ public class PlayerController : MonoBehaviour
                     playerRb.velocity = Vector3.back * currentEnemyScript.attackForce;
                 }
             }
-            else if (birdActive == true)
+            else if (birdActive == true &&currentEnemyScript.canHurtFlying==true)
             {
                 if (isFlying == false)
                 {

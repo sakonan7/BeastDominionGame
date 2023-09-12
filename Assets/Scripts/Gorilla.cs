@@ -38,6 +38,11 @@ public class Gorilla : MonoBehaviour
     public GameObject regularShockWave;
     public GameObject bigShockWave;
     public GameObject DMShockWave;
+    public ParticleSystem DMShockWaveEffect;
+    private SkinnedMeshRenderer skin;
+    public Material DMSkin;
+    public Material regularSkin;
+    public ParticleSystem flameAura;
     public ParticleSystem attackEffect;
     public GameObject fireCrater;
     public GameObject fireCraterDM;
@@ -103,6 +108,7 @@ public class Gorilla : MonoBehaviour
         {
             damage = 3;
         }
+        skin = GetComponentInChildren<SkinnedMeshRenderer>();
         enemyScript.SetDamage(damage);
         enemyScript.attackEffect[0] = attackEffect;
         audio = GetComponent<AudioSource>();
@@ -175,21 +181,21 @@ public class Gorilla : MonoBehaviour
 
             LightsOn();
             //DMStart();
-            //desperationMoveOn = true;
+            desperationMoveOn = true;
             enemyScript.BackKnockBack();
-            //StartCoroutine(NewDMCode());
-            animation.Play("Desperation Move");
+            StartCoroutine(NewDMCode());
+            attackFinished = true;
         }
         if (desperationMoveOn == true)
         {
-            //StartCoroutine(WarningLightDM());
+            StartCoroutine(WarningLightDM());
             lookRotation = Quaternion.LookRotation(player.transform.position - transform.position);
 
             transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, 3);
             //new code
             //Maybe don't need to play this as audio fullout because the audio clip is long and the code will play out the wholeclip
             //audio.clip = fieryAura;//Just needtocut fire sound to about 3 seconds, before a pause and the louder fire
-            audio.PlayOneShot(fieryAura, 0.2f);
+            audio.PlayOneShot(fieryAura, 0.1f);
 
         }
     }
@@ -308,6 +314,7 @@ public class Gorilla : MonoBehaviour
         //craterScript.IsDestroyable(false);
         Instantiate(newCrater, new Vector3(placeForFireCrater.x, fireCrater.transform.position.y, placeForFireCrater.z), fireCrater.transform.rotation);
         enemyScript.UnsetPlayerDodged();
+        StartCoroutine(IdleAnimation());
     }
     public void LightsOn()
     {
@@ -333,15 +340,19 @@ public class Gorilla : MonoBehaviour
     //Rewrite of DM
     IEnumerator NewDMCode()
     {
+        skin.material = DMSkin;
+        flameAura.Play();
         yield return new WaitForSeconds(4);
         desperationMoveOn = false;
-        animation.Play("Desperation Move");
-        //DMShockWave.SetActive(true);
         //Instantiate(DMShockWave, DMShockWave.transform.position, DMShockWave.transform.rotation);
         //motionBlurObject.SetActive(true);
         //slamComing = false;
         //camScript.ScreenShakeMethod();
-        //StartCoroutine(DMSlamAttackDuration());
+        DMSlamDown();
+        skin.material = regularSkin;
+        LightsOff();
+        flameAura.Stop();
+        audio.Stop();
     }
     IEnumerator StartUpFists()
     {
@@ -373,7 +384,7 @@ public class Gorilla : MonoBehaviour
     public void DMSlamDown()
     {
 
-        enemyScript.RightKnockBack();
+        //enemyScript.RightKnockBack();
         //yield return new WaitForSeconds(0.2f);
         animation.Play("Desperation Move"); //This isn't playing at all for some reason, even after I turned this into
         //a meth
@@ -387,13 +398,15 @@ public class Gorilla : MonoBehaviour
     IEnumerator DMShockWaveAppears()
     {
         yield return new WaitForSeconds(0.5f);
-        bigShockWave.SetActive(true);
+        //bigShockWave.SetActive(true);
         DMShockWave.SetActive(true);
+        DMShockWaveEffect.Play();
         //Instantiate(DMShockWave, DMShockWave.transform.position, DMShockWave.transform.rotation);
         motionBlurObject.SetActive(true);
         //slamComing = false;
-        warningLightSmall.SetActive(false);
+        //warningLightSmall.SetActive(false);
         camScript.ScreenShakeMethod();
+        audio.PlayOneShot(DMSmash, 0.4f);
     }
     IEnumerator DMSlamAttackDuration()
     {
@@ -401,9 +414,9 @@ public class Gorilla : MonoBehaviour
         attackFinished = true;
         //Vector3 placeForFireCraterDM = fireCraterDM.transform.position;
         yield return new WaitForSeconds(1f);
-        slamAttackRange.SetActive(false);
-        slamAttackRange2.SetActive(false);
-        bigShockWave.SetActive(false);
+        //slamAttackRange.SetActive(false);
+        //slamAttackRange2.SetActive(false);
+        //bigShockWave.SetActive(false);
         DMShockWave.SetActive(false);
         motionBlurObject.SetActive(false);
         //armadilloCollide.isTrigger = false;
@@ -424,12 +437,14 @@ public class Gorilla : MonoBehaviour
         attackFinished = false;
         GameObject newDMCrater = fireCraterDM;
         craterScript = newDMCrater.GetComponent<Projectile>();
-        craterScript.SetDamage(8);
+        craterScript.SetDamage(7);
         //craterScript.IsMoving(false);
         //craterScript.SetLifeTime(3);
         //craterScript.IsDestroyable(false);
         Instantiate(newDMCrater, fireCraterDM.transform.position, fireCraterDM.transform.rotation);
         enemyScript.UnsetPlayerDodged();
+        StartCoroutine(IdleAnimation());
+        audio.Stop();
     }
     IEnumerator Cutscene()
     {
