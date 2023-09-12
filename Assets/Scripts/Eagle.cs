@@ -12,14 +12,12 @@ public class Eagle : MonoBehaviour
     private PlayerController playerScript;
     private Enemy enemyScript;
     private float speed = 220;
-    private Rigidbody monkeyRb;
+    private Rigidbody eagleRb;
     private Rigidbody playerRb;
-    private Collider monkeyAttackReach;
     private Vector3 followDirection;
     private Vector3 attackDirection;
     private Quaternion lookRotation;
     private float jumpForce = 70; //Slight jump before attack
-    private float attackForce = 1; //May remove attackForce because Monkey doesn't knock chaarcter back a
     private bool attack = false;
     private bool beginningIdle = true;
     private bool idle = true;
@@ -38,7 +36,8 @@ public class Eagle : MonoBehaviour
     public GameObject attackRange;
     public ParticleSystem attackEffect;
     private AudioSource audio;
-    public AudioClip monkeyAttack;
+    public AudioClip eagleCry;
+    public AudioClip eagleAttack;
     private float attackVol;
     private float firstAttackVol = 0.1f;
     private float secondAttackVol = 0.3f;
@@ -68,8 +67,7 @@ public class Eagle : MonoBehaviour
         playerRb = player.GetComponent<Rigidbody>();
         playerScript = player.GetComponent<PlayerController>();
 
-        monkeyRb = GetComponent<Rigidbody>();
-        monkeyAttackReach = GetComponent<Collider>();
+        eagleRb = GetComponent<Rigidbody>();
         
         gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
         if (gameManager.difficulty == "Normal")
@@ -87,7 +85,7 @@ public class Eagle : MonoBehaviour
         enemyScript.SetDamage(damage);
         enemyScript.attackEffect[0] = attackEffect;
         audio = GetComponent<AudioSource>();
-        enemyScript.enemySounds[0] = monkeyAttack;
+        enemyScript.enemySounds[0] = eagleAttack;
         enemyScript.SetHP(HP);
         enemyScript.SetFlying();
         enemyScript.HasRevengeValue();
@@ -100,18 +98,15 @@ public class Eagle : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //HPBar.transform.position = new Vector3(transform.position.x, transform.position.y + 1.9f, transform.position.z + 0.1f);
-        //Monkey will only do it's chase while it's on the ground to avoid antigravity business
         if (testingBehaviors == true)
         {
-            //Maybe Use A Button Press To Make Monkey Change Movement Directions And See If Tiger Keeps FollowingIt.
             if (moveLeft == true)
             {
-                monkeyRb.AddForce(Vector3.left * speed / 2);
+                eagleRb.AddForce(Vector3.left * speed / 2);
             }
             else if (moveRight == true)
             {
-                monkeyRb.AddForce(Vector3.right * speed / 2);
+                eagleRb.AddForce(Vector3.right * speed / 2);
             }
             if (Input.GetKeyDown(KeyCode.Tab))
             {
@@ -121,18 +116,11 @@ public class Eagle : MonoBehaviour
         }
         if (testingStun == false)
         {
-            //Less necessary because Monkey technically onlyhas one attack,but doing this for consistenc
             if (stunned == false)
             {
                 if (idle == false && chase == true)
                 {
                     //animation.Play("Run");
-
-                    //I think i should do the direction following outside of this
-                    //Either way, it looks like the Monkey only does it at the start and never rotates to face the tiger again
-                    //Vector3 newDirection;
-                    //if (playerScript.tigerActive == true)
-                    //{
                     followDirection = (player.transform.position - transform.position).normalized;
                     //newDirection = Vector3.RotateTowards(transform.forward, tiger.transform.position, speed * Time.deltaTime, 0.0f);
                     //transform.rotation = Quaternion.LookRotation(newDirection);
@@ -148,27 +136,20 @@ public class Eagle : MonoBehaviour
                     //attackRange.transform.position = tiger.transform.position;
                     //distance = Vector3.Distance(player.transform.position, transform.position);
                     lookRotation = Quaternion.LookRotation(player.transform.position - transform.position);
-                    monkeyRb.AddForce(followDirection * speed);
+                    eagleRb.AddForce(followDirection * speed);
                     transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, 3); //Turned from 5 to 3 for smooth
                                                                                                 //StartCoroutine(AttackCountdown());
                     if (distance <= 8)
                     {
-                        //animator.SetBool("Chase", false);
-                        chase = false;
-                        //jumpForce = 60; //Went from 50 to 60 because I want some knockback force from the first att
-                        //StartCoroutine(FirstClaw());
-                        //}
-                        //else if (distance <= 3)
-                        //{
-                        //animator.SetBool("Chase", false);
-                        //chase = false;
                         jumpForce = 3;
                         StartCoroutine(FirstClaw());
-                        if (playerScript.tigerActive == true)
+                        //Switched from tigerActive to isFlying because the eaglewill use the swooping attacking when
+                        //the bird is low
+                        if (playerScript.isFlying == true)
                         {
                             //flyingHit, this bool will tell attackDuration to put the bird back
                         }
-                        if (playerScript.birdActive == true)
+                        if (playerScript.isFlying == false)
                         {
                             //flyingHit, this bool will tell attackDuration to put the bird back
                         }
@@ -192,11 +173,9 @@ public class Eagle : MonoBehaviour
         {
             playOnce = false;
             attackEffect.Play();
-            audio.PlayOneShot(monkeyAttack, attackVol);
+            audio.PlayOneShot(eagleAttack, attackVol);
         }
     }
-    //Change code. Monkey will start by running at the character and then within range, attack. Afterwards, the monkey will wait 4 seconds
-    //Before attacking again
     IEnumerator FirstClaw()
     {
         //Want to expand the Monkey's collider slightly
@@ -222,31 +201,31 @@ public class Eagle : MonoBehaviour
         if (playerScript.tigerActive == true)
         {
             //followDirection = (tiger.transform.position - transform.position).normalized;
-            monkeyRb.AddForce(followDirection * jumpForce, ForceMode.Impulse);
-            monkeyRb.AddForce(Vector3.up * 2, ForceMode.Impulse); //For jumping, may need to modify gravity
+            //monkeyRb.AddForce(followDirection * jumpForce, ForceMode.Impulse);
+            //monkeyRb.AddForce(Vector3.up * 2, ForceMode.Impulse); //For jumping, may need to modify gravity
                                                                   //attackCount++;
         }
         else if (playerScript.birdActive == true)
         {
             //followDirection = (bird.transform.position - transform.position).normalized;
             //monkeyRb.AddForce(followDirection, ForceMode.Impulse);
-            monkeyRb.AddForce(Vector3.up * 5, ForceMode.Impulse); //For jumping, may need to modify gravity
+            //monkeyRb.AddForce(Vector3.up * 5, ForceMode.Impulse); //For jumping, may need to modify gravity
 
         }
         //If that doesn't work, put an if (dodge == false
 
         //animation.Play("Attack");
-        animator.SetTrigger("Slash 1");
+        //animator.SetTrigger("Slash 1");
         isOnGround = false; //Will always have this happen, because both attacks make the Monkey jump
         //}
         //if (enemyScript.hitLanded == true)
         //{
         //PlayAttackEffect();
         //}
-        monkeyRb.constraints = RigidbodyConstraints.FreezeRotation;
+        //monkeyRb.constraints = RigidbodyConstraints.FreezeRotation;
         attackVol = firstAttackVol;
         yield return new WaitForSeconds(1.5f);
-        animator.SetBool("Attack 1", false);
+        //animator.SetBool("Attack 1", false);
         attack = false;
         firstClawSlash.SetActive(false);
         attackRange.SetActive(false);
@@ -254,7 +233,7 @@ public class Eagle : MonoBehaviour
         if (playerScript.tigerActive == true && enemyScript.hitLanded == true)
         {
             //hitCount = 1;
-            StartCoroutine(SecondClaw());
+            //StartCoroutine(SecondClaw());
             enemyScript.SetComboAttack(); //I put this here because if the IEnumerator goes on too long, it'll set the comboAttack repeatedly
         }
         else
@@ -269,67 +248,11 @@ public class Eagle : MonoBehaviour
         enemyScript.UnsetPlayerDodged();
     }
 
-    //Combos will be complicated because I need the combo finisher to trigger stunInvincibility, but also, it needs to land
-    //This will be a handwave because this combo only happens if the first hit of the combo
-    IEnumerator SecondClaw()
-    {
-        //Need a cooldown period before this that is only a second
-        //Debug.Log("Second claw");
-        attack = true;
-        attackRange.SetActive(true);
-        //StartCoroutine(Attack());
-        followDirection = (player.transform.position - transform.position).normalized;
-        //enemyScript.SetAttackEffect(attackEffect);
-        enemyScript.SetAttackDirection(followDirection);
-        enemyScript.BackKnockBack();
-        enemyScript.SetForce(6);
-        monkeyRb.AddForce(followDirection * (jumpForce / 2), ForceMode.Impulse);
-        monkeyRb.AddForce(Vector3.up * 5, ForceMode.Impulse); //For jumping, may need to modify gravity
-        //animation.Play("Attack");
-        animator.SetTrigger("Slash 2");
-        secondClawSlash.SetActive(true);
 
-        enemyScript.SetComboFinisher();
-
-        monkeyRb.constraints = RigidbodyConstraints.FreezeRotation;
-        attackVol = secondAttackVol;
-        yield return new WaitForSeconds(1f);
-        animator.SetBool("Attack 2", false);
-        //StartCoroutine(StartCoolDown());
-        attackFinished = true;
-        attack = false;
-        secondClawSlash.SetActive(false);
-        attackRange.SetActive(false);
-        //Debug.Log("Start Cool");
-        enemyScript.ResetHitLanded();
-        enemyScript.ResetHitNumber();
-        enemyScript.SetComboAttack();
-        enemyScript.SetComboFinisher();
-
-        //hitLanded = false;
-        //Debug.Log("Second Hit");
-        //Debug.Log("Combo Finisher is " + enemyScript.comboFinisher);
-        playOnce = true;
-        enemyScript.UnsetPlayerDodged();
-        enemyScript.ResetKnockbacks();
-    }
-    //public void PlayAttackEffect()
-    //{
-    //attackEffect.Play();
-    //wolfAudio.PlayOneShot(wolfAttack, 0.1f);
-    //}
-    //Needed because the forward movement from the force causes the monkey to jump in an arc instead of upwards as intended
     IEnumerator PauseBeforeJump()
     {
         yield return new WaitForSeconds(0.5f);
-        Jump();
-    }
-    public void Jump()
-    {
-        monkeyRb.AddForce(Vector3.up * 9, ForceMode.Impulse); //For jumping, may need to modify gravity
-        isOnGround = false;
-        StartCoroutine(LagBeforeAttack());
-        //Will rely on colliders for isOnGround = true;
+        //Jump();
     }
     //Test to see if the lag time I'm looking for is here
     IEnumerator LagBeforeAttack()
@@ -342,10 +265,7 @@ public class Eagle : MonoBehaviour
     IEnumerator IdleAnimation()
     {
         idle = true;
-        //animation.Play("Idle");
-        animator.SetBool("Idle", true);
-        //For the timebeing, turn off the player's monkey range
-        //playerScript.monkeyRange.SetActive(false);
+        animation.Play("Idle");
         if (beginningIdle == true)
         {
             yield return new WaitForSeconds(Random.Range(6, 12));
@@ -365,76 +285,20 @@ public class Eagle : MonoBehaviour
         beginningIdle = false;
         idle = false;
         chase = true;
-        animator.SetBool("Idle", false);
-        animator.SetBool("Chase", true);
-        //playerScript.monkeyRange.SetActive(true);
-        //Debug.Log("Cooldown finished");
     }
-    //IEnumerator Fall()
-    // {
-    //fallingDown = true;
-    //animation.Play();
-    //}
-
-
-
     public void OnCollisionEnter(Collision collision)
     {
-        //if (collision.gameObject.CompareTag("Player") && attack == true && playerScript.dodge == false)
-        //{
-        //Forgot to change player.transform to tiger.transform, may have messed up the attack cod
-
-        //attack = false; //Doing it over here so that there isn't multiple hits per contact
-        //Debug.Log("Hit");
-        //}
-        if (collision.gameObject.CompareTag("Ground"))
-        {
-            //Aerial attack IEnumerator will make isOnGround == false
-            isOnGround = true;
-        }
-        //else
-        //{
-        //isOnGround = false;
-        //}
     }
     public void OnTriggerEnter(Collider other)
     {
         //Attacks will reset its revenge value, but for the bird, nothing will happen when it reaches
         if (other.CompareTag("Tiger Attack Regular"))
         {
-            //For now, just trigger stun. I will use both of their directions to perform the knockback
-            //TakeDamage();
-
-            //enemyScript.HP -= 2;
             Damaged();
-            //playerScript.PlayTigerRegularStrike(transform.position);
-            //Vector3 knockbackDirection = (transform.position - tiger.transform.position).normalized;
-            //knockback force is inconsistent. Sometimes it doesn't knockback at all. Sometimes it knocks back too much
-            //It doesn't matter what the value is.
-            //It may not matter because I will have the attack lag minimized
-            //But I don't want the player to whiff attacks, so I think I will make sure the tiger is the right distance from the wolf
-            //Unless I can make a force play until a certain distance is reached
-            //I can't use forcemode.impulse then
-            //wolfRb.AddForce(playerScript.attackDirection * 15, ForceMode.Impulse);
-            //playerScript.AttackLandedTrue();
         }
         if (other.CompareTag("Tiger Special"))
         {
-            //For now, just trigger stun. I will use both of their directions to perform the knockback
-            //TakeDamage();
-
-            //enemyScript.HP -= 7;
             Damaged();
-            //playerScript.PlayTigerSpecialStrike(transform.position);
-            //Vector3 knockbackDirection = (transform.position - tiger.transform.position).normalized;
-            //knockback force is inconsistent. Sometimes it doesn't knockback at all. Sometimes it knocks back too much
-            //It doesn't matter what the value is.
-            //It may not matter because I will have the attack lag minimized
-            //But I don't want the player to whiff attacks, so I think I will make sure the tiger is the right distance from the wolf
-            //Unless I can make a force play until a certain distance is reached
-            //I can't use forcemode.impulse then
-            //wolfRb.AddForce(playerScript.attackDirection * 20, ForceMode.Impulse);
-            //playerScript.AttackLandedTrue();
         }
         if (other.CompareTag("Bird Attack Range"))
         {
@@ -464,10 +328,8 @@ public class Eagle : MonoBehaviour
     IEnumerator StunnedDuration()
     {
         stunned = true;
-        //animation.Play("Damage Monkey");
-        animator.SetBool("Damaged", true);
+        animation.Play("Damage Monkey");
         yield return new WaitForSeconds(3f);
-        animator.SetBool("Damaged", false);
         stunned = false;
         idleTime = damageIdleTime;
         StartCoroutine(IdleAnimation());
