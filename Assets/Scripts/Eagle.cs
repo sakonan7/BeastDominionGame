@@ -327,6 +327,7 @@ public class Eagle : MonoBehaviour
         //that means they are no longer being stun
         //I think I should make it so that idle is definitely false when stun duration is going on just to be safe
         //To be extra safe, if stun is still equal to truebythe end of the IEnumerator, then don't do ResetRev
+        enemyScript.SetFlying();
         if (beginningIdle == true)
         {
             yield return new WaitForSeconds(Random.Range(6, 12));
@@ -406,6 +407,7 @@ public class Eagle : MonoBehaviour
             //I was going to write some code to cover this to be safe, but it lookslikethiscovers
             if (enemyScript.isFlying ==false)
             {
+                enemyScript.SetFlying();
                 transform.Translate(0, 1.5f, 0);
                 playerRb.velocity = Vector3.back * 10;
                 //StartCoroutine(SolidForSeconds());

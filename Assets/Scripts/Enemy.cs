@@ -285,6 +285,7 @@ public class Enemy : MonoBehaviour
 
         yield return new WaitForSeconds(0.5f);
         attacked = false;
+        enemyRb.velocity = Vector3.zero;
     }
     //This will be helpful for combo att
     IEnumerator SecondHit()
@@ -311,6 +312,7 @@ if (giantEnemy == false)
         playerScript.PlayTigerSpecialStrike(transform.position);
 
         HPBarDecrease(6);
+        enemyRb.velocity = Vector3.zero;
     }
     public void HPBarDecrease(int newDamage)
     {
