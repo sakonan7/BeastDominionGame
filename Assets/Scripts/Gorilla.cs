@@ -124,6 +124,7 @@ public class Gorilla : MonoBehaviour
 
         //StartCoroutine(IdleAnimation());
         StartCoroutine(Cutscene());
+        
         originalPosition = transform.position;
     }
 
@@ -198,7 +199,7 @@ public class Gorilla : MonoBehaviour
             //new code
             //Maybe don't need to play this as audio fullout because the audio clip is long and the code will play out the wholeclip
             //audio.clip = fieryAura;//Just needtocut fire sound to about 3 seconds, before a pause and the louder fire
-            audio.PlayOneShot(fieryAura, 0.1f);
+            audio.PlayOneShot(fieryAura, 0.2f);
 
         }
         if (slapString == true)
@@ -350,7 +351,7 @@ public class Gorilla : MonoBehaviour
         idle = true;
         transform.position = originalPosition;
         attackFinished = false;
-
+        StartCoroutine(Crater());
         
         if (attackString == 2)
         {
@@ -401,6 +402,10 @@ public class Gorilla : MonoBehaviour
     {
         skin.material = DMSkin;
         flameAura.Play();
+                    LightsOn();
+            //DMStart();
+            desperationMoveOn = true;
+            enemyScript.BackKnockBack();
         yield return new WaitForSeconds(4);
         desperationMoveOn = false;
         //Instantiate(DMShockWave, DMShockWave.transform.position, DMShockWave.transform.rotation);
@@ -519,6 +524,7 @@ public class Gorilla : MonoBehaviour
         //animator.SetTrigger("Stand Up");
         animation.Play("Stand Up");
         StartCoroutine(StartIdle());
+        audio.PlayOneShot(startingSound, 0.2f);
     }
     IEnumerator StartIdle()
     {
