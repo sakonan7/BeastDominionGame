@@ -118,6 +118,8 @@ public class Gorilla : MonoBehaviour
         enemyScript.enemySounds[0] = monkeyAttack;
         enemyScript.SetHP(HP);
         enemyScript.IsGiantEnemy();
+        enemyScript.IsGiantBoss();
+        enemyScript.HurtFlying();
 
         cameraRef = GameObject.Find("Main Camera");
         camScript = cameraRef.GetComponent<ThirdPersonCamera>();
@@ -357,6 +359,7 @@ public class Gorilla : MonoBehaviour
         {
             StartCoroutine(NewDMCode());
             attackString = 0;
+            enemyScript.HurtFlying();
         }
         else if (attackString < 2){
             StartCoroutine(IdleAnimation());
@@ -495,6 +498,7 @@ public class Gorilla : MonoBehaviour
         //{
         enemyScript.SetComboFinisher();
         enemyScript.ResetKnockbacks();
+        enemyScript.HurtFlying();
         //}
         idle = true;
         transform.position = originalPosition;
