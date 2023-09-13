@@ -23,6 +23,7 @@ TagManager:
   - Non Triggerable
   - Fire
   - Undodgable Attack
+  - CantCross
   layers:
   - Default
   - TransparentFX

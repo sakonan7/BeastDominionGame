@@ -890,7 +890,7 @@ public class PlayerController : MonoBehaviour
     }
     IEnumerator TellDistance ()
     {
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(1);
         Debug.Log("Distance between player and enemy is " + distance);
     }
 
@@ -1484,7 +1484,7 @@ public class PlayerController : MonoBehaviour
             //Debug.Log("Targeted Enemy is null");
             //}
             camScript.TurnToTarget(lockedOnLocation);
-            //StartCoroutine(TellAngle());
+            StartCoroutine(TellDistance());
             lockedOn = true;
             //I was going to get rid of this because it looked like this code was for shifting the target
             //But it's actually if the lockOn function isn't even on

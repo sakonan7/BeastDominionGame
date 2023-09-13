@@ -77,7 +77,7 @@ public class Gorilla : MonoBehaviour
 
     private GameManager gameManager;
     private int HP = 80; //7
-    private bool testingStun = true;
+    public bool testingStun = true;
     private bool testingBehaviors = false;
     private bool moveLeft = false;
     private bool moveRight = true;
@@ -133,86 +133,97 @@ public class Gorilla : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //3 Ways to make Gorilla initiate an attack. Cancel out it's closeTheDistance with 3
-        //Either it hits a boundaryorit is <= 8 or 16distance away from the player. I think I don't need to have OnCollision or OnCollisionStay
-        //becausethat counts as being < 8 distance
-        followDirection = (transform.position - player.transform.position).normalized;
-        distance = Vector3.Distance(player.transform.position, transform.position);
-        lookRotation = Quaternion.LookRotation(player.transform.position - transform.position);
-        if (idle == true)
+if (testingStun == false)
         {
-            //animator.SetBool("Idle", true);
-            animation.Play("Idle");
-        }
-        if (useSlamAttack == true)
-        {
-            idle = false;
-            //chase = true;
-            slamAttackRange.SetActive(true);
-            StartCoroutine(CloseTheDistance());
-
-            
-            transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, 3); //Turned from 5 to 3 for smooth
-                                                                                        //StartCoroutine(AttackCountdown());
-            Debug.Log(distance);
-            //if (chase == true) {
-            //if (distance == 21)
-            //{
-            //chase = false;
-            //gorillaRb.velocity = Vector3.zero;
-
-
-
-            //}
-            //}
-            useSlamAttack = false;
-        }
-        if (slamComing == true)
-        {
-            StartCoroutine(WarningLightRegular());
-
-            warningLightSmall.transform.position = new Vector3(player.transform.position.x, warningLightSmall.transform.position.y, player.transform.position.z);
-        }
-        //I think this will be triggered by booldesperationMoveOn
-        //Somethingis making the code not animation not cooperate. Not the lights or the way the animation is built. Try
-        //getting rid of as many IEnumerators as possib
-        //Something is cursed with this code, I tried turning off several IEnumeratorsand justdoing the animation and nothing happ
-        if (Input.GetKeyDown(KeyCode.T) && attackFinished == false)
-        {
-            idle = false; //Oh my god, I never turned off Idle for thiscode//This is why the gorilla twitches but doesn'tdoany
-            //enemyScript.SetDamage(8);
-            //enemyScript.SetForce(30);
-            //enemyScript.SetComboFinisher();
-            //attackFinished = true;
-
-            LightsOn();
-            //DMStart();
-            desperationMoveOn = true;
-            enemyScript.BackKnockBack();
-            StartCoroutine(NewDMCode());
-            attackFinished = true;
-        }
-        if (desperationMoveOn == true)
-        {
-            StartCoroutine(WarningLightDM());
+            //3 Ways to make Gorilla initiate an attack. Cancel out it's closeTheDistance with 3
+            //Either it hits a boundaryorit is <= 8 or 16distance away from the player. I think I don't need to have OnCollision or OnCollisionStay
+            //becausethat counts as being < 8 distance
+            followDirection = (transform.position - player.transform.position).normalized;
+            distance = Vector3.Distance(player.transform.position, transform.position);
             lookRotation = Quaternion.LookRotation(player.transform.position - transform.position);
+            if (idle == true)
+            {
+                //animator.SetBool("Idle", true);
+                animation.Play("Idle");
+            }
+            if (chase==true)
+            {
+                transform.Translate(followDirection * speed * Time.deltaTime);
+                if (distance <= 20)
+                {
+                    chase = false;
+                }
+            }
+            if (useSlamAttack == true && chase ==false)
+            {
+                idle = false;
+                //chase = true;
+                slamAttackRange.SetActive(true);
+                StartCoroutine(CloseTheDistance());
 
-            transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, 3);
-            //new code
-            //Maybe don't need to play this as audio fullout because the audio clip is long and the code will play out the wholeclip
-            //audio.clip = fieryAura;//Just needtocut fire sound to about 3 seconds, before a pause and the louder fire
-            audio.PlayOneShot(fieryAura, 0.2f);
 
-        }
-        if (slapString == true)
-        {
-            //transform.Translate(followDirection * 50 * Time.deltaTime);
-            idle = false;
-            regularAttackRange.SetActive(true);
-            animation.Play("Hit");
-            StartCoroutine(Glow());
-            StartCoroutine(SecondHit());
-            slapString = false;
+                transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, 3); //Turned from 5 to 3 for smooth
+                                                                                            //StartCoroutine(AttackCountdown());
+                Debug.Log(distance);
+                //if (chase == true) {
+                //if (distance == 21)
+                //{
+                //chase = false;
+                //gorillaRb.velocity = Vector3.zero;
+
+
+
+                //}
+                //}
+                useSlamAttack = false;
+            }
+            if (slamComing == true)
+            {
+                StartCoroutine(WarningLightRegular());
+
+                warningLightSmall.transform.position = new Vector3(player.transform.position.x, warningLightSmall.transform.position.y, player.transform.position.z);
+            }
+            //I think this will be triggered by booldesperationMoveOn
+            //Somethingis making the code not animation not cooperate. Not the lights or the way the animation is built. Try
+            //getting rid of as many IEnumerators as possib
+            //Something is cursed with this code, I tried turning off several IEnumeratorsand justdoing the animation and nothing happ
+            if (Input.GetKeyDown(KeyCode.T) && attackFinished == false)
+            {
+                idle = false; //Oh my god, I never turned off Idle for thiscode//This is why the gorilla twitches but doesn'tdoany
+                              //enemyScript.SetDamage(8);
+                              //enemyScript.SetForce(30);
+                              //enemyScript.SetComboFinisher();
+                              //attackFinished = true;
+
+                LightsOn();
+                //DMStart();
+                desperationMoveOn = true;
+                enemyScript.BackKnockBack();
+                StartCoroutine(NewDMCode());
+                attackFinished = true;
+            }
+            if (desperationMoveOn == true)
+            {
+                StartCoroutine(WarningLightDM());
+                lookRotation = Quaternion.LookRotation(player.transform.position - transform.position);
+
+                transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, 3);
+                //new code
+                //Maybe don't need to play this as audio fullout because the audio clip is long and the code will play out the wholeclip
+                //audio.clip = fieryAura;//Just needtocut fire sound to about 3 seconds, before a pause and the louder fire
+                audio.PlayOneShot(fieryAura, 0.2f);
+
+            }
+            if (slapString == true && chase==false)
+            {
+                //transform.Translate(followDirection * 50 * Time.deltaTime);
+                idle = false;
+                regularAttackRange.SetActive(true);
+                animation.Play("Hit");
+                StartCoroutine(Glow());
+                StartCoroutine(SecondHit());
+                slapString = false;
+            }
         }
     }
     IEnumerator IdleAnimation()
@@ -275,6 +286,7 @@ public class Gorilla : MonoBehaviour
     {
         yield return new WaitForSeconds(0.5f);
         useSlamAttack = true;
+        chase = true;
     }
     IEnumerator CloseTheDistance()
     {
@@ -528,7 +540,7 @@ public class Gorilla : MonoBehaviour
         //animator.SetTrigger("Stand Up");
         animation.Play("Stand Up");
         StartCoroutine(StartIdle());
-        audio.PlayOneShot(startingSound, 0.2f);
+        //audio.PlayOneShot(startingSound, 0.2f);
     }
     IEnumerator StartIdle()
     {
@@ -536,8 +548,8 @@ public class Gorilla : MonoBehaviour
         //idle = true;
         StartCoroutine(IdleAnimation());
     }
-    //private void OnTriggerEnter(Collider other)
-    //{
+    private void OnTriggerEnter(Collider other)
+    {
         //I don't think this is going to work because I think the thing it's touching has to be a trig
         //if (other.CompareTag("Ground") && desperationMoveOn == true)
         //{
@@ -547,5 +559,9 @@ public class Gorilla : MonoBehaviour
             //warningLightSmall.SetActive(false);
             //camScript.ScreenShakeMethod();
         //}
-    //}
+        if(other.CompareTag("CantCross") && chase == true)
+        {
+            chase = false;
+        }
+    }
 }
