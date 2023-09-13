@@ -141,7 +141,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7264847263909231863, guid: 3138a83bedbd6ad4481ba0b061da2eb6, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -0.015
       objectReference: {fileID: 0}
     - target: {fileID: 7264847263909231863, guid: 3138a83bedbd6ad4481ba0b061da2eb6, type: 3}
       propertyPath: m_LocalPosition.y
@@ -231,8 +231,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.81906515, y: 0.64611906, z: 0.72351843}
-  m_Center: {x: 0.054451548, y: 0.0367327, z: -0.065801136}
+  m_Size: {x: 0.9199899, y: 0.64611906, z: 0.9456969}
+  m_Center: {x: 0.053906582, y: 0.036732715, z: -0.17689039}
 --- !u!198 &6189954282243343596 stripped
 ParticleSystem:
   m_CorrespondingSourceObject: {fileID: 4642848129145531053, guid: 3138a83bedbd6ad4481ba0b061da2eb6, type: 3}
@@ -634,7 +634,7 @@ MonoBehaviour:
   eagleCry: {fileID: 0}
   eagleAttack: {fileID: 0}
   isOnGround: 0
-  testingStun: 0
+  testingStun: 1
 --- !u!114 &4444185724134267165
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -681,6 +681,7 @@ MonoBehaviour:
   currentRevengeValue: 0
   revengeValueCount: 3
   isLingering: 0
+  canHurtFlying: 0
   playerDodged: 0
 --- !u!65 &3575274186026016370
 BoxCollider:
@@ -701,8 +702,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.5252261, y: 0.19505705, z: 0.931726}
-  m_Center: {x: 0.0014180219, y: -0.0015600162, z: -0.16642545}
+  m_Size: {x: 0.534955, y: 0.2945632, z: 0.931726}
+  m_Center: {x: -0.0034464381, y: -0.0513131, z: -0.16642545}
 --- !u!54 &1240980529537837436
 Rigidbody:
   m_ObjectHideFlags: 0

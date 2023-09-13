@@ -348,6 +348,7 @@ public class Eagle : MonoBehaviour
                 playerRb.velocity = Vector3.back * 10;
                 StartCoroutine(IdleAnimation()); //Unlikeusual returning to the air, this forces the eagle back into its attack
                 //patt
+                Debug.Log("Revenge");
             }
         }
     }

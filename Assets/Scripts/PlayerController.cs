@@ -29,6 +29,10 @@ public class PlayerController : MonoBehaviour
     public GameObject birdFollow;
     public bool isFlying = false;
     private bool swoopedDown = false;
+    [Header("Ground")]
+    public float playerHeight = 0;
+    public LayerMask whatIsGround;
+    private bool grounded = true;
 
     [Header("Combo Meter")]
     public int hitNumber = 0;
@@ -267,6 +271,14 @@ public class PlayerController : MonoBehaviour
         {
             UnpauseGame();
         }
+        if(tigerActive == true)
+        {
+            grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.2f, whatIsGround);
+        }
+        else if (birdActive == true)
+        {
+            grounded = false;
+        }
     }
     //I tried putting everything in regular Update(), but it makes everything a lot slower
     void FixedUpdate()
@@ -344,6 +356,8 @@ public class PlayerController : MonoBehaviour
         {
             if (attack == false && dodge == false)
             {
+                //Going to add another code where tiger can only move if grounded ==
+                //Or make it so player can'tdo anything unlesstiger is grounded or bird is active 
                 moveDirection = orientation.forward * forwardInput + orientation.right * sideInput;
 
                 playerRb.AddForce(moveDirection.normalized * speed, ForceMode.Force);
@@ -645,6 +659,7 @@ public class PlayerController : MonoBehaviour
                     attackDirection = new Vector3(attackDirection.x, 0, attackDirection.z);
                     attackRotation = Quaternion.LookRotation(targetedEnemy.transform.position - tiger.transform.position);
                 }
+                //attackRotation = new Quaternion(0, attackRotation.y, attackRotation.z,0);
 
             }
             //I may want to change this because I can trigger an error by trying to access enemyScript when targetEnemy has been killed
@@ -814,14 +829,14 @@ public class PlayerController : MonoBehaviour
                     if (enemyScript.isFlying == false)
                     {
                     //Moved attackDirection here because the player object gets rotated now
-                    attackDirection = (targetedEnemy.transform.position - tiger.transform.position).normalized;
+                        attackDirection = (targetedEnemy.transform.position - tiger.transform.position).normalized;
                     //if (enemyScript.isFlying == true)
                     //{//To avoid tiger from roating from att
                         attackDirection = new Vector3(attackDirection.x, 0, attackDirection.z);
                     //}
 
-                    attackRotation = Quaternion.LookRotation(targetedEnemy.transform.position - tiger.transform.position);
-                    tiger.transform.rotation = Quaternion.Slerp(tiger.transform.rotation, attackRotation, 3); //Moved this from Strike() to
+                        attackRotation = Quaternion.LookRotation(targetedEnemy.transform.position - tiger.transform.position);
+                        tiger.transform.rotation = Quaternion.Slerp(tiger.transform.rotation, attackRotation, 3); //Moved this from Strike() to
                                                                                                               //see if I can immediately turn my character towards an ene
 
                     }
@@ -1437,6 +1452,14 @@ public class PlayerController : MonoBehaviour
         //target.SetActive(true);
         //newTarget.SetActive(true);
         targetedEnemy = GameObject.FindGameObjectWithTag("Enemy");
+        if (lockedOn == true)
+        {
+            //enemyScript.LockOff();
+            //camScript.LockOff();
+            LockOff();
+            //gameManagerScript.LockOff();
+        }
+        
 
         if (targetedEnemy != null) //There's no immediate way to check if there's an object of tag something, I wished there
         {
@@ -1460,13 +1483,7 @@ public class PlayerController : MonoBehaviour
                         targetedEnemy = enemies[j];//This code will avoid problems of two foes having the same distance from
                                                    //the player
                                                    //Doing this in case there's already a foe that's been locked
-                       if (lockedOn == true)
-                      {
-                        //enemyScript.LockOff();
-                        //camScript.LockOff();
-                        LockOff();
-                        //gameManagerScript.LockOff();
-                        }
+
                     enemyScript = targetedEnemy.GetComponent<Enemy>();
                     //if (enemyScript.lockedOn == false)
                     //{

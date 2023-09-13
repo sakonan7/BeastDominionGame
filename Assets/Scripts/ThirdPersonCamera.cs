@@ -29,6 +29,8 @@ public class ThirdPersonCamera : MonoBehaviour
     private float tigerPosition;
     private float birdPosition;
     private Vector3 viewDir;
+    private float nonLockOnRadii = 1.92f;
+    private float lockOnRadii = 1.5f;
 
     private bool evokeOnce = false;
     // Start is called before the first frame update
@@ -163,10 +165,12 @@ public class ThirdPersonCamera : MonoBehaviour
         cinemachineFL.m_LookAt = target;
         //cinemachineFL.
         //StartCoroutine(BackToPlayer());
+        cinemachineFL.m_Orbits[1].m_Height = lockOnRadii;
     }
     public void LockOff()
     {
         cinemachineFL.m_LookAt = player.transform;
+        cinemachineFL.m_Orbits[1].m_Height = nonLockOnRadii;
     }
     IEnumerator BackToPlayer()
     {

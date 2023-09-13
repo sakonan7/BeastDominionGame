@@ -273,7 +273,7 @@ if (testingStun == false)
     }
     IEnumerator SecondHit()
     {
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1.8f);
 
         animation.Play("Hit1");
         //secondAttackRange.SetActive(false);
