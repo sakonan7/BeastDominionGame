@@ -204,93 +204,25 @@ public class Eagle : MonoBehaviour
             audio.PlayOneShot(eagleAttack, attackVol);
         }
     }
-    IEnumerator FirstClaw()
+    public void Swoop()
     {
-        //Want to expand the Monkey's collider slightly
-        //StartCoroutine(Attack());
-        //Debug.Log("First Claw");
 
-        //May want to do a counter so that an attack doesn't re
-        attack = true;
-        firstClawSlash.SetActive(true);
-        attackRange.SetActive(true);
-        //enemyScript.SetAttackEffect(attackEffect); //Doing this for practice for when I have enemies with multiple attacks
-        //Necessary because there's enough time for the Monkey to repeat an attack on the bird
-        //May not be necessary after my edit to the collider
-        enemyScript.SetAttackDirection(followDirection);
-        enemyScript.SetForce(0);
-        //lookRotation = Quaternion.LookRotation(player.transform.position - transform.position);
-        //monkeyRb.AddForce(followDirection * speed);
-        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, 5); //For extra right target turning
-        //if (stunned == false && playerStunned == false && playerScript.specialInvincibility == false)
+        //if (lockedOn == true && enemyScript.isFlying == false) //Almost accidentally wrotethis as ==true
         //{
-        //if (hitOnce == false)
+            ////StartCoroutine(TellAngle());
+            //bird.transform.Translate(0, -1.5f, 0);
+            //birdSeparater.SetActive(false);
+            //isFlying = false;
+            //swoopedDown = true;
+
+
+        //else if (distance < 4)
         //{
-        if (playerScript.tigerActive == true)
-        {
-            //followDirection = (tiger.transform.position - transform.position).normalized;
-            //monkeyRb.AddForce(followDirection * jumpForce, ForceMode.Impulse);
-            //monkeyRb.AddForce(Vector3.up * 2, ForceMode.Impulse); //For jumping, may need to modify gravity
-                                                                  //attackCount++;
-        }
-        else if (playerScript.birdActive == true)
-        {
-            //followDirection = (bird.transform.position - transform.position).normalized;
-            //monkeyRb.AddForce(followDirection, ForceMode.Impulse);
-            //monkeyRb.AddForce(Vector3.up * 5, ForceMode.Impulse); //For jumping, may need to modify gravity
-
-        }
-        //If that doesn't work, put an if (dodge == false
-
-        //animation.Play("Attack");
-        //animator.SetTrigger("Slash 1");
-        isOnGround = false; //Will always have this happen, because both attacks make the Monkey jump
+            //transform.rotation = Quaternion.Slerp(transform.rotation, attackRotation, 10 * Time.deltaTime);
+            StartCoroutine(AttackDuration());
+            eagleRb.AddForce(attackDirection * 40, ForceMode.Impulse);//Changed from 8 to 12
+            //StartCoroutine(FreezeRotations());
         //}
-        //if (enemyScript.hitLanded == true)
-        //{
-        //PlayAttackEffect();
-        //}
-        //monkeyRb.constraints = RigidbodyConstraints.FreezeRotation;
-        attackVol = firstAttackVol;
-        yield return new WaitForSeconds(1.5f);
-        //animator.SetBool("Attack 1", false);
-        attack = false;
-        firstClawSlash.SetActive(false);
-        attackRange.SetActive(false);
-        //For simplicity, second claw attack will only happen if player was hit by the first
-        if (playerScript.tigerActive == true && enemyScript.hitLanded == true)
-        {
-            //hitCount = 1;
-            //StartCoroutine(SecondClaw());
-            enemyScript.SetComboAttack(); //I put this here because if the IEnumerator goes on too long, it'll set the comboAttack repeatedly
-        }
-        else
-        {
-            attackFinished = true; //IdleAnimation() is not played here because it plays in Update when the Monkey has returned to the 
-            //playerStunned = false; //Because a second atack will not be made on the bird
-        }
-
-        enemyScript.ResetHitLanded();
-        //Debug.Log("First Hit");
-        playOnce = true;
-        enemyScript.UnsetPlayerDodged();
-    }
-    //AttackDuration And an attacklag. The AttackDuration is short and the attack lag is around 2 seconds long. 
-    //Forthe ground to air att. The attacklag is shorter for when the player is abird
-
-
-    IEnumerator PauseBeforeJump()
-    {
-        yield return new WaitForSeconds(0.5f);
-        //Jump();
-    }
-    //Test to see if the lag time I'm looking for is here
-    IEnumerator LagBeforeAttack()
-    {
-        yield return new WaitForSeconds(1f);
-        //StartCoroutine(AirSlash());
-        attack = false;
-        Debug.Log("Start Air Attack");
     }
     IEnumerator AttackDuration()
     {

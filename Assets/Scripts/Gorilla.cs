@@ -63,7 +63,7 @@ public class Gorilla : MonoBehaviour
     private bool playOnce = true;
     public bool isOnGround = false;
     private bool attackFinished = false;
-    private bool slapString = true;
+    private bool slapString = false;
     private bool useSlamAttack = false;
     private float distance;
     private int attackString = 0;
@@ -122,7 +122,7 @@ public class Gorilla : MonoBehaviour
         cameraRef = GameObject.Find("Main Camera");
         camScript = cameraRef.GetComponent<ThirdPersonCamera>();
 
-        //StartCoroutine(IdleAnimation());
+        StartCoroutine(IdleAnimation());
         StartCoroutine(Cutscene());
         originalPosition = transform.position;
     }
@@ -203,12 +203,13 @@ public class Gorilla : MonoBehaviour
         }
         if (slapString == true)
         {
-            transform.Translate(followDirection * 50 * Time.deltaTime);
+            //transform.Translate(followDirection * 50 * Time.deltaTime);
             idle = false;
             regularAttackRange.SetActive(true);
             animation.Play("Hit");
             StartCoroutine(Glow());
             StartCoroutine(SecondHit());
+            slapString = false;
         }
     }
     IEnumerator IdleAnimation()
@@ -239,6 +240,7 @@ public class Gorilla : MonoBehaviour
         chase = true;
         animator.SetBool("Idle", false);
         animator.SetBool("Chase", true);
+        slapString = true;
         //playerScript.monkeyRange.SetActive(true);
         //Debug.Log("Cooldown finished");
     }

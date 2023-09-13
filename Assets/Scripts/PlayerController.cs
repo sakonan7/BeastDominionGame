@@ -1132,7 +1132,7 @@ public class PlayerController : MonoBehaviour
     }
     public void Swoop()
     {
-        //The intention is to have the bird attack and then return to its starting position when it started its att
+        //The intention is to have the bird forc and then return to its starting position when it started its att
         //attackDirection = (target.transform.position - transform.position).normalized;
         //Try using downward and upward forces instead
         //bird.transform.Translate(bird.transform.position.x, 0.8f, bird.transform.position.z);
