@@ -31,8 +31,8 @@ public class Gorilla : MonoBehaviour
     public int attack2 = 1;
     public int attack3 = 2;
 
-    public GameObject firstClawSlash;
-    public GameObject secondClawSlash;
+    public GameObject regularAttackRange;
+    public GameObject secondAttackRange;
     public GameObject slamAttackRange;
     public GameObject slamAttackRange2;
     public GameObject regularShockWave;
@@ -198,6 +198,14 @@ public class Gorilla : MonoBehaviour
             audio.PlayOneShot(fieryAura, 0.1f);
 
         }
+        if (Input.GetKeyDown(KeyCode.G))
+        {
+            idle = false;
+            regularAttackRange.SetActive(true);
+            animation.Play("Hit");
+            StartCoroutine(Glow());
+            StartCoroutine(SecondHit());
+        }
     }
     IEnumerator IdleAnimation()
     {
@@ -229,6 +237,26 @@ public class Gorilla : MonoBehaviour
         animator.SetBool("Chase", true);
         //playerScript.monkeyRange.SetActive(true);
         //Debug.Log("Cooldown finished");
+    }
+    IEnumerator Glow()
+    {
+        yield return new WaitForSeconds(0.5f);
+        regularAttackRange.SetActive(false);
+        secondAttackRange.SetActive(true);
+    }
+    IEnumerator SecondHit()
+    {
+        yield return new WaitForSeconds(2f);
+        animator.Play("Hit1");
+        //secondAttackRange.SetActive(false);
+        //
+        StartCoroutine(UnGlow());
+    }
+    IEnumerator UnGlow()
+    {
+        yield return new WaitForSeconds(0.2f);
+        secondAttackRange.SetActive(false);
+        StartCoroutine(IdleAnimation());
     }
     IEnumerator CloseTheDistance()
     {
