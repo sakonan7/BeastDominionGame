@@ -282,7 +282,7 @@ if (testingStun == false)
     }
     IEnumerator UnGlow()
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(1.5f);
         secondAttackRange.SetActive(false);
         //StartCoroutine(IdleAnimation());
         
@@ -292,7 +292,7 @@ if (testingStun == false)
     IEnumerator PauseSlam()
     {
         transform.position = originalPosition;
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(2f);
         useSlamAttack = true;
         chase = true;
     }
@@ -370,7 +370,7 @@ if (testingStun == false)
             enemyScript.SetComboFinisher();
         enemyScript.ResetKnockbacks();
         //}
-        idle = true;
+        
         transform.position = originalPosition;
         attackFinished = false;
         StartCoroutine(Crater());
@@ -413,12 +413,6 @@ if (testingStun == false)
             rage[i].SetActive(false);
         }
     }
-    public void DMStart()
-    {
-        //animator.SetTrigger("DM Start Up");
-        animation.Play("Roar");
-        StartCoroutine(StartUpFists());
-    }
 
     //Rewrite of DM
     IEnumerator NewDMCode()
@@ -440,33 +434,9 @@ if (testingStun == false)
         LightsOff();
         flameAura.Stop();
         audio.Stop();
+        //idle = false;
     }
-    IEnumerator StartUpFists()
-    {
-        yield return new WaitForSeconds(0.5f);
-        slamAttackRange.SetActive(true);
-        slamAttackRange2.SetActive(true);
-        //Remove the tags from the fists ATM so that they don't hurt the player during the charge 
-        StartCoroutine(DesperationMove());
-    }
-    //For the arena lighting up, warning the player that the whole arena will be consumed in fire
-    //I think I will adjust the light source itself to create the light lighting up and down
-    //Do another version for the single hand smash shock
-    IEnumerator DesperationMove()
-    {
-        //while(ultimateAttackStart)
-        //{
-        //yield return new WaitForSeconds(0.5f);
-        //}
-        //animator.SetBool("DM Charge Up", true);
-        desperationMoveOn = true;
-        yield return new WaitForSeconds(3);
-        
-        desperationMoveOn = false;
 
-        DMSlamDown();
-        //animator.SetBool("DM Charge Up", false);
-    }
     //I turned this into a method so there isn't a wa it time for 
     public void DMSlamDown()
     {
