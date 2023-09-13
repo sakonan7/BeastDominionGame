@@ -255,7 +255,7 @@ public class Gorilla : MonoBehaviour
     IEnumerator WarningLightDM()
     {
         warningLightDM.SetActive(true);
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(0.2f);
         warningLightDM.SetActive(false);
     }
    //What I could potential do is have the shockwaves trigger the second the Gorilla's arms touch the ground because they do touch theground 
