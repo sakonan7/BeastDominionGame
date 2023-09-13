@@ -12,7 +12,7 @@ public class Gorilla : MonoBehaviour
     private GameObject player;
     private PlayerController playerScript;
     private Enemy enemyScript;
-    private float speed = 100;
+    private float speed = 80;
     private Rigidbody gorillaRb;
     private Rigidbody playerRb;
     private Vector3 followDirection;
@@ -62,6 +62,7 @@ public class Gorilla : MonoBehaviour
     private float secondAttackVol = 0.3f;
     private bool playOnce = true;
     public bool isOnGround = false;
+    private int attackStringPart = 1;
     private bool attackFinished = false;
     private bool slapString = false;
     private bool useSlamAttack = false;
@@ -77,7 +78,7 @@ public class Gorilla : MonoBehaviour
 
     private GameManager gameManager;
     private int HP = 80; //7
-    public bool testingStun = true;
+    public bool testingStun = false;
     private bool testingBehaviors = false;
     private bool moveLeft = false;
     private bool moveRight = true;
@@ -112,7 +113,7 @@ public class Gorilla : MonoBehaviour
             damage = 3;
         }
         skin = GetComponentInChildren<SkinnedMeshRenderer>();
-        enemyScript.SetDamage(damage);
+        //enemyScript.SetDamage(damage);
         enemyScript.attackEffect[0] = attackEffect;
         audio = GetComponent<AudioSource>();
         enemyScript.enemySounds[0] = monkeyAttack;
@@ -148,10 +149,12 @@ if (testingStun == false)
             }
             if (chase==true)
             {
+                transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, 3);
                 transform.Translate(followDirection * speed * Time.deltaTime);
                 if (distance <= 20)
                 {
                     chase = false;
+                    Debug.Log("Distance Reached");
                 }
             }
             if (useSlamAttack == true && chase ==false)
@@ -162,7 +165,7 @@ if (testingStun == false)
                 StartCoroutine(CloseTheDistance());
 
 
-                transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, 3); //Turned from 5 to 3 for smooth
+                //transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, 3); //Turned from 5 to 3 for smooth
                                                                                             //StartCoroutine(AttackCountdown());
                 Debug.Log(distance);
                 //if (chase == true) {
@@ -251,7 +254,10 @@ if (testingStun == false)
         //}
         //beginningIdle = false;
         idle = false;
-        chase = true;
+        if (distance > 21)
+        {
+            chase = true;
+        }
         //animator.SetBool("Idle", false);
         //animator.SetBool("Chase", true);
         slapString = true;
@@ -261,13 +267,14 @@ if (testingStun == false)
     }
     IEnumerator Glow()
     {
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(1f);
         regularAttackRange.SetActive(false);
         secondAttackRange.SetActive(true);
     }
     IEnumerator SecondHit()
     {
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(2f);
+
         animation.Play("Hit1");
         //secondAttackRange.SetActive(false);
         //
@@ -275,16 +282,17 @@ if (testingStun == false)
     }
     IEnumerator UnGlow()
     {
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(1f);
         secondAttackRange.SetActive(false);
         //StartCoroutine(IdleAnimation());
-        transform.position = originalPosition;
+        
         //StartCoroutine(CloseTheDistance());
         StartCoroutine(PauseSlam());
     }
     IEnumerator PauseSlam()
     {
-        yield return new WaitForSeconds(0.5f);
+        transform.position = originalPosition;
+        yield return new WaitForSeconds(1f);
         useSlamAttack = true;
         chase = true;
     }
@@ -294,7 +302,7 @@ if (testingStun == false)
 
         yield return new WaitForSeconds(1);
         StartCoroutine(SlamDown());
-        enemyScript.SetDamage(3);
+        enemyScript.SetDamage(0);
         enemyScript.SetForce(30);
         enemyScript.SetComboFinisher();
         slamComing = true;
@@ -384,7 +392,7 @@ if (testingStun == false)
         yield return new WaitForSeconds(0.5f);
         Vector3 placeForFireCrater = regularShockWave.transform.position; GameObject newCrater = fireCrater;
         craterScript = newCrater.GetComponent<Projectile>();
-        craterScript.SetDamage(2);
+        craterScript.SetDamage(0);
         //craterScript.IsMoving(false);
         //craterScript.SetLifeTime(3);
         //craterScript.IsDestroyable(false);
@@ -562,6 +570,7 @@ if (testingStun == false)
         if(other.CompareTag("CantCross") && chase == true)
         {
             chase = false;
+            Debug.Log("BoundaryReached");
         }
     }
 }
