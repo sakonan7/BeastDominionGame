@@ -19,7 +19,7 @@ public class Gorilla : MonoBehaviour
     private Vector3 attackDirection;
     private Quaternion lookRotation;
     private bool attack = false;
-    private bool beginningIdle = true;
+    //private bool beginningIdle = true;
     private bool idle = false;
     private bool chase = false;
     private bool playerStunned = false; //For if the Tiger is hit by the first claw. Tiger will always get hit twice
@@ -63,7 +63,10 @@ public class Gorilla : MonoBehaviour
     private bool playOnce = true;
     public bool isOnGround = false;
     private bool attackFinished = false;
+    private bool slapString = true;
+    private bool useSlamAttack = false;
     private float distance;
+    private int attackString = 0;
 
     public GameObject[] rage = new GameObject[13];
 
@@ -73,7 +76,7 @@ public class Gorilla : MonoBehaviour
     private float damageIdleTime = 6;
 
     private GameManager gameManager;
-    private int HP = 60; //7
+    private int HP = 80; //7
     private bool testingStun = true;
     private bool testingBehaviors = false;
     private bool moveLeft = false;
@@ -131,20 +134,20 @@ public class Gorilla : MonoBehaviour
         //Either it hits a boundaryorit is <= 8 or 16distance away from the player. I think I don't need to have OnCollision or OnCollisionStay
         //becausethat counts as being < 8 distance
         followDirection = (transform.position - player.transform.position).normalized;
+        distance = Vector3.Distance(player.transform.position, transform.position);
+        lookRotation = Quaternion.LookRotation(player.transform.position - transform.position);
         if (idle == true)
         {
             //animator.SetBool("Idle", true);
             animation.Play("Idle");
         }
-        if (Input.GetKeyDown(KeyCode.H) && attackFinished == false)
+        if (useSlamAttack == true)
         {
             idle = false;
-            LightsOn();
             //chase = true;
             slamAttackRange.SetActive(true);
             StartCoroutine(CloseTheDistance());
-            distance = Vector3.Distance(player.transform.position, transform.position);
-            lookRotation = Quaternion.LookRotation(player.transform.position - transform.position);
+
             
             transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, 3); //Turned from 5 to 3 for smooth
                                                                                         //StartCoroutine(AttackCountdown());
@@ -159,7 +162,7 @@ public class Gorilla : MonoBehaviour
 
             //}
             //}
-            attackFinished = true;
+            useSlamAttack = false;
         }
         if (slamComing == true)
         {
@@ -198,8 +201,9 @@ public class Gorilla : MonoBehaviour
             audio.PlayOneShot(fieryAura, 0.1f);
 
         }
-        if (Input.GetKeyDown(KeyCode.G))
+        if (slapString == true)
         {
+            transform.Translate(followDirection * 50 * Time.deltaTime);
             idle = false;
             regularAttackRange.SetActive(true);
             animation.Play("Hit");
@@ -214,23 +218,23 @@ public class Gorilla : MonoBehaviour
         //animator.SetBool("Idle", true);
         //For the timebeing, turn off the player's monkey range
         //playerScript.monkeyRange.SetActive(false);
-        if (beginningIdle == true)
-        {
-            yield return new WaitForSeconds(Random.Range(6, 12));
-        }
+        //if (beginningIdle == true)
+        //{
+            //yield return new WaitForSeconds(Random.Range(6, 12));
+        //}
         //if (playerScript.tigerActive == true)
         //{
-        else
-        {
+        //else
+        //{
             yield return new WaitForSeconds(idleTime);
-        }
+        //}
         //}
         //else if (playerScript.birdActive == true)
         //{
         //monkeyRb.AddForce(Vector3.down * 2, ForceMode.Impulse);
         //yield return new WaitForSeconds(7);
         //}
-        beginningIdle = false;
+        //beginningIdle = false;
         idle = false;
         chase = true;
         animator.SetBool("Idle", false);
@@ -246,21 +250,30 @@ public class Gorilla : MonoBehaviour
     }
     IEnumerator SecondHit()
     {
-        yield return new WaitForSeconds(2f);
-        animator.Play("Hit1");
+        yield return new WaitForSeconds(1.5f);
+        animation.Play("Hit1");
         //secondAttackRange.SetActive(false);
         //
         StartCoroutine(UnGlow());
     }
     IEnumerator UnGlow()
     {
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSeconds(0.5f);
         secondAttackRange.SetActive(false);
-        StartCoroutine(IdleAnimation());
+        //StartCoroutine(IdleAnimation());
+        transform.position = originalPosition;
+        //StartCoroutine(CloseTheDistance());
+        StartCoroutine(PauseSlam());
+    }
+    IEnumerator PauseSlam()
+    {
+        yield return new WaitForSeconds(0.5f);
+        useSlamAttack = true;
     }
     IEnumerator CloseTheDistance()
     {
         transform.Translate(followDirection * speed * Time.deltaTime);
+
         yield return new WaitForSeconds(1);
         StartCoroutine(SlamDown());
         enemyScript.SetDamage(3);
@@ -342,7 +355,16 @@ public class Gorilla : MonoBehaviour
         //craterScript.IsDestroyable(false);
         Instantiate(newCrater, new Vector3(placeForFireCrater.x, fireCrater.transform.position.y, placeForFireCrater.z), fireCrater.transform.rotation);
         enemyScript.UnsetPlayerDodged();
-        StartCoroutine(IdleAnimation());
+        attackString++;
+        if (attackString == 2)
+        {
+            NewDMCode();
+            attackString = 0;
+        }
+        else if (attackString >2){
+            StartCoroutine(IdleAnimation());
+        }
+        
     }
     public void LightsOn()
     {
@@ -488,16 +510,16 @@ public class Gorilla : MonoBehaviour
         yield return new WaitForSeconds(1f);
         idle = true;
     }
-    private void OnTriggerEnter(Collider other)
-    {
+    //private void OnTriggerEnter(Collider other)
+    //{
         //I don't think this is going to work because I think the thing it's touching has to be a trig
-        if (other.CompareTag("Ground") && desperationMoveOn == true)
-        {
-            DMShockWave.SetActive(true);
-            motionBlurObject.SetActive(true);
-            slamComing = false;
-            warningLightSmall.SetActive(false);
-            camScript.ScreenShakeMethod();
-        }
-    }
+        //if (other.CompareTag("Ground") && desperationMoveOn == true)
+        //{
+            //DMShockWave.SetActive(true);
+            //motionBlurObject.SetActive(true);
+            //slamComing = false;
+            //warningLightSmall.SetActive(false);
+            //camScript.ScreenShakeMethod();
+        //}
+    //}
 }
