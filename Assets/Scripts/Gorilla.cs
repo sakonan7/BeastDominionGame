@@ -72,8 +72,8 @@ public class Gorilla : MonoBehaviour
 
     private bool stunned = false; //Freeze Monkey when i don't want it to move and when the Monkey is being stunlocked by att
     private float idleTime;
-    private float usualIdleTime = 9;
-    private float damageIdleTime = 6;
+    private float usualIdleTime = 6;
+    private float DMIdleTime = 10;
 
     private GameManager gameManager;
     private int HP = 80; //7
@@ -122,7 +122,7 @@ public class Gorilla : MonoBehaviour
         cameraRef = GameObject.Find("Main Camera");
         camScript = cameraRef.GetComponent<ThirdPersonCamera>();
 
-        StartCoroutine(IdleAnimation());
+        //StartCoroutine(IdleAnimation());
         StartCoroutine(Cutscene());
         originalPosition = transform.position;
     }
@@ -238,11 +238,12 @@ public class Gorilla : MonoBehaviour
         //beginningIdle = false;
         idle = false;
         chase = true;
-        animator.SetBool("Idle", false);
-        animator.SetBool("Chase", true);
+        //animator.SetBool("Idle", false);
+        //animator.SetBool("Chase", true);
         slapString = true;
         //playerScript.monkeyRange.SetActive(true);
         //Debug.Log("Cooldown finished");
+        attackString++;
     }
     IEnumerator Glow()
     {
@@ -274,7 +275,7 @@ public class Gorilla : MonoBehaviour
     }
     IEnumerator CloseTheDistance()
     {
-        transform.Translate(followDirection * speed * Time.deltaTime);
+        //transform.Translate(followDirection * speed * Time.deltaTime);
 
         yield return new WaitForSeconds(1);
         StartCoroutine(SlamDown());
@@ -328,7 +329,7 @@ public class Gorilla : MonoBehaviour
     {
         
         attackFinished = true;
-        Vector3 placeForFireCrater = regularShockWave.transform.position;
+        
         yield return new WaitForSeconds(1f);
         slamAttackRange.SetActive(false);
         regularShockWave.SetActive(false);
@@ -349,7 +350,23 @@ public class Gorilla : MonoBehaviour
         idle = true;
         transform.position = originalPosition;
         attackFinished = false;
-        GameObject newCrater = fireCrater;
+
+        
+        if (attackString == 2)
+        {
+            StartCoroutine(NewDMCode());
+            attackString = 0;
+        }
+        else if (attackString < 2){
+            StartCoroutine(IdleAnimation());
+            Debug.Log("Idle");
+        }
+        
+    }
+    IEnumerator Crater()
+    {
+        yield return new WaitForSeconds(0.5f);
+        Vector3 placeForFireCrater = regularShockWave.transform.position; GameObject newCrater = fireCrater;
         craterScript = newCrater.GetComponent<Projectile>();
         craterScript.SetDamage(2);
         //craterScript.IsMoving(false);
@@ -357,16 +374,6 @@ public class Gorilla : MonoBehaviour
         //craterScript.IsDestroyable(false);
         Instantiate(newCrater, new Vector3(placeForFireCrater.x, fireCrater.transform.position.y, placeForFireCrater.z), fireCrater.transform.rotation);
         enemyScript.UnsetPlayerDodged();
-        attackString++;
-        if (attackString == 2)
-        {
-            NewDMCode();
-            attackString = 0;
-        }
-        else if (attackString >2){
-            StartCoroutine(IdleAnimation());
-        }
-        
     }
     public void LightsOn()
     {
@@ -487,16 +494,22 @@ public class Gorilla : MonoBehaviour
         idle = true;
         transform.position = originalPosition;
         attackFinished = false;
+        
+        StartCoroutine(DMCrater());
+        enemyScript.UnsetPlayerDodged();
+        StartCoroutine(IdleAnimation());
+        audio.Stop();
+    }
+    IEnumerator DMCrater()
+    {
+        yield return new WaitForSeconds(0.5f);
         GameObject newDMCrater = fireCraterDM;
         craterScript = newDMCrater.GetComponent<Projectile>();
-        craterScript.SetDamage(7);
+        craterScript.SetDamage(0);
         //craterScript.IsMoving(false);
         //craterScript.SetLifeTime(3);
         //craterScript.IsDestroyable(false);
         Instantiate(newDMCrater, fireCraterDM.transform.position, fireCraterDM.transform.rotation);
-        enemyScript.UnsetPlayerDodged();
-        StartCoroutine(IdleAnimation());
-        audio.Stop();
     }
     IEnumerator Cutscene()
     {
@@ -510,7 +523,8 @@ public class Gorilla : MonoBehaviour
     IEnumerator StartIdle()
     {
         yield return new WaitForSeconds(1f);
-        idle = true;
+        //idle = true;
+        StartCoroutine(IdleAnimation());
     }
     //private void OnTriggerEnter(Collider other)
     //{

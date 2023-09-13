@@ -53,7 +53,7 @@ public class Eagle : MonoBehaviour
 
     private bool stunned = false; //Freeze Monkey when i don't want it to move and when the Monkey is being stunlocked by att
     private float idleTime;
-    private float usualIdleTime = 9;
+    private float usualIdleTime = 9;//9
     private float damageIdleTime = 6;
 
     private GameManager gameManager;
