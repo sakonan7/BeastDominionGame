@@ -280,7 +280,7 @@ public class Enemy : MonoBehaviour
     IEnumerator FoeAttacked(float enterAttackForce)
     {
         attacked = true;
-        if (giantEnemy == false)
+        if (giantEnemy == false && giantBoss == false)
         {
             float playerAttackForce = enterAttackForce;
             //enemyRb.AddForce(playerScript.attackDirection * attackForce, ForceMode.Force);
@@ -296,7 +296,7 @@ public class Enemy : MonoBehaviour
     IEnumerator SecondHit()
     {
         attacked = true;
-if (giantEnemy == false)
+if (giantEnemy == false &&giantBoss == false)
         {
                     float playerAttackForce = 280;
         //enemyRb.AddForce(playerScript.attackDirection * attackForce, ForceMode.Force);

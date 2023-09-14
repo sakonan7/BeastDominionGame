@@ -9,8 +9,8 @@ public class Bear : MonoBehaviour
     private GameObject player;
     private PlayerController playerScript;
     private Enemy enemyScript;
-    private float speed = 220;
-    private float flurrySpeed = 1000;
+    private float speed = 2;
+    private float flurrySpeed = 5;
     private Rigidbody bearRb;
     private Rigidbody playerRb;
     private Vector3 followDirection;
@@ -21,7 +21,7 @@ public class Bear : MonoBehaviour
     private bool attack = false;
     private bool beginningIdle = false;
     private bool idle = true;
-    private bool tunnelChase = false;
+    private bool chase = false;
     private bool playerStunned = false; //For if the Tiger is hit by the first claw. Tiger will always get hit twice
     private int damage = 1;
     private bool hitThrown = false;
@@ -48,16 +48,16 @@ public class Bear : MonoBehaviour
     private int whichAttack = 1;
     private int attackOne = 0;
     private int attackTwo = 1;
-    private bool isTunneled = false;
 
     private bool stunned = false; //Freeze Monkey when i don't want it to move and when the Monkey is being stunlocked by att
     private float idleTime;
     private float usualIdleTime = 9;
+    private float flurryIdleTime = 12;
     private float damageIdleTime = 6;
 
     private GameManager gameManager;
     private int HP = 25; //7
-    private bool testingStun = false;
+    public bool testingStun = false;
     private bool testingBehaviors = false;
     private bool moveLeft = false;
     private bool moveRight = true;
@@ -70,7 +70,7 @@ public class Bear : MonoBehaviour
         playerRb = player.GetComponent<Rigidbody>();
         playerScript = player.GetComponent<PlayerController>();
 
-        bearRb = GetComponent<Rigidbody>();
+        //bearRb = GetComponent<Rigidbody>();
 
         gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
         if (gameManager.difficulty == "Normal")
@@ -90,11 +90,12 @@ public class Bear : MonoBehaviour
         audio = GetComponent<AudioSource>();
         enemyScript.enemySounds[0] = bearAttack;
         enemyScript.SetHP(HP);
+        enemyScript.IsGiantEnemy();
 
         cameraRef = GameObject.Find("Main Camera");
         StartCoroutine(IdleAnimation());
         //animator.SetBool("Idle", true);
-        whichAttack = attackTwo;
+        whichAttack = attackOne;
     }
 
     // Update is called once per frame
@@ -104,64 +105,80 @@ public class Bear : MonoBehaviour
     //attack. Then wait before doing it again. It glows red when it is going to dothis
     void Update()
     {
-        transform.rotation = new Quaternion(0, transform.rotation.y, transform.rotation.z,0);
+        //transform.rotation = new Quaternion(0, transform.rotation.y, transform.rotation.z,0);
+        followDirection = (transform.position - player.transform.position).normalized;
+        distance = Vector3.Distance(player.transform.position, transform.position);
+        lookRotation = Quaternion.LookRotation(player.transform.position - transform.position);
         if (testingStun == false)
         {
             //I'm gonna take out stunned == false because each time a foe is in attack mode, it can't be flinched and
             //they will be set back into IdleAnimation and only have IdleAnimation happen if the foe is not stunned
-            if (idle == false && whichAttack == attackTwo)
+            if (idle== true)
             {
-                
+                animator.SetBool("Idle", true);
+            }
+            if (idle == false && chase == true)
+            {
+                transform.Translate(followDirection * speed * Time.deltaTime);
+                if (distance <= 3 && whichAttack ==attackOne)
+                {
+                    chase = false;
+                    animator.SetTrigger("Attack 1");
+                    enemyScript.SetDamage(2);
+                    enemyScript.SetForce(15);
+                    enemyScript.BackKnockBack();
+                    StartCoroutine(AttackDuration());
+                }
+                else if (distance <= 6 && whichAttack == attackTwo)
+                {
+                    chase = false;
                     if (attackFinished == false)
                     {
-                        followDirection = (player.transform.position - transform.position).normalized;
-                        distance = Vector3.Distance(player.transform.position, transform.position);
-                        lookRotation = Quaternion.LookRotation(player.transform.position - transform.position);
-                        
-                        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, 3); //Turned from 5 to 3 for smooth
-                                                                                                    //StartCoroutine(AttackCountdown());
-                        enemyScript.SetDamage(2);
-                        enemyScript.SetForce(0);
-                        animator.SetBool("Fury", true);
-                        StartCoroutine(FlurryAttack());
+
+                        StartCoroutine(Roar());
+
                     }
-                bearRb.AddForce(followDirection * flurrySpeed);
+                }
+                
+
+                
             }
 
-            if (attackFinished == true)
-            {
-                attackFinished = false;
-                idleTime = usualIdleTime;
-                StartCoroutine(IdleAnimation());
-            }
+            //if (attackFinished == true)
+            //{
+                //attackFinished = false;
+                //idleTime = usualIdleTime;
+                //StartCoroutine(IdleAnimation());
+            //}
         }
     }
     //I thought I wouldn't need an AttackDuration, but I need to deactivate the attackrange
     IEnumerator AttackDuration()
     {
         attackRange1.SetActive(true);
-        attackRange2.SetActive(true);
         attackFinished = true;
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(1f);
         attackRange1.SetActive(false);
-        //armadilloCollide.isTrigger = false;
         attackFinished = false;
-        attack = false;
-
-        if (whichAttack == attackOne)
-        {
-            attackRange1.transform.localScale -= new Vector3(0.2f, 0, 0.2f);
-        }
-        else if (whichAttack == attackTwo)
-        {
-            enemyScript.SetComboFinisher();
-        }
+        enemyScript.ResetKnockbacks();
+        StartCoroutine(IdleAnimation());
+    }
+    IEnumerator Roar()
+    {
+        yield return new WaitForSeconds(1f);
+        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, 3); //Turned from 5 to 3 for smooth
+                                                                                    //StartCoroutine(AttackCountdown());
+        enemyScript.SetDamage(1);
+        enemyScript.SetForce(0);
+        animator.SetBool("Fury", true);
+        StartCoroutine(FlurryAttack());
+        //StartCoroutine(DamageIncreaser());
     }
     IEnumerator FlurryAttack() {
         attackRange1.SetActive(true);
         attackRange2.SetActive(true);
         attackFinished = true;
-        
+        transform.Translate(followDirection * flurrySpeed * Time.deltaTime);
         yield return new WaitForSeconds(5f);
         attackRange1.SetActive(false);
         attackRange2.SetActive(false);
@@ -169,8 +186,14 @@ public class Bear : MonoBehaviour
         attackFinished = false;
         animator.SetBool("Fury", false);
         Debug.Log("Flurry Attack Done");
+        idleTime = flurryIdleTime;
+        StartCoroutine(IdleAnimation());
     }
-
+    IEnumerator DamageIncreaser()
+    {
+        yield return new WaitForSeconds(2.5f);
+        enemyScript.SetDamage(2);
+    }
     IEnumerator IdleAnimation()
     {
         idle = true;
@@ -187,8 +210,17 @@ public class Bear : MonoBehaviour
         idle = false;
 
         animator.SetBool("Idle", false);
-        //animator.SetBool("Chase", true);
+        if (whichAttack == attackOne)
+        {
+            whichAttack = attackTwo;
+        }
+        else if (whichAttack == attackTwo)
+        {
+            whichAttack = attackOne;
+        }
         
+        animator.SetBool("Chase", true);
+
     }
     public void OnTriggerEnter(Collider other)
     {
@@ -235,6 +267,14 @@ public class Bear : MonoBehaviour
             //I can't use forcemode.impulse then
             //wolfRb.AddForce(playerScript.attackDirection * 20, ForceMode.Impulse);
             //playerScript.AttackLandedTrue();
+        }
+        if (other.CompareTag("Bird Attack Range"))
+        {
+            Damaged();
+        }
+        if (other.CompareTag("Bird Special"))
+        {
+            Damaged();
         }
     }
     public void Damaged()

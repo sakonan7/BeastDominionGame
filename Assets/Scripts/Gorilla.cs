@@ -278,7 +278,7 @@ if (testingStun == false)
         slapString = true;
         //playerScript.monkeyRange.SetActive(true);
         //Debug.Log("Cooldown finished");
-        attackString++;
+        //attackString++;
     }
     IEnumerator Glow()
     {
@@ -314,7 +314,7 @@ if (testingStun == false)
         {
             StartCoroutine(PauseSlam());
         }
-        else
+        else if (attackString1Part2 == true || attackString2Part1 == true)
         {
             transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, 3);
             StartCoroutine(SlamDown());
@@ -418,20 +418,20 @@ if (testingStun == false)
             attackString1Part2 = true;
             StartCoroutine(IdleAnimation());
         }
-        if (attackString1Part2 == true)
+        else if (attackString1Part2 == true)
         {
             attackString1Part2 = false;
             attackString2Part1 = true;
             StartCoroutine(IdleAnimation());
             idleTime = betweenStringsTime;
         }
-        if (attackString2Part1 == true)
+        else if (attackString2Part1 == true)
         {
             attackString2Part1 = false;
             attackString2Part2 = true; StartCoroutine(IdleAnimation());
             idleTime = stringPartTime;
         }
-        if (attackString2Part2 == true)
+        else if (attackString2Part2 == true)
         {
             attackString2Part2 = false;
             StartCoroutine(NewDMCode());
@@ -476,7 +476,7 @@ if (testingStun == false)
             //DMStart();
             desperationMoveOn = true;
             enemyScript.BackKnockBack();
-        yield return new WaitForSeconds(4);
+        yield return new WaitForSeconds(6);
         desperationMoveOn = false;
         //Instantiate(DMShockWave, DMShockWave.transform.position, DMShockWave.transform.rotation);
         //motionBlurObject.SetActive(true);

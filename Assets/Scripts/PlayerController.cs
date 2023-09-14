@@ -1946,6 +1946,10 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.CompareTag("Wall") && (damageStun == true || stunnedInvincibility == true))
         {
             playerRb.velocity = Vector3.zero;
+            if (attackingEnemy.giantEnemy == false)
+            {
+                attackingEnemy.transform.Translate(Vector3.back * 10);
+            }
             if (attackingEnemy.giantBoss == false)
             {
                 attackingEnemy.GetComponent<Rigidbody>().AddForce(Vector3.back * 10, ForceMode.Impulse);
