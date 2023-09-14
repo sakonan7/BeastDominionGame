@@ -62,7 +62,10 @@ public class Gorilla : MonoBehaviour
     private float secondAttackVol = 0.3f;
     private bool playOnce = true;
     public bool isOnGround = false;
-    private int attackStringPart = 1;
+    private bool attackString1Part1 = true;
+    private bool attackString1Part2 = true;
+    private bool attackString2Part1 = false;
+    private bool attackString2Part2 = false;
     private bool attackFinished = false;
     private bool slapString = false;
     private bool useSlamAttack = false;
@@ -73,8 +76,9 @@ public class Gorilla : MonoBehaviour
 
     private bool stunned = false; //Freeze Monkey when i don't want it to move and when the Monkey is being stunlocked by att
     private float idleTime;
-    private float usualIdleTime = 6;
-    private float DMIdleTime = 10;
+    private float stringPartTime = 6;
+    private float betweenStringsTime = 7;
+    private float DMIdleTime = 12;
 
     private GameManager gameManager;
     private int HP = 80; //7
@@ -129,6 +133,7 @@ public class Gorilla : MonoBehaviour
         StartCoroutine(Cutscene());
         
         originalPosition = transform.position;
+        idleTime = stringPartTime;
     }
 
     // Update is called once per frame
@@ -157,6 +162,25 @@ if (testingStun == false)
                     Debug.Log("Distance Reached");
                 }
             }
+            //Need to ensure that the gorilla attacks a little bit slow
+            //Intention is that even though he fights slow, do not expect him to be that predictable. 
+            //Especiallybecause not all his attacks are thesamelevel of slow. (The slow slam vs the fast ) Also, do not recklesslydodge
+            //The fast slam comes out faster but has the disadvantage of not allowing him to getrightin from of the player
+            //for it
+                //if (attackString1Part1 == true)
+                //{
+                    if (slapString == true && chase == false)
+                    {
+                        Slap();
+                    }
+                //}
+                //if (attackString1Part2 == true)
+                //{
+                    //if (slapString == true && chase == false)
+                    //{
+                        //Slap();
+                    //}
+                //}
             if (useSlamAttack == true && chase ==false)
             {
                 idle = false;
@@ -217,16 +241,7 @@ if (testingStun == false)
                 audio.PlayOneShot(fieryAura, 0.2f);
 
             }
-            if (slapString == true && chase==false)
-            {
-                //transform.Translate(followDirection * 50 * Time.deltaTime);
-                idle = false;
-                regularAttackRange.SetActive(true);
-                animation.Play("Hit");
-                StartCoroutine(Glow());
-                StartCoroutine(SecondHit());
-                slapString = false;
-            }
+
         }
     }
     IEnumerator IdleAnimation()
@@ -271,6 +286,14 @@ if (testingStun == false)
         regularAttackRange.SetActive(false);
         secondAttackRange.SetActive(true);
     }
+    public void Slap()
+    {
+        regularAttackRange.SetActive(true);
+        animation.Play("Hit");
+        StartCoroutine(Glow());
+        StartCoroutine(SecondHit());
+        slapString = false;
+    }
     IEnumerator SecondHit()
     {
         yield return new WaitForSeconds(1.8f);
@@ -287,7 +310,20 @@ if (testingStun == false)
         //StartCoroutine(IdleAnimation());
         
         //StartCoroutine(CloseTheDistance());
-        StartCoroutine(PauseSlam());
+        if (attackString1Part1 == true || attackString2Part2 == true)
+        {
+            StartCoroutine(PauseSlam());
+        }
+        else
+        {
+            transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, 3);
+            StartCoroutine(SlamDown());
+            enemyScript.SetDamage(0);
+            enemyScript.SetForce(30);
+            enemyScript.SetComboFinisher();
+            slamComing = true;
+            useSlamAttack = true;
+        }
     }
     IEnumerator PauseSlam()
     {
@@ -299,7 +335,7 @@ if (testingStun == false)
     IEnumerator CloseTheDistance()
     {
         //transform.Translate(followDirection * speed * Time.deltaTime);
-
+        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, 3);
         yield return new WaitForSeconds(1);
         StartCoroutine(SlamDown());
         enemyScript.SetDamage(0);
@@ -374,22 +410,39 @@ if (testingStun == false)
         transform.position = originalPosition;
         attackFinished = false;
         StartCoroutine(Crater());
-        
-        if (attackString == 2)
+
+        //This will determine what the next attackstring
+        if (attackString1Part1 == true)
         {
+            attackString1Part1 = false;
+            attackString1Part2 = true;
+            StartCoroutine(IdleAnimation());
+        }
+        if (attackString1Part2 == true)
+        {
+            attackString1Part2 = false;
+            attackString2Part1 = true;
+            StartCoroutine(IdleAnimation());
+            idleTime = betweenStringsTime;
+        }
+        if (attackString2Part1 == true)
+        {
+            attackString2Part1 = false;
+            attackString2Part2 = true; StartCoroutine(IdleAnimation());
+            idleTime = stringPartTime;
+        }
+        if (attackString2Part2 == true)
+        {
+            attackString2Part2 = false;
             StartCoroutine(NewDMCode());
             attackString = 0;
             enemyScript.HurtFlying();
-        }
-        else if (attackString < 2){
-            StartCoroutine(IdleAnimation());
-            Debug.Log("Idle");
         }
         
     }
     IEnumerator Crater()
     {
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.2f);
         Vector3 placeForFireCrater = regularShockWave.transform.position; GameObject newCrater = fireCrater;
         craterScript = newCrater.GetComponent<Projectile>();
         craterScript.SetDamage(0);
@@ -498,10 +551,12 @@ if (testingStun == false)
         enemyScript.UnsetPlayerDodged();
         StartCoroutine(IdleAnimation());
         audio.Stop();
+        attackString1Part1 = true;
+        idleTime = DMIdleTime;
     }
     IEnumerator DMCrater()
     {
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.2f);
         GameObject newDMCrater = fireCraterDM;
         craterScript = newDMCrater.GetComponent<Projectile>();
         craterScript.SetDamage(0);

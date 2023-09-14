@@ -325,6 +325,24 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 2404495841293620899, guid: cc5d1e7149cb79549b8d52ad54f5c8e3, type: 3}
   m_PrefabInstance: {fileID: 4010593549892150239}
   m_PrefabAsset: {fileID: 0}
+--- !u!1818360609 &266267323
+RotationConstraint:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 266267319}
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Weight: 1
+  m_RotationAtRest: {x: 0, y: 0, z: 0}
+  m_RotationOffset: {x: 0, y: 0, z: 0}
+  m_AffectRotationX: 1
+  m_AffectRotationY: 0
+  m_AffectRotationZ: 1
+  m_Active: 1
+  m_IsLocked: 1
+  m_Sources: []
 --- !u!114 &278167061 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 402939165459784910, guid: 4f0a326d21919974c803a88238e49d9a, type: 3}
@@ -1466,12 +1484,36 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 4010593551167423254, guid: cc5d1e7149cb79549b8d52ad54f5c8e3, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1447893427}
+    - targetCorrespondingSourceObject: {fileID: 2404495841293620899, guid: cc5d1e7149cb79549b8d52ad54f5c8e3, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 266267323}
+    - targetCorrespondingSourceObject: {fileID: 1799832250094760438, guid: cc5d1e7149cb79549b8d52ad54f5c8e3, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4010593549892150245}
   m_SourcePrefab: {fileID: 100100000, guid: cc5d1e7149cb79549b8d52ad54f5c8e3, type: 3}
 --- !u!4 &4010593549892150240 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1799832250095017728, guid: cc5d1e7149cb79549b8d52ad54f5c8e3, type: 3}
   m_PrefabInstance: {fileID: 4010593549892150239}
   m_PrefabAsset: {fileID: 0}
+--- !u!1818360609 &4010593549892150245
+RotationConstraint:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1606392748}
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Weight: 1
+  m_RotationAtRest: {x: 0, y: 0, z: 0}
+  m_RotationOffset: {x: 0, y: 0, z: 0}
+  m_AffectRotationX: 1
+  m_AffectRotationY: 0
+  m_AffectRotationZ: 1
+  m_Active: 1
+  m_IsLocked: 1
+  m_Sources: []
 --- !u!1001 &7477383511868025903
 PrefabInstance:
   m_ObjectHideFlags: 0
