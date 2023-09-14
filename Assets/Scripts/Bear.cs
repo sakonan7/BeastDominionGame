@@ -95,7 +95,7 @@ public class Bear : MonoBehaviour
         cameraRef = GameObject.Find("Main Camera");
         StartCoroutine(IdleAnimation());
         //animator.SetBool("Idle", true);
-        whichAttack = attackOne;
+        whichAttack = attackTwo;
     }
 
     // Update is called once per frame
@@ -120,23 +120,26 @@ public class Bear : MonoBehaviour
             if (idle == false && chase == true)
             {
                 transform.Translate(followDirection * speed * Time.deltaTime);
-                if (distance <= 3 && whichAttack ==attackOne)
+                if (distance <= 6 && whichAttack ==attackOne)
                 {
                     chase = false;
-                    animator.SetTrigger("Attack 1");
+                    animator.SetBool("Chase", false);
+                    animator.SetTrigger("Attack1");
                     enemyScript.SetDamage(2);
                     enemyScript.SetForce(15);
                     enemyScript.BackKnockBack();
                     StartCoroutine(AttackDuration());
                 }
-                else if (distance <= 6 && whichAttack == attackTwo)
+                else if (distance <= 9 && whichAttack == attackTwo)
                 {
                     chase = false;
+                    animator.SetBool("Chase", false);
                     if (attackFinished == false)
                     {
 
                         StartCoroutine(Roar());
-
+                        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, 3);
+                        animator.SetTrigger("Buff");
                     }
                 }
                 
@@ -165,7 +168,7 @@ public class Bear : MonoBehaviour
     }
     IEnumerator Roar()
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(3f);
         transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, 3); //Turned from 5 to 3 for smooth
                                                                                     //StartCoroutine(AttackCountdown());
         enemyScript.SetDamage(1);
@@ -208,6 +211,7 @@ public class Bear : MonoBehaviour
         }
         beginningIdle = false;
         idle = false;
+        chase = true;
 
         animator.SetBool("Idle", false);
         if (whichAttack == attackOne)
