@@ -47,7 +47,7 @@ public class Wolf3 : MonoBehaviour
     private bool attackFinished = false;
     private float distance;
 
-    private bool stunned = false; //Freeze Monkey when i don't want it to move and when the Monkey is being stunlocked by att
+    private bool stunLocked = false;
     private float idleTime;
     private float usualIdleTime = 9;
     private float damageIdleTime = 6;
@@ -121,7 +121,7 @@ public class Wolf3 : MonoBehaviour
         if (testingStun == false)
         {
 
-if (stunned == false)
+if (stunLocked == false)
             {
                 if (idle == true)
                 {
@@ -395,21 +395,28 @@ if (stunned == false)
     {
         if (attack == false)
         {
-            Stunned();
+            //I need to think more about how to keep triggering a stun bool and how to untrigger it
+            //if the player stops attacking for a second
+            //Stunned();
+            if (stunLocked == false)
+            {
+                stunLocked = true;
+                StartCoroutine(StunLock());
+            }
+            else if (stunLocked == true)
+            {
+                //stunned = true;
+                StopCoroutine(StunLock());
+            }
+            animator.SetTrigger("Damaged");
         }
     }
-    public void Stunned()
+
+
+    IEnumerator StunLock()
     {
-        StartCoroutine(StunnedDuration());
-    }
-    IEnumerator StunnedDuration()
-    {
-        stunned = true;
-        //animation.Play("Damage Monkey");
-        animator.SetBool("Damaged", true);
-        yield return new WaitForSeconds(3f);
-        animator.SetBool("Damaged", false);
-        stunned = false;
+        yield return new WaitForSeconds(3);
+        stunLocked = false;//Almostforgot 
         idleTime = damageIdleTime;
         StartCoroutine(IdleAnimation());
     }

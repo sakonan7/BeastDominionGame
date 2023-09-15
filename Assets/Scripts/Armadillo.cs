@@ -54,8 +54,7 @@ public class Armadillo : MonoBehaviour
     private int attackOne = 0;
     private int attackTwo = 1;
     private bool isTunneled = false;
-
-    private bool stunned = false; //Freeze Monkey when i don't want it to move and when the Monkey is being stunlocked by att
+    private bool stunLocked = true;
     private float idleTime;
     private float usualIdleTime = 9;
     private float damageIdleTime = 6;
@@ -112,7 +111,7 @@ public class Armadillo : MonoBehaviour
         {
             //I'm gonna take out stunned == false because each time a foe is in attack mode, it can't be flinched and
             //they will be set back into IdleAnimation and only have IdleAnimation happen if the foe is not stunned
-if (stunned == false)
+if (stunLocked == false)
             {
                 if (idle == false && whichAttack == attackOne)
                 {
@@ -336,21 +335,28 @@ if (stunned == false)
     {
         if (attack == false)
         {
-            Stunned();
+            //I need to think more about how to keep triggering a stun bool and how to untrigger it
+            //if the player stops attacking for a second
+            //Stunned();
+            if (stunLocked == false)
+            {
+                stunLocked = true;
+                StartCoroutine(StunLock());
+            }
+            else if (stunLocked == true)
+            {
+                //stunned = true;
+                StopCoroutine(StunLock());
+            }
+            animator.SetTrigger("Damaged");
         }
     }
-    public void Stunned()
+
+
+    IEnumerator StunLock()
     {
-        StartCoroutine(StunnedDuration());
-    }
-    IEnumerator StunnedDuration()
-    {
-        stunned = true;
-        //animation.Play("Damage Monkey");
-        animator.SetTrigger("Damaged");
-        yield return new WaitForSeconds(3f);
-        //animator.SetBool("Damaged", false);
-        stunned = false;
+        yield return new WaitForSeconds(3);
+        stunLocked = false;//Almostforgot 
         idleTime = damageIdleTime;
         StartCoroutine(IdleAnimation());
     }

@@ -47,7 +47,6 @@ public class Monkey : MonoBehaviour
     private bool attackFinished = false;
     private float distance;
     
-    private bool stunned = false; //Freeze Monkey when i don't want it to move and when the Monkey is being stunlocked by att
     private bool stunLocked = false;
     private float idleTime;
     private float usualIdleTime = 9;
@@ -123,7 +122,7 @@ public class Monkey : MonoBehaviour
         if (testingStun == false)
         {
 //Less necessary because Monkey technically onlyhas one attack,but doing this for consistenc
-if (stunned == false)
+if (stunLocked == false)
             {
                 if (idle == false && chase == true)
                 {
@@ -454,41 +453,23 @@ if (stunned == false)
             //Stunned();
             if (stunLocked == false)
             {
+                stunLocked = true;
                 StartCoroutine(StunLock());
             }
-            
+            else if (stunLocked == true)
+            {
+                //stunned = true;
+                StopCoroutine(StunLock());
+            }
+            animator.SetTrigger("Damaged");
         }
     }
+
+
     IEnumerator StunLock()
     {
         yield return new WaitForSeconds(3);
-        if (stunned == true)
-        {
-            StartCoroutine(StunLock());
-        }
-        if (stunned == false)
-        {
-            idleTime = damageIdleTime;
-            StartCoroutine(IdleAnimation());
-        }
-    }
-    IEnumerator FlinchDuration()
-    {
-        yield return new WaitForSeconds(1);
-        //keepStunned = false;
-    }
-    public void Stunned()
-    {
-        StartCoroutine(StunnedDuration());
-    }
-    IEnumerator StunnedDuration()
-    {
-        stunned = true;
-        //animation.Play("Damage Monkey");
-        animator.SetBool("Damaged", true);
-        yield return new WaitForSeconds(3f);
-        animator.SetBool("Damaged", false);
-        stunned = false;
+        stunLocked = false;//Almostforgot 
         idleTime = damageIdleTime;
         StartCoroutine(IdleAnimation());
     }

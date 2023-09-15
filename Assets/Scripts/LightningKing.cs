@@ -471,36 +471,20 @@ public class Lightningking : MonoBehaviour
             }
             else if(stunLocked == true)
             {
-                stunned = true;
+                //stunned = true;
+                StopCoroutine(StunLock());
             }
-            animator.SetBool("Damaged", true);
+            animator.SetTrigger("Damaged");
         }
     }
 
 
     IEnumerator StunLock()
     {
-        if (stunned == true)
-        {
-            StartCoroutine(StunnedDuration());
-        }
-        //I would like to do this, but I'm not sure if it's reliable
-        //if (stunned == true)
-        //{
-            //stunned = false;
-        //}
-        //stunned = !stunned
         yield return new WaitForSeconds(3);
-        if (stunned == true)
-        {
-            StartCoroutine(StunLock());
-        }
-        if (stunned == false)
-        {
             stunLocked = false;//Almostforgot 
             idleTime = damageIdleTime;
             StartCoroutine(IdleAnimation());
-        }
     }
     public void Stunned()
     {

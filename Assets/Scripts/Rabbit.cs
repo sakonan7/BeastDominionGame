@@ -57,7 +57,7 @@ public class Rabbit : MonoBehaviour
     private int attackTwo = 1;
     private bool isTunneled = false;
 
-    private bool stunned = false; //Freeze Monkey when i don't want it to move and when the Monkey is being stunlocked by att
+    private bool stunLocked = false;
     private float idleTime;
     private float usualIdleTime = 9;
     private float damageIdleTime = 6;
@@ -125,7 +125,7 @@ public class Rabbit : MonoBehaviour
             //And just have the arrow seekthe player
             distance = Vector3.Distance(player.transform.position, transform.position);
             lookRotation = Quaternion.LookRotation(player.transform.position - transform.position);
-if (stunned == false)
+if (stunLocked == false)
             {
                 if (runAway == true)
                 {
@@ -338,22 +338,28 @@ if (stunned == false)
     {
         //if (attack == false)
         //{
-            Stunned();
+            //I need to think more about how to keep triggering a stun bool and how to untrigger it
+            //if the player stops attacking for a second
+            //Stunned();
+            if (stunLocked == false)
+            {
+                stunLocked = true;
+                StartCoroutine(StunLock());
+            }
+            else if (stunLocked == true)
+            {
+                //stunned = true;
+                StopCoroutine(StunLock());
+            }
+            animator.SetTrigger("Damaged");
         //}
     }
-    public void Stunned()
+
+
+    IEnumerator StunLock()
     {
-        StartCoroutine(StunnedDuration());
-    }
-    IEnumerator StunnedDuration()
-    {
-        stunned = true;
-        runAway = false; //If struckwhilerunning away, it will be 
-        //animation.Play("Damage Monkey");
-        animator.SetTrigger("Damaged");
-        yield return new WaitForSeconds(3f);
-        //animator.SetBool("Damaged", false);
-        stunned = false;
+        yield return new WaitForSeconds(3);
+        stunLocked = false;//Almostforgot 
         idleTime = damageIdleTime;
         StartCoroutine(IdleAnimation());
     }

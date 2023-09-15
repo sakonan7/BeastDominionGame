@@ -50,8 +50,8 @@ public class Eagle : MonoBehaviour
     public bool isOnGround = false;
     private bool attackFinished = false;
     private float distance;
-
-    private bool stunned = false; //Freeze Monkey when i don't want it to move and when the Monkey is being stunlocked by att
+    
+    private bool stunLocked = false;
     private float idleTime;
     private float usualIdleTime = 9;//9
     private float damageIdleTime = 6;
@@ -122,7 +122,7 @@ public class Eagle : MonoBehaviour
         }
         if (testingStun == false)
         {
-            if (stunned == false)
+            if (stunLocked == false)
             {
                 if (idle == true)
                 {//Modify to change directions every 2 sec
@@ -242,7 +242,7 @@ public class Eagle : MonoBehaviour
             transform.Translate(0, 1.5f, 0);
         }
         ReturnToTheAir();
-        StartCoroutine(IdleAnimation());
+        //StartCoroutine(IdleAnimation());
     }
     public void ReturnToTheAir()
     {
@@ -253,6 +253,12 @@ public class Eagle : MonoBehaviour
         enemyScript.SetFlying(); //Need to do this when revenge value is trig
         //Or I will Put it here instead because that way I don't have to Set it in Start and I don't have to do this in Lag
         transform.Translate(0, 1.5f, 0);
+        StartCoroutine(PauseBeforeIdle());
+    }
+    IEnumerator PauseBeforeIdle()
+    {
+        yield return new WaitForSeconds(0.5f);
+        StartCoroutine(IdleAnimation());
     }
     public void ChooseDirection()
     {
@@ -334,36 +340,32 @@ public class Eagle : MonoBehaviour
     {
         if (attack == false)
         {
-            Stunned();
-            idle = false; //Putting this here to make sure its idle animation is cancelled and restarted
-            //each time the player stops attack
             enemyScript.RevengeValueUp();
-            chase = false;
+            if (stunLocked == false)
+            {
+                stunLocked = true;
+                StartCoroutine(StunLock());
+            }
+            else if (stunLocked == true)
+            {
+                //stunned = true;
+                StopCoroutine(StunLock());
+            }
+            //animator.SetTrigger("Damaged");
         }
         if (enemyScript.currentRevengeValue == enemyScript.revengeValueCount)
         {
-            if (enemyScript.isFlying ==false)
-            {
-                ReturnToTheAir();
-                playerRb.velocity = Vector3.back * 10;
-                StartCoroutine(IdleAnimation()); //Unlikeusual returning to the air, this forces the eagle back into its attack
-                //patt
-                Debug.Log("Revenge");
-            }
+            ReturnToTheAir();
         }
     }
-    public void Stunned()
+
+
+    IEnumerator StunLock()
     {
-        StartCoroutine(StunnedDuration());
-    }
-    IEnumerator StunnedDuration()
-    {
-        stunned = true;
-        //animation.Play("Damage Monkey");
-        yield return new WaitForSeconds(3f);
-        stunned = false;
+        yield return new WaitForSeconds(3);
+        stunLocked = false;//Almostforgot 
         idleTime = damageIdleTime;
-        transform.Translate(0, 1.5f, 0);
-        StartCoroutine(IdleAnimation());
+        ReturnToTheAir();
+        
     }
 }
