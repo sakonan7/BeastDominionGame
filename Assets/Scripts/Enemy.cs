@@ -50,7 +50,7 @@ public class Enemy : MonoBehaviour
     private Rigidbody playerRb;
     private GameManager gameManager;
     public ParticleSystem dyingEffect;
-    private bool attacked = false;
+    public bool attacked = false;
     private bool hitAgainstWall = true;
     public bool hitLanded = false;
     private bool hitByBirdSpecial = false;

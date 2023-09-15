@@ -5,6 +5,9 @@ using UnityEngine;
 public class Bear : MonoBehaviour
 {
     private Animator animator;
+    private SkinnedMeshRenderer skin;
+    public Material regularSkin;
+    public Material rageSkin;
     private GameObject cameraRef;
     private GameObject player;
     private PlayerController playerScript;
@@ -34,6 +37,7 @@ public class Bear : MonoBehaviour
 
     public GameObject attackRange1;
     public GameObject attackRange2;
+    public GameObject guardRange;
     public ParticleSystem attackEffect;
     private AudioSource audio;
     public AudioClip bearAttack;
@@ -66,6 +70,7 @@ public class Bear : MonoBehaviour
     void Start()
     {
         animator = GetComponent<Animator>();
+        skin = GetComponent<SkinnedMeshRenderer>();
         enemyScript = GetComponent<Enemy>();
         player = GameObject.Find("Player");
         playerRb = player.GetComponent<Rigidbody>();
@@ -125,7 +130,13 @@ public class Bear : MonoBehaviour
             if (idle == false && chase == true)
             {
                 transform.Translate(followDirection * speed * Time.deltaTime);
-                if (distance <= 6 && whichAttack ==attackOne)
+                if (distance <= 6 && playerScript.birdActive==true)
+                {
+                    skin.material = rageSkin;
+                    guardRange.SetActive(true);
+                    StartCoroutine(Revenge());
+                }
+                if (distance <= 6 && whichAttack ==attackOne && playerScript.birdActive == false)
                 {
                     chase = false;
                     if (attackFinished == false)
@@ -138,7 +149,7 @@ public class Bear : MonoBehaviour
                         StartCoroutine(AttackDuration());
                     }
                 }
-                else if (distance <= 6 && whichAttack == attackTwo)
+                else if (distance <= 6 && whichAttack == attackTwo && playerScript.birdActive == false)
                 {
                     chase = false;
                     animator.SetBool("Chase", false);
@@ -221,6 +232,17 @@ public class Bear : MonoBehaviour
     {
         yield return new WaitForSeconds(2.5f);
         enemyScript.SetDamage(2);
+    }
+    IEnumerator Revenge()
+    {
+        if (enemyScript.attacked == true)
+        {
+            animator.SetTrigger("Attack1");
+            skin.material = regularSkin;
+        }
+        yield return new WaitForSeconds(5);
+        guardRange.SetActive(false);
+        chase = true;
     }
     IEnumerator IdleAnimation()
     {
