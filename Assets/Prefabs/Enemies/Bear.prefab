@@ -585,6 +585,7 @@ Transform:
   m_Children:
   - {fileID: 6973837573502484390}
   - {fileID: 8482555462755699238}
+  - {fileID: 5393570851733487318}
   m_Father: {fileID: 4067555766738705325}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -864,6 +865,59 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1.0134459, y: 1, z: 0.7282794}
   m_Center: {x: 0.22575104, y: -0.000000021165468, z: 0.014612835}
+--- !u!1 &2216647766101568713
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5393570851733487318}
+  - component: {fileID: 493068922260261989}
+  m_Layer: 0
+  m_Name: Revenge Rang
+  m_TagString: Enemy Attack Range
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &5393570851733487318
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2216647766101568713}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0, y: -0.12, z: 0.01}
+  m_LocalScale: {x: 1, y: 2, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 584192124388577847}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &493068922260261989
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2216647766101568713}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.87957937, y: 0.6691632, z: 0.7309489}
+  m_Center: {x: -0.23843452, y: 0.168557, z: 0.006226708}
 --- !u!1 &2277484181059604891
 GameObject:
   m_ObjectHideFlags: 0
@@ -1106,7 +1160,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6831488050111294220
 Transform:
   m_ObjectHideFlags: 0
@@ -1473,12 +1527,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   regularSkin: {fileID: 2100000, guid: b614f09dade340f4aa841aafe3df42b9, type: 2}
   rageSkin: {fileID: 2100000, guid: c900c14c849f23247bea68cbd840bfc5, type: 2}
+  beginningIdle: 0
   attack1: 0
   attack2: 1
   attack3: 2
   attackRange1: {fileID: 5109171076898359958}
   attackRange2: {fileID: 2178557122652702196}
   guardRange: {fileID: 6717056841486212199}
+  revengeRange: {fileID: 2216647766101568713}
   attackEffect: {fileID: 0}
   bearAttack: {fileID: 8300000, guid: 9753f501a8ab39e4d8f73aa8012e0275, type: 3}
   isOnGround: 0
@@ -2105,7 +2161,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3

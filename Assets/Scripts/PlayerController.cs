@@ -2236,7 +2236,7 @@ public class PlayerController : MonoBehaviour
         }
         if (other.CompareTag("Guard"))
         {
-            guardingEnemy = other.GetComponent<Enemy>();
+            guardingEnemy = other.GetComponentInParent<Enemy>();
             guardingEnemy.GuardTriggered();
         }
 
@@ -2256,7 +2256,6 @@ public class PlayerController : MonoBehaviour
         }
         if (other.CompareTag("Guard"))
         {
-            guardingEnemy = other.GetComponent<Enemy>();
             guardingEnemy.GuardUntriggered();
         }
     }

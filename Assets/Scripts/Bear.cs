@@ -22,11 +22,11 @@ public class Bear : MonoBehaviour
     private float jumpForce = 70; //Slight jump before attack
     private float attackForce = 1; //May remove attackForce because Monkey doesn't knock chaarcter back a
     private bool attack = false;
-    private bool beginningIdle = false;
+    public bool beginningIdle = false;
     private bool idle = true;
     private bool chase = false;
     private bool flurryChase = false;
-    private bool revengeMode = true;
+    private bool revengeMode = false;
     private bool playerStunned = false; //For if the Tiger is hit by the first claw. Tiger will always get hit twice
     private int damage = 1;
     private bool hitThrown = false;
@@ -39,6 +39,7 @@ public class Bear : MonoBehaviour
     public GameObject attackRange1;
     public GameObject attackRange2;
     public GameObject guardRange;
+    public GameObject revengeRange;
     public ParticleSystem attackEffect;
     private AudioSource audio;
     public AudioClip bearAttack;
@@ -132,11 +133,19 @@ public class Bear : MonoBehaviour
             if (idle == false && chase == true)
             {
                 transform.Translate(followDirection * speed * Time.deltaTime);
-                if (distance <= 6 && playerScript.birdActive==true)
+                //Need to ensure these conditionals don't keep playing over and ov
+                if (distance <= 6 && playerScript.birdActive==true &&revengeMode==false)
                 {
+                    animator.SetBool("Chase", false);
+                    
                     chase = false;
                     revengeMode = true;
                     StartCoroutine(Revenge());
+                    enemyScript.SetDamage(2);
+                    enemyScript.SetForce(20);
+                    enemyScript.BackKnockBack();
+                    enemyScript.HurtFlying();
+                    enemyScript.SetComboFinisher();
                 }
                 if (distance <= 6 && whichAttack ==attackOne && playerScript.birdActive == false)
                 {
@@ -145,8 +154,9 @@ public class Bear : MonoBehaviour
                     {
                         animator.SetBool("Chase", false);
                         animator.SetTrigger("Attack1");
+                        attackRange1.SetActive(true);
                         enemyScript.SetDamage(2);
-                        enemyScript.SetForce(15);
+                        enemyScript.SetForce(20);
                         enemyScript.BackKnockBack();
                         StartCoroutine(AttackDuration());
                     }
@@ -173,14 +183,26 @@ public class Bear : MonoBehaviour
             }
             if (revengeMode == true)
             {
+                animator.SetBool("Idle", true);
                 skin.material = rageSkin;
                 guardRange.SetActive(true);
+                //For some reason, IEnumerators can't do regular addforce, translate ot somethinglikethis
+                if (enemyScript.attacked == true && enemyScript.guard == true)
+                {
+                    animator.SetBool("Idle", false);
+                    revengeRange.SetActive(true);
+                    animator.SetTrigger("Attack1");
+                    //skin.material = regularSkin;
+                    revengeMode = false;
+                    StartCoroutine(AttackDuration());
+                    enemyScript.GuardUntriggered();
+                }
             }
             else if (revengeMode == false)
             {
                 skin.material = regularSkin;
                 guardRange.SetActive(false);
-                enemyScript.GuardUntriggered();
+                
             }
             //if (attackFinished == true)
             //{
@@ -193,13 +215,27 @@ public class Bear : MonoBehaviour
     //I thought I wouldn't need an AttackDuration, but I need to deactivate the attackrange
     IEnumerator AttackDuration()
     {
-        attackRange1.SetActive(true);
+        //attackRange1.SetActive(true);
         attackFinished = true;
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(1.5f);
         attackRange1.SetActive(false);
         attackFinished = false;
         enemyScript.ResetKnockbacks();
         StartCoroutine(IdleAnimation());
+        if (attackRange1.activeSelf == true)
+        {
+            attackRange1.SetActive(false);
+        }
+        if (revengeRange.activeSelf == true)
+        {
+            revengeRange.SetActive(false);
+            enemyScript.SetComboFinisher();
+        }
+        if (enemyScript.canHurtFlying==true)
+        {
+            enemyScript.HurtFlying(); 
+        }
+        enemyScript.UnsetPlayerDodged();
     }
     IEnumerator Roar()
     {
@@ -239,6 +275,7 @@ public class Bear : MonoBehaviour
         Debug.Log("Flurry Attack Done");
         idleTime = flurryIdleTime;
         StartCoroutine(IdleAnimation());
+        enemyScript.UnsetPlayerDodged();
     }
     IEnumerator DamageIncreaser()
     {
@@ -247,16 +284,12 @@ public class Bear : MonoBehaviour
     }
     IEnumerator Revenge()
     {
-        if (enemyScript.attacked == true && enemyScript.guard == true)
-        {
-            animator.SetTrigger("Attack1");
-            //skin.material = regularSkin;
-            revengeMode = false;
-            StartCoroutine(AttackDuration());
-        }
-        yield return new WaitForSeconds(5);
+
+        yield return new WaitForSeconds(4);
         revengeMode = false;
         chase = true;
+        animator.SetBool("Idle", false);
+        animator.SetBool("Chase", true);
     }
     IEnumerator IdleAnimation()
     {
@@ -287,82 +320,6 @@ public class Bear : MonoBehaviour
         animator.SetBool("Chase", true);
 
     }
-    public void OnTriggerEnter(Collider other)
-    {
-        //if (other.gameObject.CompareTag("Sensor"))
-        //{
-        //playerScript.EnableLockOn(); //It looks like I either can't use a method outside the class or Tiger Sensor specifically
-        //isn't instantiated because Monkey Attack Range is for some reason
-        //Debug.Log("Can Lock On?");
-        //}
-        //attack == first is to trigger the attack method when Monkey is chasing the play
-        //Need isOnGround because the Monkey triggers this two times by running into the collider and then falling into it
-        if (other.CompareTag("Tiger Attack Regular"))
-        {
-            //For now, just trigger stun. I will use both of their directions to perform the knockback
-            //TakeDamage();
 
-            //enemyScript.HP -= 2;
-            Damaged();
-            //playerScript.PlayTigerRegularStrike(transform.position);
-            //Vector3 knockbackDirection = (transform.position - tiger.transform.position).normalized;
-            //knockback force is inconsistent. Sometimes it doesn't knockback at all. Sometimes it knocks back too much
-            //It doesn't matter what the value is.
-            //It may not matter because I will have the attack lag minimized
-            //But I don't want the player to whiff attacks, so I think I will make sure the tiger is the right distance from the wolf
-            //Unless I can make a force play until a certain distance is reached
-            //I can't use forcemode.impulse then
-            //wolfRb.AddForce(playerScript.attackDirection * 15, ForceMode.Impulse);
-            //playerScript.AttackLandedTrue();
-        }
-        if (other.CompareTag("Tiger Special"))
-        {
-            //For now, just trigger stun. I will use both of their directions to perform the knockback
-            //TakeDamage();
-
-            //enemyScript.HP -= 7;
-            Damaged();
-            //playerScript.PlayTigerSpecialStrike(transform.position);
-            //Vector3 knockbackDirection = (transform.position - tiger.transform.position).normalized;
-            //knockback force is inconsistent. Sometimes it doesn't knockback at all. Sometimes it knocks back too much
-            //It doesn't matter what the value is.
-            //It may not matter because I will have the attack lag minimized
-            //But I don't want the player to whiff attacks, so I think I will make sure the tiger is the right distance from the wolf
-            //Unless I can make a force play until a certain distance is reached
-            //I can't use forcemode.impulse then
-            //wolfRb.AddForce(playerScript.attackDirection * 20, ForceMode.Impulse);
-            //playerScript.AttackLandedTrue();
-        }
-        if (other.CompareTag("Bird Attack Range"))
-        {
-            Damaged();
-        }
-        if (other.CompareTag("Bird Special"))
-        {
-            Damaged();
-        }
-    }
-    public void Damaged()
-    {
-        if (attack == false)
-        {
-            Stunned();
-        }
-    }
-    public void Stunned()
-    {
-        StartCoroutine(StunnedDuration());
-    }
-    IEnumerator StunnedDuration()
-    {
-        stunned = true;
-        //animation.Play("Damage Monkey");
-        animator.SetBool("Damaged", true);
-        yield return new WaitForSeconds(1.5f);
-        animator.SetBool("Damaged", false);
-        stunned = false;
-        idleTime = damageIdleTime;
-        StartCoroutine(IdleAnimation());
-    }
 }
 

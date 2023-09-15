@@ -267,10 +267,12 @@ public class Enemy : MonoBehaviour
     public void GuardTriggered()
     {
         guard = true;
+        Debug.Log("Guard triggered");
     }
     public void GuardUntriggered()
     {
         guard = false;
+        Debug.Log("Guard untriggered");
     }
     public void OnCollisionEnter(Collision collision)
     {

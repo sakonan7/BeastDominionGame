@@ -293,6 +293,7 @@ if (testingStun == false)
         StartCoroutine(Glow());
         StartCoroutine(SecondHit());
         slapString = false;
+        enemyScript.UnsetPlayerDodged();
     }
     IEnumerator SecondHit()
     {
@@ -302,6 +303,7 @@ if (testingStun == false)
         //secondAttackRange.SetActive(false);
         //
         StartCoroutine(UnGlow());
+        enemyScript.UnsetPlayerDodged();
     }
     IEnumerator UnGlow()
     {
@@ -438,7 +440,7 @@ if (testingStun == false)
             attackString = 0;
             enemyScript.HurtFlying();
         }
-        
+        enemyScript.UnsetPlayerDodged();
     }
     IEnumerator Crater()
     {
@@ -450,7 +452,7 @@ if (testingStun == false)
         //craterScript.SetLifeTime(3);
         //craterScript.IsDestroyable(false);
         Instantiate(newCrater, new Vector3(placeForFireCrater.x, fireCrater.transform.position.y, placeForFireCrater.z), fireCrater.transform.rotation);
-        enemyScript.UnsetPlayerDodged();
+       
     }
     public void LightsOn()
     {
