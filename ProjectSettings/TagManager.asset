@@ -24,6 +24,7 @@ TagManager:
   - Fire
   - Undodgable Attack
   - CantCross
+  - Guard
   layers:
   - Default
   - TransparentFX

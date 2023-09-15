@@ -26,6 +26,7 @@ public class Bear : MonoBehaviour
     private bool idle = true;
     private bool chase = false;
     private bool flurryChase = false;
+    private bool revengeMode = true;
     private bool playerStunned = false; //For if the Tiger is hit by the first claw. Tiger will always get hit twice
     private int damage = 1;
     private bool hitThrown = false;
@@ -70,7 +71,7 @@ public class Bear : MonoBehaviour
     void Start()
     {
         animator = GetComponent<Animator>();
-        skin = GetComponent<SkinnedMeshRenderer>();
+        skin = GetComponentInChildren<SkinnedMeshRenderer>();
         enemyScript = GetComponent<Enemy>();
         player = GameObject.Find("Player");
         playerRb = player.GetComponent<Rigidbody>();
@@ -126,14 +127,15 @@ public class Bear : MonoBehaviour
                 followDirection = (transform.position - player.transform.position).normalized;
                 distance = Vector3.Distance(player.transform.position, transform.position);
                 lookRotation = Quaternion.LookRotation(player.transform.position - transform.position);
+                transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, 3);//ForgotThatI didn't even havethis
             }
             if (idle == false && chase == true)
             {
                 transform.Translate(followDirection * speed * Time.deltaTime);
                 if (distance <= 6 && playerScript.birdActive==true)
                 {
-                    skin.material = rageSkin;
-                    guardRange.SetActive(true);
+                    chase = false;
+                    revengeMode = true;
                     StartCoroutine(Revenge());
                 }
                 if (distance <= 6 && whichAttack ==attackOne && playerScript.birdActive == false)
@@ -169,7 +171,17 @@ public class Bear : MonoBehaviour
             {
                 transform.Translate(followDirection * flurrySpeed * Time.deltaTime);
             }
-
+            if (revengeMode == true)
+            {
+                skin.material = rageSkin;
+                guardRange.SetActive(true);
+            }
+            else if (revengeMode == false)
+            {
+                skin.material = regularSkin;
+                guardRange.SetActive(false);
+                enemyScript.GuardUntriggered();
+            }
             //if (attackFinished == true)
             //{
             //attackFinished = false;
@@ -235,13 +247,15 @@ public class Bear : MonoBehaviour
     }
     IEnumerator Revenge()
     {
-        if (enemyScript.attacked == true)
+        if (enemyScript.attacked == true && enemyScript.guard == true)
         {
             animator.SetTrigger("Attack1");
-            skin.material = regularSkin;
+            //skin.material = regularSkin;
+            revengeMode = false;
+            StartCoroutine(AttackDuration());
         }
         yield return new WaitForSeconds(5);
-        guardRange.SetActive(false);
+        revengeMode = false;
         chase = true;
     }
     IEnumerator IdleAnimation()

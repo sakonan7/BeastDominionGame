@@ -64,6 +64,7 @@ public class Enemy : MonoBehaviour
     public int revengeValueCount = 3;
     public bool isLingering = false;
     public bool canHurtFlying = false;
+    public bool guard = false;
 
     public bool playerDodged = false;
     //private ConstantForce enemyForce;
@@ -261,6 +262,15 @@ public class Enemy : MonoBehaviour
     public void HurtFlying()
     {
         canHurtFlying = !canHurtFlying;
+    }
+    //Rare case where I have the enemiesguard
+    public void GuardTriggered()
+    {
+        guard = true;
+    }
+    public void GuardUntriggered()
+    {
+        guard = false;
     }
     public void OnCollisionEnter(Collision collision)
     {

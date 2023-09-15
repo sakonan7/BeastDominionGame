@@ -131,6 +131,7 @@ public class PlayerController : MonoBehaviour
     public GameObject target;
     private GameObject targetedEnemy;
     private Enemy enemyScript;
+    private Enemy guardingEnemy;
     private Enemy attackingEnemy;
     private Vector3 enemyTargetPosition;
     private Rigidbody foeRB;
@@ -2233,6 +2234,11 @@ public class PlayerController : MonoBehaviour
             }
 
         }
+        if (other.CompareTag("Guard"))
+        {
+            guardingEnemy = other.GetComponent<Enemy>();
+            guardingEnemy.GuardTriggered();
+        }
 
     }
     public void OnTriggerStay(Collider other)
@@ -2247,6 +2253,11 @@ public class PlayerController : MonoBehaviour
         if (other.CompareTag("NoTransformation") && cantTransform == true)
         {
             cantTransform = false;
+        }
+        if (other.CompareTag("Guard"))
+        {
+            guardingEnemy = other.GetComponent<Enemy>();
+            guardingEnemy.GuardUntriggered();
         }
     }
 }

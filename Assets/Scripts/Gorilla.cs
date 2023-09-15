@@ -523,7 +523,7 @@ if (testingStun == false)
 
         attackFinished = true;
         //Vector3 placeForFireCraterDM = fireCraterDM.transform.position;
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(1.5f);//Madeit 1.5f instead of1so that the player can't dodge through it as a tig
         //slamAttackRange.SetActive(false);
         //slamAttackRange2.SetActive(false);
         //bigShockWave.SetActive(false);

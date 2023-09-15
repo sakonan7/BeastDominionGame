@@ -1471,7 +1471,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb637daf053198941bd280b0408a1684, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skin: {fileID: 2100000, guid: b614f09dade340f4aa841aafe3df42b9, type: 2}
+  regularSkin: {fileID: 2100000, guid: b614f09dade340f4aa841aafe3df42b9, type: 2}
   rageSkin: {fileID: 2100000, guid: c900c14c849f23247bea68cbd840bfc5, type: 2}
   attack1: 0
   attack2: 1
@@ -1529,6 +1529,7 @@ MonoBehaviour:
   revengeValueCount: 3
   isLingering: 0
   canHurtFlying: 0
+  guard: 0
   playerDodged: 0
 --- !u!82 &2219513878366199853
 AudioSource:
@@ -2068,12 +2069,12 @@ GameObject:
   - component: {fileID: 499437001300350208}
   - component: {fileID: 1862676886399106618}
   m_Layer: 0
-  m_Name: Attack Sensor
-  m_TagString: Untagged
+  m_Name: Guard
+  m_TagString: Guard
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &499437001300350208
 Transform:
   m_ObjectHideFlags: 0
