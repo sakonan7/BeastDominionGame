@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Monkey : MonoBehaviour
+public class Lightningking : MonoBehaviour
 {
     //private new Animation animation;
     private Animator animator;
@@ -46,7 +46,7 @@ public class Monkey : MonoBehaviour
     public bool isOnGround = false;
     private bool attackFinished = false;
     private float distance;
-    
+
     private bool stunned = false; //Freeze Monkey when i don't want it to move and when the Monkey is being stunlocked by att
     private bool stunLocked = false;
     private float idleTime;
@@ -69,7 +69,7 @@ public class Monkey : MonoBehaviour
         player = GameObject.Find("Player");
         playerRb = player.GetComponent<Rigidbody>();
         playerScript = player.GetComponent<PlayerController>();
-        
+
         monkeyRb = GetComponent<Rigidbody>();
         monkeyAttackReach = GetComponent<Collider>();
 
@@ -106,7 +106,7 @@ public class Monkey : MonoBehaviour
         if (testingBehaviors == true)
         {
             //Maybe Use A Button Press To Make Monkey Change Movement Directions And See If Tiger Keeps FollowingIt.
-            if (moveLeft ==  true)
+            if (moveLeft == true)
             {
                 monkeyRb.AddForce(Vector3.left * speed / 2);
             }
@@ -122,8 +122,8 @@ public class Monkey : MonoBehaviour
         }
         if (testingStun == false)
         {
-//Less necessary because Monkey technically onlyhas one attack,but doing this for consistenc
-if (stunned == false)
+            //Less necessary because Monkey technically onlyhas one attack,but doing this for consistenc
+            if (stunLocked == false)
             {
                 if (idle == false && chase == true)
                 {
@@ -176,7 +176,7 @@ if (stunned == false)
             }
         }
 
-            //HPBar.transform.LookAt(HPBar.transform.position - (cameraRef.transform.position - HPBar.transform.position));
+        //HPBar.transform.LookAt(HPBar.transform.position - (cameraRef.transform.position - HPBar.transform.position));
 
     }
     private void LateUpdate()
@@ -213,19 +213,19 @@ if (stunned == false)
         //if (hitOnce == false)
         //{
         if (playerScript.tigerActive == true)
-            {
-                //followDirection = (tiger.transform.position - transform.position).normalized;
-                monkeyRb.AddForce(followDirection * jumpForce, ForceMode.Impulse);
-                monkeyRb.AddForce(Vector3.up * 2, ForceMode.Impulse); //For jumping, may need to modify gravity
-                                                                      //attackCount++;
-            }
-            else if (playerScript.birdActive == true)
-            {
-                //followDirection = (bird.transform.position - transform.position).normalized;
-                //monkeyRb.AddForce(followDirection, ForceMode.Impulse);
-                monkeyRb.AddForce(Vector3.up * 5, ForceMode.Impulse); //For jumping, may need to modify gravity
-                
-            }
+        {
+            //followDirection = (tiger.transform.position - transform.position).normalized;
+            monkeyRb.AddForce(followDirection * jumpForce, ForceMode.Impulse);
+            monkeyRb.AddForce(Vector3.up * 2, ForceMode.Impulse); //For jumping, may need to modify gravity
+                                                                  //attackCount++;
+        }
+        else if (playerScript.birdActive == true)
+        {
+            //followDirection = (bird.transform.position - transform.position).normalized;
+            //monkeyRb.AddForce(followDirection, ForceMode.Impulse);
+            monkeyRb.AddForce(Vector3.up * 5, ForceMode.Impulse); //For jumping, may need to modify gravity
+
+        }
         //If that doesn't work, put an if (dodge == false
 
         //animation.Play("Attack");
@@ -276,12 +276,12 @@ if (stunned == false)
         enemyScript.SetAttackDirection(followDirection);
         enemyScript.BackKnockBack();
         enemyScript.SetForce(6);
-        monkeyRb.AddForce(followDirection * (jumpForce/2), ForceMode.Impulse);
+        monkeyRb.AddForce(followDirection * (jumpForce / 2), ForceMode.Impulse);
         monkeyRb.AddForce(Vector3.up * 5, ForceMode.Impulse); //For jumping, may need to modify gravity
         //animation.Play("Attack");
         animator.SetTrigger("Slash 2");
         secondClawSlash.SetActive(true);
-        
+
         enemyScript.SetComboFinisher();
 
         monkeyRb.constraints = RigidbodyConstraints.FreezeRotation;
@@ -308,8 +308,8 @@ if (stunned == false)
     }
     //public void PlayAttackEffect()
     //{
-        //attackEffect.Play();
-        //wolfAudio.PlayOneShot(wolfAttack, 0.1f);
+    //attackEffect.Play();
+    //wolfAudio.PlayOneShot(wolfAttack, 0.1f);
     //}
     //Needed because the forward movement from the force causes the monkey to jump in an arc instead of upwards as intended
     IEnumerator PauseBeforeJump()
@@ -352,8 +352,8 @@ if (stunned == false)
         //}
         //else if (playerScript.birdActive == true)
         //{
-            //monkeyRb.AddForce(Vector3.down * 2, ForceMode.Impulse);
-            //yield return new WaitForSeconds(7);
+        //monkeyRb.AddForce(Vector3.down * 2, ForceMode.Impulse);
+        //yield return new WaitForSeconds(7);
         //}
         beginningIdle = false;
         idle = false;
@@ -364,9 +364,9 @@ if (stunned == false)
         //Debug.Log("Cooldown finished");
     }
     //IEnumerator Fall()
-   // {
-        //fallingDown = true;
-        //animation.Play();
+    // {
+    //fallingDown = true;
+    //animation.Play();
     //}
 
 
@@ -375,10 +375,10 @@ if (stunned == false)
     {
         //if (collision.gameObject.CompareTag("Player") && attack == true && playerScript.dodge == false)
         //{
-            //Forgot to change player.transform to tiger.transform, may have messed up the attack cod
+        //Forgot to change player.transform to tiger.transform, may have messed up the attack cod
 
-            //attack = false; //Doing it over here so that there isn't multiple hits per contact
-            //Debug.Log("Hit");
+        //attack = false; //Doing it over here so that there isn't multiple hits per contact
+        //Debug.Log("Hit");
         //}
         if (collision.gameObject.CompareTag("Ground"))
         {
@@ -387,7 +387,7 @@ if (stunned == false)
         }
         //else
         //{
-            //isOnGround = false;
+        //isOnGround = false;
         //}
     }
     public void OnTriggerEnter(Collider other)
@@ -445,6 +445,18 @@ if (stunned == false)
             Damaged();
         }
     }
+    //Maybe I should have another bool for stun to check to see if the player
+    //is attacking the foe repeated
+    //I feel like for LightningKing, it's a lot less annoying, because his revenge value will trigger from too many hits
+    //and my originalstunDuration()method makes LightningKing return to hisusual fighting patt
+
+     //Revenge Values will force stunlock to cancel and into a specific action before continuing the cycle. Maybe
+     //stunLock willcontinue, but the move is only triggered when the Revenge Value is reached and after the Revenge
+     //Value move is used, stunLock is thenforcedoff and the usual cycle of moves is resumed
+
+        //Create a vulnerability IEnumerator like say after the LightningKing's lightning ball attack, the vulnerableTime plays a second
+        //right after the balls are instantiated. The players then have 2 seconds to punish the boss, and if the player hasn't stunlocked
+        //the boss during that time, the boss will continue with its usualcycle of
     public void Damaged()
     {
         if (attack == false)
@@ -454,13 +466,30 @@ if (stunned == false)
             //Stunned();
             if (stunLocked == false)
             {
+                stunLocked = true;
                 StartCoroutine(StunLock());
             }
-            
+            else if(stunLocked == true)
+            {
+                stunned = true;
+            }
+            animator.SetBool("Damaged", true);
         }
     }
+
+
     IEnumerator StunLock()
     {
+        if (stunned == true)
+        {
+            StartCoroutine(StunnedDuration());
+        }
+        //I would like to do this, but I'm not sure if it's reliable
+        //if (stunned == true)
+        //{
+            //stunned = false;
+        //}
+        //stunned = !stunned
         yield return new WaitForSeconds(3);
         if (stunned == true)
         {
@@ -468,14 +497,10 @@ if (stunned == false)
         }
         if (stunned == false)
         {
+            stunLocked = false;//Almostforgot 
             idleTime = damageIdleTime;
             StartCoroutine(IdleAnimation());
         }
-    }
-    IEnumerator FlinchDuration()
-    {
-        yield return new WaitForSeconds(1);
-        //keepStunned = false;
     }
     public void Stunned()
     {
@@ -483,13 +508,17 @@ if (stunned == false)
     }
     IEnumerator StunnedDuration()
     {
-        stunned = true;
+        //stunned = true;
         //animation.Play("Damage Monkey");
-        animator.SetBool("Damaged", true);
-        yield return new WaitForSeconds(3f);
+        //animator.SetBool("Damaged", true);
+        yield return new WaitForSeconds(0.2f);
         animator.SetBool("Damaged", false);
-        stunned = false;
-        idleTime = damageIdleTime;
-        StartCoroutine(IdleAnimation());
+        //stunned = false;
+        //idleTime = damageIdleTime;
+        //StartCoroutine(IdleAnimation());
+        if (stunned == true)
+        {
+            stunned = false;
+        }
     }
 }

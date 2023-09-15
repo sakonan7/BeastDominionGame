@@ -22,6 +22,7 @@ public class Bear : MonoBehaviour
     private bool beginningIdle = false;
     private bool idle = true;
     private bool chase = false;
+    private bool flurryChase = false;
     private bool playerStunned = false; //For if the Tiger is hit by the first claw. Tiger will always get hit twice
     private int damage = 1;
     private bool hitThrown = false;
@@ -56,7 +57,7 @@ public class Bear : MonoBehaviour
     private float damageIdleTime = 6;
 
     private GameManager gameManager;
-    private int HP = 25; //7
+    private int HP = 35; //7
     public bool testingStun = false;
     private bool testingBehaviors = false;
     private bool moveLeft = false;
@@ -70,7 +71,7 @@ public class Bear : MonoBehaviour
         playerRb = player.GetComponent<Rigidbody>();
         playerScript = player.GetComponent<PlayerController>();
 
-        //bearRb = GetComponent<Rigidbody>();
+        bearRb = GetComponent<Rigidbody>();
 
         gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
         if (gameManager.difficulty == "Normal")
@@ -106,9 +107,7 @@ public class Bear : MonoBehaviour
     void Update()
     {
         //transform.rotation = new Quaternion(0, transform.rotation.y, transform.rotation.z,0);
-        followDirection = (transform.position - player.transform.position).normalized;
-        distance = Vector3.Distance(player.transform.position, transform.position);
-        lookRotation = Quaternion.LookRotation(player.transform.position - transform.position);
+
         if (testingStun == false)
         {
             //I'm gonna take out stunned == false because each time a foe is in attack mode, it can't be flinched and
@@ -117,20 +116,29 @@ public class Bear : MonoBehaviour
             {
                 animator.SetBool("Idle", true);
             }
+           if (chase==true)
+            {
+                followDirection = (transform.position - player.transform.position).normalized;
+                distance = Vector3.Distance(player.transform.position, transform.position);
+                lookRotation = Quaternion.LookRotation(player.transform.position - transform.position);
+            }
             if (idle == false && chase == true)
             {
                 transform.Translate(followDirection * speed * Time.deltaTime);
                 if (distance <= 6 && whichAttack ==attackOne)
                 {
                     chase = false;
-                    animator.SetBool("Chase", false);
-                    animator.SetTrigger("Attack1");
-                    enemyScript.SetDamage(2);
-                    enemyScript.SetForce(15);
-                    enemyScript.BackKnockBack();
-                    StartCoroutine(AttackDuration());
+                    if (attackFinished == false)
+                    {
+                        animator.SetBool("Chase", false);
+                        animator.SetTrigger("Attack1");
+                        enemyScript.SetDamage(2);
+                        enemyScript.SetForce(15);
+                        enemyScript.BackKnockBack();
+                        StartCoroutine(AttackDuration());
+                    }
                 }
-                else if (distance <= 9 && whichAttack == attackTwo)
+                else if (distance <= 6 && whichAttack == attackTwo)
                 {
                     chase = false;
                     animator.SetBool("Chase", false);
@@ -138,20 +146,24 @@ public class Bear : MonoBehaviour
                     {
 
                         StartCoroutine(Roar());
+                        audio.PlayOneShot(bearAttack, 0.4f);
                         transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, 3);
-                        animator.SetTrigger("Buff");
+                        //animator.SetTrigger("Buff");
+                        attackFinished = true;
                     }
-                }
-                
-
-                
+                }         
+            }
+            //Accidentally put this in the idle == false && chase == false con
+            if (flurryChase == true)
+            {
+                transform.Translate(followDirection * flurrySpeed * Time.deltaTime);
             }
 
             //if (attackFinished == true)
             //{
-                //attackFinished = false;
-                //idleTime = usualIdleTime;
-                //StartCoroutine(IdleAnimation());
+            //attackFinished = false;
+            //idleTime = usualIdleTime;
+            //StartCoroutine(IdleAnimation());
             //}
         }
     }
@@ -168,21 +180,34 @@ public class Bear : MonoBehaviour
     }
     IEnumerator Roar()
     {
+        animator.SetBool("Idle", true);
         yield return new WaitForSeconds(3f);
-        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, 3); //Turned from 5 to 3 for smooth
-                                                                                    //StartCoroutine(AttackCountdown());
+        followDirection = (transform.position - player.transform.position).normalized;
+        lookRotation = Quaternion.LookRotation(player.transform.position - transform.position);
+        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, 3); //Before I added the above,
+        //I didn't even calculate lookRotation, probably because I had the bear calculate it throughout the game
         enemyScript.SetDamage(1);
         enemyScript.SetForce(0);
+        animator.SetBool("Idle", false);
         animator.SetBool("Fury", true);
         StartCoroutine(FlurryAttack());
-        //StartCoroutine(DamageIncreaser());
+        flurryChase = true;
+        StartCoroutine(DamageIncreaser());
     }
     IEnumerator FlurryAttack() {
         attackRange1.SetActive(true);
         attackRange2.SetActive(true);
         attackFinished = true;
-        transform.Translate(followDirection * flurrySpeed * Time.deltaTime);
+        if (enemyScript.hitLanded == true)
+        {
+            flurryChase = false;
+            bearRb.velocity = Vector3.zero;
+            bearRb.AddForce(Vector3.back * 100, ForceMode.Impulse);
+            Debug.Log("Flurry ChaseOv");
+        }
+        
         yield return new WaitForSeconds(5f);
+        flurryChase = false;
         attackRange1.SetActive(false);
         attackRange2.SetActive(false);
         //armadilloCollide.isTrigger = false;
