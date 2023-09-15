@@ -2060,6 +2060,7 @@ public class PlayerController : MonoBehaviour
         }
         //Idon't think I need to check for enemyScript.playerDodgedeven though Iwanted to. I could always check inside the loop
         //after accessing enemyScript in the condition
+        //Weeks later, i think I completelyforgotabout the above
         if (other.CompareTag("Enemy Attack Range") && (dodge == false && specialInvincibility == false && stunnedInvincibility == false))
         {
             Enemy currentEnemyScript = other.gameObject.GetComponentInParent<Enemy>();
@@ -2083,70 +2084,80 @@ public class PlayerController : MonoBehaviour
 
             //Need to put a boolean on a foe's individual script to tell if an attack has knockback and then use an if to apply
             //the knockbackforce
-            
-            //This is for tiger
-            if(tigerActive == true)
+
+
+
+            if (currentEnemyScript.playerDodged == false)
             {
-                //playerRb.velocity = attackDirection * (attackForce + 20) exam
-                if (currentEnemyScript.leftAttack == true)
+                //This is so that player can't be hit more than once by a nonlingering att
+                if (currentEnemyScript.isLingering == false)
                 {
-                    //playerRb.AddForce(Vector3.left * currentEnemyScript.attackForce, ForceMode.Impulse);
-                    playerRb.velocity = Vector3.left * currentEnemyScript.attackForce;
+                    currentEnemyScript.SetPlayerDodged();
                 }
-                if (currentEnemyScript.rightAttack == true)
+                //This is for tiger
+                if (tigerActive == true)
                 {
-                    //playerRb.AddForce(Vector3.right * currentEnemyScript.attackForce, ForceMode.Impulse);
-                    playerRb.velocity = Vector3.right * currentEnemyScript.attackForce;
+                    //playerRb.velocity = attackDirection * (attackForce + 20) exam
+                    if (currentEnemyScript.leftAttack == true)
+                    {
+                        //playerRb.AddForce(Vector3.left * currentEnemyScript.attackForce, ForceMode.Impulse);
+                        playerRb.velocity = Vector3.left * currentEnemyScript.attackForce;
+                    }
+                    if (currentEnemyScript.rightAttack == true)
+                    {
+                        //playerRb.AddForce(Vector3.right * currentEnemyScript.attackForce, ForceMode.Impulse);
+                        playerRb.velocity = Vector3.right * currentEnemyScript.attackForce;
+                    }
+                    if (currentEnemyScript.backAttack == true)
+                    {
+                        //playerRb.AddForce(Vector3.back * currentEnemyScript.attackForce, ForceMode.Impulse);
+                        playerRb.velocity = Vector3.back * currentEnemyScript.attackForce;
+                    }
                 }
-                if (currentEnemyScript.backAttack == true)
+                else if (birdActive == true && currentEnemyScript.canHurtFlying == true)
                 {
-                    //playerRb.AddForce(Vector3.back * currentEnemyScript.attackForce, ForceMode.Impulse);
-                    playerRb.velocity = Vector3.back * currentEnemyScript.attackForce;
+                    if (isFlying == false)
+                    {
+                        isFlying = true;
+                        bird.transform.Translate(0, 1.5f, 0);
+                        birdSeparater.SetActive(true);
+                    }
+                    if (currentEnemyScript.leftAttack == true)
+                    {
+                        //playerRb.AddForce(Vector3.left * currentEnemyScript.attackForce, ForceMode.Impulse);
+                        playerRb.velocity = Vector3.left * currentEnemyScript.attackForce;
+                    }
+                    if (currentEnemyScript.rightAttack == true)
+                    {
+                        //playerRb.AddForce(Vector3.right * currentEnemyScript.attackForce, ForceMode.Impulse);
+                        playerRb.velocity = Vector3.right * currentEnemyScript.attackForce;
+                    }
+                    if (currentEnemyScript.backAttack == true)
+                    {
+                        //playerRb.AddForce(Vector3.back * currentEnemyScript.attackForce, ForceMode.Impulse);
+                        playerRb.velocity = Vector3.back * currentEnemyScript.attackForce;
+                    }
                 }
-            }
-            else if (birdActive == true &&currentEnemyScript.canHurtFlying==true)
-            {
-                if (isFlying == false)
+                currentEnemyScript.AttackLanded(0);
+                //playerRb.AddForce(Vector3.back * 12, ForceMode.Impulse); //I don't know why I have this
+                //playerScript.AttackLandedTrue();
+                //}
+                LoseHP(currentEnemyScript.damage, currentEnemyScript.hitNumber);
+                StartCoroutine(DamageDisplayed());
+
+                if (currentEnemyScript.comboFinisher == false)
                 {
-                    isFlying = true;
-                    bird.transform.Translate(0, 1.5f, 0);
-                    birdSeparater.SetActive(true);
+                    StartCoroutine(DamageStunStart());
                 }
-                if (currentEnemyScript.leftAttack == true)
+                //enemyScript.PlayAttackEffect();
+                //Removed checking for comboAttack because the player only gets stunnedInvincibilityfrom combo finish
+                //I probably didn't realize this when designing combo att
+                if (currentEnemyScript.comboFinisher == true)
                 {
-                    //playerRb.AddForce(Vector3.left * currentEnemyScript.attackForce, ForceMode.Impulse);
-                    playerRb.velocity = Vector3.left * currentEnemyScript.attackForce;
+                    StartCoroutine(StunDuration());
+                    Debug.Log("Stun Duration is equal to " + stunnedInvincibility);
+                    //playerRb.AddForce(-orientation.forward * enemyScript.attackForce, ForceMode.Impulse);
                 }
-                if (currentEnemyScript.rightAttack == true)
-                {
-                    //playerRb.AddForce(Vector3.right * currentEnemyScript.attackForce, ForceMode.Impulse);
-                    playerRb.velocity = Vector3.right * currentEnemyScript.attackForce;
-                }
-                if (currentEnemyScript.backAttack == true)
-                {
-                    //playerRb.AddForce(Vector3.back * currentEnemyScript.attackForce, ForceMode.Impulse);
-                    playerRb.velocity = Vector3.back * currentEnemyScript.attackForce;
-                }
-            }
-            currentEnemyScript.AttackLanded(0);
-            //playerRb.AddForce(Vector3.back * 12, ForceMode.Impulse); //I don't know why I have this
-            //playerScript.AttackLandedTrue();
-            //}
-            LoseHP(currentEnemyScript.damage, currentEnemyScript.hitNumber);
-            StartCoroutine(DamageDisplayed());
-            
-            if (currentEnemyScript.comboFinisher == false)
-            {
-                StartCoroutine(DamageStunStart());
-            }
-            //enemyScript.PlayAttackEffect();
-            //Removed checking for comboAttack because the player only gets stunnedInvincibilityfrom combo finish
-            //I probably didn't realize this when designing combo att
-            if (currentEnemyScript.comboFinisher == true)
-            {
-                StartCoroutine(StunDuration());
-                Debug.Log("Stun Duration is equal to " + stunnedInvincibility);
-                //playerRb.AddForce(-orientation.forward * enemyScript.attackForce, ForceMode.Impulse);
             }
         }
         if (other.CompareTag("Projectile") && (dodge == true))

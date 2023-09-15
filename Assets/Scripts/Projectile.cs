@@ -129,6 +129,7 @@ public class Projectile : MonoBehaviour
         if (destroyable == true && (collision.gameObject.CompareTag("Player") || collision.gameObject.CompareTag("Wall") || collision.gameObject.CompareTag("Ground")))
         {
             Destroy(gameObject);
+            tag = "Untagged"; //Makes it so that players can't be damagedtwice by the same projecti
         }
     }
 }

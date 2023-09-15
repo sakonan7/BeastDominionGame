@@ -45,6 +45,7 @@ public class Gorilla : MonoBehaviour
     public ParticleSystem flameAura;
     public ParticleSystem attackEffect;
     public GameObject fireCrater;
+    private Vector3 placeForFireCrater;
     public GameObject fireCraterDM;
     private Projectile craterScript;
     public GameObject warningLightSmall;
@@ -63,7 +64,7 @@ public class Gorilla : MonoBehaviour
     private bool playOnce = true;
     public bool isOnGround = false;
     private bool attackString1Part1 = true;
-    private bool attackString1Part2 = true;
+    private bool attackString1Part2 = false;
     private bool attackString2Part1 = false;
     private bool attackString2Part2 = false;
     private bool attackFinished = false;
@@ -76,9 +77,9 @@ public class Gorilla : MonoBehaviour
 
     private bool stunned = false; //Freeze Monkey when i don't want it to move and when the Monkey is being stunlocked by att
     private float idleTime;
-    private float stringPartTime = 6;
-    private float betweenStringsTime = 7;
-    private float DMIdleTime = 12;
+    private float stringPartTime = 7;
+    private float betweenStringsTime = 8;
+    private float DMIdleTime = 13;
 
     private GameManager gameManager;
     private int HP = 80; //7
@@ -169,10 +170,11 @@ if (testingStun == false)
             //for it
                 //if (attackString1Part1 == true)
                 //{
-                    if (slapString == true && chase == false)
-                    {
-                        Slap();
-                    }
+
+           if (slapString == true && chase == false)
+           {
+              Slap();
+           }
                 //}
                 //if (attackString1Part2 == true)
                 //{
@@ -214,21 +216,7 @@ if (testingStun == false)
             //Somethingis making the code not animation not cooperate. Not the lights or the way the animation is built. Try
             //getting rid of as many IEnumerators as possib
             //Something is cursed with this code, I tried turning off several IEnumeratorsand justdoing the animation and nothing happ
-            if (Input.GetKeyDown(KeyCode.T) && attackFinished == false)
-            {
-                idle = false; //Oh my god, I never turned off Idle for thiscode//This is why the gorilla twitches but doesn'tdoany
-                              //enemyScript.SetDamage(8);
-                              //enemyScript.SetForce(30);
-                              //enemyScript.SetComboFinisher();
-                              //attackFinished = true;
 
-                LightsOn();
-                //DMStart();
-                desperationMoveOn = true;
-                enemyScript.BackKnockBack();
-                StartCoroutine(NewDMCode());
-                attackFinished = true;
-            }
             if (desperationMoveOn == true)
             {
                 StartCoroutine(WarningLightDM());
@@ -269,10 +257,10 @@ if (testingStun == false)
         //}
         //beginningIdle = false;
         idle = false;
-        if (distance > 21)
-        {
+        //if (distance > 21)
+        //{
             chase = true;
-        }
+        //}
         //animator.SetBool("Idle", false);
         //animator.SetBool("Chase", true);
         slapString = true;
@@ -285,6 +273,8 @@ if (testingStun == false)
         yield return new WaitForSeconds(1f);
         regularAttackRange.SetActive(false);
         secondAttackRange.SetActive(true);
+        enemyScript.UnsetPlayerDodged();
+        enemyScript.BackKnockBack();
     }
     public void Slap()
     {
@@ -293,17 +283,23 @@ if (testingStun == false)
         StartCoroutine(Glow());
         StartCoroutine(SecondHit());
         slapString = false;
-        enemyScript.UnsetPlayerDodged();
+        enemyScript.SetDamage(0);
+        enemyScript.SetForce(15);
+        enemyScript.BackKnockBack();
     }
     IEnumerator SecondHit()
     {
-        yield return new WaitForSeconds(1.8f);
+        enemyScript.SetDamage(0);
+        enemyScript.SetForce(15);
+        enemyScript.BackKnockBack();
+        yield return new WaitForSeconds(2f);
 
         animation.Play("Hit1");
         //secondAttackRange.SetActive(false);
         //
         StartCoroutine(UnGlow());
         enemyScript.UnsetPlayerDodged();
+        enemyScript.BackKnockBack();
     }
     IEnumerator UnGlow()
     {
@@ -379,12 +375,13 @@ if (testingStun == false)
     }
     IEnumerator ShockWaveAppears()
     {
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.1f);
         regularShockWave.SetActive(true);
         motionBlurObject.SetActive(true);
         slamComing = false;
         warningLightSmall.SetActive(false);
         camScript.ScreenShakeMethod();
+        placeForFireCrater = regularShockWave.transform.position;
     }
     IEnumerator SlamAttackDuration()
     {
@@ -413,6 +410,7 @@ if (testingStun == false)
         attackFinished = false;
         StartCoroutine(Crater());
 
+        slapString = false;
         //This will determine what the next attackstring
         if (attackString1Part1 == true)
         {
@@ -430,28 +428,28 @@ if (testingStun == false)
         else if (attackString2Part1 == true)
         {
             attackString2Part1 = false;
-            attackString2Part2 = true; StartCoroutine(IdleAnimation());
+            attackString2Part2 = true;
+            StartCoroutine(IdleAnimation());
             idleTime = stringPartTime;
         }
         else if (attackString2Part2 == true)
         {
             attackString2Part2 = false;
             StartCoroutine(NewDMCode());
-            attackString = 0;
             enemyScript.HurtFlying();
         }
         enemyScript.UnsetPlayerDodged();
     }
     IEnumerator Crater()
     {
-        yield return new WaitForSeconds(0.2f);
-        Vector3 placeForFireCrater = regularShockWave.transform.position; GameObject newCrater = fireCrater;
-        craterScript = newCrater.GetComponent<Projectile>();
-        craterScript.SetDamage(0);
+        yield return new WaitForSeconds(0.1f);
+
+        //craterScript = newCrater.GetComponent<Projectile>();
+        //craterScript.SetDamage(0);
         //craterScript.IsMoving(false);
         //craterScript.SetLifeTime(3);
         //craterScript.IsDestroyable(false);
-        Instantiate(newCrater, new Vector3(placeForFireCrater.x, fireCrater.transform.position.y, placeForFireCrater.z), fireCrater.transform.rotation);
+        Instantiate(fireCrater, new Vector3(placeForFireCrater.x, fireCrater.transform.position.y, placeForFireCrater.z), fireCrater.transform.rotation);
        
     }
     public void LightsOn()
@@ -509,7 +507,7 @@ if (testingStun == false)
     }
     IEnumerator DMShockWaveAppears()
     {
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.2f);
         //bigShockWave.SetActive(true);
         DMShockWave.SetActive(true);
         DMShockWaveEffect.Play();
