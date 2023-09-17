@@ -14,7 +14,6 @@ public class ThirdPersonCamera : MonoBehaviour
     public Transform playerObj;
     public Transform player;
     public Transform birdFollow;
-    public Transform birdLookAt;
     private PlayerController playerScript;
     public Transform orientation;
 
@@ -116,7 +115,6 @@ public class ThirdPersonCamera : MonoBehaviour
         {
             playerObj = bird.transform;
             cinemachineFL.m_Follow = birdFollow;
-            cinemachineFL.m_Follow = birdLookAt;
             //cinemachineFL.m_Follow = player.transform.position + new Vector3(0, 1.5f, 0);
             //viewDir = player.position - new Vector3(transform.position.x, birdPosition, transform.position.z);
         }
