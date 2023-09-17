@@ -130,6 +130,7 @@ public class PlayerController : MonoBehaviour
 
     public GameObject target;
     private GameObject targetedEnemy;
+    private Vector3 currentEnemyPosition;
     private Enemy enemyScript;
     private Enemy guardingEnemy;
     private Enemy attackingEnemy;
@@ -648,19 +649,7 @@ public class PlayerController : MonoBehaviour
                 //Test to see if using a method will only place the method once. I don't think so, so try it in the lockedon meth
                 distance = Vector3.Distance(targetedEnemy.transform.position, transform.position);
                 //Calculating attackdirection AND attackrotation here tosee if it solves the first attack prob
-                if (birdActive == true)
-                {
-                    attackDirection = (targetedEnemy.transform.position - tiger.transform.position).normalized;
 
-                    attackRotation = Quaternion.LookRotation(targetedEnemy.transform.position - tiger.transform.position);
-                }
-                else if (tigerActive == true)
-                {
-                    attackDirection = (targetedEnemy.transform.position - tiger.transform.position).normalized;
-                    attackDirection = new Vector3(attackDirection.x, 0, attackDirection.z);
-                    attackRotation = Quaternion.LookRotation(targetedEnemy.transform.position - tiger.transform.position);
-                }
-                //attackRotation = new Quaternion(0, attackRotation.y, attackRotation.z,0);
 
             }
             //I may want to change this because I can trigger an error by trying to access enemyScript when targetEnemy has been killed
@@ -786,10 +775,12 @@ public class PlayerController : MonoBehaviour
         ///Doing AttackDuration in attack methods instead
         ///            //Tiger isn't turning at all...This worked for rabbit completely fine with and without input from me
             //When I put this in Update(), the attacks are slower than if I were to put in LateUpdate()
+
+        ///I feel like this doesn't work, because I can spam bird attack while it is still lowered. I added swoopedDown for this 
         if (cantMove == false)
         {
             //For Attacking, I may want to modify Quaternion.Slerp tomake the tigerand maybe the bird too not turn out of X-ax
-            if (Input.GetMouseButtonDown(0) && lockedOn == true)
+            if (Input.GetMouseButtonDown(0) && lockedOn == true && swoopedDown == false)
             {
 
                 //attackDirection isn't changing directions because it's using the empty Player object as the reference and the Player
@@ -801,7 +792,12 @@ public class PlayerController : MonoBehaviour
                     attackDirection = (targetedEnemy.transform.position - tiger.transform.position).normalized;
 
                     //This only works for grounded ene
-                    attackRotation = Quaternion.LookRotation(targetedEnemy.transform.position - tiger.transform.position);
+                    //attackRotation = Quaternion.LookRotation(targetedEnemy.transform.position - tiger.transform.position);
+
+                    currentEnemyPosition = new Vector3(targetedEnemy.transform.position.x, tiger.transform.position.y, targetedEnemy.transform.position.z);
+                    attackDirection = new Vector3(attackDirection.x, 0, attackDirection.z).normalized;
+                    attackRotation = Quaternion.LookRotation(currentEnemyPosition - tiger.transform.position);
+
                     bird.transform.rotation = Quaternion.Slerp(tiger.transform.rotation, attackRotation, 3); //Moved this from Strike() to
                                                                                                             //see if I can immediately turn my character towards an ene
 
@@ -809,7 +805,7 @@ public class PlayerController : MonoBehaviour
                     //bird.transform.rotation = new Quaternion(0, attackRotation.y, attackRotation.z, 0);
                     if (enemyScript.isFlying==true)
                     {
-                        bird.transform.rotation = Quaternion.Slerp(bird.transform.rotation, attackRotation, 3);
+                       // bird.transform.rotation = Quaternion.Slerp(bird.transform.rotation, attackRotation, 3); //Notsurewhatthepurpose of thisis
                     }
                 }
                 else if (tigerActive == true)
@@ -827,20 +823,26 @@ public class PlayerController : MonoBehaviour
                     attackDirection = (targetedEnemy.transform.position - tiger.transform.position).normalized;
                     //Only rotate when foe is notfly
                     //My method (not literal)worked here. It's because of attackRotation that tiger rotates upwards for att
-                    if (enemyScript.isFlying == false)
-                    {
+                    //if (enemyScript.isFlying == false)
+                    //{
                     //Moved attackDirection here because the player object gets rotated now
-                        attackDirection = (targetedEnemy.transform.position - tiger.transform.position).normalized;
+                        //attackDirection = (targetedEnemy.transform.position - tiger.transform.position).normalized;
                     //if (enemyScript.isFlying == true)
                     //{//To avoid tiger from roating from att
-                        attackDirection = new Vector3(attackDirection.x, 0, attackDirection.z);
+                        //attackDirection = new Vector3(attackDirection.x, 0, attackDirection.z);
                     //}
 
-                        attackRotation = Quaternion.LookRotation(targetedEnemy.transform.position - tiger.transform.position);
+                        //attackRotation = Quaternion.LookRotation(targetedEnemy.transform.position - tiger.transform.position);
+
+                        currentEnemyPosition = new Vector3(targetedEnemy.transform.position.x, 0, targetedEnemy.transform.position.z);
+                        attackDirection = new Vector3(attackDirection.x, 0, attackDirection.z).normalized;
+                        attackRotation = Quaternion.LookRotation(currentEnemyPosition - tiger.transform.position);
+
+
                         tiger.transform.rotation = Quaternion.Slerp(tiger.transform.rotation, attackRotation, 3); //Moved this from Strike() to
                                                                                                               //see if I can immediately turn my character towards an ene
 
-                    }
+                    //}
                     //else if (enemyScript.isFlying == true)
                     //{
 
@@ -851,7 +853,7 @@ public class PlayerController : MonoBehaviour
                     running = false;
                 }
             }
-            if (Input.GetMouseButtonDown(0) && lockedOn == false)
+            if (Input.GetMouseButtonDown(0) && lockedOn == false &&swoopedDown ==false)
             {
 
 
@@ -1069,9 +1071,15 @@ public class PlayerController : MonoBehaviour
         if (lockedOn == true && enemyScript.isFlying == false)
         {
             attackDirection = (targetedEnemy.transform.position - tiger.transform.position).normalized;
-            attackDirection = new Vector3(attackDirection.x, 0, attackDirection.z);
+            //attackDirection = new Vector3(attackDirection.x, 0, attackDirection.z);
+            currentEnemyPosition = new Vector3(targetedEnemy.transform.position.x, 0, targetedEnemy.transform.position.z);
+            attackDirection = new Vector3(attackDirection.x, 0, attackDirection.z).normalized;
+            attackRotation = Quaternion.LookRotation(currentEnemyPosition - tiger.transform.position);
             tiger.transform.rotation = Quaternion.Slerp(tiger.transform.rotation, attackRotation, 5 * Time.deltaTime);
-            attackRotation = Quaternion.LookRotation(targetedEnemy.transform.position - tiger.transform.position);
+            //attackRotation = Quaternion.LookRotation(targetedEnemy.transform.position - tiger.transform.position);
+            //I think the above is a mistake because I was supposed to calculate attackRotation before using
+            //tiger.transform.rotation. But it also doesn't seem like a mistake because it didn't mess with the move's functionality at  the moment
+            //I think it just messed up the tiger turning towards a target right after charging 
                 specialCloseTheDistance = true;
             
         }
@@ -1084,7 +1092,11 @@ public class PlayerController : MonoBehaviour
         }
         else if (lockedOn == true && enemyScript.isFlying == true)
         {
-            attackDirection = (tigerFollow.transform.position - tiger.transform.position).normalized;
+            //attackDirection = (tigerFollow.transform.position - tiger.transform.position).normalized;
+            //Will attack in the flying enemy's direction, but not 
+            currentEnemyPosition = new Vector3(targetedEnemy.transform.position.x, 0, targetedEnemy.transform.position.z);
+            attackDirection = new Vector3(attackDirection.x, 0, attackDirection.z).normalized;
+            attackRotation = Quaternion.LookRotation(currentEnemyPosition - tiger.transform.position);
             playerRb.AddForce(attackDirection * (attackForce + 154), ForceMode.Impulse); //+ 8 normally, but try + 12 for blade of
             TigerSpecial();
             StartCoroutine(TigerSpecialDuration());
@@ -1327,8 +1339,12 @@ public class PlayerController : MonoBehaviour
     {
         
         playerAudio.PlayOneShot(tigerSwing, 0.05f);
-        
-        attackRotation = Quaternion.LookRotation(targetedEnemy.transform.position - tiger.transform.position);
+
+        currentEnemyPosition = new Vector3(targetedEnemy.transform.position.x, 0, targetedEnemy.transform.position.z);
+        attackDirection = new Vector3(attackDirection.x, 0, attackDirection.z).normalized;
+        attackRotation = Quaternion.LookRotation(currentEnemyPosition - tiger.transform.position);
+
+        //attackRotation = Quaternion.LookRotation(targetedEnemy.transform.position - tiger.transform.position);
         tiger.transform.rotation = Quaternion.Slerp(tiger.transform.rotation, attackRotation, 10 * Time.deltaTime); //Am using all the attack rotations
         //here because there is a charge up before Tiger Special Attack
         //playerRb.AddRelativeTorque(Vector3.down * 5, ForceMode.Impulse);
@@ -1393,15 +1409,16 @@ public class PlayerController : MonoBehaviour
         //above,but I realized that the below will cover it. Maybe, let's keep testing it out
         else if ((distance > 4) && lockedOn)
         {
-            attackDirection = (targetedEnemy.transform.position - tiger.transform.position).normalized;
-            //transform.rotation = Quaternion.Slerp(transform.rotation, attackRotation, 10 * Time.deltaTime);
+            currentEnemyPosition = new Vector3(targetedEnemy.transform.position.x, tiger.transform.position.y, targetedEnemy.transform.position.z);
+            attackDirection = new Vector3(attackDirection.x, 0, attackDirection.z).normalized;
+            attackRotation = Quaternion.LookRotation(currentEnemyPosition - tiger.transform.position);
             specialCloseTheDistance = true;
         }
         else if (distance < 4 && lockedOn)
         {
-            //transform.rotation = Quaternion.Slerp(transform.rotation, attackRotation, 10 * Time.deltaTime);
-            attackDirection = (targetedEnemy.transform.position - tiger.transform.position).normalized;
-            attackRotation = Quaternion.LookRotation(targetedEnemy.transform.position - tiger.transform.position);
+            currentEnemyPosition = new Vector3(targetedEnemy.transform.position.x, tiger.transform.position.y, targetedEnemy.transform.position.z);
+            attackDirection = new Vector3(attackDirection.x, 0, attackDirection.z).normalized;
+            attackRotation = Quaternion.LookRotation(currentEnemyPosition - tiger.transform.position);
             bird.transform.rotation = Quaternion.Slerp(tiger.transform.rotation, attackRotation, 3);
             StartCoroutine(BirdSpecialDuration());
             playerRb.AddForce(attackDirection * (attackForce + 14), ForceMode.Impulse);

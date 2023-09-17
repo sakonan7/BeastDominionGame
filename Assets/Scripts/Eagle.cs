@@ -124,6 +124,11 @@ public class Eagle : MonoBehaviour
         {
             if (stunLocked == false)
             {
+
+                //I want to carry this over to player, but the point of currentPlayerPosition is not only
+                //for the eagleto stay in the air while flying, but also so that eagle doesn't rotate with thex-axis down
+                //I think I should use current Position only for look
+                //IthinkIdiddo that though
                 Vector3 currentPlayerPosition = new Vector3(player.transform.position.x, transform.position.y, player.transform.position.z);
                 //Rewriting this so that the characters don't turn on the x-
                 ///Ifthisworks, I will carry it over to player and other enemies so they always attack straight
@@ -148,7 +153,7 @@ public class Eagle : MonoBehaviour
                     
                     
                     followDirection = (player.transform.position - transform.position).normalized;
-                    followDirection = new Vector3(followDirection.x, 0, followDirection.z);//NeedEagle to not lower itself
+                    followDirection = new Vector3(followDirection.x, 0, followDirection.z).normalized;//NeedEagle to not lower itself
                     //while chasing play
                     //newDirection = Vector3.RotateTowards(transform.forward, tiger.transform.position, speed * Time.deltaTime, 0.0f);
                     //transform.rotation = Quaternion.LookRotation(newDirection);
@@ -214,7 +219,7 @@ if (playerScript.isFlying == false)
         }
         StartCoroutine(AttackDuration());
         eagleRb.AddForce(attackDirection * 40, ForceMode.Impulse);//Changed from 8 to 12
-        attackEffect.Play();
+        attackEffect.Play(); //Play attack effect slow
         //StartCoroutine(FreezeRotations());
         //}
     }
@@ -223,7 +228,7 @@ if (playerScript.isFlying == false)
         attack = true;
         attackRange.SetActive(true);
         
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(1f);
         attack = false;
         eagleRb.velocity = Vector3.zero;
         attackRange.SetActive(false);
@@ -233,6 +238,7 @@ if (playerScript.isFlying == false)
     }
     IEnumerator Lag()
     {
+        eagleRb.velocity = Vector3.zero;
         yield return new WaitForSeconds(2);
         if (enemyScript.isFlying == false)
         {
@@ -267,8 +273,6 @@ if (playerScript.isFlying == false)
         //0 == left walk, 1 == right walk
         walkDirection = Random.Range(0, 2);
         directionChosen = true;
-        //Debug.Log(walkDirection);
-        Debug.Log("Direction Chosen");
     }
     IEnumerator IdleAnimation()
     {
