@@ -634,7 +634,7 @@ MonoBehaviour:
   eagleCry: {fileID: 0}
   eagleAttack: {fileID: 0}
   isOnGround: 0
-  testingStun: 1
+  testingStun: 0
 --- !u!114 &4444185724134267165
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -672,6 +672,7 @@ MonoBehaviour:
   backAttack: 0
   lockedOn: 0
   dyingEffect: {fileID: 0}
+  attacked: 0
   hitLanded: 0
   isBird: 1
   isFlying: 0
@@ -682,6 +683,7 @@ MonoBehaviour:
   revengeValueCount: 3
   isLingering: 0
   canHurtFlying: 0
+  guard: 0
   playerDodged: 0
 --- !u!65 &3575274186026016370
 BoxCollider:
@@ -702,8 +704,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.534955, y: 0.2945632, z: 0.931726}
-  m_Center: {x: -0.0034464381, y: -0.0513131, z: -0.16642545}
+  m_Size: {x: 0.534955, y: 0.32698, z: 0.931726}
+  m_Center: {x: -0.003446449, y: -0.0675214, z: -0.16642545}
 --- !u!54 &1240980529537837436
 Rigidbody:
   m_ObjectHideFlags: 0

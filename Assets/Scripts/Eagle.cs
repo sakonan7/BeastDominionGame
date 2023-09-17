@@ -11,7 +11,7 @@ public class Eagle : MonoBehaviour
     private GameObject player;
     private PlayerController playerScript;
     private Enemy enemyScript;
-    private float speed = 10;
+    private float speed = 5;
     private float distanceCloserSpeed = 30;
     private int walkDirection = 0;
     private bool directionChosen = false;
@@ -138,7 +138,11 @@ public class Eagle : MonoBehaviour
                 if (idle == false && chase == true)
                 {
                     //animation.Play("Run");
+                    Vector3 currentPlayerPosition = new Vector3(player.transform.position.x, transform.position.y, player.transform.position.z);
+                    
                     followDirection = (player.transform.position - transform.position).normalized;
+                    followDirection = new Vector3(followDirection.x, 0, followDirection.z);//NeedEagle to not lower itself
+                    //while chasing play
                     //newDirection = Vector3.RotateTowards(transform.forward, tiger.transform.position, speed * Time.deltaTime, 0.0f);
                     //transform.rotation = Quaternion.LookRotation(newDirection);
                     ///}
@@ -152,33 +156,22 @@ public class Eagle : MonoBehaviour
                     //playerPosition = tiger.transform.position;
                     //attackRange.transform.position = tiger.transform.position;
                     //distance = Vector3.Distance(player.transform.position, transform.position);
-                    lookRotation = Quaternion.LookRotation(player.transform.position - transform.position);
+
+                    //Rewriting this so that the characters don't turn on the x-
+                    ///Ifthisworks, I will carry it over to player and other enemies so they always attack straight
+                    lookRotation = Quaternion.LookRotation(currentPlayerPosition - transform.position);
                     eagleRb.AddForce(followDirection * speed);
                     transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, 3); //Turned from 5 to 3 for smooth
                                                                                                 //StartCoroutine(AttackCountdown());
-                    if (distance <= 8)
+                    if (distance <= 7.5f)
                     {
                         //Switched from tigerActive to isFlying because the eaglewill use the swooping attacking when
                         //the bird is low
                         chase = false;
-                        if (playerScript.isFlying == true)
+                        if (attackFinished==false)
                         {
-                            //flyingHit, this bool will tell attackDuration to put the bird back
-                        }
-                        //Need to playthis justonce
-                        if (playerScript.isFlying == false)
-                        {
-                            //flyingHit, this bool will tell attackDuration to put the bird back
-                            transform.Translate(0, -1.5f, 0);
-                            enemyScript.SetFlying();
-                        }
-                        eagleRb.AddForce(followDirection * distanceCloserSpeed);
-                        StartCoroutine(AttackDuration());
-                        if (enemyScript.hitLanded == true)
-                        {
-                            StartCoroutine(Lag());
-                            enemyScript.ResetHitLanded();
-                            eagleRb.velocity = Vector3.zero;
+                            Swoop();
+                            attackFinished = true;
                         }
                     }
                 }
@@ -209,17 +202,19 @@ public class Eagle : MonoBehaviour
 
         //if (lockedOn == true && enemyScript.isFlying == false) //Almost accidentally wrotethis as ==true
         //{
-            ////StartCoroutine(TellAngle());
-            //bird.transform.Translate(0, -1.5f, 0);
-            //birdSeparater.SetActive(false);
-            //isFlying = false;
-            //swoopedDown = true;
+        ////StartCoroutine(TellAngle());
+        //bird.transform.Translate(0, -1.5f, 0);
+        //birdSeparater.SetActive(false);
+        //isFlying = false;
+        //swoopedDown = true;
 
 
         //else if (distance < 4)
         //{
-            //transform.rotation = Quaternion.Slerp(transform.rotation, attackRotation, 10 * Time.deltaTime);
-            StartCoroutine(AttackDuration());
+        //transform.rotation = Quaternion.Slerp(transform.rotation, attackRotation, 10 * Time.deltaTime);
+        transform.Translate(0, -1.5f, 0);
+        enemyScript.SetFlying();
+        StartCoroutine(AttackDuration());
             eagleRb.AddForce(attackDirection * 40, ForceMode.Impulse);//Changed from 8 to 12
             //StartCoroutine(FreezeRotations());
         //}
@@ -233,15 +228,16 @@ public class Eagle : MonoBehaviour
         attack = false;
         eagleRb.velocity = Vector3.zero;
         attackRange.SetActive(false);
+        attackFinished = false;
     }
     IEnumerator Lag()
     {
         yield return new WaitForSeconds(2);
         if (enemyScript.isFlying == false)
         {
-            transform.Translate(0, 1.5f, 0);
+            ReturnToTheAir();
         }
-        ReturnToTheAir();
+        
         //StartCoroutine(IdleAnimation());
     }
     public void ReturnToTheAir()
@@ -293,16 +289,10 @@ public class Eagle : MonoBehaviour
         idle = false;
         chase = true;
         directionChosen = false;
+        eagleRb.velocity = Vector3.zero;
     }
     public void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Wall") && distanceCloser ==true)
-        {
-            distanceCloser = false;
-            StartCoroutine(Lag());
-            enemyScript.ResetHitLanded();
-            eagleRb.velocity = Vector3.zero;
-        }
                 if (collision.gameObject.CompareTag("Wall") && idle ==true)
         {
             if (walkDirection == 0)
