@@ -1136,6 +1136,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1799832250095017728, guid: cc5d1e7149cb79549b8d52ad54f5c8e3, type: 3}
   m_PrefabInstance: {fileID: 4010593549892150239}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &4010593549892150241 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 217829417921164572, guid: cc5d1e7149cb79549b8d52ad54f5c8e3, type: 3}
+  m_PrefabInstance: {fileID: 4010593549892150239}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7477383511868025903
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1549,6 +1554,10 @@ PrefabInstance:
       propertyPath: birdFollow
       value: 
       objectReference: {fileID: 841920371}
+    - target: {fileID: 8031964561963932044, guid: e588a162c379f89448e87ded4d3f754e, type: 3}
+      propertyPath: birdLookAt
+      value: 
+      objectReference: {fileID: 4010593549892150241}
     - target: {fileID: 8031964561963932044, guid: e588a162c379f89448e87ded4d3f754e, type: 3}
       propertyPath: orientation
       value: 

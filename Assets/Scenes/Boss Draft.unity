@@ -2987,6 +2987,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 704863603}
     - target: {fileID: 8031964561963932044, guid: e588a162c379f89448e87ded4d3f754e, type: 3}
+      propertyPath: birdLookAt
+      value: 
+      objectReference: {fileID: 2025429313}
+    - target: {fileID: 8031964561963932044, guid: e588a162c379f89448e87ded4d3f754e, type: 3}
       propertyPath: orientation
       value: 
       objectReference: {fileID: 973799332}
@@ -3220,6 +3224,11 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2004291640}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!4 &2025429313 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 217829417921164572, guid: cc5d1e7149cb79549b8d52ad54f5c8e3, type: 3}
+  m_PrefabInstance: {fileID: 973799327}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2068326778
 GameObject:
   m_ObjectHideFlags: 0
