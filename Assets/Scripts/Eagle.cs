@@ -124,6 +124,12 @@ public class Eagle : MonoBehaviour
         {
             if (stunLocked == false)
             {
+                Vector3 currentPlayerPosition = new Vector3(player.transform.position.x, transform.position.y, player.transform.position.z);
+                //Rewriting this so that the characters don't turn on the x-
+                ///Ifthisworks, I will carry it over to player and other enemies so they always attack straight
+                lookRotation = Quaternion.LookRotation(currentPlayerPosition - transform.position);
+                //Did not put the transform.rotationhere because I want the enemies to only be looking
+                //when they're not att
                 if (idle == true)
                 {//Modify to change directions every 2 sec
                     if (walkDirection == 0)
@@ -134,11 +140,12 @@ public class Eagle : MonoBehaviour
                     {
                         eagleRb.AddForce(Vector3.right * speed);
                     }
+                    transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, 3);
                 }
                 if (idle == false && chase == true)
                 {
                     //animation.Play("Run");
-                    Vector3 currentPlayerPosition = new Vector3(player.transform.position.x, transform.position.y, player.transform.position.z);
+                    
                     
                     followDirection = (player.transform.position - transform.position).normalized;
                     followDirection = new Vector3(followDirection.x, 0, followDirection.z);//NeedEagle to not lower itself
@@ -157,12 +164,11 @@ public class Eagle : MonoBehaviour
                     //attackRange.transform.position = tiger.transform.position;
                     //distance = Vector3.Distance(player.transform.position, transform.position);
 
-                    //Rewriting this so that the characters don't turn on the x-
-                    ///Ifthisworks, I will carry it over to player and other enemies so they always attack straight
-                    lookRotation = Quaternion.LookRotation(currentPlayerPosition - transform.position);
+
                     eagleRb.AddForce(followDirection * speed);
-                    transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, 3); //Turned from 5 to 3 for smooth
-                                                                                                //StartCoroutine(AttackCountdown());
+                    transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, 3);
+                    //Turned from 5 to 3 for smooth
+                    //StartCoroutine(AttackCountdown());
                     if (distance <= 7.5f)
                     {
                         //Switched from tigerActive to isFlying because the eaglewill use the swooping attacking when

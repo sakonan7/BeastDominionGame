@@ -123,6 +123,11 @@ public class Wolf3 : MonoBehaviour
 
 if (stunLocked == false)
             {
+                Vector3 currentPlayerPosition = new Vector3(player.transform.position.x, transform.position.y, player.transform.position.z);
+                //Rewriting this so that the characters don't turn on the x-
+                ///Ifthisworks, I will carry it over to player and other enemies so they always attack straight
+                lookRotation = Quaternion.LookRotation(currentPlayerPosition - transform.position);
+                
                 if (idle == true)
                 {
                     if (walkDirection == 0)
@@ -141,6 +146,7 @@ if (stunLocked == false)
                     //}
                     //Debug.Log("Right Walk");
                     wolfRb.AddForce(Vector3.back * walkSpeed);
+                    transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, 3);
                 }
 
                 if (idle == false && chase == true)
@@ -163,13 +169,8 @@ if (stunLocked == false)
                     //transform.rotation = Quaternion.LookRotation(newDirection);
                     //}
                     distance = Vector3.Distance(player.transform.position, transform.position);
-                    //playerPosition = tiger.transform.position;
-                    //attackRange.transform.position = tiger.transform.position;
-                    //distance = Vector3.Distance(player.transform.position, transform.position);
-                    lookRotation = Quaternion.LookRotation(player.transform.position - transform.position);
                     wolfRb.AddForce(followDirection * speed);
-                    transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, 3); //Turned from 5 to 3 for smooth
-                                                                                                //StartCoroutine(AttackCountdown());
+                    transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, 3);
                     if (distance <= 4)
                     {
                         Debug.Log("Reached");
