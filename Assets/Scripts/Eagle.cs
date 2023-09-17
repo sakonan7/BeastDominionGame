@@ -199,36 +199,31 @@ public class Eagle : MonoBehaviour
     }
     public void Swoop()
     {
+        
+if (playerScript.isFlying == false)
+        {
+            transform.Translate(0, -1.5f, 0);
+            enemyScript.SetFlying();
 
-        //if (lockedOn == true && enemyScript.isFlying == false) //Almost accidentally wrotethis as ==true
-        //{
-        ////StartCoroutine(TellAngle());
-        //bird.transform.Translate(0, -1.5f, 0);
-        //birdSeparater.SetActive(false);
-        //isFlying = false;
-        //swoopedDown = true;
-
-
-        //else if (distance < 4)
-        //{
-        //transform.rotation = Quaternion.Slerp(transform.rotation, attackRotation, 10 * Time.deltaTime);
-        transform.Translate(0, -1.5f, 0);
-        enemyScript.SetFlying();
+        }
         StartCoroutine(AttackDuration());
-            eagleRb.AddForce(attackDirection * 40, ForceMode.Impulse);//Changed from 8 to 12
-            //StartCoroutine(FreezeRotations());
+        eagleRb.AddForce(attackDirection * 40, ForceMode.Impulse);//Changed from 8 to 12
+        attackEffect.Play();
+        //StartCoroutine(FreezeRotations());
         //}
     }
     IEnumerator AttackDuration()
     {
         attack = true;
         attackRange.SetActive(true);
-        attackEffect.Play();
+        
         yield return new WaitForSeconds(1.5f);
         attack = false;
         eagleRb.velocity = Vector3.zero;
         attackRange.SetActive(false);
         attackFinished = false;
+        StartCoroutine(Lag());
+        idleTime = usualIdleTime;
     }
     IEnumerator Lag()
     {
@@ -237,7 +232,11 @@ public class Eagle : MonoBehaviour
         {
             ReturnToTheAir();
         }
-        
+        else if (enemyScript.isFlying == true)
+        {
+            StartCoroutine(IdleAnimation());
+        }
+
         //StartCoroutine(IdleAnimation());
     }
     public void ReturnToTheAir()
@@ -250,6 +249,7 @@ public class Eagle : MonoBehaviour
         //Or I will Put it here instead because that way I don't have to Set it in Start and I don't have to do this in Lag
         transform.Translate(0, 1.5f, 0);
         StartCoroutine(PauseBeforeIdle());
+        Debug.Log("Return to");
     }
     IEnumerator PauseBeforeIdle()
     {
