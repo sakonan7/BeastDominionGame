@@ -340,14 +340,15 @@ public class PlayerController : MonoBehaviour
         //if (gameManagerScript.startGame == true)
         //{
         //Idle animat
+        ///Kept attack == false for closeTheDist
         if (dodge == false && attack == false && tigerActive == true && running == false && cantMove == false)
             {
                 animation.Play("Idle Tweak");
             //tigerAnimator.SetBool("Idle", true);
             }
-            if (dodge == false && attack == false && birdActive == true && cantMove == false)
+            if (dodge == false &&attack ==false&& birdActive == true && cantMove == false)
             {
-                //birdAnimation.Play("Idle");
+                birdAnimation.Play("Player Idle");
             }
 
         //Movement
@@ -428,6 +429,8 @@ public class PlayerController : MonoBehaviour
                 }
                 else if (birdActive == true)
                 {
+                    //birdAnimation.Play("Player Attack");
+                    birdAnimation.Stop();
                     dodgeDirection = (birdFollow.transform.position - tiger.transform.position).normalized;
                 }
 
@@ -1173,6 +1176,8 @@ public class PlayerController : MonoBehaviour
 
         canCombo = false;
         attackTimeLength = birdAttackLength;
+        //birdAnimation.Play("Player Attack");
+        birdAnimation.Stop();
         if (lockedOn == false)
         {
             
@@ -1390,6 +1395,7 @@ public class PlayerController : MonoBehaviour
         //birdSeparater.SetActive(false);
         cantMove = true;
         rackingUpCombo = false;
+        birdAnimation.Play("Player Idle");
         if (lockedOn == false)
         {
             attackDirection = (birdFollow.transform.position - tiger.transform.position).normalized;

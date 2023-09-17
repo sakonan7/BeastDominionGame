@@ -124,6 +124,7 @@ public class ThirdPersonCamera : MonoBehaviour
         {
             playerObj = tiger.transform;
             cinemachineFL.m_Follow = player;
+            cinemachineFL.m_LookAt = player;
             //viewDir = player.position - new Vector3(transform.position.x, tigerPosition, transform.position.z);
         }
     }
