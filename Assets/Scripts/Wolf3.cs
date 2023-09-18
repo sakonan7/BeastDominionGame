@@ -14,7 +14,7 @@ public class Wolf3 : MonoBehaviour
     private float walkSpeed = 100;
     private int walkDirection = 0;
     private bool directionChosen = false;
-    private float speed = 220;
+    private float speed = 110;
     private Rigidbody wolfRb;
     private Rigidbody playerRb;
     private Vector3 followDirection;
@@ -36,6 +36,7 @@ public class Wolf3 : MonoBehaviour
     public int attack3 = 2;
     
     public GameObject attackRange;
+    public GameObject biteRange;
     public ParticleSystem attackEffect;
     private AudioSource audio;
     public AudioClip wolfAttack;
@@ -193,7 +194,7 @@ if (stunLocked == false)
 
                     if (playerScript.birdActive == true)
                     {
-                        if (distance <= 3f)
+                        if (distance <= 3.5f)
                         {
                             Debug.Log("Reached");
                             animator.SetBool("Dash", false);
@@ -272,6 +273,7 @@ if (stunLocked == false)
         //attackCounter = 0;
         //attackAura.SetActive(false);
         attackRange.SetActive(false);
+        biteRange.SetActive(false);
         //attackLanded = false;
         Debug.Log("Attack over");
         //JumpBack();
@@ -302,7 +304,7 @@ if (stunLocked == false)
     }
     public void AirBite()
     {
-        attackRange.SetActive(true);
+        biteRange.SetActive(true);
         StartCoroutine(AttackDuration());
         //wolfRb.AddForce(followDirection * (jumpForce/2), ForceMode.Impulse);
         animator.SetBool("Idle",false);
@@ -318,13 +320,14 @@ if (stunLocked == false)
     IEnumerator PauseBeforeJump()
     {
         wolfRb.velocity = Vector3.zero;
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(2f);
         Jump();
     }
     public void Jump()
     {
         //wolfRb.AddForce(Vector3.up * 15, ForceMode.Impulse); //For jumping, may need to modify gravity
         wolfRb.velocity = Vector3.up * 10;
+        wolfRb.velocity = Vector3.fwd * 2;
         isOnGround = false;
         //animator.SetTrigger("Jump");
         StartCoroutine(LagBeforeAttack());
