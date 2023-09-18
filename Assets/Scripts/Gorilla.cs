@@ -77,9 +77,9 @@ public class Gorilla : MonoBehaviour
 
     private bool stunned = false; //Freeze Monkey when i don't want it to move and when the Monkey is being stunlocked by att
     private float idleTime;
-    private float stringPartTime = 7;
-    private float betweenStringsTime = 8;
-    private float DMIdleTime = 13;
+    private float stringPartTime = 5;
+    private float betweenStringsTime = 7;
+    private float DMIdleTime = 12;
 
     private GameManager gameManager;
     private int HP = 80; //7
@@ -235,38 +235,10 @@ if (testingStun == false)
     IEnumerator IdleAnimation()
     {
         idle = true;
-        //animation.Play("Idle");
-        //animator.SetBool("Idle", true);
-        //For the timebeing, turn off the player's monkey range
-        //playerScript.monkeyRange.SetActive(false);
-        //if (beginningIdle == true)
-        //{
-            //yield return new WaitForSeconds(Random.Range(6, 12));
-        //}
-        //if (playerScript.tigerActive == true)
-        //{
-        //else
-        //{
             yield return new WaitForSeconds(idleTime);
-        //}
-        //}
-        //else if (playerScript.birdActive == true)
-        //{
-        //monkeyRb.AddForce(Vector3.down * 2, ForceMode.Impulse);
-        //yield return new WaitForSeconds(7);
-        //}
-        //beginningIdle = false;
         idle = false;
-        //if (distance > 21)
-        //{
             chase = true;
-        //}
-        //animator.SetBool("Idle", false);
-        //animator.SetBool("Chase", true);
         slapString = true;
-        //playerScript.monkeyRange.SetActive(true);
-        //Debug.Log("Cooldown finished");
-        //attackString++;
     }
     IEnumerator Glow()
     {
@@ -308,11 +280,11 @@ if (testingStun == false)
         //StartCoroutine(IdleAnimation());
         
         //StartCoroutine(CloseTheDistance());
-        if (attackString1Part1 == true || attackString2Part2 == true)
+        if (attackString1Part1 == true)
         {
             StartCoroutine(PauseSlam());
         }
-        else if (attackString1Part2 == true || attackString2Part1 == true)
+        else if (attackString1Part2 == true)
         {
             transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, 3);
             StartCoroutine(SlamDown());
@@ -322,6 +294,20 @@ if (testingStun == false)
             slamComing = true;
             useSlamAttack = true;
         }
+        else if (attackString2Part1 == true)
+        {
+            transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, 3);
+            StartCoroutine(SlamDown());
+            enemyScript.SetDamage(0);
+            enemyScript.SetForce(30);
+            enemyScript.SetComboFinisher();
+            slamComing = true;
+            useSlamAttack = true;
+        }
+        else if (attackString2Part2 == true)
+        {
+            StartCoroutine(PauseSlam());
+        }
     }
     IEnumerator PauseSlam()
     {
@@ -329,6 +315,7 @@ if (testingStun == false)
         yield return new WaitForSeconds(2f);
         useSlamAttack = true;
         chase = true;
+        animation.Play("Idle");
     }
     IEnumerator CloseTheDistance()
     {
@@ -476,6 +463,8 @@ if (testingStun == false)
             //DMStart();
             desperationMoveOn = true;
             enemyScript.BackKnockBack();
+
+        animation.Play("Idle");
         yield return new WaitForSeconds(6);
         desperationMoveOn = false;
         //Instantiate(DMShockWave, DMShockWave.transform.position, DMShockWave.transform.rotation);

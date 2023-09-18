@@ -194,7 +194,7 @@ if (stunLocked == false)
 
                     if (playerScript.birdActive == true)
                     {
-                        if (distance <= 3.5f)
+                        if (distance <= 3f)
                         {
                             Debug.Log("Reached");
                             animator.SetBool("Dash", false);
@@ -326,7 +326,7 @@ if (stunLocked == false)
     public void Jump()
     {
         //wolfRb.AddForce(Vector3.up * 15, ForceMode.Impulse); //For jumping, may need to modify gravity
-        wolfRb.velocity = Vector3.up * 10;
+        wolfRb.velocity = Vector3.up * 8;
         //wolfRb.velocity = Vector3.fwd * 2;
         isOnGround = false;
         //animator.SetTrigger("Jump");
@@ -351,6 +351,7 @@ if (stunLocked == false)
         //Debug.Log(walkDirection);
         Debug.Log("Direction Chosen");
     }
+    //Completely forgot about run, no wonder the wolf was acting retarded 
     IEnumerator IdleRun()
     {
         idle = true;
