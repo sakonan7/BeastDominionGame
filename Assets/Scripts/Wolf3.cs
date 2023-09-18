@@ -197,6 +197,7 @@ if (stunLocked == false)
                         {
                             Debug.Log("Reached");
                             animator.SetBool("Dash", false);
+                            animator.SetBool("Idle",true);
                             chase = false;
                             StartCoroutine(PauseBeforeJump());
                             if (attackFinished == false)
@@ -277,6 +278,7 @@ if (stunLocked == false)
         attackFinished = true;
         enemyScript.UnsetPlayerDodged();
         enemyScript.ResetKnockbacks();
+        animator.SetBool("Idle", true);
     }
     public void CorkScrew()
     {
@@ -302,7 +304,8 @@ if (stunLocked == false)
     {
         attackRange.SetActive(true);
         StartCoroutine(AttackDuration());
-wolfRb.AddForce(followDirection * (jumpForce/2), ForceMode.Impulse);
+        //wolfRb.AddForce(followDirection * (jumpForce/2), ForceMode.Impulse);
+        animator.SetBool("Idle",false);
         animator.SetTrigger("Bite");
     }
 
@@ -321,7 +324,7 @@ wolfRb.AddForce(followDirection * (jumpForce/2), ForceMode.Impulse);
     public void Jump()
     {
         //wolfRb.AddForce(Vector3.up * 15, ForceMode.Impulse); //For jumping, may need to modify gravity
-        wolfRb.velocity = Vector3.up * 100;
+        wolfRb.velocity = Vector3.up * 10;
         isOnGround = false;
         //animator.SetTrigger("Jump");
         StartCoroutine(LagBeforeAttack());
@@ -349,7 +352,7 @@ wolfRb.AddForce(followDirection * (jumpForce/2), ForceMode.Impulse);
     {
         idle = true;
         //animation.Play("Idle");
-        animator.SetBool("Idle", true);
+        //animator.SetBool("Idle", true);
 
         //For the timebeing, turn off the player's monkey range
         //playerScript.monkeyRange.SetActive(false);
