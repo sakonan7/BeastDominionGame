@@ -188,7 +188,7 @@ if (testingStun == false)
                 idle = false;
                 //chase = true;
                 slamAttackRange.SetActive(true);
-                StartCoroutine(CloseTheDistance());
+                
 
 
                 //transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, 3); //Turned from 5 to 3 for smooth
@@ -258,6 +258,7 @@ if (testingStun == false)
         enemyScript.SetDamage(0);
         enemyScript.SetForce(15);
         enemyScript.BackKnockBack();
+        idleTime = betweenStringsTime; //Thisisfor ifgorilla used D
     }
     IEnumerator SecondHit()
     {
@@ -286,6 +287,7 @@ if (testingStun == false)
         }
         else if (attackString1Part2 == true)
         {
+            //I'm very damn sure I don't close the distance for all slam att
             transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, 3);
             StartCoroutine(SlamDown());
             enemyScript.SetDamage(0);
@@ -312,11 +314,13 @@ if (testingStun == false)
     IEnumerator PauseSlam()
     {
         transform.position = originalPosition;
+        animation.Play("Idle");
         yield return new WaitForSeconds(2f);
         useSlamAttack = true;
         chase = true;
-        animation.Play("Idle");
+        StartCoroutine(CloseTheDistance());
     }
+    //I think this is just the extra charge
     IEnumerator CloseTheDistance()
     {
         //transform.Translate(followDirection * speed * Time.deltaTime);
@@ -382,13 +386,7 @@ if (testingStun == false)
         //armadilloCollide.isTrigger = false;
         attackFinished = false;
         attack = false;
-
-        //if (whichAttack == attackOne)
-        //{
-            //attackRange.transform.localScale -= new Vector3(0.2f, 0, 0.2f);
-        //}
-        //else if (whichAttack == attackTwo)
-        //{
+    
             enemyScript.SetComboFinisher();
         enemyScript.ResetKnockbacks();
         //}
