@@ -27,6 +27,9 @@ public class PlayerController : MonoBehaviour
     //private Collider tigerCollider;
     public GameObject tigerFollow;
     public GameObject birdFollow;
+    public GameObject camFollow;
+    private Vector3 followPosition;
+    private Quaternion followRotation;
     public bool isFlying = false;
     private bool swoopedDown = false;
     [Header("Ground")]
@@ -1395,7 +1398,7 @@ public class PlayerController : MonoBehaviour
         //birdSeparater.SetActive(false);
         cantMove = true;
         rackingUpCombo = false;
-        birdAnimation.Play("Player Idle");
+        birdAnimation.Stop();
         if (lockedOn == false)
         {
             attackDirection = (birdFollow.transform.position - tiger.transform.position).normalized;
@@ -1481,6 +1484,8 @@ public class PlayerController : MonoBehaviour
             //enemyScript.LockOff();
             //camScript.LockOff();
             LockOff();
+            targetedEnemy = null;
+            targetedEnemy = GameObject.FindGameObjectWithTag("Enemy");
             //gameManagerScript.LockOff();
         }
         
@@ -1524,7 +1529,12 @@ public class PlayerController : MonoBehaviour
             //{
             //Debug.Log("Targeted Enemy is null");
             //}
-            //camScript.TurnToTarget(lockedOnLocation);
+            followPosition = new Vector3(targetedEnemy.transform.position.x, 0, targetedEnemy.transform.position.z);
+            followRotation = Quaternion.LookRotation(followPosition - transform.position);
+
+
+            camFollow.transform.rotation = Quaternion.Slerp(transform.rotation, followRotation, 3);
+            camScript.TurnToTarget(camFollow.transform);
             StartCoroutine(TellDistance());
             lockedOn = true;
             //I was going to get rid of this because it looked like this code was for shifting the target
@@ -1541,7 +1551,7 @@ public class PlayerController : MonoBehaviour
     {
         lockedOn = false;
         enemyScript.LockOff();
-        //camScript.LockOff();
+        camScript.LockOff();
     }
     IEnumerator TransformCountdown()
     {

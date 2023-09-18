@@ -168,12 +168,12 @@ public class ThirdPersonCamera : MonoBehaviour
         cinemachineFL.m_LookAt = target;
         //cinemachineFL.
         //StartCoroutine(BackToPlayer());
-        cinemachineFL.m_Orbits[1].m_Height = lockOnRadii;
+        //cinemachineFL.m_Orbits[1].m_Height = lockOnRadii;
     }
     public void LockOff()
     {
         cinemachineFL.m_LookAt = player.transform;
-        cinemachineFL.m_Orbits[1].m_Height = nonLockOnRadii;
+        //cinemachineFL.m_Orbits[1].m_Height = nonLockOnRadii;
     }
     IEnumerator BackToPlayer()
     {
