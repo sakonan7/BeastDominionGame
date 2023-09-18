@@ -94,7 +94,7 @@ public class Wolf3 : MonoBehaviour
         cameraRef = GameObject.Find("Main Camera");
 
         ChooseDirection();
-        StartCoroutine(IdleAnimation());
+        StartCoroutine(IdleRun());
     }
 
     // Update is called once per frame
@@ -320,14 +320,14 @@ if (stunLocked == false)
     IEnumerator PauseBeforeJump()
     {
         wolfRb.velocity = Vector3.zero;
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1f);
         Jump();
     }
     public void Jump()
     {
         //wolfRb.AddForce(Vector3.up * 15, ForceMode.Impulse); //For jumping, may need to modify gravity
         wolfRb.velocity = Vector3.up * 10;
-        wolfRb.velocity = Vector3.fwd * 2;
+        //wolfRb.velocity = Vector3.fwd * 2;
         isOnGround = false;
         //animator.SetTrigger("Jump");
         StartCoroutine(LagBeforeAttack());
@@ -351,14 +351,9 @@ if (stunLocked == false)
         //Debug.Log(walkDirection);
         Debug.Log("Direction Chosen");
     }
-    IEnumerator IdleAnimation()
+    IEnumerator IdleRun()
     {
         idle = true;
-        //animation.Play("Idle");
-        //animator.SetBool("Idle", true);
-
-        //For the timebeing, turn off the player's monkey range
-        //playerScript.monkeyRange.SetActive(false);
         if (beginningIdle == true)
         {
             yield return new WaitForSeconds(Random.Range(6, 12));
@@ -369,20 +364,25 @@ if (stunLocked == false)
         {
             yield return new WaitForSeconds(idleTime);
         }
-        //}
-        //else if (playerScript.birdActive == true)
-        //{
-        //monkeyRb.AddForce(Vector3.down * 2, ForceMode.Impulse);
-        //yield return new WaitForSeconds(7);
-        //}
         beginningIdle = false;
         idle = false;
         chase = true;
-        animator.SetBool("Idle", false);
+        animator.SetBool("Run", false);
         animator.SetBool("Dash", true);
         //playerScript.monkeyRange.SetActive(true);
         Debug.Log("Cooldown finished");
         directionChosen = false;
+    }
+    IEnumerator IdleAnimation()
+    {
+        //idle = true;
+        //animation.Play("Idle");
+        animator.SetBool("Idle", true);
+            yield return new WaitForSeconds(3);
+        animator.SetBool("Idle",false);
+        animator.SetBool("Run", true);
+        StartCoroutine(IdleRun());
+
     }
     //IEnumerator Fall()
     // {
