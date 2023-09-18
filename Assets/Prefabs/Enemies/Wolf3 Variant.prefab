@@ -58,7 +58,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6927161779871151759}
   m_LocalRotation: {x: -0, y: -1, z: -0, w: 0}
-  m_LocalPosition: {x: -0.024, y: 0.33, z: 0.4}
+  m_LocalPosition: {x: -0.024, y: 0.33, z: 0.882}
   m_LocalScale: {x: 0.7, y: 0.8187135, z: 0.8187135}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -305,12 +305,18 @@ MonoBehaviour:
   backAttack: 0
   lockedOn: 0
   dyingEffect: {fileID: 0}
+  attacked: 0
   hitLanded: 0
+  isBird: 0
   isFlying: 0
   giantEnemy: 0
   giantBoss: 0
   revengeValue: 0
+  currentRevengeValue: 0
+  revengeValueCount: 3
   isLingering: 0
+  canHurtFlying: 0
+  guard: 0
   playerDodged: 0
 --- !u!114 &2606613228781497412
 MonoBehaviour:
@@ -331,6 +337,7 @@ MonoBehaviour:
   attackEffect: {fileID: 6533653868717274261}
   wolfAttack: {fileID: 0}
   isOnGround: 0
+  testingStun: 0
 --- !u!65 &3050853824793914433
 BoxCollider:
   m_ObjectHideFlags: 0

@@ -72,7 +72,7 @@ public class Monkey : MonoBehaviour
         monkeyRb = GetComponent<Rigidbody>();
         monkeyAttackReach = GetComponent<Collider>();
 
-        Physics.gravity *= 0.5f;
+        //Physics.gravity *= 0.5f;
         gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
         if (gameManager.difficulty == "Normal")
         {
@@ -163,9 +163,22 @@ if (stunLocked == false)
                         //animator.SetBool("Chase", false);
                         //chase = false;
                         jumpForce = 3;
-                        StartCoroutine(FirstClaw());
+                        //StartCoroutine(FirstClaw());
+                        //Jump();
+                        if (playerScript.tigerActive == true)
+                        {
+                            StartCoroutine(FirstClaw());
+                        }
+                        if (playerScript.birdActive==true)
+                        {
+                            StartCoroutine(PauseBeforeJump());
+                        }
                     }
                 }
+            }
+if(isOnGround== false)
+            {
+                monkeyRb.AddForce(Vector3.down * 10);
             }
             if (attackFinished == true && isOnGround == true)
             {
@@ -202,7 +215,7 @@ if (stunLocked == false)
         //enemyScript.SetAttackEffect(attackEffect); //Doing this for practice for when I have enemies with multiple attacks
         //Necessary because there's enough time for the Monkey to repeat an attack on the bird
         //May not be necessary after my edit to the collider
-        enemyScript.SetAttackDirection(followDirection);
+        //enemyScript.SetAttackDirection(followDirection);
         enemyScript.SetForce(0);
         //lookRotation = Quaternion.LookRotation(player.transform.position - transform.position);
         //monkeyRb.AddForce(followDirection * speed);
@@ -217,18 +230,19 @@ if (stunLocked == false)
                 monkeyRb.AddForce(followDirection * jumpForce, ForceMode.Impulse);
                 monkeyRb.AddForce(Vector3.up * 2, ForceMode.Impulse); //For jumping, may need to modify gravity
                                                                       //attackCount++;
-            }
+            animator.SetTrigger("Slash 1");
+        }
             else if (playerScript.birdActive == true)
             {
-                //followDirection = (bird.transform.position - transform.position).normalized;
-                //monkeyRb.AddForce(followDirection, ForceMode.Impulse);
-                monkeyRb.AddForce(Vector3.up * 5, ForceMode.Impulse); //For jumping, may need to modify gravity
-                
-            }
+            //followDirection = (bird.transform.position - transform.position).normalized;
+            //monkeyRb.AddForce(followDirection, ForceMode.Impulse);
+            //monkeyRb.AddForce(Vector3.up * 5, ForceMode.Impulse); //For jumping, may need to modify gravity
+            animator.SetTrigger("Air Slash");
+        }
         //If that doesn't work, put an if (dodge == false
 
         //animation.Play("Attack");
-        animator.SetTrigger("Slash 1");
+        
         isOnGround = false; //Will always have this happen, because both attacks make the Monkey jump
         //}
         //if (enemyScript.hitLanded == true)
@@ -253,6 +267,8 @@ if (stunLocked == false)
         {
             attackFinished = true; //IdleAnimation() is not played here because it plays in Update when the Monkey has returned to the 
             //playerStunned = false; //Because a second atack will not be made on the bird
+            animator.SetTrigger("Jump");
+            //animator.SetBool("Idle",true);
         }
 
         enemyScript.ResetHitLanded();
@@ -299,7 +315,7 @@ if (stunLocked == false)
         enemyScript.SetComboFinisher();
 
         //hitLanded = false;
-        //Debug.Log("Second Hit");
+        Debug.Log("Second Hit");
         //Debug.Log("Combo Finisher is " + enemyScript.comboFinisher);
         playOnce = true;
         enemyScript.UnsetPlayerDodged();
@@ -313,13 +329,16 @@ if (stunLocked == false)
     //Needed because the forward movement from the force causes the monkey to jump in an arc instead of upwards as intended
     IEnumerator PauseBeforeJump()
     {
+        monkeyRb.velocity = Vector3.zero;
         yield return new WaitForSeconds(0.5f);
         Jump();
     }
     public void Jump()
     {
-        monkeyRb.AddForce(Vector3.up * 9, ForceMode.Impulse); //For jumping, may need to modify gravity
+        monkeyRb.AddForce(Vector3.up * 48, ForceMode.Impulse); //For jumping, may need to modify gravity
+        //monkeyRb.velocity = Vector3.up * 1000;
         isOnGround = false;
+        animator.SetTrigger("Jump");
         StartCoroutine(LagBeforeAttack());
         //Will rely on colliders for isOnGround = true;
     }
@@ -328,7 +347,9 @@ if (stunLocked == false)
     {
         yield return new WaitForSeconds(1f);
         //StartCoroutine(AirSlash());
-        attack = false;
+        //attack = false;
+        jumpForce = 0;
+        StartCoroutine(FirstClaw());
         Debug.Log("Start Air Attack");
     }
     IEnumerator IdleAnimation()

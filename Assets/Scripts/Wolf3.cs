@@ -171,23 +171,50 @@ if (stunLocked == false)
                     distance = Vector3.Distance(player.transform.position, transform.position);
                     wolfRb.AddForce(followDirection * speed);
                     transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, 3);
-                    if (distance <= 4)
-                    {
-                        Debug.Log("Reached");
-                        animator.SetBool("Dash", false);
-                        chase = false;
+
                         //jumpForce = 3;
-                        CorkScrew();
+                        //CorkScrew();
                         //StartCoroutine(AttackDuration());
-                        if (attackFinished == false)
+
+                    if (playerScript.tigerActive == true)
+                    {
+                        if (distance <= 4)
                         {
-                            attackFinished = true;
+                            Debug.Log("Reached");
+                            animator.SetBool("Dash", false);
+                            chase = false;
+                            CorkScrew();
+                            if (attackFinished == false)
+                            {
+                                attackFinished = true;
+                            }
                         }
                     }
+
+                    if (playerScript.birdActive == true)
+                    {
+                        if (distance <= 1.8f)
+                        {
+                            Debug.Log("Reached");
+                            animator.SetBool("Dash", false);
+                            chase = false;
+                            StartCoroutine(PauseBeforeJump());
+                            if (attackFinished == false)
+                            {
+                                attackFinished = true;
+                            }
+                        }
+                    }
+                        
+                    
                 }
             }
+            if (isOnGround == false)
+            {
+                wolfRb.AddForce(Vector3.down * 5);
+            }
             // && isOnGround == true
-            if (attackFinished == true)
+            if (attackFinished == true && isOnGround == true)
             {
                 attackFinished = false;
                 idleTime = usualIdleTime;
@@ -216,7 +243,7 @@ if (stunLocked == false)
     IEnumerator AttackDuration()
     {
         //animation.Play("Wolf Corkscrew");
-        animator.SetBool("Ground Attack", true);
+        
         //animator.speed = 3;
         //wolfRb.AddForce(followDirection * jumpForce, ForceMode.Impulse);
         //attackRecoil = (transform.position - playerPosition).normalized;
@@ -239,7 +266,7 @@ if (stunLocked == false)
         }
         enemyScript.BackKnockBack();
         yield return new WaitForSeconds(0.4f);
-        animator.SetBool("Ground Attack", false);
+        //animator.SetBool("Ground Attack", false);
         attack = false;
         //attackCounter = 0;
         //attackAura.SetActive(false);
@@ -266,9 +293,17 @@ if (stunLocked == false)
             //attackAura.SetActive(true);
             attackRange.SetActive(true);
             StartCoroutine(AttackDuration());
-            //attackCounter = 1;
-            //Debug.Log("Attack repeated for some rea");
-            //animator.SetBool("Ground Attack", false);
+        //attackCounter = 1;
+        //Debug.Log("Attack repeated for some rea");
+        //animator.SetBool("Ground Attack", false);
+        animator.SetTrigger("CorkScrew");
+    }
+    public void AirBite()
+    {
+        attackRange.SetActive(true);
+        StartCoroutine(AttackDuration());
+wolfRb.AddForce(followDirection * (jumpForce/2), ForceMode.Impulse);
+        animator.SetTrigger("Bite");
     }
 
     //public void PlayAttackEffect()
@@ -279,13 +314,16 @@ if (stunLocked == false)
     //Needed because the forward movement from the force causes the monkey to jump in an arc instead of upwards as intended
     IEnumerator PauseBeforeJump()
     {
+        wolfRb.velocity = Vector3.zero;
         yield return new WaitForSeconds(0.5f);
         Jump();
     }
     public void Jump()
     {
-        //monkeyRb.AddForce(Vector3.up * 9, ForceMode.Impulse); //For jumping, may need to modify gravity
+        wolfRb.AddForce(Vector3.up * 10, ForceMode.Impulse); //For jumping, may need to modify gravity
+        //monkeyRb.velocity = Vector3.up * 1000;
         isOnGround = false;
+        //animator.SetTrigger("Jump");
         StartCoroutine(LagBeforeAttack());
         //Will rely on colliders for isOnGround = true;
     }
@@ -294,7 +332,9 @@ if (stunLocked == false)
     {
         yield return new WaitForSeconds(1f);
         //StartCoroutine(AirSlash());
-        attack = false;
+        //attack = false;
+       
+        AirBite();
         Debug.Log("Start Air Attack");
     }
     public void ChooseDirection()

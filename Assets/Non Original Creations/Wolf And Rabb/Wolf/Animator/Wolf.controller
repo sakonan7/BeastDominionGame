@@ -111,7 +111,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 1
-    m_ConditionEvent: Ground Attack
+    m_ConditionEvent: Cork Screw
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -3173659434406142173}
@@ -144,10 +144,10 @@ AnimatorStateMachine:
     m_Position: {x: 500, y: 300, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -1601085278322860630}
-    m_Position: {x: 100, y: 220, z: 0}
+    m_Position: {x: 130, y: 210, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -3173659434406142173}
-    m_Position: {x: 70, y: 330, z: 0}
+    m_Position: {x: -160, y: 330, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1945855681806350317}
     m_Position: {x: 290, y: 370, z: 0}
@@ -156,7 +156,7 @@ AnimatorStateMachine:
     m_Position: {x: -150, y: 210, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 8014573192299197075}
-    m_Position: {x: -80, y: 440, z: 0}
+    m_Position: {x: -10, y: 510, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions: []
   m_EntryTransitions: []
@@ -398,6 +398,18 @@ AnimatorController:
     m_DefaultInt: 0
     m_DefaultBool: 0
     m_Controller: {fileID: 0}
+  - m_Name: Bite
+    m_Type: 9
+    m_DefaultFloat: 0
+    m_DefaultInt: 0
+    m_DefaultBool: 0
+    m_Controller: {fileID: 0}
+  - m_Name: Cork Screw
+    m_Type: 9
+    m_DefaultFloat: 0
+    m_DefaultInt: 0
+    m_DefaultBool: 0
+    m_Controller: {fileID: 0}
   m_AnimatorLayers:
   - serializedVersion: 5
     m_Name: Waiting to Ground Att
@@ -420,7 +432,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 1
-    m_ConditionEvent: Air Attack
+    m_ConditionEvent: Bite
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 8014573192299197075}

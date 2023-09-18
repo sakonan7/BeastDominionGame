@@ -602,7 +602,7 @@ public class PlayerController : MonoBehaviour
         //Almost forgot to add tigerActive because I don't want the blur for the bird
         if (attack == true && tigerActive == true)
         {
-            attackEffect = true;
+            //attackEffect = true;
         }
         else
         {
