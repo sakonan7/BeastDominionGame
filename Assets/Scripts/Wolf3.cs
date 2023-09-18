@@ -20,7 +20,7 @@ public class Wolf3 : MonoBehaviour
     private Vector3 followDirection;
     private Vector3 attackDirection;
     private Quaternion lookRotation;
-    private float jumpForce = 70; //Slight jump before attack
+    private float jumpForce = 80; //Slight jump before attack
     private float attackForce = 1; //May remove attackForce because Monkey doesn't knock chaarcter back a
     private bool attack = false;
     private bool beginningIdle = true;
@@ -193,7 +193,7 @@ if (stunLocked == false)
 
                     if (playerScript.birdActive == true)
                     {
-                        if (distance <= 1.8f)
+                        if (distance <= 3f)
                         {
                             Debug.Log("Reached");
                             animator.SetBool("Dash", false);
@@ -315,13 +315,13 @@ wolfRb.AddForce(followDirection * (jumpForce/2), ForceMode.Impulse);
     IEnumerator PauseBeforeJump()
     {
         wolfRb.velocity = Vector3.zero;
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(1f);
         Jump();
     }
     public void Jump()
     {
-        wolfRb.AddForce(Vector3.up * 10, ForceMode.Impulse); //For jumping, may need to modify gravity
-        //monkeyRb.velocity = Vector3.up * 1000;
+        //wolfRb.AddForce(Vector3.up * 15, ForceMode.Impulse); //For jumping, may need to modify gravity
+        wolfRb.velocity = Vector3.up * 100;
         isOnGround = false;
         //animator.SetTrigger("Jump");
         StartCoroutine(LagBeforeAttack());

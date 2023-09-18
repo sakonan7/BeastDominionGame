@@ -330,7 +330,7 @@ if(isOnGround== false)
     IEnumerator PauseBeforeJump()
     {
         monkeyRb.velocity = Vector3.zero;
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(1f);
         Jump();
     }
     public void Jump()
