@@ -1307,6 +1307,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1297755657}
     - target: {fileID: 1550653510, guid: cc5d1e7149cb79549b8d52ad54f5c8e3, type: 3}
+      propertyPath: camRotater
+      value: 
+      objectReference: {fileID: 4010593549892150241}
+    - target: {fileID: 1550653510, guid: cc5d1e7149cb79549b8d52ad54f5c8e3, type: 3}
       propertyPath: comboCounter
       value: 
       objectReference: {fileID: 510421706}
@@ -1426,6 +1430,11 @@ PrefabInstance:
 --- !u!4 &4010593549892150240 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1799832250095017728, guid: cc5d1e7149cb79549b8d52ad54f5c8e3, type: 3}
+  m_PrefabInstance: {fileID: 4010593549892150239}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &4010593549892150241 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3677292405587160267, guid: cc5d1e7149cb79549b8d52ad54f5c8e3, type: 3}
   m_PrefabInstance: {fileID: 4010593549892150239}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7477383511868025903

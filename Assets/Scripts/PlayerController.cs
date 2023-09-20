@@ -28,6 +28,7 @@ public class PlayerController : MonoBehaviour
     public GameObject tigerFollow;
     public GameObject birdFollow;
     public GameObject camFollow;
+    public GameObject camRotater;
     private Vector3 followPosition;
     private Quaternion followRotation;
     public bool isFlying = false;
@@ -655,7 +656,11 @@ public class PlayerController : MonoBehaviour
                 //Test to see if using a method will only place the method once. I don't think so, so try it in the lockedon meth
                 distance = Vector3.Distance(targetedEnemy.transform.position, transform.position);
                 //Calculating attackdirection AND attackrotation here tosee if it solves the first attack prob
+                followPosition = new Vector3(targetedEnemy.transform.position.x, 0, targetedEnemy.transform.position.z);
+                followRotation = Quaternion.LookRotation(followPosition - transform.position);
 
+
+                camRotater.transform.rotation = Quaternion.Slerp(transform.rotation, followRotation, 3);
 
             }
             //I may want to change this because I can trigger an error by trying to access enemyScript when targetEnemy has been killed
@@ -1533,7 +1538,7 @@ public class PlayerController : MonoBehaviour
             followRotation = Quaternion.LookRotation(followPosition - transform.position);
 
 
-            camFollow.transform.rotation = Quaternion.Slerp(transform.rotation, followRotation, 3);
+            camRotater.transform.rotation = Quaternion.Slerp(transform.rotation, followRotation, 3);
             camScript.TurnToTarget(camFollow.transform);
             StartCoroutine(TellDistance());
             lockedOn = true;

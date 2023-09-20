@@ -446,7 +446,7 @@ MonoBehaviour:
   attackEffect: {fileID: 6533653868717274261}
   wolfAttack: {fileID: 0}
   isOnGround: 0
-  testingStun: 0
+  testingStun: 1
 --- !u!65 &3050853824793914433
 BoxCollider:
   m_ObjectHideFlags: 0
