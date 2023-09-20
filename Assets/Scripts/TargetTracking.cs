@@ -7,10 +7,10 @@ public class TargetTracking : MonoBehaviour
     // Start is called before the first frame update
     private bool gotTarget = false;
     private Vector3 targetPosition;
-    public Camera mainCam;
+    private Camera mainCam;
     void Start()
     {
-        
+        mainCam = Camera.main;
     }
 
     // Update is called once per frame
@@ -18,7 +18,7 @@ public class TargetTracking : MonoBehaviour
     {
         if (gotTarget == true)
         {
-            transform.position = mainCam.ScreenToWorldPoint(targetPosition);
+            transform.position = mainCam.WorldToScreenPoint(targetPosition);
         }
     }
     public void Target(Vector3 newTarget)
