@@ -110,7 +110,7 @@ public class Enemy : MonoBehaviour
             //Debug.Log("HP Bar Out");
             //I guess I guess I need to do this code in here. I guess it's like the code with Target.
             target = GameObject.Find("Target");
-            targetReticule.SetActive(true);
+            //targetReticule.SetActive(true);
             gameObject.tag = "Targeted Enemy";
             HPBarHolder.SetActive(true);
             //HPBar.transform.position = new Vector3(target.transform.position.x, target.transform.position.y + 2.5f, target.transform.position.z);
@@ -119,7 +119,7 @@ public class Enemy : MonoBehaviour
         else if (lockedOn == false)
         { 
             HPBarHolder.SetActive(false);
-            targetReticule.SetActive(false);
+            //targetReticule.SetActive(false);
             gameObject.tag = "Enemy";
         }
         HPBarHolder.transform.rotation = camera.transform.rotation;

@@ -1543,7 +1543,7 @@ public class PlayerController : MonoBehaviour
             camRotater.transform.rotation = Quaternion.Slerp(transform.rotation, followRotation, 3);
             camScript.TurnToTarget(camFollow.transform);
             StartCoroutine(TellDistance());
-            targetScript.Target(targetedEnemy.transform.position);
+            targetScript.Target(lockedOnLocation.position);
             lockedOn = true;
             //I was going to get rid of this because it looked like this code was for shifting the target
             //But it's actually if the lockOn function isn't even on

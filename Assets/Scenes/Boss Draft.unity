@@ -356,11 +356,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3093959637342806294, guid: 5230bab3687158a4e8a33d584068b91d, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.0000048283428
+      value: 0.000004811137
       objectReference: {fileID: 0}
     - target: {fileID: 3093959637342806294, guid: 5230bab3687158a4e8a33d584068b91d, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.000000043274667
+      value: -0.00000004312068
       objectReference: {fileID: 0}
     - target: {fileID: 3322581656046782034, guid: 5230bab3687158a4e8a33d584068b91d, type: 3}
       propertyPath: m_LocalPosition.y
@@ -651,6 +651,14 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1756891565}
     - target: {fileID: 8123722900266441927, guid: 60ec10cfb6f3d844b8ff5decbda68e88, type: 3}
+      propertyPath: bossStage
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8123722900266441927, guid: 60ec10cfb6f3d844b8ff5decbda68e88, type: 3}
+      propertyPath: healItems
+      value: 
+      objectReference: {fileID: 375168184}
+    - target: {fileID: 8123722900266441927, guid: 60ec10cfb6f3d844b8ff5decbda68e88, type: 3}
       propertyPath: startMenu
       value: 
       objectReference: {fileID: 88682163}
@@ -666,6 +674,10 @@ PrefabInstance:
       propertyPath: cutsceneCam
       value: 
       objectReference: {fileID: 2109806398}
+    - target: {fileID: 8123722900266441927, guid: 60ec10cfb6f3d844b8ff5decbda68e88, type: 3}
+      propertyPath: tutorialStage
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8123722900266441927, guid: 60ec10cfb6f3d844b8ff5decbda68e88, type: 3}
       propertyPath: continueMessage
       value: 
@@ -3603,6 +3615,14 @@ PrefabInstance:
     - target: {fileID: 2107135203035921069, guid: 3a8f1ee32ea388b4a97542929cd3f394, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2290884204661513820, guid: 3a8f1ee32ea388b4a97542929cd3f394, type: 3}
+      propertyPath: testingStun
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2843729704006102437, guid: 3a8f1ee32ea388b4a97542929cd3f394, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.58
       objectReference: {fileID: 0}
     - target: {fileID: 6760538355382761154, guid: 3a8f1ee32ea388b4a97542929cd3f394, type: 3}
       propertyPath: m_Name

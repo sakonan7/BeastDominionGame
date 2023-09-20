@@ -18,7 +18,7 @@ public class TargetTracking : MonoBehaviour
     {
         if (gotTarget == true)
         {
-            transform.position = mainCam.WorldToScreenPoint(targetPosition + new Vector3(0,3,0));
+            transform.position = mainCam.WorldToScreenPoint(targetPosition + new Vector3(0,1,0));
         }
     }
     public void Target(Vector3 newTarget)
