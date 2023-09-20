@@ -49,6 +49,7 @@ public class GameManager : MonoBehaviour
     public GameObject battleCommands2Object;
     public GameObject currentForm;
     public GameObject HPDisplay;
+    public GameObject healItems;
     public TextMeshProUGUI congratulationsMessage;
     public TextMeshProUGUI gameOverMessage;
 
@@ -323,6 +324,7 @@ public class GameManager : MonoBehaviour
         battleCommands2Object.SetActive(true);
         HPDisplay.SetActive(true);
         currentForm.SetActive(true);
+        healItems.SetActive(true);
 }
     public void UIDisappear()
     {
@@ -330,6 +332,7 @@ public class GameManager : MonoBehaviour
         battleCommands2Object.SetActive(false);
         HPDisplay.SetActive(false);
         currentForm.SetActive(false);
+        healItems.SetActive(false);
     }
 
     //Turn this into Start Level and load the appropriatecutscene

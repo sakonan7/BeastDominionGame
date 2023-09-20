@@ -189,7 +189,7 @@ public class PlayerController : MonoBehaviour
     private int damageForDisplay; //Proxy variable just for displaying damage taken
     public GameObject healingItemDisplay;
     public TextMeshProUGUI healingItemNumber;
-    public static int numberOfItems = 5;
+    public static int numberOfItems = 0;
     //RectTransform newTargetRect;
     //public GameObject newTarget;
     public GameObject comboCounterHolder;
@@ -909,7 +909,8 @@ public class PlayerController : MonoBehaviour
     {
         if (HP < 10 && HP > 0)
         {
-            HPBar.fillAmount = maxHPBarFill * (HP / originalHP);
+            //HPBar.fillAmount = maxHPBarFill * (HP / originalHP);
+            HPBar.fillAmount = (maxHPBarFill / originalHP) * HP;
         }
         else if (HP <= 0)
         {
