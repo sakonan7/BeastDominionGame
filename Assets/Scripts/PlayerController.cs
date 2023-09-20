@@ -133,6 +133,7 @@ public class PlayerController : MonoBehaviour
     private Quaternion originalRotation;
 
     public GameObject target;
+    private TargetTracking targetScript;
     private GameObject targetedEnemy;
     private Vector3 currentEnemyPosition;
     private Enemy enemyScript;
@@ -263,7 +264,7 @@ public class PlayerController : MonoBehaviour
         originalColor = blackoutLight.color;
         //SpecialOn();
 
-        
+        targetScript = target.GetComponent<TargetTracking>();
     }
 
     // Update is called once per frame
@@ -645,7 +646,7 @@ public class PlayerController : MonoBehaviour
                 //And to have the new target appear over the targeted foe
                 //newTargetRect = newTarget.GetComponent<RectTransform>();
                 //newTargetRect.localPosition = new Vector2(target.transform.position.x, target.transform.position.y);
-                //target.SetActive(true);
+                target.SetActive(true);
                 //Code to make lockedOn symbol face camera
                 //The original simple LookAt(cameraRef.transform) didn't work because it showed the clear backside of the plane/quad instead
                 //target.transform.LookAt(target.transform.position - (cameraRef.transform.position - target.transform.position));
@@ -1541,6 +1542,7 @@ public class PlayerController : MonoBehaviour
             camRotater.transform.rotation = Quaternion.Slerp(transform.rotation, followRotation, 3);
             camScript.TurnToTarget(camFollow.transform);
             StartCoroutine(TellDistance());
+            targetScript.Target(targetedEnemy.transform.position);
             lockedOn = true;
             //I was going to get rid of this because it looked like this code was for shifting the target
             //But it's actually if the lockOn function isn't even on
@@ -1557,6 +1559,7 @@ public class PlayerController : MonoBehaviour
         lockedOn = false;
         enemyScript.LockOff();
         camScript.LockOff();
+        target.SetActive(false);
     }
     IEnumerator TransformCountdown()
     {

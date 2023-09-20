@@ -3033,7 +3033,7 @@ Transform:
   - {fileID: 8972114346742877420}
   - {fileID: 9136950599447813547}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1550653510
 MonoBehaviour:
@@ -3058,6 +3058,7 @@ MonoBehaviour:
   tigerFollow: {fileID: 7627827021783271308}
   birdFollow: {fileID: 2570505133623283110}
   camFollow: {fileID: 78005227907104284}
+  camRotater: {fileID: 3677292405587160267}
   isFlying: 0
   playerHeight: 1
   whatIsGround:
@@ -3088,7 +3089,7 @@ MonoBehaviour:
   cantMove: 1
   cantTransform: 0
   stunnedInvincibility: 0
-  target: {fileID: 8914123929791036340}
+  target: {fileID: 0}
   lockedOn: 0
   focalPoint: {fileID: 582904148}
   attackDirection: {x: 0, y: 0, z: 0}
