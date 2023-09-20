@@ -656,7 +656,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 73.20001, y: 73}
+  m_AnchoredPosition: {x: 73.20001, y: -6}
   m_SizeDelta: {x: 120, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1810467251828931685
@@ -5239,6 +5239,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: New Target
       objectReference: {fileID: 0}
+    - target: {fileID: 1357099004261126382, guid: a602d6c02f41618429ceefbc7adabff5, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4632713351421954684, guid: a602d6c02f41618429ceefbc7adabff5, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -5344,10 +5348,31 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 4632713351421954684, guid: a602d6c02f41618429ceefbc7adabff5, type: 3}
       insertIndex: -1
       addedObject: {fileID: 3316980405461703607}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1357099004261126382, guid: a602d6c02f41618429ceefbc7adabff5, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3070178976966102726}
   m_SourcePrefab: {fileID: 100100000, guid: a602d6c02f41618429ceefbc7adabff5, type: 3}
 --- !u!224 &660458143335812002 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4632713351421954684, guid: a602d6c02f41618429ceefbc7adabff5, type: 3}
   m_PrefabInstance: {fileID: 5287471230519902686}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &6608396159351902512 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1357099004261126382, guid: a602d6c02f41618429ceefbc7adabff5, type: 3}
+  m_PrefabInstance: {fileID: 5287471230519902686}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &3070178976966102726
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6608396159351902512}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee9eab5d5f861e04dadca70e713ee88c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mainCam: {fileID: 0}

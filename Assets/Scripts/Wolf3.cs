@@ -58,7 +58,7 @@ public class Wolf3 : MonoBehaviour
     private GameManager gameManager;
     private int HP = 11; //7
     public bool testingStun = true;
-    private bool testingBehaviors = true;
+    private bool testingBehaviors = false;
     private bool moveLeft = false;
     private bool moveRight = true;
     // Start is called before the first frame update
