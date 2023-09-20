@@ -1440,6 +1440,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1399339636106868097, guid: 4f0a326d21919974c803a88238e49d9a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1435607549046941180, guid: 4f0a326d21919974c803a88238e49d9a, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -1459,6 +1463,14 @@ PrefabInstance:
     - target: {fileID: 4660884810244947236, guid: 4f0a326d21919974c803a88238e49d9a, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4699427277000556246, guid: 4f0a326d21919974c803a88238e49d9a, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4699427277000556246, guid: 4f0a326d21919974c803a88238e49d9a, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -119
       objectReference: {fileID: 0}
     - target: {fileID: 4773532658103731901, guid: 4f0a326d21919974c803a88238e49d9a, type: 3}
       propertyPath: m_Pivot.x
@@ -1548,9 +1560,41 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6576919258193042976, guid: 4f0a326d21919974c803a88238e49d9a, type: 3}
+      propertyPath: m_fontSize
+      value: 27
+      objectReference: {fileID: 0}
+    - target: {fileID: 6576919258193042976, guid: 4f0a326d21919974c803a88238e49d9a, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 27
+      objectReference: {fileID: 0}
+    - target: {fileID: 7069023673917624882, guid: 4f0a326d21919974c803a88238e49d9a, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 3.9999876
+      objectReference: {fileID: 0}
+    - target: {fileID: 7069023673917624882, guid: 4f0a326d21919974c803a88238e49d9a, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -69.399994
+      objectReference: {fileID: 0}
     - target: {fileID: 7692759527757037971, guid: 4f0a326d21919974c803a88238e49d9a, type: 3}
       propertyPath: m_Name
       value: Canvas Area 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8690349910421552611, guid: 4f0a326d21919974c803a88238e49d9a, type: 3}
+      propertyPath: m_fontSize
+      value: 55
+      objectReference: {fileID: 0}
+    - target: {fileID: 8690349910421552611, guid: 4f0a326d21919974c803a88238e49d9a, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 55
+      objectReference: {fileID: 0}
+    - target: {fileID: 9200772642573628501, guid: 4f0a326d21919974c803a88238e49d9a, type: 3}
+      propertyPath: m_fontSize
+      value: 27
+      objectReference: {fileID: 0}
+    - target: {fileID: 9200772642573628501, guid: 4f0a326d21919974c803a88238e49d9a, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 27
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
