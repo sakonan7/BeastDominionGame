@@ -46,6 +46,8 @@ public class Monkey : MonoBehaviour
     public bool isOnGround = false;
     private bool attackFinished = false;
     private float distance;
+
+    private float originalYPos;
     
     private bool stunLocked = false;
     private float idleTime;
@@ -95,6 +97,7 @@ public class Monkey : MonoBehaviour
         cameraRef = GameObject.Find("Main Camera");
 
         StartCoroutine(IdleAnimation());
+        originalYPos = transform.position.y;
     }
 
     // Update is called once per frame
@@ -171,6 +174,7 @@ if (stunLocked == false)
                         }
                         if (playerScript.birdActive==true)
                         {
+                            enemyScript.HurtFlying();
                             StartCoroutine(PauseBeforeJump());
                         }
                     }
@@ -269,6 +273,7 @@ if(isOnGround== false)
             //playerStunned = false; //Because a second atack will not be made on the bird
             animator.SetTrigger("Jump");
             //animator.SetBool("Idle",true);
+            enemyScript.HurtFlying();
         }
 
         enemyScript.ResetHitLanded();
@@ -351,6 +356,10 @@ if(isOnGround== false)
         jumpForce = 0;
         StartCoroutine(FirstClaw());
         Debug.Log("Start Air Attack");
+    }
+    public void Grounder()
+    {
+        transform.position = new Vector3(transform.position.x, originalYPos, transform.position.z);
     }
     IEnumerator IdleAnimation()
     {

@@ -53,6 +53,8 @@ public class Wolf3 : MonoBehaviour
     private float usualIdleTime = 9;
     private float damageIdleTime = 6;
 
+    private float originalYPos;
+
     private GameManager gameManager;
     private int HP = 11; //7
     public bool testingStun = true;
@@ -95,6 +97,8 @@ public class Wolf3 : MonoBehaviour
 
         ChooseDirection();
         StartCoroutine(IdleRun());
+
+        originalYPos = transform.position.y;
     }
 
     // Update is called once per frame
@@ -204,6 +208,7 @@ if (stunLocked == false)
                             if (attackFinished == false)
                             {
                                 attackFinished = true;
+                                enemyScript.HurtFlying();
                             }
                         }
                     }
@@ -281,6 +286,10 @@ if (stunLocked == false)
         enemyScript.UnsetPlayerDodged();
         enemyScript.ResetKnockbacks();
         animator.SetBool("Idle", true);
+        if (enemyScript.canHurtFlying== true)
+        {
+            enemyScript.HurtFlying();
+        }
     }
     public void CorkScrew()
     {
@@ -342,6 +351,10 @@ if (stunLocked == false)
        
         AirBite();
         Debug.Log("Start Air Attack");
+    }
+    public void Grounder()
+    {
+        transform.position = new Vector3(transform.position.x, originalYPos, transform.position.z);
     }
     public void ChooseDirection()
     {
