@@ -376,15 +376,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3322581656046782034, guid: 5230bab3687158a4e8a33d584068b91d, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.2651223
+      value: 0.26512226
       objectReference: {fileID: 0}
     - target: {fileID: 3322581656046782034, guid: 5230bab3687158a4e8a33d584068b91d, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.000004784464
+      value: 0.0000047918707
       objectReference: {fileID: 0}
     - target: {fileID: 3322581656046782034, guid: 5230bab3687158a4e8a33d584068b91d, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.00000051857177
+      value: 0.0000005193745
       objectReference: {fileID: 0}
     - target: {fileID: 4932722839982319352, guid: 5230bab3687158a4e8a33d584068b91d, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1074,6 +1074,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1344c3c82d62a2a41a3576d8abb8e3ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &375168183 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6608396159351902512, guid: 4f0a326d21919974c803a88238e49d9a, type: 3}
+  m_PrefabInstance: {fileID: 375168181}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &375168184 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1435607549046941180, guid: 4f0a326d21919974c803a88238e49d9a, type: 3}
@@ -1746,6 +1751,10 @@ PrefabInstance:
       propertyPath: HPBar
       value: 
       objectReference: {fileID: 416720777}
+    - target: {fileID: 1550653510, guid: cc5d1e7149cb79549b8d52ad54f5c8e3, type: 3}
+      propertyPath: target
+      value: 
+      objectReference: {fileID: 375168183}
     - target: {fileID: 1550653510, guid: cc5d1e7149cb79549b8d52ad54f5c8e3, type: 3}
       propertyPath: cameraRef
       value: 
@@ -2880,15 +2889,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2053470553529564302, guid: e588a162c379f89448e87ded4d3f754e, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.08009693
+      value: 0.08009692
       objectReference: {fileID: 0}
     - target: {fileID: 2053470553529564302, guid: e588a162c379f89448e87ded4d3f754e, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.0000047970234
+      value: 0.0000047970225
       objectReference: {fileID: 0}
     - target: {fileID: 2053470553529564302, guid: e588a162c379f89448e87ded4d3f754e, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.0000003854652
+      value: -0.0000003854651
       objectReference: {fileID: 0}
     - target: {fileID: 3276491730271144906, guid: e588a162c379f89448e87ded4d3f754e, type: 3}
       propertyPath: m_RootOrder

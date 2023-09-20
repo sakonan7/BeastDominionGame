@@ -613,6 +613,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1399339636106868097, guid: 4f0a326d21919974c803a88238e49d9a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4773532658103731901, guid: 4f0a326d21919974c803a88238e49d9a, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -1261,6 +1265,7 @@ MonoBehaviour:
   playerObj: {fileID: 425389402}
   player: {fileID: 425389398}
   birdFollow: {fileID: 2128665545}
+  birdLookAt: {fileID: 0}
   orientation: {fileID: 1761490611}
   tiger: {fileID: 425389400}
   bird: {fileID: 425389401}
@@ -1511,6 +1516,10 @@ PrefabInstance:
       propertyPath: HPBar
       value: 
       objectReference: {fileID: 1328938031}
+    - target: {fileID: 1550653510, guid: cc5d1e7149cb79549b8d52ad54f5c8e3, type: 3}
+      propertyPath: target
+      value: 
+      objectReference: {fileID: 1838412223}
     - target: {fileID: 1550653510, guid: cc5d1e7149cb79549b8d52ad54f5c8e3, type: 3}
       propertyPath: cameraRef
       value: 
@@ -2361,6 +2370,7 @@ MonoBehaviour:
   playerObj: {fileID: 0}
   player: {fileID: 0}
   birdFollow: {fileID: 0}
+  birdLookAt: {fileID: 0}
   orientation: {fileID: 0}
   tiger: {fileID: 0}
   bird: {fileID: 0}
@@ -3672,6 +3682,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1838412223 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6608396159351902512, guid: 4f0a326d21919974c803a88238e49d9a, type: 3}
+  m_PrefabInstance: {fileID: 193345698}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1908719853 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4763315867869557583, guid: 4f0a326d21919974c803a88238e49d9a, type: 3}
@@ -4088,6 +4103,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8123722900266441927, guid: 60ec10cfb6f3d844b8ff5decbda68e88, type: 3}
+      propertyPath: healItems
+      value: 
+      objectReference: {fileID: 335747500}
+    - target: {fileID: 8123722900266441927, guid: 60ec10cfb6f3d844b8ff5decbda68e88, type: 3}
       propertyPath: startMenu
       value: 
       objectReference: {fileID: 193345706}
@@ -4115,6 +4134,10 @@ PrefabInstance:
       propertyPath: continueMessage
       value: 
       objectReference: {fileID: 193345702}
+    - target: {fileID: 8123722900266441927, guid: 60ec10cfb6f3d844b8ff5decbda68e88, type: 3}
+      propertyPath: gameOverMessage
+      value: 
+      objectReference: {fileID: 257479493}
     - target: {fileID: 8123722900266441927, guid: 60ec10cfb6f3d844b8ff5decbda68e88, type: 3}
       propertyPath: storyScrollObject
       value: 

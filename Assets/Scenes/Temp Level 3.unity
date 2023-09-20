@@ -988,6 +988,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2119340893}
     - target: {fileID: 1550653510, guid: cc5d1e7149cb79549b8d52ad54f5c8e3, type: 3}
+      propertyPath: target
+      value: 
+      objectReference: {fileID: 7477383511868025905}
+    - target: {fileID: 1550653510, guid: cc5d1e7149cb79549b8d52ad54f5c8e3, type: 3}
       propertyPath: cameraRef
       value: 
       objectReference: {fileID: 1297755657}
@@ -1224,6 +1228,11 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 4236929069017856714, guid: 4f0a326d21919974c803a88238e49d9a, type: 3}
   m_PrefabInstance: {fileID: 7477383511868025903}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &7477383511868025905 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6608396159351902512, guid: 4f0a326d21919974c803a88238e49d9a, type: 3}
+  m_PrefabInstance: {fileID: 7477383511868025903}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &7477383511868025907 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7779728080263000146, guid: 4f0a326d21919974c803a88238e49d9a, type: 3}
@@ -1366,6 +1375,10 @@ PrefabInstance:
       propertyPath: continueMessage
       value: 
       objectReference: {fileID: 857790791}
+    - target: {fileID: 8123722900266441927, guid: 60ec10cfb6f3d844b8ff5decbda68e88, type: 3}
+      propertyPath: gameOverMessage
+      value: 
+      objectReference: {fileID: 672178718}
     - target: {fileID: 8123722900266441927, guid: 60ec10cfb6f3d844b8ff5decbda68e88, type: 3}
       propertyPath: storyScrollObject
       value: 
