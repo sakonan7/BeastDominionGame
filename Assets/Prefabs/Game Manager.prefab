@@ -65,7 +65,7 @@ Transform:
   - {fileID: 5384356388187109961}
   - {fileID: 8469718727530892216}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8123722900266441927
 MonoBehaviour:
@@ -91,6 +91,7 @@ MonoBehaviour:
   - {fileID: 330974086762825383, guid: 865d0b25d99b52c4f8746a495147f8ef, type: 3}
   - {fileID: 2341620562665695593, guid: d4eae6d1c13137146b28658c4bbe5589, type: 3}
   - {fileID: 5022455366244419221, guid: ce4aeb07a4228c841b2b69d48e4f11e6, type: 3}
+  - {fileID: 8609524798227308237, guid: 49848ac79e999ae47b8c6309a6d89632, type: 3}
   difficulty: Normal
   battleStart: 0
   gameEnd: 0
@@ -110,12 +111,13 @@ MonoBehaviour:
   battleCommands2Object: {fileID: 0}
   currentForm: {fileID: 0}
   HPDisplay: {fileID: 0}
+  healItems: {fileID: 0}
   congratulationsMessage: {fileID: 0}
   gameOverMessage: {fileID: 0}
-  tutorialStage: 0
+  tutorialStage: 1
   stage2: 0
   stage3: 0
-  bossStage: 1
+  bossStage: 0
   startGame: 0
   startingCutscene: 0
   enemyJustDefeated: 0
