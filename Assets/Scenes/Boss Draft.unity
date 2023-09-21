@@ -651,10 +651,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1756891565}
     - target: {fileID: 8123722900266441927, guid: 60ec10cfb6f3d844b8ff5decbda68e88, type: 3}
-      propertyPath: bossStage
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8123722900266441927, guid: 60ec10cfb6f3d844b8ff5decbda68e88, type: 3}
       propertyPath: healItems
       value: 
       objectReference: {fileID: 375168184}
@@ -675,9 +671,9 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2109806398}
     - target: {fileID: 8123722900266441927, guid: 60ec10cfb6f3d844b8ff5decbda68e88, type: 3}
-      propertyPath: tutorialStage
-      value: 0
-      objectReference: {fileID: 0}
+      propertyPath: tigerHitEffect
+      value: 
+      objectReference: {fileID: 1836537507}
     - target: {fileID: 8123722900266441927, guid: 60ec10cfb6f3d844b8ff5decbda68e88, type: 3}
       propertyPath: continueMessage
       value: 
@@ -2875,6 +2871,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 319d2fe34a804e245819465c9505ea59, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!198 &1836537507 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 2294693630385392053, guid: cc5d1e7149cb79549b8d52ad54f5c8e3, type: 3}
+  m_PrefabInstance: {fileID: 973799327}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1859939726
 PrefabInstance:
   m_ObjectHideFlags: 0

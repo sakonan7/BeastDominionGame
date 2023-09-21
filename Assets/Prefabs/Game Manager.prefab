@@ -65,7 +65,7 @@ Transform:
   - {fileID: 5384356388187109961}
   - {fileID: 8469718727530892216}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8123722900266441927
 MonoBehaviour:
@@ -89,9 +89,6 @@ MonoBehaviour:
   - {fileID: 1451286458536540049, guid: 7321499689473b44cb30918afb085771, type: 3}
   - {fileID: 710810659962788091, guid: 87afe7059db6f4f4689becf8c02813f6, type: 3}
   - {fileID: 330974086762825383, guid: 865d0b25d99b52c4f8746a495147f8ef, type: 3}
-  - {fileID: 2341620562665695593, guid: d4eae6d1c13137146b28658c4bbe5589, type: 3}
-  - {fileID: 5022455366244419221, guid: ce4aeb07a4228c841b2b69d48e4f11e6, type: 3}
-  - {fileID: 8609524798227308237, guid: 49848ac79e999ae47b8c6309a6d89632, type: 3}
   difficulty: Normal
   battleStart: 0
   gameEnd: 0
@@ -114,15 +111,16 @@ MonoBehaviour:
   healItems: {fileID: 0}
   congratulationsMessage: {fileID: 0}
   gameOverMessage: {fileID: 0}
-  tutorialStage: 1
-  stage2: 0
+  tutorialStage: 0
+  stage2: 1
   stage3: 0
-  bossStage: 0
+  bossStage: 1
   startGame: 0
   startingCutscene: 0
   enemyJustDefeated: 0
   foeStruck: 0
   dyingEffect: {fileID: 8469718727530892217}
+  tigerHitEffect: {fileID: 0}
   specialHitEffect: {fileID: 5960259523185188916}
 --- !u!1001 &7407945344447777823
 PrefabInstance:

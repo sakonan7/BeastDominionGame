@@ -389,26 +389,7 @@ enemyRb.velocity = Vector3.zero;
                 //HPBarScript.HPDecrease(2, originalHP);
                 //Damaged();
                 playerScript.PlayTigerRegularStrike(transform.position);
-                //Vector3 knockbackDirection = (transform.position - tiger.transform.position).normalized;
-                //knockback force is inconsistent. Sometimes it doesn't knockback at all. Sometimes it knocks back too much
-                //It doesn't matter what the value is.
-                //It may not matter because I will have the attack lag minimized
-                //But I don't want the player to whiff attacks, so I think I will make sure the tiger is the right distance from the wolf
-                //Unless I can make a force play until a certain distance is reached
-                //I can't use forcemode.impulse then
-                //Wow, I had to upgrade from 15 to 200 just to push foe back at most a few meters
-                //enemyRb.AddForce(playerScript.attackDirection * 160, ForceMode.Impulse);
-                //enemyRb.velocity = playerScript.attackDirection * 160;
-                //enemyRb.velocity = new Vector3(playerScript.attackDirection.x * 160, 0, playerScript.attackDirection.z * 160);
-
-                //Vector3 consistentVel = new Vector3(enemyRb.velocity.x, 0, enemyRb.velocity.z);
-
-
-                //if (consistentVel.magnitude > 160)
-                //{
-                //Vector3 limitedVel = consistentVel.normalized * 160;
-                //enemyRb.velocity = new Vector3(limitedVel.x, 0, limitedVel.z);
-                //}
+                gameManager.HitByTigerRegular(transform.position);
 
                 playerScript.AttackLandedTrue();
                 //Debug.Log(distance + " " + enemyRb.velocity);

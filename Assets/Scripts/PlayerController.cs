@@ -1328,8 +1328,8 @@ public class PlayerController : MonoBehaviour
     public void PlayTigerRegularStrike(Vector3 strikeArea)
     {
         playerAudio.PlayOneShot(tigerRegularStrike, 0.5f);
-        regularHitEffect.transform.position = new Vector3(strikeArea.x, strikeArea.y + 1, strikeArea.z);
-        regularHitEffect.Play();
+        //regularHitEffect.transform.position = new Vector3(strikeArea.x, strikeArea.y + 1, strikeArea.z);
+        //regularHitEffect.Play();
     }
     public void PlayBirdRegularStrike(Vector3 strikeArea)
     {
