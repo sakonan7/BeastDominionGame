@@ -23,7 +23,7 @@ public class Enemy : MonoBehaviour
     public int originalHP;
     public GameObject HPBarHolder;
     public Image HPBar;
-    public GameObject targetReticule;
+    private GameObject targetReticule;
     private TargetTracking targetScript;
     private float maxHPBarFill;
     private GameObject camera;
@@ -85,7 +85,8 @@ public class Enemy : MonoBehaviour
         //enemyHPBarPosition = GameObject.Find("Enemy HP Bar");
         maxHPBarFill = 1;
         camera = GameObject.Find("Main Camera");
-        targetScript = GameObject.Find("New Target And HP Bar").GetComponent<TargetTracking>();
+        targetReticule = GameObject.Find("New Target And HP Bar");
+        targetScript = targetReticule.GetComponent<TargetTracking>();
     }
 
     // Update is called once per frame
