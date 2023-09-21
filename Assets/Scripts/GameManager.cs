@@ -75,6 +75,7 @@ public class GameManager : MonoBehaviour
     public bool foeStruck = false;
     public ParticleSystem dyingEffect;
     public ParticleSystem tigerHitEffect;
+    public ParticleSystem birdHitEffect;
     public ParticleSystem specialHitEffect;
     // Start is called before the first frame update
     void Start()
@@ -505,6 +506,11 @@ public class GameManager : MonoBehaviour
     {
         //playerScript.PlayTigerSpecialStrike(strikeArea);
         tigerHitEffect.transform.position = new Vector3(strikeArea.x, strikeArea.y + 1, strikeArea.z);
+        tigerHitEffect.Play();
+    }
+    public void PlayBirdRegular(Vector3 strikeArea)
+    {
+        tigerHitEffect.transform.position = new Vector3(strikeArea.x, strikeArea.y - 2, strikeArea.z);
         tigerHitEffect.Play();
     }
     IEnumerator SlowDown()
