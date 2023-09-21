@@ -1544,6 +1544,7 @@ public class PlayerController : MonoBehaviour
             camScript.TurnToTarget(camFollow.transform);
             StartCoroutine(TellDistance());
             targetScript.Target(lockedOnLocation.position);
+            targetScript.SetHP(enemyScript.originalHP, enemyScript.HP);
             lockedOn = true;
             //I was going to get rid of this because it looked like this code was for shifting the target
             //But it's actually if the lockOn function isn't even on

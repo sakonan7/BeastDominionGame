@@ -19,11 +19,12 @@ public class Enemy : MonoBehaviour
     //Could do XemnasHelicopterSlash(), enemyScript.damage = 10; XemnasSparkOrbs(), enemyScript.damage = 5, enemyScript.attribute = thunder
 
     //I need to set Vector3 attackDirection here, because I need it for playerControll
-    private int HP;
-    private float originalHP;
+    public int HP;
+    public int originalHP;
     public GameObject HPBarHolder;
     public Image HPBar;
-    public GameObject targetReticule;
+    private GameObject targetReticule;
+    private TargetTracking targetScript;
     private float maxHPBarFill;
     private GameObject camera;
     public int damage = 0;
@@ -84,6 +85,7 @@ public class Enemy : MonoBehaviour
         //enemyHPBarPosition = GameObject.Find("Enemy HP Bar");
         maxHPBarFill = 1;
         camera = GameObject.Find("Main Camera");
+        targetScript = GameObject.Find("New Target And HP").GetComponent<TargetTracking>();
     }
 
     // Update is called once per frame
@@ -109,21 +111,21 @@ public class Enemy : MonoBehaviour
         {
             //Debug.Log("HP Bar Out");
             //I guess I guess I need to do this code in here. I guess it's like the code with Target.
-            target = GameObject.Find("Target");
+            //target = GameObject.Find("Target");
             //targetReticule.SetActive(true);
-            gameObject.tag = "Targeted Enemy";
-            HPBarHolder.SetActive(true);
+            //gameObject.tag = "Targeted Enemy";
+            //HPBarHolder.SetActive(true);
             //HPBar.transform.position = new Vector3(target.transform.position.x, target.transform.position.y + 2.5f, target.transform.position.z);
             //HPBar.transform.position = new Vector3(0, 100, 0);
         }
         else if (lockedOn == false)
         { 
-            HPBarHolder.SetActive(false);
+            //HPBarHolder.SetActive(false);
             //targetReticule.SetActive(false);
-            gameObject.tag = "Enemy";
+            //gameObject.tag = "Enemy";
         }
-        HPBarHolder.transform.rotation = camera.transform.rotation;
-        targetReticule.transform.rotation = camera.transform.rotation;
+        //HPBarHolder.transform.rotation = camera.transform.rotation;
+        //targetReticule.transform.rotation = camera.transform.rotation;
     }
     public void SetHP(int newHP)
     {
@@ -332,7 +334,11 @@ if (giantEnemy == false &&giantBoss == false)
         StartCoroutine(DamageDisplayDuration(6));
         playerScript.PlayTigerSpecialStrike(transform.position);
 
-        HPBarDecrease(6);
+        //HPBarDecrease(6);
+        if (lockedOn == true)
+        {
+            targetScript.DecreaseHP(HP);
+        }
         if (giantEnemy ==false && giantBoss== false)
         {
 enemyRb.velocity = Vector3.zero;
@@ -417,7 +423,11 @@ enemyRb.velocity = Vector3.zero;
                     StartCoroutine(FoeAttacked(120));
                 }
                 StartCoroutine(DamageDisplayDuration(2));
-                HPBarDecrease(2);
+                //HPBarDecrease(2);
+                if(lockedOn==true)
+                {
+                    targetScript.DecreaseHP(HP);
+                }
             }
         }
         if (other.CompareTag("Bird Attack Range"))

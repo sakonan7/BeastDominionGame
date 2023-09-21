@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
+using UnityEngine.UI;
 
 public class TargetTracking : MonoBehaviour
 {
@@ -8,6 +10,11 @@ public class TargetTracking : MonoBehaviour
     private bool gotTarget = false;
     private Vector3 targetPosition;
     private Camera mainCam;
+    public GameObject HPBarHolder;
+    public Image HPBar;
+    float maxHPBarFill = 1;
+    int enemyOriginalHP;
+    int enemyCurrentHP;
     void Start()
     {
         mainCam = Camera.main;
@@ -18,7 +25,8 @@ public class TargetTracking : MonoBehaviour
     {
         if (gotTarget == true)
         {
-            transform.position = mainCam.WorldToScreenPoint(targetPosition + new Vector3(0,1,0));
+            transform.position = mainCam.WorldToScreenPoint(targetPosition + new Vector3(0,2,0));
+            //DisplayHP();
         }
     }
     public void Target(Vector3 newTarget)
@@ -26,5 +34,22 @@ public class TargetTracking : MonoBehaviour
         //gameObject.SetActive(true);
         gotTarget = true;
         targetPosition = newTarget;
+    }
+    //Decrease and Display the Enemy'sH.
+    public void SetHP(int originalHP, int HP)
+    {
+        //I need to keep setting
+        //I'm thinking that enemyScript will update this with a 
+        enemyOriginalHP = originalHP;
+        enemyCurrentHP = HP;
+        HPBar.fillAmount = (maxHPBarFill / enemyOriginalHP) * enemyCurrentHP;
+    }
+    public void DecreaseHP(int HP)
+    {
+        HPBar.fillAmount = (maxHPBarFill / enemyOriginalHP) * HP;
+    }
+    public void DisplayHP()
+    {
+        
     }
 }
