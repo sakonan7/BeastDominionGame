@@ -328,7 +328,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: 920324f305589a74c9835018c2fdbbef, type: 3}
       propertyPath: m_RootOrder
-      value: 0
+      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: 920324f305589a74c9835018c2fdbbef, type: 3}
       propertyPath: m_LocalScale.x
@@ -449,9 +449,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4077e220b7fbbbd419ab9b7f0d2e55ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  HP: 0
+  originalHP: 0
   HPBarHolder: {fileID: 2461991353210765627}
   HPBar: {fileID: 8157742570311772786}
-  targetReticule: {fileID: 2044411954733882298}
+  targetReticule: {fileID: 0}
   damage: 0
   attackEffect:
   - {fileID: 0}
@@ -830,11 +832,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: daff0023e798dc44da699015a43f2045, type: 3}
---- !u!1 &2044411954733882298 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3381665938218668454, guid: daff0023e798dc44da699015a43f2045, type: 3}
-  m_PrefabInstance: {fileID: 3652738801840048668}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2461991353210765627 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1196799170292239143, guid: daff0023e798dc44da699015a43f2045, type: 3}

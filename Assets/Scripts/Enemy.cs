@@ -23,7 +23,7 @@ public class Enemy : MonoBehaviour
     public int originalHP;
     public GameObject HPBarHolder;
     public Image HPBar;
-    private GameObject targetReticule;
+    public GameObject targetReticule;
     private TargetTracking targetScript;
     private float maxHPBarFill;
     private GameObject camera;
@@ -85,7 +85,7 @@ public class Enemy : MonoBehaviour
         //enemyHPBarPosition = GameObject.Find("Enemy HP Bar");
         maxHPBarFill = 1;
         camera = GameObject.Find("Main Camera");
-        targetScript = GameObject.Find("New Target And HP").GetComponent<TargetTracking>();
+        targetScript = GameObject.Find("New Target And HP Bar").GetComponent<TargetTracking>();
     }
 
     // Update is called once per frame
@@ -113,7 +113,7 @@ public class Enemy : MonoBehaviour
             //I guess I guess I need to do this code in here. I guess it's like the code with Target.
             //target = GameObject.Find("Target");
             //targetReticule.SetActive(true);
-            //gameObject.tag = "Targeted Enemy";
+            gameObject.tag = "Targeted Enemy";
             //HPBarHolder.SetActive(true);
             //HPBar.transform.position = new Vector3(target.transform.position.x, target.transform.position.y + 2.5f, target.transform.position.z);
             //HPBar.transform.position = new Vector3(0, 100, 0);
@@ -122,7 +122,7 @@ public class Enemy : MonoBehaviour
         { 
             //HPBarHolder.SetActive(false);
             //targetReticule.SetActive(false);
-            //gameObject.tag = "Enemy";
+            gameObject.tag = "Enemy";
         }
         //HPBarHolder.transform.rotation = camera.transform.rotation;
         //targetReticule.transform.rotation = camera.transform.rotation;

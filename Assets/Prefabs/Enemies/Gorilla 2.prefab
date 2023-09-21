@@ -5823,7 +5823,7 @@ Transform:
   - {fileID: 5481522980940556542}
   - {fileID: 6155912647162430140}
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!95 &6438085196794994546
 Animator:
@@ -5935,9 +5935,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4077e220b7fbbbd419ab9b7f0d2e55ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  HP: 0
+  originalHP: 0
   HPBarHolder: {fileID: 4404645908839742021}
   HPBar: {fileID: 7943414797514625292}
-  targetReticule: {fileID: 240247543316521156}
+  targetReticule: {fileID: 0}
   damage: 0
   attackEffect:
   - {fileID: 0}
@@ -9745,11 +9747,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: daff0023e798dc44da699015a43f2045, type: 3}
---- !u!1 &240247543316521156 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3381665938218668454, guid: daff0023e798dc44da699015a43f2045, type: 3}
-  m_PrefabInstance: {fileID: 3295386565479854434}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &4404645908839742021 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1196799170292239143, guid: daff0023e798dc44da699015a43f2045, type: 3}

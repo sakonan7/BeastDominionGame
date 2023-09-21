@@ -735,6 +735,83 @@ RectTransform:
   m_AnchoredPosition: {x: 73.20001, y: -4}
   m_SizeDelta: {x: 120, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &1786143805551523881
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8892940726403832023}
+  - component: {fileID: 1745472547433722326}
+  - component: {fileID: 1813125644817110776}
+  m_Layer: 5
+  m_Name: HP Bar Background
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &8892940726403832023
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1786143805551523881}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -0.56}
+  m_LocalScale: {x: 1.7, y: 2.2, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 217911520836494737}
+  m_Father: {fileID: 660458143335812002}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 1.47, y: 1.27}
+  m_SizeDelta: {x: 3, y: 0.5}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &1745472547433722326
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1786143805551523881}
+  m_CullTransparentMesh: 1
+--- !u!114 &1813125644817110776
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1786143805551523881}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.7169812, g: 0.7169812, b: 0.7169812, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
 --- !u!1 &1810467251828931685
 GameObject:
   m_ObjectHideFlags: 0
@@ -2213,6 +2290,82 @@ MonoBehaviour:
   m_EffectColor: {r: 1, g: 1, b: 1, a: 0.50980395}
   m_EffectDistance: {x: 1, y: -1}
   m_UseGraphicAlpha: 1
+--- !u!1 &4161757705655810938
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 217911520836494737}
+  - component: {fileID: 1322955313247497667}
+  - component: {fileID: 2957623827393769390}
+  m_Layer: 5
+  m_Name: HP Bar
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &217911520836494737
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4161757705655810938}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8892940726403832023}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0.002, y: -0.009}
+  m_SizeDelta: {x: 2.89, y: 0.4}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &1322955313247497667
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4161757705655810938}
+  m_CullTransparentMesh: 1
+--- !u!114 &2957623827393769390
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4161757705655810938}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 0, b: 0.1764706, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: 89f3503ab4c3a4a4b8e78755a59b7343, type: 3}
+  m_Type: 3
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 0
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
 --- !u!1 &4194087187325688513
 GameObject:
   m_ObjectHideFlags: 0
@@ -5313,7 +5466,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1357099004261126382, guid: a602d6c02f41618429ceefbc7adabff5, type: 3}
       propertyPath: m_Name
-      value: New Target
+      value: New Target And HP Bar
       objectReference: {fileID: 0}
     - target: {fileID: 1357099004261126382, guid: a602d6c02f41618429ceefbc7adabff5, type: 3}
       propertyPath: m_IsActive
@@ -5357,15 +5510,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4632713351421954684, guid: a602d6c02f41618429ceefbc7adabff5, type: 3}
       propertyPath: m_LocalScale.x
-      value: 24.999996
+      value: 19.999998
       objectReference: {fileID: 0}
     - target: {fileID: 4632713351421954684, guid: a602d6c02f41618429ceefbc7adabff5, type: 3}
       propertyPath: m_LocalScale.y
-      value: 15
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 4632713351421954684, guid: a602d6c02f41618429ceefbc7adabff5, type: 3}
       propertyPath: m_LocalScale.z
-      value: 15
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 4632713351421954684, guid: a602d6c02f41618429ceefbc7adabff5, type: 3}
       propertyPath: m_LocalPosition.x
@@ -5439,6 +5592,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 4632713351421954684, guid: a602d6c02f41618429ceefbc7adabff5, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1473068332310599782}
+    - targetCorrespondingSourceObject: {fileID: 4632713351421954684, guid: a602d6c02f41618429ceefbc7adabff5, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8892940726403832023}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 1357099004261126382, guid: a602d6c02f41618429ceefbc7adabff5, type: 3}
       insertIndex: -1
@@ -5466,3 +5622,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee9eab5d5f861e04dadca70e713ee88c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  HPBarHolder: {fileID: 1786143805551523881}
+  HPBar: {fileID: 2957623827393769390}

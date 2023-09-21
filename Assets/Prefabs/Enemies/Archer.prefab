@@ -526,7 +526,7 @@ Transform:
   - {fileID: 3163339857452515456}
   - {fileID: 1824815689811200034}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 18
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!95 &3149556260125603573
 Animator:
@@ -561,9 +561,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4077e220b7fbbbd419ab9b7f0d2e55ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  HP: 0
+  originalHP: 0
   HPBarHolder: {fileID: 8531241500148067064}
   HPBar: {fileID: 2700419540462895537}
-  targetReticule: {fileID: 5192926560464334969}
+  targetReticule: {fileID: 0}
   damage: 0
   attackEffect:
   - {fileID: 0}
@@ -584,12 +586,18 @@ MonoBehaviour:
   backAttack: 0
   lockedOn: 0
   dyingEffect: {fileID: 0}
+  attacked: 0
   hitLanded: 0
+  isBird: 0
   isFlying: 0
   giantEnemy: 0
   giantBoss: 0
   revengeValue: 0
+  currentRevengeValue: 0
+  revengeValueCount: 3
   isLingering: 0
+  canHurtFlying: 0
+  guard: 0
   playerDodged: 0
 --- !u!114 &5944822372014709403
 MonoBehaviour:
@@ -2365,11 +2373,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &5192926560464334969 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3381665938218668454, guid: daff0023e798dc44da699015a43f2045, type: 3}
-  m_PrefabInstance: {fileID: 7421629203908731359}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &8531241500148067064 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1196799170292239143, guid: daff0023e798dc44da699015a43f2045, type: 3}
