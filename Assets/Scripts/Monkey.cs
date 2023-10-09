@@ -33,8 +33,9 @@ public class Monkey : MonoBehaviour
     public int attack2 = 1;
     public int attack3 = 2;
 
-    public GameObject firstClawSlash;
-    public GameObject secondClawSlash;
+    //public GameObject firstClawSlash;
+    //public GameObject secondClawSlash;
+    public ParticleSystem slashEff;
     public GameObject attackRange;
     public ParticleSystem attackEffect;
     private AudioSource audio;
@@ -214,7 +215,8 @@ if(isOnGround== false)
 
         //May want to do a counter so that an attack doesn't re
         attack = true;
-        firstClawSlash.SetActive(true);
+        //firstClawSlash.SetActive(true);
+        slashEff.Play();
         attackRange.SetActive(true);
         //enemyScript.SetAttackEffect(attackEffect); //Doing this for practice for when I have enemies with multiple attacks
         //Necessary because there's enough time for the Monkey to repeat an attack on the bird
@@ -258,7 +260,6 @@ if(isOnGround== false)
         yield return new WaitForSeconds(1.5f);
         animator.SetBool("Attack 1", false);
         attack = false;
-        firstClawSlash.SetActive(false);
         attackRange.SetActive(false);
         //For simplicity, second claw attack will only happen if player was hit by the first
         if (playerScript.tigerActive == true && enemyScript.hitLanded == true)
@@ -300,7 +301,7 @@ if(isOnGround== false)
         monkeyRb.AddForce(Vector3.up * 5, ForceMode.Impulse); //For jumping, may need to modify gravity
         //animation.Play("Attack");
         animator.SetTrigger("Slash 2");
-        secondClawSlash.SetActive(true);
+        slashEff.Play();
         
         enemyScript.SetComboFinisher();
 
@@ -311,7 +312,6 @@ if(isOnGround== false)
         //StartCoroutine(StartCoolDown());
         attackFinished = true;
         attack = false;
-        secondClawSlash.SetActive(false);
         attackRange.SetActive(false);
         //Debug.Log("Start Cool");
         enemyScript.ResetHitLanded();

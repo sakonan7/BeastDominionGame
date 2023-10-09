@@ -1873,7 +1873,7 @@ Transform:
   - {fileID: 2769592590660055931}
   - {fileID: 1022209153531930428}
   m_Father: {fileID: 0}
-  m_RootOrder: 15
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!65 &710810659962941827
 BoxCollider:
@@ -1980,7 +1980,6 @@ MonoBehaviour:
   originalHP: 0
   HPBarHolder: {fileID: 4259771206558772686}
   HPBar: {fileID: 7494377795073246855}
-  targetReticule: {fileID: 0}
   damage: 0
   attackEffect:
   - {fileID: 0}
@@ -2029,12 +2028,11 @@ MonoBehaviour:
   attack1: 0
   attack2: 1
   attack3: 2
-  firstClawSlash: {fileID: 9016192933078443391}
-  secondClawSlash: {fileID: 7062399739782678793}
-  attackRange: {fileID: 0}
+  slashEff: {fileID: 292213670759626973}
+  attackRange: {fileID: 7003767959790346800}
   attackEffect: {fileID: 6100303133380853439}
   monkeyAttack: {fileID: 8300000, guid: e97724d9542c67f4a974b39ff25ce14d, type: 3}
-  isOnGround: 0
+  isOnGround: 1
   testingStun: 0
 --- !u!82 &6121087227976321278
 AudioSource:
@@ -2420,7 +2418,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &8336243902042672391
 Transform:
   m_ObjectHideFlags: 0
@@ -2455,7 +2453,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1.7997879, z: 1.25}
+  m_Size: {x: 0.79, y: 1.7997879, z: 1.25}
   m_Center: {x: 0, y: -0.39989352, z: 0}
 --- !u!1 &7062399739782678793
 GameObject:
@@ -2693,7 +2691,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7061089234552399066
 Transform:
   m_ObjectHideFlags: 0
@@ -2702,8 +2700,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8528793140003248496}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -0.00000023377, y: -0.00000054762, z: 0.10445}
+  m_LocalScale: {x: 1, y: 1, z: 1.2078445}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 710810659962490085}
@@ -3083,6 +3081,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 710810659962490075}
     m_Modifications:
+    - target: {fileID: 21882256259678721, guid: 4197f64e1ff3a734498acbece0b48cfd, type: 3}
+      propertyPath: looping
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 655267610154409545, guid: 4197f64e1ff3a734498acbece0b48cfd, type: 3}
       propertyPath: looping
       value: 0
@@ -3147,6 +3149,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Monkey Slash
       objectReference: {fileID: 0}
+    - target: {fileID: 5316280135622270868, guid: 4197f64e1ff3a734498acbece0b48cfd, type: 3}
+      propertyPath: looping
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6368661320949711494, guid: 4197f64e1ff3a734498acbece0b48cfd, type: 3}
+      propertyPath: looping
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -3155,6 +3165,11 @@ PrefabInstance:
       addedObject: {fileID: 5436447630135193730}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4197f64e1ff3a734498acbece0b48cfd, type: 3}
+--- !u!198 &292213670759626973 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 655267610154409545, guid: 4197f64e1ff3a734498acbece0b48cfd, type: 3}
+  m_PrefabInstance: {fileID: 944028187337254548}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &4446678001495591753 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3507207584329313757, guid: 4197f64e1ff3a734498acbece0b48cfd, type: 3}
@@ -3301,6 +3316,10 @@ PrefabInstance:
     - target: {fileID: 2051056479196780953, guid: daff0023e798dc44da699015a43f2045, type: 3}
       propertyPath: m_Name
       value: Enemy Canvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 2051056479196780953, guid: daff0023e798dc44da699015a43f2045, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3738430280867599720, guid: daff0023e798dc44da699015a43f2045, type: 3}
       propertyPath: m_PresetInfoIsWorld
@@ -3904,6 +3923,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 4446678001495591753}
     m_Modifications:
+    - target: {fileID: 21882256259678721, guid: 4197f64e1ff3a734498acbece0b48cfd, type: 3}
+      propertyPath: looping
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 655267610154409545, guid: 4197f64e1ff3a734498acbece0b48cfd, type: 3}
       propertyPath: looping
       value: 0
@@ -3967,6 +3990,14 @@ PrefabInstance:
     - target: {fileID: 3598485284377508968, guid: 4197f64e1ff3a734498acbece0b48cfd, type: 3}
       propertyPath: m_Name
       value: Snow slash (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5316280135622270868, guid: 4197f64e1ff3a734498acbece0b48cfd, type: 3}
+      propertyPath: looping
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6368661320949711494, guid: 4197f64e1ff3a734498acbece0b48cfd, type: 3}
+      propertyPath: looping
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

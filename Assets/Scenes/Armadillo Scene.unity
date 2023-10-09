@@ -585,7 +585,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 110878629}
-  m_LocalRotation: {x: -0.076344, y: -0.000000015473066, z: -0.000000007526208, w: 0.9970816}
+  m_LocalRotation: {x: -0.076344, y: 0.000000015473066, z: 0.000000007526208, w: 0.9970816}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1887,6 +1887,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac0b09e7857660247b1477e93731de29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!198 &655535973 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 7662176206059738528, guid: cc5d1e7149cb79549b8d52ad54f5c8e3, type: 3}
+  m_PrefabInstance: {fileID: 425389397}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &694671336 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8176964164125782088, guid: 4f0a326d21919974c803a88238e49d9a, type: 3}
@@ -4088,6 +4093,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 425389399}
     - target: {fileID: 8123722900266441927, guid: 60ec10cfb6f3d844b8ff5decbda68e88, type: 3}
+      propertyPath: stage2
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8123722900266441927, guid: 60ec10cfb6f3d844b8ff5decbda68e88, type: 3}
       propertyPath: barrier
       value: 
       objectReference: {fileID: 425389401}
@@ -4119,6 +4128,14 @@ PrefabInstance:
       propertyPath: cutsceneCam
       value: 
       objectReference: {fileID: 862311418}
+    - target: {fileID: 8123722900266441927, guid: 60ec10cfb6f3d844b8ff5decbda68e88, type: 3}
+      propertyPath: birdHitEffect
+      value: 
+      objectReference: {fileID: 655535973}
+    - target: {fileID: 8123722900266441927, guid: 60ec10cfb6f3d844b8ff5decbda68e88, type: 3}
+      propertyPath: tutorialStage
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8123722900266441927, guid: 60ec10cfb6f3d844b8ff5decbda68e88, type: 3}
       propertyPath: tigerHitEffect
       value: 

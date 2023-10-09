@@ -1334,7 +1334,7 @@ public class PlayerController : MonoBehaviour
     public void PlayBirdRegularStrike(Vector3 strikeArea)
     {
         playerAudio.PlayOneShot(tigerRegularStrike, 0.2f);
-        regularHitEffect.transform.position = new Vector3(strikeArea.x, strikeArea.y - 2, strikeArea.z);
+        //regularHitEffect.transform.position = new Vector3(strikeArea.x, strikeArea.y - 2, strikeArea.z);
         birdHitEffect.Play();
     }
     IEnumerator StrikeLag()
