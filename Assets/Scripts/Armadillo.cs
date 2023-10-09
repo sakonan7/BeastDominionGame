@@ -180,6 +180,12 @@ if (stunLocked == false)
                 StartCoroutine(IdleAnimation());
             }
         }
+        if (enemyScript.hitLanded == true && playOnce == true)
+        {
+            playOnce = false;
+            tunnelingAttackEffect.Play();
+            //audio.PlayOneShot(monkeyAttack, attackVol);
+        }
     }
     //AfterPopUp(), if the Armadillo is attacked while in the air, it's automatically thrown back to grown level, with
     //its separater goneifI used it
@@ -237,6 +243,7 @@ if (stunLocked == false)
         }
         enemyScript.UnsetPlayerDodged();
         enemyScript.ResetKnockbacks();
+        playOnce = true;
     }
 
     IEnumerator IdleAnimation()

@@ -194,16 +194,16 @@ if(isOnGround== false)
         }
 
             //HPBar.transform.LookAt(HPBar.transform.position - (cameraRef.transform.position - HPBar.transform.position));
-
-    }
-    private void LateUpdate()
-    {
         if (enemyScript.hitLanded == true && playOnce == true)
         {
             playOnce = false;
             attackEffect.Play();
             audio.PlayOneShot(monkeyAttack, attackVol);
         }
+    }
+    private void LateUpdate()
+    {
+
     }
     //Change code. Monkey will start by running at the character and then within range, attack. Afterwards, the monkey will wait 4 seconds
     //Before attacking again

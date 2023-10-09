@@ -257,7 +257,7 @@ public class PlayerController : MonoBehaviour
         gameManagerScript = GameObject.Find("Game Manager").GetComponent<GameManager>();
 
         //ballRB = ball.GetComponent<Rigidbody>();
-        staffLight = GameObject.Find("Staff").GetComponent<Light>();
+        staffLight = GameObject.Find("NewStaff").GetComponent<Light>();
         damageDisplay.color = new Color(1, 1, 1, 1);
         comboCounter.text = "x " + hitNumber;
         healingItemNumber.text = "X " + numberOfItems;
