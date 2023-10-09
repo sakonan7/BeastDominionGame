@@ -35,6 +35,7 @@ public class Armadillo : MonoBehaviour
     public int attack3 = 2;
 
     public GameObject attackRange;
+    //For regular attack, I'm thinking of a thwacking 
     public ParticleSystem tunnelingAttackEffect;
     public ParticleSystem tunneling;
     public GameObject separater;
@@ -54,7 +55,7 @@ public class Armadillo : MonoBehaviour
     private int attackOne = 0;
     private int attackTwo = 1;
     private bool isTunneled = false;
-    private bool stunLocked = true;
+    private bool stunLocked = false;
     private float idleTime;
     private float usualIdleTime = 9;
     private float damageIdleTime = 6;

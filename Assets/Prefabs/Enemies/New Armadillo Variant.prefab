@@ -583,8 +583,12 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5750750503224304236, guid: fe2f63ff8bdf346488f2e26be1a97218, type: 3}
+      propertyPath: SizeModule.curve.scalar
+      value: 0.375
+      objectReference: {fileID: 0}
+    - target: {fileID: 5750750503224304236, guid: fe2f63ff8bdf346488f2e26be1a97218, type: 3}
       propertyPath: InitialModule.startSize.scalar
-      value: 2
+      value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: 9205079365397710025, guid: fe2f63ff8bdf346488f2e26be1a97218, type: 3}
       propertyPath: m_RootOrder
