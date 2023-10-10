@@ -579,16 +579,20 @@ PrefabInstance:
       value: Temporary Enemy Hit Eff
       objectReference: {fileID: 0}
     - target: {fileID: 5750750503224304236, guid: fe2f63ff8bdf346488f2e26be1a97218, type: 3}
+      propertyPath: lengthInSec
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5750750503224304236, guid: fe2f63ff8bdf346488f2e26be1a97218, type: 3}
       propertyPath: playOnAwake
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5750750503224304236, guid: fe2f63ff8bdf346488f2e26be1a97218, type: 3}
       propertyPath: SizeModule.curve.scalar
-      value: 0.375
+      value: 0.8
       objectReference: {fileID: 0}
     - target: {fileID: 5750750503224304236, guid: fe2f63ff8bdf346488f2e26be1a97218, type: 3}
       propertyPath: InitialModule.startSize.scalar
-      value: 0.4
+      value: 0.8
       objectReference: {fileID: 0}
     - target: {fileID: 9205079365397710025, guid: fe2f63ff8bdf346488f2e26be1a97218, type: 3}
       propertyPath: m_RootOrder
