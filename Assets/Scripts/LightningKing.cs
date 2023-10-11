@@ -36,6 +36,7 @@ public class Lightningking : MonoBehaviour
     public GameObject secondClawSlash;
     public GameObject attackRange;
     public ParticleSystem attackEffect;
+    public ParticleSystem rightSlash;
     private AudioSource audio;
     public AudioClip monkeyAttack;
     private float attackVol;
@@ -48,7 +49,7 @@ public class Lightningking : MonoBehaviour
 
     private bool stunned = false; //Freeze Monkey when i don't want it to move and when the Monkey is being stunlocked by att
     private bool stunLocked = false;
-    private float idleTime = 2;
+    private float idleTime = 4;
     private float usualIdleTime = 9;
     private float damageIdleTime = 6;
 
@@ -125,6 +126,7 @@ public class Lightningking : MonoBehaviour
             {
                 if (idle== false && revengeAttack == true)
                 {
+                    StartCoroutine(AttackDuration());
                     
                 }
                 if (idle == false && chase == true)
@@ -274,13 +276,28 @@ public class Lightningking : MonoBehaviour
         //chase = true;
         animator.SetBool("Idle", false);
         revengeAttack = true;
+        animator.SetBool("Revenge State",true);
+        StartCoroutine(FirstRevengeSlash());
     }
     //Temporar
     IEnumerator AttackDuration()
     {
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(3);
+        animator.SetBool("Revenge State", false);
         StartCoroutine(IdleAnimation());
         revengeAttack = false;
+        Debug.Log("Idle");
+    }
+    IEnumerator FirstRevengeSlash()
+    {
+        yield return new WaitForSeconds(1);
+        attackEffect.Play();
+        StartCoroutine(SecondRevengeSlash());
+    }
+    IEnumerator SecondRevengeSlash()
+    {
+        yield return new WaitForSeconds(1);
+        rightSlash.Play();
     }
     //IEnumerator Fall()
     // {
