@@ -12,9 +12,8 @@ public class Lightningking : MonoBehaviour
     private PlayerController playerScript;
     private Enemy enemyScript;
     private float speed = 220;
-    private Rigidbody monkeyRb;
+    private Rigidbody kingRb;
     private Rigidbody playerRb;
-    private Collider monkeyAttackReach;
     private Vector3 followDirection;
     private Vector3 attackDirection;
     private Quaternion lookRotation;
@@ -24,7 +23,7 @@ public class Lightningking : MonoBehaviour
     private bool beginningIdle = true;
     private bool idle = true;
     private bool chase = false;
-    private bool playerStunned = false; //For if the Tiger is hit by the first claw. Tiger will always get hit twice
+    private bool revengeAttack = true;
     private int damage = 1;
     private bool hitThrown = false;
     //This will account for multiple attacks and multiple effects. Might use an array instead
@@ -49,12 +48,12 @@ public class Lightningking : MonoBehaviour
 
     private bool stunned = false; //Freeze Monkey when i don't want it to move and when the Monkey is being stunlocked by att
     private bool stunLocked = false;
-    private float idleTime;
+    private float idleTime = 2;
     private float usualIdleTime = 9;
     private float damageIdleTime = 6;
 
     private GameManager gameManager;
-    private int HP = 10; //7
+    private int HP = 80; //7
     public bool testingStun = false;
     private bool testingBehaviors = false;
     private bool moveLeft = false;
@@ -70,8 +69,7 @@ public class Lightningking : MonoBehaviour
         playerRb = player.GetComponent<Rigidbody>();
         playerScript = player.GetComponent<PlayerController>();
 
-        monkeyRb = GetComponent<Rigidbody>();
-        monkeyAttackReach = GetComponent<Collider>();
+        kingRb = GetComponent<Rigidbody>();
 
         Physics.gravity *= 0.5f;
         gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
@@ -108,11 +106,11 @@ public class Lightningking : MonoBehaviour
             //Maybe Use A Button Press To Make Monkey Change Movement Directions And See If Tiger Keeps FollowingIt.
             if (moveLeft == true)
             {
-                monkeyRb.AddForce(Vector3.left * speed / 2);
+                kingRb.AddForce(Vector3.left * speed / 2);
             }
             else if (moveRight == true)
             {
-                monkeyRb.AddForce(Vector3.right * speed / 2);
+                kingRb.AddForce(Vector3.right * speed / 2);
             }
             if (Input.GetKeyDown(KeyCode.Tab))
             {
@@ -125,31 +123,15 @@ public class Lightningking : MonoBehaviour
             //Less necessary because Monkey technically onlyhas one attack,but doing this for consistenc
             if (stunLocked == false)
             {
+                if (idle== false && revengeAttack == true)
+                {
+                    
+                }
                 if (idle == false && chase == true)
                 {
-                    //animation.Play("Run");
-
-                    //I think i should do the direction following outside of this
-                    //Either way, it looks like the Monkey only does it at the start and never rotates to face the tiger again
-                    //Vector3 newDirection;
-                    //if (playerScript.tigerActive == true)
-                    //{
                     followDirection = (player.transform.position - transform.position).normalized;
-                    //newDirection = Vector3.RotateTowards(transform.forward, tiger.transform.position, speed * Time.deltaTime, 0.0f);
-                    //transform.rotation = Quaternion.LookRotation(newDirection);
-                    ///}
-                    //else if (playerScript.birdActive == true)
-                    //{
-                    //followDirection = (bird.transform.position - transform.position).normalized;
-                    //newDirection = Vector3.RotateTowards(transform.forward, bird.transform.position, speed * Time.deltaTime, 0.0f);
-                    //transform.rotation = Quaternion.LookRotation(newDirection);
-                    //}
                     distance = Vector3.Distance(player.transform.position, transform.position);
-                    //playerPosition = tiger.transform.position;
-                    //attackRange.transform.position = tiger.transform.position;
-                    //distance = Vector3.Distance(player.transform.position, transform.position);
-                    lookRotation = Quaternion.LookRotation(player.transform.position - transform.position);
-                    monkeyRb.AddForce(followDirection * speed);
+                    kingRb.AddForce(followDirection * speed);
                     transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, 3); //Turned from 5 to 3 for smooth
                                                                                                 //StartCoroutine(AttackCountdown());
                     if (distance <= 1.8)
@@ -215,15 +197,15 @@ public class Lightningking : MonoBehaviour
         if (playerScript.tigerActive == true)
         {
             //followDirection = (tiger.transform.position - transform.position).normalized;
-            monkeyRb.AddForce(followDirection * jumpForce, ForceMode.Impulse);
-            monkeyRb.AddForce(Vector3.up * 2, ForceMode.Impulse); //For jumping, may need to modify gravity
+            kingRb.AddForce(followDirection * jumpForce, ForceMode.Impulse);
+            kingRb.AddForce(Vector3.up * 2, ForceMode.Impulse); //For jumping, may need to modify gravity
                                                                   //attackCount++;
         }
         else if (playerScript.birdActive == true)
         {
             //followDirection = (bird.transform.position - transform.position).normalized;
             //monkeyRb.AddForce(followDirection, ForceMode.Impulse);
-            monkeyRb.AddForce(Vector3.up * 5, ForceMode.Impulse); //For jumping, may need to modify gravity
+            kingRb.AddForce(Vector3.up * 5, ForceMode.Impulse); //For jumping, may need to modify gravity
 
         }
         //If that doesn't work, put an if (dodge == false
@@ -236,7 +218,7 @@ public class Lightningking : MonoBehaviour
         //{
         //PlayAttackEffect();
         //}
-        monkeyRb.constraints = RigidbodyConstraints.FreezeRotation;
+        kingRb.constraints = RigidbodyConstraints.FreezeRotation;
         attackVol = firstAttackVol;
         yield return new WaitForSeconds(1.5f);
         animator.SetBool("Attack 1", false);
@@ -247,7 +229,7 @@ public class Lightningking : MonoBehaviour
         if (playerScript.tigerActive == true && enemyScript.hitLanded == true)
         {
             //hitCount = 1;
-            StartCoroutine(SecondClaw());
+            //StartCoroutine(SecondClaw());
             enemyScript.SetComboAttack(); //I put this here because if the IEnumerator goes on too long, it'll set the comboAttack repeatedly
         }
         else
@@ -262,56 +244,6 @@ public class Lightningking : MonoBehaviour
         enemyScript.UnsetPlayerDodged();
     }
 
-    //Combos will be complicated because I need the combo finisher to trigger stunInvincibility, but also, it needs to land
-    //This will be a handwave because this combo only happens if the first hit of the combo
-    IEnumerator SecondClaw()
-    {
-        //Need a cooldown period before this that is only a second
-        //Debug.Log("Second claw");
-        attack = true;
-        attackRange.SetActive(true);
-        //StartCoroutine(Attack());
-        followDirection = (player.transform.position - transform.position).normalized;
-        //enemyScript.SetAttackEffect(attackEffect);
-        enemyScript.SetAttackDirection(followDirection);
-        enemyScript.BackKnockBack();
-        enemyScript.SetForce(6);
-        monkeyRb.AddForce(followDirection * (jumpForce / 2), ForceMode.Impulse);
-        monkeyRb.AddForce(Vector3.up * 5, ForceMode.Impulse); //For jumping, may need to modify gravity
-        //animation.Play("Attack");
-        animator.SetTrigger("Slash 2");
-        secondClawSlash.SetActive(true);
-
-        enemyScript.SetComboFinisher();
-
-        monkeyRb.constraints = RigidbodyConstraints.FreezeRotation;
-        attackVol = secondAttackVol;
-        yield return new WaitForSeconds(1f);
-        animator.SetBool("Attack 2", false);
-        //StartCoroutine(StartCoolDown());
-        attackFinished = true;
-        attack = false;
-        secondClawSlash.SetActive(false);
-        attackRange.SetActive(false);
-        //Debug.Log("Start Cool");
-        enemyScript.ResetHitLanded();
-        enemyScript.ResetHitNumber();
-        enemyScript.SetComboAttack();
-        enemyScript.SetComboFinisher();
-
-        //hitLanded = false;
-        //Debug.Log("Second Hit");
-        //Debug.Log("Combo Finisher is " + enemyScript.comboFinisher);
-        playOnce = true;
-        enemyScript.UnsetPlayerDodged();
-        enemyScript.ResetKnockbacks();
-    }
-    //public void PlayAttackEffect()
-    //{
-    //attackEffect.Play();
-    //wolfAudio.PlayOneShot(wolfAttack, 0.1f);
-    //}
-    //Needed because the forward movement from the force causes the monkey to jump in an arc instead of upwards as intended
     IEnumerator PauseBeforeJump()
     {
         yield return new WaitForSeconds(0.5f);
@@ -319,7 +251,7 @@ public class Lightningking : MonoBehaviour
     }
     public void Jump()
     {
-        monkeyRb.AddForce(Vector3.up * 9, ForceMode.Impulse); //For jumping, may need to modify gravity
+        kingRb.AddForce(Vector3.up * 9, ForceMode.Impulse); //For jumping, may need to modify gravity
         isOnGround = false;
         StartCoroutine(LagBeforeAttack());
         //Will rely on colliders for isOnGround = true;
@@ -337,31 +269,18 @@ public class Lightningking : MonoBehaviour
         idle = true;
         //animation.Play("Idle");
         animator.SetBool("Idle", true);
-        //For the timebeing, turn off the player's monkey range
-        //playerScript.monkeyRange.SetActive(false);
-        if (beginningIdle == true)
-        {
-            yield return new WaitForSeconds(Random.Range(6, 12));
-        }
-        //if (playerScript.tigerActive == true)
-        //{
-        else
-        {
             yield return new WaitForSeconds(idleTime);
-        }
-        //}
-        //else if (playerScript.birdActive == true)
-        //{
-        //monkeyRb.AddForce(Vector3.down * 2, ForceMode.Impulse);
-        //yield return new WaitForSeconds(7);
-        //}
-        beginningIdle = false;
         idle = false;
-        chase = true;
+        //chase = true;
         animator.SetBool("Idle", false);
-        animator.SetBool("Chase", true);
-        //playerScript.monkeyRange.SetActive(true);
-        //Debug.Log("Cooldown finished");
+        revengeAttack = true;
+    }
+    //Temporar
+    IEnumerator AttackDuration()
+    {
+        yield return new WaitForSeconds(2);
+        StartCoroutine(IdleAnimation());
+        revengeAttack = false;
     }
     //IEnumerator Fall()
     // {
