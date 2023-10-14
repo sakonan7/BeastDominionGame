@@ -3111,8 +3111,8 @@ MonoBehaviour:
     m_Bits: 256
   hitNumber: 0
   specialInvincibility: 0
-  bladeOfLight: {fileID: 1202251510}
-  tigerSpecialAOE: {fileID: 6357929169574845951}
+  bladeOfLight: {fileID: 2986910633337323195}
+  tigerSpecialAOE: {fileID: 8162850748583560626}
   birdAura: {fileID: 7363195510180472221}
   tigerRegularStrike: {fileID: 8300000, guid: 909f2fb859ed5a2489bf95342dfae94a, type: 3}
   regularHitEffect: {fileID: 2294693630385392053}
@@ -10597,19 +10597,9 @@ PrefabInstance:
       addedObject: {fileID: 2837573438290738001}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 37168b749aeae184e95bec5aa563fc9a, type: 3}
---- !u!1 &1202251510 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6126410345652167400, guid: 37168b749aeae184e95bec5aa563fc9a, type: 3}
-  m_PrefabInstance: {fileID: 6126410346833429534}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &3374403386680910430 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8921960440980137536, guid: 37168b749aeae184e95bec5aa563fc9a, type: 3}
-  m_PrefabInstance: {fileID: 6126410346833429534}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &6357929169574845951 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 954348762100308449, guid: 37168b749aeae184e95bec5aa563fc9a, type: 3}
   m_PrefabInstance: {fileID: 6126410346833429534}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &7142286025369090049 stripped
@@ -11342,9 +11332,19 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8921960440980137536, guid: 37168b749aeae184e95bec5aa563fc9a, type: 3}
   m_PrefabInstance: {fileID: 8968569723407588435}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &2986910633337323195 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6126410345652167400, guid: 37168b749aeae184e95bec5aa563fc9a, type: 3}
+  m_PrefabInstance: {fileID: 8968569723407588435}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &5363184802035720268 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3898743489685666847, guid: 37168b749aeae184e95bec5aa563fc9a, type: 3}
+  m_PrefabInstance: {fileID: 8968569723407588435}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &8162850748583560626 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 954348762100308449, guid: 37168b749aeae184e95bec5aa563fc9a, type: 3}
   m_PrefabInstance: {fileID: 8968569723407588435}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &9184585159976473313

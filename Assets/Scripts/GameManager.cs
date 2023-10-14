@@ -437,11 +437,6 @@ public class GameManager : MonoBehaviour
         //Instantiate(enemies[0], new Vector3(wolfLocation.x + 11.5f, wolfLocation.y, wolfLocation.z - 8), enemies[0].transform.rotation);
         numOfEnemies = 3;
     }
-    //Screenshot 1, running at foes
-    //Screenshot 2, same level, using tiger att
-    //Screenshot 3, different level, using bird
-    //Screenshot 4, first level, using tiger spec
-    //Screenshot 5, maybe don't show, transform
     public void Screenshot1Level() {
         Vector3 wolfLocation = enemies[0].transform.position;
         //wolfLocation.x + 4
