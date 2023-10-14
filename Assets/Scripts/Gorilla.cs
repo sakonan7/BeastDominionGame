@@ -335,7 +335,7 @@ if (testingStun == false)
     IEnumerator WarningLightRegular()
     {
         warningLightSmall.SetActive(true);
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(0.05f);
         warningLightSmall.SetActive(false);
     }
     IEnumerator WarningLightBig()
@@ -347,7 +347,7 @@ if (testingStun == false)
     IEnumerator WarningLightDM()
     {
         warningLightDM.SetActive(true);
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSeconds(0.1f);
         warningLightDM.SetActive(false);
     }
    //What I could potential do is have the shockwaves trigger the second the Gorilla's arms touch the ground because they do touch theground 
