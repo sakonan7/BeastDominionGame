@@ -23,13 +23,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 265146688615285606}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8609524798227661549}
-  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1551937959187164737
 PrefabInstance:
@@ -629,7 +629,7 @@ MonoBehaviour:
   eagleCry: {fileID: 0}
   eagleAttack: {fileID: 0}
   isOnGround: 0
-  testingStun: 0
+  testingStun: 1
 --- !u!114 &4444185724134267165
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -646,7 +646,6 @@ MonoBehaviour:
   originalHP: 0
   HPBarHolder: {fileID: 6170932757322039871}
   HPBar: {fileID: 486196447456618870}
-  targetReticule: {fileID: 0}
   damage: 0
   attackEffect:
   - {fileID: 0}

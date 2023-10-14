@@ -1601,7 +1601,7 @@ public class PlayerController : MonoBehaviour
             tigerActive = true;
             birdActive = false;
             //tigerSensor.SetActive(true);
-            //playerMugshot.texture = tigerMugshot;
+            playerMugshot.texture = tigerMugshot;
             speed = tigerSpeed;
             dodgeTime = tigerDodge;
             //playerRb.constraints &= ~RigidbodyConstraints.FreezePositionY;
@@ -1625,7 +1625,7 @@ public class PlayerController : MonoBehaviour
             tigerActive = false;
             birdActive = true;
             //birdSensor.SetActive(true);
-            //playerMugshot.texture = birdMugshot;
+            playerMugshot.texture = birdMugshot;
             speed = birdSpeed;
             dodgeTime = birdDodge;
             //playerRb.constraints = RigidbodyConstraints.FreezePositionY;

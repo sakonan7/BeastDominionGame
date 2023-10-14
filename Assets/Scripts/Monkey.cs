@@ -126,7 +126,7 @@ public class Monkey : MonoBehaviour
         if (testingStun == false)
         {
 //Less necessary because Monkey technically onlyhas one attack,but doing this for consistenc
-if (stunLocked == false)
+            if (stunLocked == false)
             {
                 if (idle == false && chase == true)
                 {
