@@ -262,7 +262,7 @@ public class PlayerController : MonoBehaviour
         comboCounter.text = "x " + hitNumber;
         healingItemNumber.text = "X " + numberOfItems;
         originalColor = blackoutLight.color;
-        //SpecialOn();
+        SpecialOn();
 
         targetScript = target.GetComponent<TargetTracking>();target.SetActive(false);
     }
@@ -410,82 +410,9 @@ public class PlayerController : MonoBehaviour
                     //running = false;
                 //}
             //}
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-
-                //Make an else case for the current code for when the player isn't pressing a direction
-                //Placed animations here instead so that the full animation plays
-                if (running == true)
-                {
-                    running = false;
-
-                    playerRb.AddForce(moveDirection.normalized * dodgeForce, ForceMode.Impulse);
-                }
-                //else if (running == false)
-                //{
-                    //playerRb.AddForce(Vector3.fwd * dodgeForce, ForceMode.Impulse);
-
-                //}
-                if (tigerActive == true)
-                {
-                    animation.Play("Jump Tweak");
-                    dodgeDirection = (tigerFollow.transform.position - tiger.transform.position).normalized;
-                    
-                }
-                else if (birdActive == true)
-                {
-                    //birdAnimation.Play("Player Attack");
-                    birdAnimation.Stop();
-                    dodgeDirection = (birdFollow.transform.position - tiger.transform.position).normalized;
-                }
-
-                playerRb.AddForce(dodgeDirection * dodgeForce, ForceMode.Impulse);
-                StartCoroutine(Dodge());
-            }
-            if (Input.GetKeyDown(KeyCode.E) && cantTransform == false)
-            {
-                //Transform();
-                //Debug.Log("Transform");
-                StartCoroutine(TransformCountdown());
-                if (running == true)
-                {
-                    running = false;
-                }
-            }
-
-            //Special Attack
-            //Changed it so that ChargeUp will determine what direction Tiger will go
-            // 
-            if (Input.GetKeyDown(KeyCode.Z) && tigerSpecialUnlocked == true && tigerActive == true)
-            {
-                //StartCoroutine(TigerSpecialDuration());
-                StartCoroutine(ChargeUp());
-                
-                //TigerSpecial();
-                //tigerRB.AddTorque(Vector3.up * 100, ForceMode.VelocityChange);
-                //Either use Fight Idle animation
-                if (running == true)
-                {
-                    running = false;
-                }
-            }
-            if (Input.GetKeyDown(KeyCode.Z) && birdSpecialUnlocked == true && birdActive == true)
-            {
-                
-                
-
- //Moved this from Strike() to
-                                                                                                               //see if I can immediately turn my character towards an ene
 
 
-                //attackDirection isn't changing directions because it's using the empty Player object as the reference and the Player
-                //object doesn't move
-                BirdSpecial();
-                if (running == true)
-                {
-                    running = false;
-                }
-            }
+
 
         }
 
@@ -900,6 +827,81 @@ public class PlayerController : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Q) && numberOfItems > 0)
             {
                 Heal();
+            }
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+
+                //Make an else case for the current code for when the player isn't pressing a direction
+                //Placed animations here instead so that the full animation plays
+                if (running == true)
+                {
+                    running = false;
+
+                    playerRb.AddForce(moveDirection.normalized * dodgeForce, ForceMode.Impulse);
+                }
+                //else if (running == false)
+                //{
+                //playerRb.AddForce(Vector3.fwd * dodgeForce, ForceMode.Impulse);
+
+                //}
+                if (tigerActive == true)
+                {
+                    animation.Play("Jump Tweak");
+                    dodgeDirection = (tigerFollow.transform.position - tiger.transform.position).normalized;
+
+                }
+                else if (birdActive == true)
+                {
+                    //birdAnimation.Play("Player Attack");
+                    birdAnimation.Stop();
+                    dodgeDirection = (birdFollow.transform.position - tiger.transform.position).normalized;
+                }
+
+                playerRb.AddForce(dodgeDirection * dodgeForce, ForceMode.Impulse);
+                StartCoroutine(Dodge());
+            }
+            if (Input.GetKeyDown(KeyCode.E) && cantTransform == false)
+            {
+                //Transform();
+                //Debug.Log("Transform");
+                StartCoroutine(TransformCountdown());
+                if (running == true)
+                {
+                    running = false;
+                }
+            }
+            //Special Attack
+            //Changed it so that ChargeUp will determine what direction Tiger will go
+            // 
+            if (Input.GetKeyDown(KeyCode.Z) && tigerSpecialUnlocked == true && tigerActive == true)
+            {
+                //StartCoroutine(TigerSpecialDuration());
+                StartCoroutine(ChargeUp());
+
+                //TigerSpecial();
+                //tigerRB.AddTorque(Vector3.up * 100, ForceMode.VelocityChange);
+                //Either use Fight Idle animation
+                if (running == true)
+                {
+                    running = false;
+                }
+            }
+            if (Input.GetKeyDown(KeyCode.Z) && birdSpecialUnlocked == true && birdActive == true)
+            {
+
+
+
+                //Moved this from Strike() to
+                //see if I can immediately turn my character towards an ene
+
+
+                //attackDirection isn't changing directions because it's using the empty Player object as the reference and the Player
+                //object doesn't move
+                BirdSpecial();
+                if (running == true)
+                {
+                    running = false;
+                }
             }
         }
 
@@ -1355,7 +1357,10 @@ public class PlayerController : MonoBehaviour
         
         playerAudio.PlayOneShot(tigerSwing, 0.05f);
 
-        currentEnemyPosition = new Vector3(targetedEnemy.transform.position.x, 0, targetedEnemy.transform.position.z);
+        if (lockedOn == true)
+        {
+            currentEnemyPosition = new Vector3(targetedEnemy.transform.position.x, 0, targetedEnemy.transform.position.z);
+        }
         attackDirection = new Vector3(attackDirection.x, 0, attackDirection.z).normalized;
         attackRotation = Quaternion.LookRotation(currentEnemyPosition - tiger.transform.position);
 
