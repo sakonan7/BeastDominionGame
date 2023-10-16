@@ -85,8 +85,7 @@ public class Enemy : MonoBehaviour
         //enemyHPBarPosition = GameObject.Find("Enemy HP Bar");
         maxHPBarFill = 1;
         camera = GameObject.Find("Main Camera");
-        targetReticule = GameObject.Find("New Target And HP Bar");
-        targetScript = targetReticule.GetComponent<TargetTracking>();
+
     }
 
     // Update is called once per frame
@@ -212,6 +211,8 @@ public class Enemy : MonoBehaviour
     public void LockOn()
     {
         lockedOn = true;
+        targetReticule = GameObject.Find("New Target And HP Bar");
+        targetScript = targetReticule.GetComponent<TargetTracking>();
         //Debug.Log("Enemy is Locked On");
         //HPBar.SetActive(true);
     }

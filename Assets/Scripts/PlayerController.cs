@@ -264,7 +264,7 @@ public class PlayerController : MonoBehaviour
         originalColor = blackoutLight.color;
         //SpecialOn();
 
-        targetScript = target.GetComponent<TargetTracking>();
+        targetScript = target.GetComponent<TargetTracking>();target.SetActive(false);
     }
 
     // Update is called once per frame
@@ -646,7 +646,7 @@ public class PlayerController : MonoBehaviour
                 //And to have the new target appear over the targeted foe
                 //newTargetRect = newTarget.GetComponent<RectTransform>();
                 //newTargetRect.localPosition = new Vector2(target.transform.position.x, target.transform.position.y);
-                target.SetActive(true);
+                
                 //Code to make lockedOn symbol face camera
                 //The original simple LookAt(cameraRef.transform) didn't work because it showed the clear backside of the plane/quad instead
                 //target.transform.LookAt(target.transform.position - (cameraRef.transform.position - target.transform.position));
@@ -1523,7 +1523,8 @@ public class PlayerController : MonoBehaviour
                     enemyScript = targetedEnemy.GetComponent<Enemy>();
                     //if (enemyScript.lockedOn == false)
                     //{
-                        enemyScript.LockOn();
+                    target.SetActive(true);
+                    enemyScript.LockOn();
                     //lockedOnLocation = new Vector3(targetedEnemy.transform.position.x, targetedEnemy.transform.position.y + 0.05f, targetedEnemy.transform.position.z);
                     lockedOnLocation = targetedEnemy.transform.Find("Camera Target").transform;
                     //gameManagerScript.LockOn(targetedEnemy.transform.position);
