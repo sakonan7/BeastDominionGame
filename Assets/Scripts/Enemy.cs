@@ -313,7 +313,7 @@ public class Enemy : MonoBehaviour
         }
         
     }
-    public void Pushback(float enterAttackForce)
+    public void PushBack(float enterAttackForce)
     {
         attacked = true;
         if (giantEnemy == false && giantBoss == false)
@@ -328,14 +328,6 @@ public class Enemy : MonoBehaviour
     IEnumerator SecondHit()
     {
         attacked = true;
-if (giantEnemy == false &&giantBoss == false)
-        {
-                    float playerAttackForce = 280*2;
-        //enemyRb.AddForce(playerScript.attackDirection * attackForce, ForceMode.Force);
-        enemyRb.velocity = new Vector3(playerScript.attackDirection.x * playerAttackForce, 0, playerScript.attackDirection.z * attackForce);
-        }
-
-        
         yield return new WaitForSeconds(1f);
         attacked = false;
         HP -= 6;
@@ -347,15 +339,12 @@ if (giantEnemy == false &&giantBoss == false)
         gameManager.HitByTigerSpecial(transform.position);
         StartCoroutine(DamageDisplayDuration(6));
         playerScript.PlayTigerSpecialStrike(transform.position);
+        PushBack(300);
 
         //HPBarDecrease(6);
         if (lockedOn == true)
         {
             targetScript.DecreaseHP(HP);
-        }
-        if (giantEnemy ==false && giantBoss== false)
-        {
-enemyRb.velocity = Vector3.zero;
         }
         
     }
@@ -411,13 +400,11 @@ enemyRb.velocity = Vector3.zero;
                 //because animtor makes characters a lot slower
                 if (isBird == true)
                 {
-                    StartCoroutine(FoeAttacked(10));
+                    PushBack(20);
                 }
                 if (isBird == false && isFlying == false)
                 {
-                    //StartCoroutine(FoeAttacked(1000));
-                    Pushback(150);
-                    Debug.Log("New Push");
+                    PushBack(150);
                 }
                 StartCoroutine(DamageDisplayDuration(2));
                 //HPBarDecrease(2);
@@ -443,11 +430,11 @@ enemyRb.velocity = Vector3.zero;
                 //May want barely any pushbackfrom bird attacks for the islandportion
                 if (isBird == true)
                 {
-                    StartCoroutine(FoeAttacked(15));
+                    PushBack(10);
                 }
                 if (isFlying == false)
                 {
-                    StartCoroutine(FoeAttacked(250));
+                    PushBack(80);
                 }
                 StartCoroutine(DamageDisplayDuration(1));
                 HPBarDecrease(1);

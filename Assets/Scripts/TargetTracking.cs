@@ -21,12 +21,16 @@ public class TargetTracking : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void LateUpdate()
     {
         if (gotTarget == true)
         {
-            transform.position = mainCam.WorldToScreenPoint(targetPosition + new Vector3(0,1,0.5f));
+            Vector3 pos = mainCam.WorldToScreenPoint(targetPosition + new Vector3(0,1,0.5f));
             //DisplayHP();
+            if (transform.position != pos)
+            {
+                transform.position = pos;
+            }
         }
     }
     public void Target(Vector3 newTarget)
@@ -34,6 +38,10 @@ public class TargetTracking : MonoBehaviour
         //gameObject.SetActive(true);
         gotTarget = true;
         targetPosition = newTarget;
+    }
+    public void TargetOff()
+    {
+        gotTarget = false;
     }
     //Decrease and Display the Enemy'sH.
     public void SetHP(int originalHP, int HP)

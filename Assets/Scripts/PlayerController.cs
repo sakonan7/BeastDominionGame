@@ -587,7 +587,8 @@ public class PlayerController : MonoBehaviour
                 //Calculating attackdirection AND attackrotation here tosee if it solves the first attack prob
                 followPosition = new Vector3(targetedEnemy.transform.position.x, 0, targetedEnemy.transform.position.z);
                 followRotation = Quaternion.LookRotation(followPosition - transform.position);
-
+                
+                targetScript.Target(lockedOnLocation.position);
 
                 camRotater.transform.rotation = Quaternion.Slerp(transform.rotation, followRotation, 3);
 
@@ -595,14 +596,8 @@ public class PlayerController : MonoBehaviour
             //I may want to change this because I can trigger an error by trying to access enemyScript when targetEnemy has been killed
             if (enemyScript.GetHP() <= 0)
             {
-                lockedOn = false;
-                //Debug.Log("Can Lock On again"); //I think this should work because target gameObject is not part of
-                //The enemy and is only sent to the enemies' location. So I think the main issue was the target disappears
-                //because the enemy's position disappears
-                //I thought the main problem was that target was getting destroyed
-                //OOOps, I accidentally set the conditional to if targetEnemy != null
-                //No wonder the LockOn method still
                 LockOff();
+                targetScript.TargetOff();
             }
         }
         //else if (lockedOn == false)
@@ -1550,7 +1545,7 @@ public class PlayerController : MonoBehaviour
             camRotater.transform.rotation = Quaternion.Slerp(transform.rotation, followRotation, 3);
             camScript.TurnToTarget(camFollow.transform);
             StartCoroutine(TellDistance());
-            targetScript.Target(lockedOnLocation.position);
+            
             targetScript.SetHP(enemyScript.originalHP, enemyScript.HP);
             lockedOn = true;
             //I was going to get rid of this because it looked like this code was for shifting the target
