@@ -440,8 +440,15 @@ public class PlayerController : MonoBehaviour
         {
             //float time = 0;
             animation.Play("Distance Closer");
-                //I would prefer to use nonImpulse, but it is too slow and using Impulse is unexpectedly cool
-                playerRb.AddForce(attackDirection * 10, ForceMode.Impulse); //attack force wasn't enough //Also, it isn't enough here //Try impulse
+            //Need to keep updatingtheenemypositionandrota
+            //This is important, because I only receive the enemy position once, and this doesn't take into account enemies moving. Especially not fast moving
+            currentEnemyPosition = new Vector3(targetedEnemy.transform.position.x, 0, targetedEnemy.transform.position.z);
+            attackDirection = new Vector3(attackDirection.x, 0, attackDirection.z).normalized;
+            attackRotation = Quaternion.LookRotation(currentEnemyPosition - tiger.transform.position);
+            tiger.transform.rotation = Quaternion.Slerp(tiger.transform.rotation, attackRotation, 5 * Time.deltaTime);
+
+            //I would prefer to use nonImpulse, but it is too slow and using Impulse is unexpectedly cool
+            playerRb.AddForce(attackDirection * 10, ForceMode.Impulse); //attack force wasn't enough //Also, it isn't enough here //Try impulse
                 //ForceMode Impulse is amazing. Needed to go from speed to 5 becaue of how fast and far it went
                 
             //playerRb.velocity = attackDirection * 10;
@@ -486,6 +493,11 @@ public class PlayerController : MonoBehaviour
             {
                 animation.Play("Distance Closer");
             }
+            currentEnemyPosition = new Vector3(targetedEnemy.transform.position.x, 0, targetedEnemy.transform.position.z);
+            attackDirection = new Vector3(attackDirection.x, 0, attackDirection.z).normalized;
+            attackRotation = Quaternion.LookRotation(currentEnemyPosition - tiger.transform.position);
+            tiger.transform.rotation = Quaternion.Slerp(tiger.transform.rotation, attackRotation, 5 * Time.deltaTime);
+
             //I would prefer to use nonImpulse, but it is too slow and using Impulse is unexpectedly cool
             ///For some reason, I made specialdistancecloserslower than regular distance clos
             playerRb.AddForce(attackDirection * 5, ForceMode.Impulse); //attack force wasn't enough //Also, it isn't enough here //Try impulse
@@ -662,17 +674,6 @@ public class PlayerController : MonoBehaviour
             comboCounterHolder.gameObject.SetActive(false);
             hitNumber = 0;
             comboCounter.color = new Color(1, 1, 1, 1);
-        }
-        if (tigerSpecialUnlocked == true)
-        {
-            if (tigerActive == true)
-            {
-                tigerSpecialCommand.gameObject.SetActive(true);
-            }
-            else
-            {
-                tigerSpecialCommand.gameObject.SetActive(false);
-            }
         }
         if (tigerSpecialUnlocked == true)
         {
