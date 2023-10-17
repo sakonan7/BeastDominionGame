@@ -973,6 +973,8 @@ public class PlayerController : MonoBehaviour
             if (swoopedDown == true)
             {
                 swoopedDown = false; bird.transform.Translate(0, 1.5f, 0);
+                //bird.transform.Translate(0, -1.5f, 0);
+                birdSeparater.transform.Translate(0, -1.5f, 0);
                 //birdSeparater.SetActive(true);
                 birdCollider.isTrigger = false;
             }
@@ -1149,11 +1151,12 @@ public class PlayerController : MonoBehaviour
         //bladeOfLight.SetActive(true);
         specialUsed = true;
         //isFlying = false;
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(3f);
         if (swoopedDown == true)
         {
                 bird.transform.Translate(0, 1.5f, 0);
-                //birdSeparater.SetActive(true);
+            birdSeparater.transform.Translate(0, -1.5f, 0);
+            //birdSeparater.SetActive(true);
             swoopedDown = false; //Almost forgot
             birdCollider.isTrigger = false;
         }
@@ -1169,8 +1172,7 @@ public class PlayerController : MonoBehaviour
         birdSpecialLightUp.gameObject.SetActive(false);
         birdComboLightUp.gameObject.SetActive(false);
         
-        bird.transform.Translate(0, 1.5f, 0);
-        birdSeparater.SetActive(true);
+
         Debug.Log("Bird Special Ov");
     }
     public void Swoop()
@@ -1209,6 +1211,7 @@ public class PlayerController : MonoBehaviour
         {
             //StartCoroutine(TellAngle());
             bird.transform.Translate(0, -1.5f, 0);
+            birdSeparater.transform.Translate(0, 1.5f, 0);
             //birdSeparater.SetActive(false);
             isFlying = false;
             swoopedDown = true;
@@ -1420,35 +1423,34 @@ public class PlayerController : MonoBehaviour
         {
             attackDirection = (birdFollow.transform.position - tiger.transform.position).normalized;
             StartCoroutine(BirdSpecialDuration());
-            playerRb.AddForce(attackDirection * (attackForce + 20), ForceMode.Impulse);
+            playerRb.AddForce(attackDirection * (attackForce + 25), ForceMode.Impulse);
             //StartCoroutine(FreezeRotations());
         }
         if (lockedOn == true && enemyScript.isFlying == false) //Almost accidentally wrotethis as ==true
         {
             //StartCoroutine(TellAngle());
             bird.transform.Translate(0, -1.5f, 0);
+            birdSeparater.transform.Translate(0, 1.5f, 0);
             //birdSeparater.SetActive(false);
             isFlying = false;
             swoopedDown = true;
-            birdCollider.isTrigger = true;
-        }
-        //Want DistanceCloser only to play when the tiger isn't close enough. Was originally going to have a distance > 10 || distance <=3
-        //above,but I realized that the below will cover it. Maybe, let's keep testing it out
-        else if ((distance > 4) && lockedOn)
-        {
+            //birdCollider.isTrigger = true;I didn't do this for nonlockon birdspecial for somereason
             currentEnemyPosition = new Vector3(targetedEnemy.transform.position.x, tiger.transform.position.y, targetedEnemy.transform.position.z);
             attackDirection = new Vector3(attackDirection.x, 0, attackDirection.z).normalized;
             attackRotation = Quaternion.LookRotation(currentEnemyPosition - tiger.transform.position);
-            specialCloseTheDistance = true;
+            bird.transform.rotation = Quaternion.Slerp(tiger.transform.rotation, attackRotation, 3);
+            StartCoroutine(BirdSpecialDuration());
+            playerRb.AddForce(attackDirection * (attackForce + 30), ForceMode.Impulse);
         }
-        else if (distance < 4 && lockedOn)
+        //I completely forgot a case for flyingene
+        else if (lockedOn == true && enemyScript.isFlying == true) //Almost accidentally wrotethis as ==true
         {
             currentEnemyPosition = new Vector3(targetedEnemy.transform.position.x, tiger.transform.position.y, targetedEnemy.transform.position.z);
             attackDirection = new Vector3(attackDirection.x, 0, attackDirection.z).normalized;
             attackRotation = Quaternion.LookRotation(currentEnemyPosition - tiger.transform.position);
             bird.transform.rotation = Quaternion.Slerp(tiger.transform.rotation, attackRotation, 3);
             StartCoroutine(BirdSpecialDuration());
-            playerRb.AddForce(attackDirection * (attackForce + 14), ForceMode.Impulse);
+            playerRb.AddForce(attackDirection * (attackForce + 30), ForceMode.Impulse);
         }
     }
     IEnumerator Dodge()
@@ -2177,6 +2179,7 @@ public class PlayerController : MonoBehaviour
                     {
                         isFlying = true;
                         bird.transform.Translate(0, 1.5f, 0);
+                        birdSeparater.transform.Translate(0, -1.5f, 0);
                         //birdSeparater.SetActive(true);
                     }
                     if (currentEnemyScript.leftAttack == true)
@@ -2269,6 +2272,7 @@ public class PlayerController : MonoBehaviour
                 {
                     isFlying = true;
                     bird.transform.Translate(0, 1.5f, 0);
+                    birdSeparater.transform.Translate(0, -1.5f, 0);
                     //birdSeparater.SetActive(true);
                 }
                 if (projectileScript.leftAttack == true)

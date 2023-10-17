@@ -486,11 +486,13 @@ public class Enemy : MonoBehaviour
             HPBarDecrease(5);
             if (isBird == true)
             {
-                StartCoroutine(FoeAttacked(50));
+                //StartCoroutine(FoeAttacked(50));
+                PushBack(50);
             }
             else
             {
-                StartCoroutine(FoeAttacked(200));
+                //StartCoroutine(FoeAttacked(200));
+                PushBack(200);
             }
             hitByBirdSpecial = true;
             StartCoroutine(Invincibility());
@@ -570,6 +572,30 @@ public class Enemy : MonoBehaviour
                 {
                     targetScript.DecreaseHP(HP);
                 }
+            }
+        }
+        if (other.CompareTag("Bird Special") && hitByBirdSpecial == false)
+        {
+            HP -= 5;
+            playerScript.AttackLandedTrue();
+            StartCoroutine(DamageDisplayDuration(5));
+            HPBarDecrease(5);
+            if (isBird == true)
+            {
+                //StartCoroutine(FoeAttacked(50));
+                PushBack(50);
+            }
+            else
+            {
+                //StartCoroutine(FoeAttacked(200));
+                PushBack(200);
+            }
+            hitByBirdSpecial = true;
+            StartCoroutine(Invincibility());
+            //Put a coroutine here so that enemies can only be hit by Bird Special once
+            if (lockedOn == true)
+            {
+                targetScript.DecreaseHP(HP);
             }
         }
 
