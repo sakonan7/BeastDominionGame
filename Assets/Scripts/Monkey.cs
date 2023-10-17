@@ -104,7 +104,7 @@ public class Monkey : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Grounder();
+        //Grounder();
 
         //HPBar.transform.position = new Vector3(transform.position.x, transform.position.y + 1.9f, transform.position.z + 0.1f);
         //Monkey will only do it's chase while it's on the ground to avoid antigravity business

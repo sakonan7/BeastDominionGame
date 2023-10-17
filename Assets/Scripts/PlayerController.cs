@@ -1979,7 +1979,8 @@ public class PlayerController : MonoBehaviour
            }
         if (collision.gameObject.name == "Checkpoint")
         {
-            SceneManager.LoadScene("Armadillo Scene");
+            //SceneManager.LoadScene("Armadillo Scene");
+            SceneManager.LoadScene("Level 2");
         }
         else if (collision.gameObject.name == "Checkpoint 2")
         {

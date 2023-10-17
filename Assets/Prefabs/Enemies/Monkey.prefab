@@ -2031,7 +2031,7 @@ MonoBehaviour:
   attackEffect: {fileID: 6100303133380853439}
   monkeyAttack: {fileID: 8300000, guid: e97724d9542c67f4a974b39ff25ce14d, type: 3}
   isOnGround: 1
-  testingStun: 1
+  testingStun: 0
 --- !u!82 &6121087227976321278
 AudioSource:
   m_ObjectHideFlags: 0

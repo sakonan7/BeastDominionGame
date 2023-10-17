@@ -369,7 +369,7 @@ public class GameManager : MonoBehaviour
         }
         else if (stage2 == true)
             {
-                Level2();
+                NewLevel2();
             stage2Stored = true;
             }
             else if (stage3 == true)
@@ -420,17 +420,18 @@ public class GameManager : MonoBehaviour
         Vector3 wolfLocation = enemies[0].transform.position;
         //wolfLocation.x + 4
         //wolfLocation.y + 0.1f
-        Instantiate(enemies[2], new Vector3(player.transform.position.x - 1.5f, enemies[2].transform.position.y, wolfLocation.z - 6), enemies[0].transform.rotation);
+        //Testing otherfoes
+        //Instantiate(enemies[2], new Vector3(player.transform.position.x - 1.5f, enemies[2].transform.position.y, wolfLocation.z - 6), enemies[0].transform.rotation);
 
-        //Instantiate(enemies[0], new Vector3(player.transform.position.x - 1.5f, wolfLocation.y, wolfLocation.z - 6), enemies[0].transform.rotation);
+        Instantiate(enemies[0], new Vector3(player.transform.position.x - 1.5f, wolfLocation.y, wolfLocation.z - 6), enemies[0].transform.rotation);
 
         //Instantiate(enemies[1], new Vector3(wolfLocation.x + 8, wolfLocation.y, wolfLocation.z - 15), enemies[0].transform.rotation);
         //Instantiate(enemies[1], new Vector3(wolfLocation.x + 14.5f, wolfLocation.y, wolfLocation.z - 8), enemies[0].transform.rotation);
         //numOfEnemies = 1;
 
-        //Instantiate(enemies[0], new Vector3(wolfLocation.x + 1, wolfLocation.y, wolfLocation.z - 6), enemies[0].transform.rotation);
+        Instantiate(enemies[0], new Vector3(wolfLocation.x + 1, wolfLocation.y, wolfLocation.z - 6), enemies[0].transform.rotation);
         //Enemy # 2
-        //Instantiate(enemies[0], new Vector3(wolfLocation.x + 19, 0, wolfLocation.z - 3), enemies[0].transform.rotation);
+        Instantiate(enemies[0], new Vector3(wolfLocation.x + 19, 0, wolfLocation.z - 3), enemies[0].transform.rotation);
         //Instantiate(enemies[0], new Vector3(wolfLocation.x + 5, 0, wolfLocation.z - 15), enemies[0].transform.rotation);
 
         //Instantiate(enemies[1], new Vector3(wolfLocation.x + 7, wolfLocation.y, wolfLocation.z - 10), enemies[0].transform.rotation);
@@ -475,6 +476,29 @@ public class GameManager : MonoBehaviour
         playerScript.TransformLock();
         numOfEnemies = 1;
         Debug.Log("Stage 2 ctivated..");
+    }
+    public void NewLevel2()
+    {
+        Vector3 wolfLocation = enemies[0].transform.position;
+        //wolfLocation.x + 4
+        //wolfLocation.y + 0.1f
+        //Testing otherfoes
+        //Instantiate(enemies[2], new Vector3(player.transform.position.x - 1.5f, enemies[2].transform.position.y, wolfLocation.z - 6), enemies[0].transform.rotation);
+
+        Instantiate(enemies[0], new Vector3(player.transform.position.x - 1.5f, wolfLocation.y, wolfLocation.z - 6), enemies[0].transform.rotation);
+
+        //Instantiate(enemies[1], new Vector3(wolfLocation.x + 8, wolfLocation.y, wolfLocation.z - 15), enemies[0].transform.rotation);
+        //Instantiate(enemies[1], new Vector3(wolfLocation.x + 14.5f, wolfLocation.y, wolfLocation.z - 8), enemies[0].transform.rotation);
+        //numOfEnemies = 1;
+
+        Instantiate(enemies[0], new Vector3(wolfLocation.x + 1, wolfLocation.y, wolfLocation.z - 6), enemies[0].transform.rotation);
+        //Enemy # 2
+        Instantiate(enemies[0], new Vector3(wolfLocation.x + 19, 0, wolfLocation.z - 3), enemies[0].transform.rotation);
+        Instantiate(enemies[0], new Vector3(wolfLocation.x + 5, 0, wolfLocation.z - 15), enemies[0].transform.rotation);
+
+        //Instantiate(enemies[1], new Vector3(wolfLocation.x + 7, wolfLocation.y, wolfLocation.z - 10), enemies[0].transform.rotation);
+        Instantiate(enemies[0], new Vector3(wolfLocation.x + 11.5f, wolfLocation.y, wolfLocation.z - 8), enemies[0].transform.rotation);
+        numOfEnemies = 5;
     }
     public void Level3()
     {
