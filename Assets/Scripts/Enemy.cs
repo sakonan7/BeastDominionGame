@@ -313,6 +313,17 @@ public class Enemy : MonoBehaviour
         }
         
     }
+    public void Pushback(float enterAttackForce)
+    {
+        attacked = true;
+        if (giantEnemy == false && giantBoss == false)
+        {
+            float playerAttackForce = enterAttackForce;
+            //enemyRb.AddForce(playerScript.attackDirection * attackForce, ForceMode.Force);
+            //enemyRb.velocity = new Vector3(playerScript.attackDirection.x * playerAttackForce, 0, playerScript.attackDirection.z * playerAttackForce);
+            enemyRb.AddForce(playerScript.attackDirection * playerAttackForce, ForceMode.Impulse);
+        }
+    }
     //This will be helpful for combo att
     IEnumerator SecondHit()
     {
@@ -391,7 +402,7 @@ enemyRb.velocity = Vector3.zero;
                 //HPBarScript.HPDecrease(2, originalHP);
                 //Damaged();
                 playerScript.PlayTigerRegularStrike(transform.position);
-                gameManager.HitByTigerRegular(transform.position);
+                //gameManager.HitByTigerRegular(transform.position);
 
                 playerScript.AttackLandedTrue();
                 //Debug.Log(distance + " " + enemyRb.velocity);
@@ -404,7 +415,9 @@ enemyRb.velocity = Vector3.zero;
                 }
                 if (isBird == false && isFlying == false)
                 {
-                    StartCoroutine(FoeAttacked(1000));
+                    //StartCoroutine(FoeAttacked(1000));
+                    Pushback(150);
+                    Debug.Log("New Push");
                 }
                 StartCoroutine(DamageDisplayDuration(2));
                 //HPBarDecrease(2);

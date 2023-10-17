@@ -264,7 +264,8 @@ public class PlayerController : MonoBehaviour
         originalColor = blackoutLight.color;
         SpecialOn();
 
-        targetScript = target.GetComponent<TargetTracking>();target.SetActive(false);
+        targetScript = target.GetComponent<TargetTracking>();
+        target.SetActive(false);
     }
 
     // Update is called once per frame
