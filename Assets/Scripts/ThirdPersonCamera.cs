@@ -98,16 +98,17 @@ public class ThirdPersonCamera : MonoBehaviour
             cinemachineFL.m_YAxisRecentering.m_enabled = true;
             StartCoroutine(TurnOffRecenter());
         }
-        //if (gameManager.battleStart == true)
+        //if (gameManager.battleStart == true && evokeOnce==true)
         //{
             //PlayBattleMusic();
+            //evokeOnce = false;
         //}
         //if (gameManager.gameEnd == true && evokeOnce == true)
         //{
-            //musicSource.Stop();
-            //PlayVictoryMusic();
-            //Debug.Log("Change the music..");
-            //evokeOnce = false;
+        //musicSource.Stop();
+        //PlayVictoryMusic();
+        //Debug.Log("Change the music..");
+        //evokeOnce = false;
         //}
     }
     public void ChangeForms()

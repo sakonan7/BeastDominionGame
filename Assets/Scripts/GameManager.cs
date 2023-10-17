@@ -382,14 +382,14 @@ public class GameManager : MonoBehaviour
                 BossLevel();
             bossStageStored = true;
             }
-
     }
     public void BattleMusicOn()
     {
-        battleStart = true;
+        //battleStart = true;
         //May not work when switching music from exploration mus
-        music.text = "Music: " + battleMusic;
+        music.text = " Music: " + battleMusic;
         music.transform.Translate(44, 0, 0);
+        camScript.PlayBattleMusic();
     }
     public void VictoryMusicOn()
     {

@@ -180,16 +180,30 @@ if (stunLocked == false)
                     wolfRb.AddForce(followDirection * speed);
                     transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, 3);
 
-                        //jumpForce = 3;
-                        //CorkScrew();
-                        //StartCoroutine(AttackDuration());
-
-
+                    //jumpForce = 3;
+                    //CorkScrew();
+                    //StartCoroutine(AttackDuration());
+                    if (playerScript.tigerActive == true)
+                    {
+                        if (distance <= 4)
+                        {
+                            Debug.Log("Reached");
+                            animator.SetBool("Dash", false);
+                            chase = false;
+                            CorkScrew();
+                            if (attackFinished == false)
+                            {
+                                attackFinished = true;
+                            }
+                        }
+                    }
+                    if (playerScript.birdActive == true)
+                    {
                         if (distance <= 3f)
                         {
                             Debug.Log("Reached");
                             animator.SetBool("Dash", false);
-                            animator.SetBool("Idle",true);
+                            animator.SetBool("Idle", true);
                             chase = false;
                             StartCoroutine(PauseBeforeJump());
                             if (attackFinished == false)
@@ -198,7 +212,7 @@ if (stunLocked == false)
                                 enemyScript.HurtFlying();
                             }
                         }
-                        
+                    }    
                     
                 }
             }
@@ -297,7 +311,7 @@ if (stunLocked == false)
         //Debug.Log("Attack repeated for some rea");
         //animator.SetBool("Ground Attack", false);
         animator.SetTrigger("CorkScrew");
-        audio.PlayOneShot(corkScrew, 0.1f);
+        audio.PlayOneShot(corkScrew, 0.2f);
     }
     public void AirBite()
     {

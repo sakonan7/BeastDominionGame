@@ -449,7 +449,7 @@ MonoBehaviour:
   biteRange: {fileID: 5335551758383901848}
   attackEffect: {fileID: 6533653868717274261}
   wolfAttack: {fileID: 8300000, guid: 5c7fa0f70731933478a06b0da5c37bce, type: 3}
-  WolfBite: {fileID: 8300000, guid: e6bba6acdaa9cd74fb1640dfd306be1e, type: 3}
+  wolfBite: {fileID: 8300000, guid: e6bba6acdaa9cd74fb1640dfd306be1e, type: 3}
   corkScrew: {fileID: 8300000, guid: 679bcbdedaee1b1488a2a749bc53f02f, type: 3}
   isOnGround: 1
   testingStun: 0
