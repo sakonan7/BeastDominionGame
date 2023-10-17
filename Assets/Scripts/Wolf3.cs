@@ -40,6 +40,8 @@ public class Wolf3 : MonoBehaviour
     public ParticleSystem attackEffect;
     private AudioSource audio;
     public AudioClip wolfAttack;
+    public AudioClip wolfBite;
+    public AudioClip corkScrew;
     private float attackVol;
     private float firstAttackVol = 0.1f;
     private float secondAttackVol = 0.3f;
@@ -182,23 +184,7 @@ if (stunLocked == false)
                         //CorkScrew();
                         //StartCoroutine(AttackDuration());
 
-                    if (playerScript.tigerActive == true)
-                    {
-                        if (distance <= 4)
-                        {
-                            Debug.Log("Reached");
-                            animator.SetBool("Dash", false);
-                            chase = false;
-                            CorkScrew();
-                            if (attackFinished == false)
-                            {
-                                attackFinished = true;
-                            }
-                        }
-                    }
 
-                    if (playerScript.birdActive == true)
-                    {
                         if (distance <= 3f)
                         {
                             Debug.Log("Reached");
@@ -212,7 +198,6 @@ if (stunLocked == false)
                                 enemyScript.HurtFlying();
                             }
                         }
-                    }
                         
                     
                 }
@@ -240,7 +225,8 @@ if (stunLocked == false)
         {
             playOnce = false;
             attackEffect.Play();
-            audio.PlayOneShot(wolfAttack, attackVol);
+            audio.PlayOneShot(wolfAttack, 0.3f);
+            //Debug.Log("Attack Eff");
         }
     }
     public void PlayAttackEffect()
@@ -311,6 +297,7 @@ if (stunLocked == false)
         //Debug.Log("Attack repeated for some rea");
         //animator.SetBool("Ground Attack", false);
         animator.SetTrigger("CorkScrew");
+        audio.PlayOneShot(corkScrew, 0.1f);
     }
     public void AirBite()
     {
@@ -319,6 +306,7 @@ if (stunLocked == false)
         //wolfRb.AddForce(followDirection * (jumpForce/2), ForceMode.Impulse);
         animator.SetBool("Idle",false);
         animator.SetTrigger("Bite");
+        audio.PlayOneShot(wolfBite, 0.2f);
     }
 
     //public void PlayAttackEffect()
