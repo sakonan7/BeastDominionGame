@@ -501,4 +501,77 @@ public class Enemy : MonoBehaviour
             }
         }
     }
+    public void OnTriggerStay(Collider other)
+    {
+
+        //I will have to keep some of the damagedin each individual script because I need those individual scripts for damage
+        //animations
+        //Debug.Log(HP + "Left");
+        if (other.CompareTag("Tiger Attack Regular"))
+        {
+
+            if (playerScript.attackLanded == false)
+            {
+                //For now, just trigger stun. I will use both of their directions to perform the knockback
+                //TakeDamage();
+                //Debug.Log(HP + " left");
+                HP -= 2;
+                //HPBarScript.HPDecrease(2, originalHP);
+                //Damaged();
+                playerScript.PlayTigerRegularStrike(transform.position);
+                //gameManager.HitByTigerRegular(transform.position);
+
+                playerScript.AttackLandedTrue();
+                //Debug.Log(distance + " " + enemyRb.velocity);
+                //StartCoroutine(FoeAttacked(120));
+                //This code is for airborne enemies, but actually, it is for enemies that use animation instead of animator
+                //because animtor makes characters a lot slower
+                if (isBird == true)
+                {
+                    PushBack(20);
+                }
+                if (isBird == false && isFlying == false)
+                {
+                    PushBack(150);
+                }
+                StartCoroutine(DamageDisplayDuration(2));
+                //HPBarDecrease(2);
+                if (lockedOn == true)
+                {
+                    targetScript.DecreaseHP(HP);
+                }
+            }
+        }
+        if (other.CompareTag("Bird Attack Range"))
+        {
+            Debug.Log("Hit By Bird");
+            if (playerScript.attackLanded == false)
+            {
+                HP -= 1;
+                //HPBarScript.HPDecrease(1, originalHP);
+                //Damaged();
+                playerScript.PlayBirdRegularStrike(transform.position);
+
+
+                playerScript.AttackLandedTrue();
+                //Debug.Log(distance + " " + enemyRb.velocity);
+                //May want barely any pushbackfrom bird attacks for the islandportion
+                if (isBird == true)
+                {
+                    PushBack(10);
+                }
+                if (isFlying == false)
+                {
+                    PushBack(80);
+                }
+                StartCoroutine(DamageDisplayDuration(1));
+                //HPBarDecrease(1);
+                if (lockedOn == true)
+                {
+                    targetScript.DecreaseHP(HP);
+                }
+            }
+        }
+
+    }
 }
