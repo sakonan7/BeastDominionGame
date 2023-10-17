@@ -50,7 +50,8 @@ public class Wolf3 : MonoBehaviour
 
     private bool stunLocked = false;
     private float idleTime;
-    private float usualIdleTime = 9;
+    private float runningIdleTime = 9;
+    private float standingIdleTime = 3;
     private float damageIdleTime = 6;
 
     private float originalYPos;
@@ -224,7 +225,7 @@ if (stunLocked == false)
             if (attackFinished == true && isOnGround == true)
             {
                 attackFinished = false;
-                idleTime = usualIdleTime;
+                idleTime = standingIdleTime;
                 ChooseDirection();
                 StartCoroutine(IdleAnimation());
             }
@@ -392,9 +393,10 @@ if (stunLocked == false)
         //idle = true;
         //animation.Play("Idle");
         animator.SetBool("Idle", true);
-            yield return new WaitForSeconds(3);
+            yield return new WaitForSeconds(idleTime);
         animator.SetBool("Idle",false);
         animator.SetBool("Run", true);
+        idleTime = runningIdleTime;
         StartCoroutine(IdleRun());
 
     }
