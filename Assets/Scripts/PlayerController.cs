@@ -734,10 +734,11 @@ public class PlayerController : MonoBehaviour
                     attackRotation = Quaternion.LookRotation(currentEnemyPosition - tiger.transform.position);
 
                     bird.transform.rotation = Quaternion.Slerp(tiger.transform.rotation, attackRotation, 3); //Moved this from Strike() to
-                                                                                                            //see if I can immediately turn my character towards an ene
+                                                                                                             //see if I can immediately turn my character towards an ene
 
                     //bird.transform.rotation = new Quaternion(0, bird.transform.rotation.y, bird.transform.rotation.z, 0);
                     //bird.transform.rotation = new Quaternion(0, attackRotation.y, attackRotation.z, 0);
+                    birdHitEffect.Play();
                     if (enemyScript.isFlying==true)
                     {
                        // bird.transform.rotation = Quaternion.Slerp(bird.transform.rotation, attackRotation, 3); //Notsurewhatthepurpose of thisis

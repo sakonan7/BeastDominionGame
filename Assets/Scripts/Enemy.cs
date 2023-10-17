@@ -437,7 +437,11 @@ public class Enemy : MonoBehaviour
                     PushBack(80);
                 }
                 StartCoroutine(DamageDisplayDuration(1));
-                HPBarDecrease(1);
+                //HPBarDecrease(1);
+                if (lockedOn == true)
+                {
+                    targetScript.DecreaseHP(HP);
+                }
             }
         }
         if (other.CompareTag("Tiger Special"))
@@ -462,13 +466,17 @@ public class Enemy : MonoBehaviour
             //playerScript.AttackLandedTrue();
             //StartCoroutine(FoeAttacked());
             StartCoroutine(DamageDisplayDuration(4));
-            HPBarDecrease(4);
+            //HPBarDecrease(4);
             if (HP > 0)
             {
 
                 StartCoroutine(SecondHit());
                 //Debug.Log("Second Hit");
             }
+                            if(lockedOn==true)
+                {
+                    targetScript.DecreaseHP(HP);
+                }
         }
         if (other.CompareTag("Bird Special") && hitByBirdSpecial == false)
         {
@@ -487,6 +495,10 @@ public class Enemy : MonoBehaviour
             hitByBirdSpecial = true;
             StartCoroutine(Invincibility());
             //Put a coroutine here so that enemies can only be hit by Bird Special once
+            if (lockedOn == true)
+            {
+                targetScript.DecreaseHP(HP);
+            }
         }
     }
 }
