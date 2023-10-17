@@ -262,7 +262,7 @@ public class PlayerController : MonoBehaviour
         comboCounter.text = "x " + hitNumber;
         healingItemNumber.text = "X " + numberOfItems;
         originalColor = blackoutLight.color;
-        SpecialOn();
+        
 
         targetScript = target.GetComponent<TargetTracking>();
         target.SetActive(false);
@@ -287,6 +287,8 @@ public class PlayerController : MonoBehaviour
         {
             grounded = false;
         }
+
+        SpecialOn();
     }
     //I tried putting everything in regular Update(), but it makes everything a lot slower
     void FixedUpdate()
@@ -1151,6 +1153,14 @@ public class PlayerController : MonoBehaviour
         //bladeOfLight.SetActive(true);
         specialUsed = true;
         //isFlying = false;
+                if (enemyScript.isFlying == true && attackLanded == true) //Almost accidentally wrotethis as ==true
+        {
+            swoopedDown = true;
+            bird.transform.Translate(0, -1.5f, 0);
+            birdSeparater.transform.Translate(0, 1.5f, 0);
+            //birdSeparater.SetActive(false);
+            isFlying = false;
+        }
         yield return new WaitForSeconds(3f);
         if (swoopedDown == true)
         {
@@ -1357,8 +1367,11 @@ public class PlayerController : MonoBehaviour
     }
     public void SpecialOn()
     {
-        tigerSpecialUnlocked = true;
-        birdSpecialUnlocked = true;
+if (tigerSpecialUnlocked == false||birdSpecialUnlocked ==false)
+        {
+            tigerSpecialUnlocked = true;
+            birdSpecialUnlocked = true;
+        }
     }
     public void TigerSpecial()
     {
