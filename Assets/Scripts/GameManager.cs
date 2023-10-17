@@ -444,10 +444,10 @@ public class GameManager : MonoBehaviour
 
         Instantiate(enemies[0], new Vector3(wolfLocation.x + 1, wolfLocation.y, wolfLocation.z - 6), enemies[0].transform.rotation);
         //Enemy # 2
-        Instantiate(enemies[0], new Vector3(wolfLocation.x + 19, 0, wolfLocation.z - 3), enemies[0].transform.rotation);
-        Instantiate(enemies[0], new Vector3(wolfLocation.x + 5, 0, wolfLocation.z - 15), enemies[0].transform.rotation);
+        //Instantiate(enemies[0], new Vector3(wolfLocation.x + 19, 0, wolfLocation.z - 3), enemies[0].transform.rotation);
+        //Instantiate(enemies[0], new Vector3(wolfLocation.x + 5, 0, wolfLocation.z - 15), enemies[0].transform.rotation);
 
-        Instantiate(enemies[1], new Vector3(wolfLocation.x + 7, enemies[1].transform.position.y, wolfLocation.z - 10), enemies[0].transform.rotation);
+        //Instantiate(enemies[1], new Vector3(wolfLocation.x + 7, enemies[1].transform.position.y, wolfLocation.z - 10), enemies[0].transform.rotation);
         Instantiate(enemies[1], new Vector3(wolfLocation.x + 11.5f, enemies[1].transform.position.y, wolfLocation.z - 8), enemies[0].transform.rotation);
         numOfEnemies = 3;
     }

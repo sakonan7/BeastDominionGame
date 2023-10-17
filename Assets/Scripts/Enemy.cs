@@ -293,6 +293,7 @@ public class Enemy : MonoBehaviour
             //Debug.Log("Player Pushed Back");
         //}
     }
+    //Turn into a regular into a meth
     IEnumerator FoeAttacked(float enterAttackForce)
     {
         attacked = true;
@@ -318,7 +319,7 @@ public class Enemy : MonoBehaviour
         attacked = true;
 if (giantEnemy == false &&giantBoss == false)
         {
-                    float playerAttackForce = 280;
+                    float playerAttackForce = 280*2;
         //enemyRb.AddForce(playerScript.attackDirection * attackForce, ForceMode.Force);
         enemyRb.velocity = new Vector3(playerScript.attackDirection.x * playerAttackForce, 0, playerScript.attackDirection.z * attackForce);
         }
@@ -403,7 +404,7 @@ enemyRb.velocity = Vector3.zero;
                 }
                 if (isBird == false && isFlying == false)
                 {
-                    StartCoroutine(FoeAttacked(120));
+                    StartCoroutine(FoeAttacked(1000));
                 }
                 StartCoroutine(DamageDisplayDuration(2));
                 //HPBarDecrease(2);
@@ -433,7 +434,7 @@ enemyRb.velocity = Vector3.zero;
                 }
                 if (isFlying == false)
                 {
-                    StartCoroutine(FoeAttacked(50));
+                    StartCoroutine(FoeAttacked(250));
                 }
                 StartCoroutine(DamageDisplayDuration(1));
                 HPBarDecrease(1);
