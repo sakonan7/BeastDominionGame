@@ -11,10 +11,11 @@ public class Wolf3 : MonoBehaviour
     private GameObject player;
     private PlayerController playerScript;
     private Enemy enemyScript;
-    private float walkSpeed = 50;
+    private float walkSpeed = 25;
+    private int standOrRun = 1;
     private int walkDirection = 0;
     private bool directionChosen = false;
-    private float speed = 150;
+    private float speed = 75;
     private Rigidbody wolfRb;
     private Rigidbody playerRb;
     private Vector3 followDirection;
@@ -24,7 +25,8 @@ public class Wolf3 : MonoBehaviour
     private float attackForce = 1; //May remove attackForce because Monkey doesn't knock chaarcter back a
     private bool attack = false;
     private bool beginningIdle = true;
-    private bool idle = true;
+    private bool idle = false;
+    private bool idleRunning = false;
     private bool chase = false;
     private bool playerStunned = false; //For if the Tiger is hit by the first claw. Tiger will always get hit twice
     private int damage = 1;
@@ -99,7 +101,17 @@ public class Wolf3 : MonoBehaviour
         cameraRef = GameObject.Find("Main Camera");
 
         ChooseDirection();
-        StartCoroutine(IdleRun());
+        //Idle orIdle
+        standOrRun = Random.Range(0, 2);
+        if (standOrRun == 0)
+        {
+            Debug.Log("StartByStand");
+            StartCoroutine(IdleAnimation());
+        }
+        else if (standOrRun == 1)
+        {
+            StartCoroutine(IdleRun());
+        }
 
         originalYPos = transform.position.y;
     }
@@ -114,11 +126,11 @@ public class Wolf3 : MonoBehaviour
             //Maybe Use A Button Press To Make Monkey Change Movement Directions And See If Tiger Keeps FollowingIt.
             if (moveLeft == true)
             {
-                wolfRb.AddForce(Vector3.left * speed / 2);
+                wolfRb.AddForce(Vector3.left * walkSpeed / 2);
             }
             else if (moveRight == true)
             {
-                wolfRb.AddForce(Vector3.right * speed / 2);
+                wolfRb.AddForce(Vector3.right * walkSpeed / 2);
             }
             if (Input.GetKeyDown(KeyCode.Tab))
             {
@@ -136,7 +148,7 @@ if (stunLocked == false)
                 ///Ifthisworks, I will carry it over to player and other enemies so they always attack straight
                 lookRotation = Quaternion.LookRotation(currentPlayerPosition - transform.position);
                 
-                if (idle == true)
+                if (idle == false && idleRunning == true)
                 {
                     if (walkDirection == 0)
                     {
@@ -157,7 +169,7 @@ if (stunLocked == false)
                     transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, 3);
                 }
 
-                if (idle == false && chase == true)
+                if (idleRunning == false && chase == true)
                 {
                     //animation.Play("Run");
 
@@ -216,8 +228,9 @@ if (stunLocked == false)
                     
                 }
             }
-            if (isOnGround == false)
+            if (attackFinished == true&&isOnGround == false)
             {
+                animator.SetBool("Idle", true);
                 wolfRb.AddForce(Vector3.down * 5);
             }
             // && isOnGround == true
@@ -370,7 +383,7 @@ if (stunLocked == false)
     //Completely forgot about run, no wonder the wolf was acting retarded 
     IEnumerator IdleRun()
     {
-        idle = true;
+        idleRunning = true;
         if (beginningIdle == true)
         {
             yield return new WaitForSeconds(Random.Range(6, 12));
@@ -382,7 +395,7 @@ if (stunLocked == false)
             yield return new WaitForSeconds(idleTime);
         }
         beginningIdle = false;
-        idle = false;
+        idleRunning = false;
         chase = true;
         animator.SetBool("Run", false);
         animator.SetBool("Dash", true);
@@ -392,13 +405,24 @@ if (stunLocked == false)
     }
     IEnumerator IdleAnimation()
     {
-        //idle = true;
+        idle = true;
         //animation.Play("Idle");
         animator.SetBool("Idle", true);
+        if (beginningIdle == true)
+        {
+            yield return new WaitForSeconds(Random.Range(6, 12));
+        }
+        //if (playerScript.tigerActive == true)
+        //{
+        else
+        {
             yield return new WaitForSeconds(idleTime);
+        }
+        beginningIdle = false;
         animator.SetBool("Idle",false);
         animator.SetBool("Run", true);
         idleTime = runningIdleTime;
+        idle = false;
         StartCoroutine(IdleRun());
 
     }
