@@ -24,7 +24,7 @@ public class PlayerController : MonoBehaviour
     public GameObject tiger;
     public GameObject bird;
     public GameObject birdSeparater;
-    //private Collider tigerCollider;
+    private Collider birdCollider;
     public GameObject tigerFollow;
     public GameObject birdFollow;
     public GameObject camFollow;
@@ -239,7 +239,7 @@ public class PlayerController : MonoBehaviour
         birdRB = bird.GetComponent<Rigidbody>();
         birdAnimation = bird.GetComponent<Animation>();
         //birdSensor = GameObject.Find("Bird Sensor");
-        //tigerCollider = tiger.GetComponent<Collider>();
+        
 
         tigerActive = true;
         tiger.SetActive(true);
@@ -972,7 +972,8 @@ public class PlayerController : MonoBehaviour
             if (swoopedDown == true)
             {
                 swoopedDown = false; bird.transform.Translate(0, 1.5f, 0);
-                birdSeparater.SetActive(true);
+                //birdSeparater.SetActive(true);
+                birdCollider.isTrigger = false;
             }
 
             isFlying = true;
@@ -1151,8 +1152,9 @@ public class PlayerController : MonoBehaviour
         if (swoopedDown == true)
         {
                 bird.transform.Translate(0, 1.5f, 0);
-                birdSeparater.SetActive(true);
+                //birdSeparater.SetActive(true);
             swoopedDown = false; //Almost forgot
+            birdCollider.isTrigger = false;
         }
         specialUsed = false;
         isFlying = true;
@@ -1206,9 +1208,10 @@ public class PlayerController : MonoBehaviour
         {
             //StartCoroutine(TellAngle());
             bird.transform.Translate(0, -1.5f, 0);
-            birdSeparater.SetActive(false);
+            //birdSeparater.SetActive(false);
             isFlying = false;
             swoopedDown = true;
+            birdCollider.isTrigger = true;
         }
         if (distance >= 15 && lockedOn)
         {
@@ -1242,6 +1245,10 @@ public class PlayerController : MonoBehaviour
             //StartCoroutine(FreezeRotations());
         }
     }
+    //IEnumerator BirdTriggerOff()
+    //{
+        //yield return new WaitForSeconds();
+    //}
     public void Strike()
     {
         //playerAudio.PlayOneShot(tigerRoar, 0.2f);
@@ -1419,9 +1426,10 @@ public class PlayerController : MonoBehaviour
         {
             //StartCoroutine(TellAngle());
             bird.transform.Translate(0, -1.5f, 0);
-            birdSeparater.SetActive(false);
+            //birdSeparater.SetActive(false);
             isFlying = false;
             swoopedDown = true;
+            birdCollider.isTrigger = true;
         }
         //Want DistanceCloser only to play when the tiger isn't close enough. Was originally going to have a distance > 10 || distance <=3
         //above,but I realized that the below will cover it. Maybe, let's keep testing it out
@@ -1636,6 +1644,7 @@ public class PlayerController : MonoBehaviour
             tigerComboIcon.gameObject.SetActive(false);
             birdComboIcon.gameObject.SetActive(true);
             isFlying = true;
+            birdCollider = bird.GetComponent<Collider>();
         }
         transforming = false;
     }
@@ -2167,7 +2176,7 @@ public class PlayerController : MonoBehaviour
                     {
                         isFlying = true;
                         bird.transform.Translate(0, 1.5f, 0);
-                        birdSeparater.SetActive(true);
+                        //birdSeparater.SetActive(true);
                     }
                     if (currentEnemyScript.leftAttack == true)
                     {
@@ -2259,7 +2268,7 @@ public class PlayerController : MonoBehaviour
                 {
                     isFlying = true;
                     bird.transform.Translate(0, 1.5f, 0);
-                    birdSeparater.SetActive(true);
+                    //birdSeparater.SetActive(true);
                 }
                 if (projectileScript.leftAttack == true)
                 {
