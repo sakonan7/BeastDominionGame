@@ -54,7 +54,7 @@ public class Enemy : MonoBehaviour
     public bool attacked = false;
     private bool hitAgainstWall = true;
     public bool hitLanded = false;
-    private bool hitByBirdSpecial = false;
+    private bool hitBySpecial = false;
     private bool cantBeHit = false;
     public bool isBird = false;
     public bool isFlying = false;
@@ -371,7 +371,7 @@ public class Enemy : MonoBehaviour
     IEnumerator Invincibility()
     {
         yield return new WaitForSeconds(3);
-        hitByBirdSpecial = false;
+        hitBySpecial = false;
     }
     public void OnTriggerEnter(Collider other)
     {
@@ -477,8 +477,11 @@ public class Enemy : MonoBehaviour
                 {
                     targetScript.DecreaseHP(HP);
                 }
+
+            hitBySpecial = true;
+            StartCoroutine(Invincibility());
         }
-        if (other.CompareTag("Bird Special") && hitByBirdSpecial == false)
+        if (other.CompareTag("Bird Special") && hitBySpecial == false)
         {
             HP -= 5;
             playerScript.AttackLandedTrue();
@@ -494,7 +497,7 @@ public class Enemy : MonoBehaviour
                 //StartCoroutine(FoeAttacked(200));
                 PushBack(200);
             }
-            hitByBirdSpecial = true;
+            hitBySpecial = true;
             StartCoroutine(Invincibility());
             //Put a coroutine here so that enemies can only be hit by Bird Special once
             if (lockedOn == true)
@@ -574,7 +577,7 @@ public class Enemy : MonoBehaviour
                 }
             }
         }
-        if (other.CompareTag("Bird Special") && hitByBirdSpecial == false)
+        if (other.CompareTag("Bird Special") && hitBySpecial == false)
         {
             HP -= 5;
             playerScript.AttackLandedTrue();
@@ -590,13 +593,50 @@ public class Enemy : MonoBehaviour
                 //StartCoroutine(FoeAttacked(200));
                 PushBack(200);
             }
-            hitByBirdSpecial = true;
+            hitBySpecial = true;
             StartCoroutine(Invincibility());
             //Put a coroutine here so that enemies can only be hit by Bird Special once
             if (lockedOn == true)
             {
                 targetScript.DecreaseHP(HP);
             }
+        }
+        if (other.CompareTag("Tiger Special") && hitBySpecial == false)
+        {
+            //For now, just trigger stun. I will use both of their directions to perform the knockback
+            //TakeDamage();
+
+            HP -= 4;
+            //HPBarScript.HPDecrease(3, originalHP);
+            //Damaged();
+            playerScript.PlayTigerSpecialStrike(transform.position);
+            gameManager.HitByTigerSpecial(transform.position);
+            playerScript.AttackLandedTrue();
+            //Vector3 knockbackDirection = (transform.position - tiger.transform.position).normalized;
+            //knockback force is inconsistent. Sometimes it doesn't knockback at all. Sometimes it knocks back too much
+            //It doesn't matter what the value is.
+            //It may not matter because I will have the attack lag minimized
+            //But I don't want the player to whiff attacks, so I think I will make sure the tiger is the right distance from the wolf
+            //Unless I can make a force play until a certain distance is reached
+            //I can't use forcemode.impulse then
+            //enemyRb.AddForce(playerScript.attackDirection * 280, ForceMode.Impulse);
+            //playerScript.AttackLandedTrue();
+            //StartCoroutine(FoeAttacked());
+            StartCoroutine(DamageDisplayDuration(4));
+            //HPBarDecrease(4);
+            if (HP > 0)
+            {
+
+                StartCoroutine(SecondHit());
+                //Debug.Log("Second Hit");
+            }
+            if (lockedOn == true)
+            {
+                targetScript.DecreaseHP(HP);
+            }
+
+            hitBySpecial = true;
+            StartCoroutine(Invincibility());
         }
 
     }
