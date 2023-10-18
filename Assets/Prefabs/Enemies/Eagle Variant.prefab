@@ -728,7 +728,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 80
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!4 &8609524798227661549 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 7ebac5696286bc642b0091b1257f5d54, type: 3}
