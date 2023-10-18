@@ -25,6 +25,7 @@ public class GameManager : MonoBehaviour
     public bool battleStart = false;
     public bool gameEnd = false;
     public bool stageCleared = false; //Just for stuff like removingbarri
+    private Transform spawnPoint;
 
     //Canvas
     public Canvas areaCanvas;
@@ -96,6 +97,7 @@ public class GameManager : MonoBehaviour
         //storyScroll = true;
         //storyScrollObject.gameObject.SetActive(true);
         //continueMessage.gameObject.SetActive(true);
+        spawnPoint = GameObject.Find("Spawn Point").transform;
         if (gameOverNow == false)
         {
             if (tutorialStage == true && storyScroll == true)
@@ -185,7 +187,7 @@ public class GameManager : MonoBehaviour
                 }
                 else if (stage3Stored == true)
                 {
-                    SceneManager.LoadScene("Temp Level 3");
+                    SceneManager.LoadScene("Level 3");
                 }
                 else if (bossStageStored == true)
                 {
@@ -501,6 +503,17 @@ public class GameManager : MonoBehaviour
         numOfEnemies = 5;
     }
     public void Level3()
+    {
+        Instantiate(enemies[0], new Vector3(spawnPoint.position.x + 1, enemies[0].transform.position.y, spawnPoint.position.z + 10), enemies[0].transform.rotation);
+        Instantiate(enemies[0], new Vector3(spawnPoint.position.x -10, enemies[0].transform.position.y, spawnPoint.position.z + 10), enemies[0].transform.rotation);
+        Instantiate(enemies[0], new Vector3(spawnPoint.position.x, enemies[0].transform.position.y, spawnPoint.position.z + 10), enemies[0].transform.rotation);
+
+        Instantiate(enemies[1], new Vector3(spawnPoint.position.x + 1, enemies[1].transform.position.y, spawnPoint.position.z +20), enemies[1].transform.rotation);
+        Instantiate(enemies[1], new Vector3(spawnPoint.position.x -10, enemies[1].transform.position.y, spawnPoint.position.z + 20), enemies[1].transform.rotation);
+        numOfEnemies = 5;
+    }
+    //Armadillo Lev
+    public void Level4()
     {
         Vector3 wolfLocation = enemies[0].transform.position;
         //wolfLocation.x + 4

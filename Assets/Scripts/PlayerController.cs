@@ -2025,9 +2025,9 @@ if (tigerSpecialUnlocked == false||birdSpecialUnlocked ==false)
             //SceneManager.LoadScene("Armadillo Scene");
             SceneManager.LoadScene("Level 2");
         }
-        else if (collision.gameObject.name == "Checkpoint 2")
+        else if (collision.gameObject.name == "Level 3 Checkpoint")
         {
-            SceneManager.LoadScene("Temp Level 3");
+            SceneManager.LoadScene("Level 3");
         }
         else if (collision.gameObject.name == "Checkpoint 3")
         {
