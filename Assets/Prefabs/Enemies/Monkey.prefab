@@ -1831,7 +1831,6 @@ GameObject:
   - component: {fileID: 710810659962490075}
   - component: {fileID: 710810659962941827}
   - component: {fileID: 710810659962941824}
-  - component: {fileID: 867147146}
   - component: {fileID: 6255276312178562614}
   - component: {fileID: 2071714115322683147}
   - component: {fileID: 3490599109342707433}
@@ -1921,26 +1920,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 80
   m_CollisionDetection: 0
---- !u!111 &867147146
-Animation:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 710810659962788091}
-  m_Enabled: 0
-  serializedVersion: 3
-  m_Animation: {fileID: 7400000, guid: caa1d35b830593845bb418c43b5db252, type: 2}
-  m_Animations:
-  - {fileID: 7400000, guid: ac8339d5389e395409ed053f9abbc60e, type: 2}
-  - {fileID: 7400000, guid: caa1d35b830593845bb418c43b5db252, type: 2}
-  - {fileID: 7400000, guid: c455ab8aa40f26540b93f3c58e0e99d0, type: 2}
-  - {fileID: 7400000, guid: c6e5e57ea8a9cde4daed4d6a4a85634a, type: 2}
-  - {fileID: 7400000, guid: c80cd6e8806f6aa429ae4c007211f9fb, type: 2}
-  m_WrapMode: 0
-  m_PlayAutomatically: 1
-  m_AnimatePhysics: 0
-  m_CullingType: 0
 --- !u!95 &6255276312178562614
 Animator:
   serializedVersion: 5
@@ -2031,7 +2010,7 @@ MonoBehaviour:
   attackEffect: {fileID: 6100303133380853439}
   monkeyAttack: {fileID: 8300000, guid: e97724d9542c67f4a974b39ff25ce14d, type: 3}
   isOnGround: 1
-  testingStun: 0
+  testingStun: 1
 --- !u!82 &6121087227976321278
 AudioSource:
   m_ObjectHideFlags: 0

@@ -11,7 +11,7 @@ public class Wolf3 : MonoBehaviour
     private GameObject player;
     private PlayerController playerScript;
     private Enemy enemyScript;
-    private float walkSpeed = 25;
+    private float walkSpeed = 15;
     private int standOrRun = 1;
     private int walkDirection = 0;
     private bool directionChosen = false;

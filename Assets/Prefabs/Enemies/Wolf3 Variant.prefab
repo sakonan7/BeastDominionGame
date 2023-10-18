@@ -452,7 +452,7 @@ MonoBehaviour:
   wolfBite: {fileID: 8300000, guid: e6bba6acdaa9cd74fb1640dfd306be1e, type: 3}
   corkScrew: {fileID: 8300000, guid: 679bcbdedaee1b1488a2a749bc53f02f, type: 3}
   isOnGround: 1
-  testingStun: 0
+  testingStun: 1
 --- !u!65 &3050853824793914433
 BoxCollider:
   m_ObjectHideFlags: 0

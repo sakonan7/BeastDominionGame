@@ -301,7 +301,7 @@ public class PlayerController : MonoBehaviour
             grounded = false;
         }
 
-        SpecialOn();
+        //SpecialOn();
     }
     //I tried putting everything in regular Update(), but it makes everything a lot slower
     void FixedUpdate()
