@@ -270,7 +270,7 @@ public class PlayerController : MonoBehaviour
         gameManagerScript = GameObject.Find("Game Manager").GetComponent<GameManager>();
 
         //ballRB = ball.GetComponent<Rigidbody>();
-        staffLight = GameObject.Find("New Staff").GetComponent<Light>();
+        
         damageDisplay.color = new Color(1, 1, 1, 1);
         comboCounter.text = "x " + hitNumber;
         healingItemNumber.text = "X " + numberOfItems;
@@ -1094,6 +1094,8 @@ public class PlayerController : MonoBehaviour
         charging = false;
         
         bladeOfLight.SetActive(true);
+        //Now the code will only access inactive objects when I really needto. Thatway, I can avoiderr
+        staffLight = GameObject.Find("New Staff").GetComponent<Light>();
         staffLight.intensity = 2;
 
         playerAudio.PlayOneShot(bladeOfLightChargeUp, 0.2f);
