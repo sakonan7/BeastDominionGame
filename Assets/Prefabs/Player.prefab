@@ -6803,7 +6803,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3898743489685561827, guid: 37168b749aeae184e95bec5aa563fc9a, type: 3}
       propertyPath: m_Name
-      value: NewStaff
+      value: New Staff
       objectReference: {fileID: 0}
     - target: {fileID: 3898743489685561827, guid: 37168b749aeae184e95bec5aa563fc9a, type: 3}
       propertyPath: m_IsActive
@@ -6883,7 +6883,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4923964499625911765, guid: 2e8006129c9067c468a2259d141b8061, type: 3}
       propertyPath: m_IsTrigger
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7949358922879510965, guid: 2e8006129c9067c468a2259d141b8061, type: 3}
       propertyPath: m_Materials.Array.data[0]

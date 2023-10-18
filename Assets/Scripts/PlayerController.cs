@@ -20,6 +20,8 @@ public class PlayerController : MonoBehaviour
     private new Animation birdAnimation;
     public bool tigerActive = true;
     public bool birdActive = false;
+    public static bool tigerStaticActive = true;
+    public static bool birdStaticActive = false;
 
     public GameObject tiger;
     public GameObject bird;
@@ -241,11 +243,22 @@ public class PlayerController : MonoBehaviour
         //birdSensor = GameObject.Find("Bird Sensor");
         
 
-        tigerActive = true;
-        tiger.SetActive(true);
-        //tigerSensor.SetActive(true);
-        birdActive = false;
-        bird.SetActive(false);
+        if (tigerStaticActive == true)
+        {
+            tigerActive = true;
+            tiger.SetActive(true);
+            birdActive = false;
+            bird.SetActive(false);
+            birdStaticActive = false;
+        }
+        else if (birdStaticActive == true)
+        {
+            tigerActive = false;
+            tigerStaticActive = false;
+            bird.SetActive(true);
+            birdActive = true;
+            tiger.SetActive(false);
+        }
 
         dodgeTime = tigerDodge;
 
@@ -257,7 +270,7 @@ public class PlayerController : MonoBehaviour
         gameManagerScript = GameObject.Find("Game Manager").GetComponent<GameManager>();
 
         //ballRB = ball.GetComponent<Rigidbody>();
-        staffLight = GameObject.Find("NewStaff").GetComponent<Light>();
+        staffLight = GameObject.Find("New Staff").GetComponent<Light>();
         damageDisplay.color = new Color(1, 1, 1, 1);
         comboCounter.text = "x " + hitNumber;
         healingItemNumber.text = "X " + numberOfItems;
@@ -1626,7 +1639,9 @@ if (tigerSpecialUnlocked == false||birdSpecialUnlocked ==false)
             //Destroy(bird);
             bird.SetActive(false);
             tigerActive = true;
+            tigerStaticActive = true;
             birdActive = false;
+            birdStaticActive = false;
             //tigerSensor.SetActive(true);
             playerMugshot.texture = tigerMugshot;
             speed = tigerSpeed;
@@ -1648,10 +1663,10 @@ if (tigerSpecialUnlocked == false||birdSpecialUnlocked ==false)
             //bird.transform.Translate(tiger.transform.position.x - 14.8f, 0, tiger.transform.position.z + 12.8f);
             //Destroy(tiger);
             bird.SetActive(true);
-            //transform.position = new Vector3(bird.transform.position.x, transform.position.y, bird.transform.position.z);
             tigerActive = false;
+            tigerStaticActive = false;
             birdActive = true;
-            //birdSensor.SetActive(true);
+            birdStaticActive = true;
             playerMugshot.texture = birdMugshot;
             speed = birdSpeed;
             dodgeTime = birdDodge;
@@ -1723,7 +1738,7 @@ if (tigerSpecialUnlocked == false||birdSpecialUnlocked ==false)
         {
             running = false;
         }
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1f);
         damageStun = false;
         cantMove = false;
     }
