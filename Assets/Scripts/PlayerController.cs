@@ -60,6 +60,7 @@ public class PlayerController : MonoBehaviour
     public ParticleSystem regularHitEffect;
     public ParticleSystem birdHitEffect;
     public GameObject tigerAttackEffect;
+    public ParticleSystem tigerSlash;
     public GameObject birdAttackEffect;
     public Transform transformEffect;
     public Light blackoutLight;
@@ -1296,6 +1297,7 @@ public class PlayerController : MonoBehaviour
             //playerRb.velocity = attackDirection * (attackForce + 10);
             animation.Play("Attack 1 & 2");
             playerAudio.PlayOneShot(tigerSwing, 0.05f);
+            tigerSlash.Play();
             //StartCoroutine(FreezeRotations());
         }
         //I guestimated from gameplay that the distance needs to be at least 15
@@ -1309,6 +1311,7 @@ public class PlayerController : MonoBehaviour
             //playerRb.velocity = attackDirection * (attackForce + 10);
             animation.Play("Attack 1 & 2");
             playerAudio.PlayOneShot(tigerSwing, 0.05f);
+            tigerSlash.Play();
         }
         else if (lockedOn == true && enemyScript.isFlying == false)
         {
@@ -1324,6 +1327,7 @@ public class PlayerController : MonoBehaviour
                                                                                            //playerRb.velocity = attackDirection * (attackForce + 14);
                 animation.Play("Attack 1 & 2");
                 playerAudio.PlayOneShot(tigerSwing, 0.05f);
+                tigerSlash.Play();
                 //StartCoroutine(FreezeRotations());
             }
             //Want DistanceCloser only to play when the tiger isn't close enough. Was originally going to have a distance > 10 || distance <=3
@@ -1352,6 +1356,7 @@ public class PlayerController : MonoBehaviour
                 playerRb.AddForce(attackDirection * (attackForce + 14), ForceMode.Impulse);//Changed from 8 to 12
                 animation.Play("Attack 1 & 2");
                 playerAudio.PlayOneShot(tigerSwing, 0.05f);
+                tigerSlash.Play();
                 //StartCoroutine(FreezeRotations());
             }
         }
@@ -1995,6 +2000,7 @@ if (tigerSpecialUnlocked == false||birdSpecialUnlocked ==false)
                 if (tigerActive == true)
                 {
                     animation.Play("Attack 1 & 2");
+                    tigerSlash.Play();
                     //playerRb.constraints = RigidbodyConstraints.FreezeRotation;
                     playerAudio.PlayOneShot(tigerSwing, 0.05f);
                 }
@@ -2060,6 +2066,7 @@ if (tigerSpecialUnlocked == false||birdSpecialUnlocked ==false)
                 if (tigerActive == true)
                 {
                     animation.Play("Attack 1 & 2");
+                    tigerSlash.Play();
                     //playerRb.constraints = RigidbodyConstraints.FreezeRotation;
                     playerAudio.PlayOneShot(tigerSwing, 0.05f);
                 }
