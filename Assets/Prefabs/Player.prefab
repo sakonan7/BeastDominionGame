@@ -1710,7 +1710,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7970512351032882349
 Transform:
   m_ObjectHideFlags: 0
@@ -6707,7 +6707,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1379504315796101638, guid: 3407e378c048bb5438424b28c7740b48, type: 3}
       propertyPath: simulationSpeed
-      value: 0.65
+      value: 0.6
       objectReference: {fileID: 0}
     - target: {fileID: 1379504315796101638, guid: 3407e378c048bb5438424b28c7740b48, type: 3}
       propertyPath: SizeModule.curve.scalar
@@ -7012,7 +7012,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1379504315796101638, guid: 3407e378c048bb5438424b28c7740b48, type: 3}
       propertyPath: simulationSpeed
-      value: 0.65
+      value: 0.6
       objectReference: {fileID: 0}
     - target: {fileID: 1379504315796101638, guid: 3407e378c048bb5438424b28c7740b48, type: 3}
       propertyPath: SizeModule.curve.scalar
@@ -7560,7 +7560,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1379504315796101638, guid: 3407e378c048bb5438424b28c7740b48, type: 3}
       propertyPath: simulationSpeed
-      value: 0.65
+      value: 0.6
       objectReference: {fileID: 0}
     - target: {fileID: 1379504315796101638, guid: 3407e378c048bb5438424b28c7740b48, type: 3}
       propertyPath: ShapeModule.arc.value
@@ -7818,7 +7818,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1379504315796101638, guid: 3407e378c048bb5438424b28c7740b48, type: 3}
       propertyPath: simulationSpeed
-      value: 0.65
+      value: 0.6
       objectReference: {fileID: 0}
     - target: {fileID: 1379504315796101638, guid: 3407e378c048bb5438424b28c7740b48, type: 3}
       propertyPath: ShapeModule.arc.value
@@ -8150,7 +8150,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1379504315796101638, guid: 3407e378c048bb5438424b28c7740b48, type: 3}
       propertyPath: simulationSpeed
-      value: 0.65
+      value: 0.6
       objectReference: {fileID: 0}
     - target: {fileID: 1379504315796101638, guid: 3407e378c048bb5438424b28c7740b48, type: 3}
       propertyPath: SizeModule.curve.scalar
@@ -8917,7 +8917,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1379504315796101638, guid: 3407e378c048bb5438424b28c7740b48, type: 3}
       propertyPath: simulationSpeed
-      value: 0.65
+      value: 0.6
       objectReference: {fileID: 0}
     - target: {fileID: 1379504315796101638, guid: 3407e378c048bb5438424b28c7740b48, type: 3}
       propertyPath: ShapeModule.arc.value
@@ -9185,7 +9185,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1379504315796101638, guid: 3407e378c048bb5438424b28c7740b48, type: 3}
       propertyPath: simulationSpeed
-      value: 0.65
+      value: 0.6
       objectReference: {fileID: 0}
     - target: {fileID: 1379504315796101638, guid: 3407e378c048bb5438424b28c7740b48, type: 3}
       propertyPath: SizeModule.curve.scalar
@@ -9405,7 +9405,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1379504315796101638, guid: 3407e378c048bb5438424b28c7740b48, type: 3}
       propertyPath: simulationSpeed
-      value: 0.65
+      value: 0.6
       objectReference: {fileID: 0}
     - target: {fileID: 1379504315796101638, guid: 3407e378c048bb5438424b28c7740b48, type: 3}
       propertyPath: SizeModule.curve.scalar
@@ -10183,7 +10183,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1379504315796101638, guid: 3407e378c048bb5438424b28c7740b48, type: 3}
       propertyPath: simulationSpeed
-      value: 0.65
+      value: 0.6
       objectReference: {fileID: 0}
     - target: {fileID: 1379504315796101638, guid: 3407e378c048bb5438424b28c7740b48, type: 3}
       propertyPath: SizeModule.curve.scalar
@@ -10325,7 +10325,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1379504315796101638, guid: 3407e378c048bb5438424b28c7740b48, type: 3}
       propertyPath: simulationSpeed
-      value: 0.65
+      value: 0.6
       objectReference: {fileID: 0}
     - target: {fileID: 1379504315796101638, guid: 3407e378c048bb5438424b28c7740b48, type: 3}
       propertyPath: SizeModule.curve.scalar
@@ -10726,7 +10726,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1379504315796101638, guid: 3407e378c048bb5438424b28c7740b48, type: 3}
       propertyPath: simulationSpeed
-      value: 0.65
+      value: 0.6
       objectReference: {fileID: 0}
     - target: {fileID: 1379504315796101638, guid: 3407e378c048bb5438424b28c7740b48, type: 3}
       propertyPath: SizeModule.curve.scalar
@@ -10872,7 +10872,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1379504315796101638, guid: 3407e378c048bb5438424b28c7740b48, type: 3}
       propertyPath: simulationSpeed
-      value: 0.65
+      value: 0.6
       objectReference: {fileID: 0}
     - target: {fileID: 1379504315796101638, guid: 3407e378c048bb5438424b28c7740b48, type: 3}
       propertyPath: ShapeModule.arc.value

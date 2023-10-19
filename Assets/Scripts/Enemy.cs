@@ -471,7 +471,7 @@ public class Enemy : MonoBehaviour
             {
 
                 StartCoroutine(SecondHit());
-                //Debug.Log("Second Hit");
+                Debug.Log("Second Hit");
             }
                             if(lockedOn==true)
                 {
