@@ -1815,34 +1815,37 @@ if (tigerSpecialUnlocked == false||birdSpecialUnlocked ==false)
         Debug.Log(HP);
         playerAudio.PlayOneShot(damaged, 0.1f);
         //Putting stun animations here because I need to feed a method/IEnumerator with what stun type I'm going to
-        if (tigerActive == true)
+if(transforming==false)
         {
-            //Debug.Log(stunType % 2);
-            if (stunType % 2 == 1)
+            if (tigerActive == true)
             {
-                animation.Play("Flinch 1");
+                //Debug.Log(stunType % 2);
+                if (stunType % 2 == 1)
+                {
+                    animation.Play("Flinch 1");
+                }
+                else if (stunType % 2 == 0)
+                {
+                    animation.Play("Flinch 2");
+                }
             }
-            else if (stunType % 2 == 0)
+            if (birdActive == true && noMoreTurn == false)
             {
-                animation.Play("Flinch 2");
-            }
-        }
-        if (birdActive == true && noMoreTurn == false)
-        {
-            originalRotation = bird.transform.rotation;
-            noMoreTurn = true;
-            //Debug.Log(stunType % 2);
-            if (stunType % 2 == 1)
-            {
-                //animation.Play("Flinch 1");
-                bird.transform.Rotate(-30, -25, 0);
-                StartCoroutine(Reorient1());
-            }
-            else if (stunType % 2 == 0)
-            {
-                //animation.Play("Flinch 2");
-                bird.transform.Rotate(-30, 25, 0);
-                StartCoroutine(Reorient0());
+                originalRotation = bird.transform.rotation;
+                noMoreTurn = true;
+                //Debug.Log(stunType % 2);
+                if (stunType % 2 == 1)
+                {
+                    //animation.Play("Flinch 1");
+                    bird.transform.Rotate(-30, -25, 0);
+                    StartCoroutine(Reorient1());
+                }
+                else if (stunType % 2 == 0)
+                {
+                    //animation.Play("Flinch 2");
+                    bird.transform.Rotate(-30, 25, 0);
+                    StartCoroutine(Reorient0());
+                }
             }
         }
         if (tigerKnockedBack == true)
