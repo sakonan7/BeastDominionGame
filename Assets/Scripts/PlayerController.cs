@@ -63,6 +63,7 @@ public class PlayerController : MonoBehaviour
     public ParticleSystem tigerSlash;
     public GameObject birdAttackEffect;
     public Transform transformEffect;
+    public AudioClip birdDodgeSound;
     public Light blackoutLight;
     private Color originalColor;
     public AudioClip tigerSpecial;
@@ -868,6 +869,7 @@ public class PlayerController : MonoBehaviour
                 {
                     //birdAnimation.Play("Player Attack");
                     birdAnimation.Stop();
+                    playerAudio.PlayOneShot(birdDodgeSound,0.5f);
                     dodgeDirection = (birdFollow.transform.position - tiger.transform.position).normalized;
                 }
 
