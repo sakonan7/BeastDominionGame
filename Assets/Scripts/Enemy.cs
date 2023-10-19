@@ -391,7 +391,7 @@ public class Enemy : MonoBehaviour
                 //HPBarScript.HPDecrease(2, originalHP);
                 //Damaged();
                 playerScript.PlayTigerRegularStrike(transform.position);
-                //gameManager.HitByTigerRegular(transform.position);
+                gameManager.HitByTigerRegular(transform.position);
 
                 playerScript.AttackLandedTrue();
                 //Debug.Log(distance + " " + enemyRb.velocity);

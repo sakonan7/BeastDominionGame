@@ -245,10 +245,10 @@ public class GameManager : MonoBehaviour
         //{
             //SceneManager.LoadScene("Level 1");
         //}
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            camScript.PlayVictoryMusic();
-        }
+        //if (Input.GetKeyDown(KeyCode.R))
+        //{
+            //camScript.PlayVictoryMusic();
+        //}
         if (Input.GetKeyDown(KeyCode.T))
         {
             camScript.PlayBattleMusic();
